@@ -64,3 +64,7 @@ group :test do
 end
 
 gem "aws-sdk-s3", "~> 1.156"
+
+gem "solid_queue", "~> 0.3.4"
+
+gem "trilogy", "~> 2.8"

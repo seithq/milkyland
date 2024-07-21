@@ -6,7 +6,7 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
-amazon:
+production:
   service: S3
   endpoint: https://object.pscloud.io
   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
