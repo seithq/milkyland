@@ -70,6 +70,22 @@ Rails.application.configure do
   # caching is enabled.
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.default_url_options = { host: "milkyland.okpock.com" }
+  config.action_mailer.deliver_later_queue_name = "mailers"
+  config.action_mailer.default_options = { from: "no-reply@milkyland.okpock.com" }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              "email-smtp.us-east-1.amazonaws.com",
+    port:                 587,
+    domain:               "milkyland.okpock.com",
+    user_name:            Rails.application.credentials.dig(:aws, :smtp_username),
+    password:             Rails.application.credentials.dig(:aws, :smtp_password),
+    authentication:       "plain",
+    enable_starttls_auto: true,
+    open_timeout:         5,
+    read_timeout:         5
+  }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
@@ -85,10 +101,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
+  config.hosts = [ "milkyland.okpock.com" ]
   # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
