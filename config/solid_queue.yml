@@ -3,7 +3,7 @@ default: &default
     - polling_interval: 1
       batch_size: 500
   workers:
-    - queues: [ realtime, mailers, notifications ]
+    - queues: [ default, mailers, notifications ]
       threads: 3
       processes: 1
       polling_interval: 1
