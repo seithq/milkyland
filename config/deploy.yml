@@ -83,6 +83,8 @@ accessories:
       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
     directories:
       - data:/var/lib/mysql
+    options:
+      network: kamal
   redis:
     image: redis:7.0
     roles:
@@ -90,6 +92,8 @@ accessories:
     port: 6379
     directories:
       - data:/data
+    options:
+      network: kamal
 
 healthcheck:
   path: /up
