@@ -15,7 +15,9 @@ test:
   database: milkyland_test
 
 production:
-  <<: *default
+  adapter: trilogy
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
   host: <%= ENV.fetch("MYSQL_HOST", "mysql") %>
   database: milkyland_production
   username: milkyland
