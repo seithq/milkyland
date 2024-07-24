@@ -94,7 +94,3 @@ accessories:
       - data:/data
     options:
       network: kamal
-
-healthcheck:
-  path: /up
-  port: 3000
