@@ -17,7 +17,6 @@ servers:
       traefik.http.routers.milkyland-web-secure.tls.certresolver: letsencrypt
     options:
       network: kamal
-    cmd: bin/rails server
   job:
     hosts:
       - 194.67.82.37
@@ -48,6 +47,8 @@ registry:
 
 builder:
   multiarch: true
+  remote:
+    arch: amd64
   cache:
     type: registry
     image: seithq/milkyland-build-cache
@@ -68,6 +69,7 @@ accessories:
     image: postgres:15
     roles:
       - web
+    port: 5432
     env:
       clear:
         POSTGRES_USER: milkyland
