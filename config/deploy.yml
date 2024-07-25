@@ -56,7 +56,7 @@ builder:
 env:
   clear:
     HOST: milkyland.okpock.com
-    MYSQL_HOST: 194.67.82.37
+    MYSQL_HOST: 127.0.0.1
     REDIS_URL: redis://194.67.82.37/1
   secret:
     - RAILS_MASTER_KEY
