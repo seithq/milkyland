@@ -1,5 +1,6 @@
 module Authentication
   extend ActiveSupport::Concern
+  include SessionLookup
 
   included do
     before_action :require_authentication
@@ -32,12 +33,6 @@ module Authentication
     def restore_authentication
       if session = find_session_by_cookie
         resume_session session
-      end
-    end
-
-    def find_session_by_cookie
-      if token = cookies.signed[:session_token]
-        Session.find_by(token: token)
       end
     end
 

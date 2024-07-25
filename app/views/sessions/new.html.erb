@@ -1,7 +1,7 @@
 <% content_for(:title) { "Sign in" } %>
 <% turbo_page_requires_reload %>
 
-<%= form_with url: session_url do |form| %>
+<%= form_with url: session_path do |form| %>
   <div>
     <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "email_address", placeholder: "Enter your email address", value: params[:email_address] %>
   </div>
