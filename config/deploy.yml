@@ -47,8 +47,6 @@ registry:
 
 builder:
   multiarch: true
-  remote:
-    arch: amd64
   cache:
     type: registry
     image: seithq/milkyland-build-cache
