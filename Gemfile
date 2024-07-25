@@ -8,6 +8,7 @@ gem "rails", github: "rails/rails", branch: "main"
 gem "propshaft"
 # Use mysql as the database for Active Record
 gem "mysql2", "~> 0.5"
+gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]

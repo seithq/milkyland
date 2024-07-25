@@ -56,33 +56,28 @@ builder:
 env:
   clear:
     HOST: milkyland.okpock.com
-    MYSQL_HOST: 127.0.0.1
-    REDIS_URL: redis://194.67.82.37/1
   secret:
     - RAILS_MASTER_KEY
-    - MYSQL_PASSWORD
+    - POSTGRES_URL
+    - REDIS_URL
 
 asset_path: /rails/public/assets
 
 accessories:
-  mysql:
-    image: mysql:8.0
+  postgres:
+    image: postgres:15
     roles:
       - web
-    port: 3306
     env:
       clear:
-        MYSQL_USER: milkyland
-        MYSQL_DATABASE: milkyland_production
-        MYSQL_ROOT_HOST: '%'
+        POSTGRES_USER: milkyland
+        POSTGRES_DB: milkyland_production
       secret:
-        - MYSQL_PASSWORD
-        - MYSQL_ROOT_PASSWORD
+        - POSTGRES_PASSWORD
     files:
-      - config/mysql/production.cnf:/etc/mysql/my.cnf
       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
     directories:
-      - data:/var/lib/mysql
+      - data:/var/lib/postgresql/data
     options:
       network: kamal
   redis:

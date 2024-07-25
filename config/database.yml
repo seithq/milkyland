@@ -1,10 +1,9 @@
 default: &default
-  adapter: trilogy
-  encoding: utf8mb4
+  adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  username: postgres
+  password: postgres
 
 development:
   <<: *default
@@ -15,10 +14,4 @@ test:
   database: milkyland_test
 
 production:
-  adapter: trilogy
-  encoding: utf8mb4
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
-  host: <%= ENV.fetch("MYSQL_HOST", "mysql") %>
-  database: milkyland_production
-  username: milkyland
-  password: <%= ENV.fetch("MYSQL_PASSWORD", "") %>
+  url: <%= ENV["POSTGRES_URL"] %>
