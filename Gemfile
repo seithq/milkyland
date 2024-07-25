@@ -7,7 +7,6 @@ gem "rails", github: "rails/rails", branch: "main"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use mysql as the database for Active Record
-gem "mysql2", "~> 0.5"
 gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -67,5 +66,3 @@ end
 gem "aws-sdk-s3", "~> 1.156"
 
 gem "solid_queue", "~> 0.3.4"
-
-gem "trilogy", "~> 2.8"
