@@ -1,0 +1,3 @@
+ru:
+  alerts:
+    too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
