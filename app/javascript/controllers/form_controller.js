@@ -1,17 +1,17 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = [ "cancel" ]
+  static targets = ["cancel"]
 
-    submit() {
-        this.element.requestSubmit()
-    }
+  submit() {
+    this.element.requestSubmit()
+  }
 
-    cancel() {
-        this.cancelTarget?.click()
-    }
+  cancel() {
+    this.cancelTarget?.click()
+  }
 
-    preventAttachment(event) {
-        event.preventDefault()
-    }
+  preventAttachment(event) {
+    event.preventDefault()
+  }
 }

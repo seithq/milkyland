@@ -2,12 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
-}
+    .nav-link-base {
+        @apply flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6;
+    }
 
-*/
+    .nav-link-active {
+        @apply bg-gray-50 text-indigo-600;
+    }
+
+    .nav-link-default {
+        @apply text-gray-700 hover:text-indigo-600 hover:bg-gray-50;
+    }
+
+    .nav-icon-base {
+        @apply h-6 w-6 shrink-0;
+    }
+
+    .nav-icon-active {
+        @apply bg-gray-50 text-indigo-600;
+    }
+
+    .nav-icon-default {
+        @apply text-gray-400 group-hover:text-indigo-600;
+    }
+
+    .version-badge {
+        @apply text-gray-400 text-sm leading-6;
+    }
+}

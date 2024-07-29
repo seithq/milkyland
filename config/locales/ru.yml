@@ -1,3 +1,16 @@
 ru:
+  pages:
+    base_title: "Milky Land"
+    profile: "Профиль"
+    sign_out: "Выход"
+    home: "Главная"
+    settings: "Настройки"
+    users: "Пользователи"
+    version: "Версия: %{version}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
+  actions:
+    open_user_menu: "Открыть меню пользователя"
+    view_notifications: "Просмотр уведомлений"
+    open_sidebar: "Открыть главное меню"
+    close_sidebar: "Закрыть меню"
