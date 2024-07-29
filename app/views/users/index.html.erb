@@ -1,20 +1,12 @@
-<% content_for(:title) { "People on the account" } %>
+<% content_for(:title) { t("pages.users") } %>
 
-<% content_for :header do %>
-  <nav>
-    <%= link_to root_path, class: "btn" do %>
-      <span class="for-screen-reader">Go back</span>
-    <% end %>
-
-    <div class="breadcrumbs">
-      <span class="flex-item-no-shrink">▸</span>
-    </div>
-  </nav>
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: users_path, title: t("pages.users")),
+    ]
+  } %>
 <% end %>
-
-<div class="panel borderless center pad fill-shade flex flex-column margin-block">
-  <%= render "invite" %>
-</div>
 
 <div class="panel borderless center pad fill-none flex flex-column gap">
   <%= render @users %>

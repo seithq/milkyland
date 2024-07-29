@@ -58,14 +58,16 @@
                 <% end %>
               </ul>
             </li>
-            <li>
-              <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.settings") %></div>
-              <ul role="list" class="-mx-2 mt-2 space-y-1">
-                <% settings_nav_links.each do |link| %>
-                  <%= nav_link link.path, link.title, link.icon_name %>
-                <% end %>
-              </ul>
-            </li>
+            <% if Current.user.can_administer? %>
+              <li>
+                <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.settings") %></div>
+                <ul role="list" class="-mx-2 mt-2 space-y-1">
+                  <% settings_nav_links.each do |link| %>
+                    <%= nav_link link.path, link.title, link.icon_name %>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
             <li class="mt-auto">
               <%= version_badge %>
             </li>
@@ -89,14 +91,16 @@
             <% end %>
           </ul>
         </li>
-        <li>
-          <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.settings") %></div>
-          <ul role="list" class="-mx-2 mt-2 space-y-1">
-            <% settings_nav_links.each do |link| %>
-              <%= nav_link link.path, link.title, link.icon_name %>
-            <% end %>
-          </ul>
-        </li>
+        <% if Current.user.can_administer? %>
+          <li>
+            <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.settings") %></div>
+            <ul role="list" class="-mx-2 mt-2 space-y-1">
+              <% settings_nav_links.each do |link| %>
+                <%= nav_link link.path, link.title, link.icon_name %>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
         <li class="mt-auto">
           <%= version_badge %>
         </li>

@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+    .turbo-progress-bar {
+        @apply bg-indigo-600;
+    }
+
     .nav-link-base {
         @apply flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6;
     }
@@ -28,6 +32,6 @@
     }
 
     .version-badge {
-        @apply text-gray-400 text-sm leading-6;
+        @apply text-gray-600 text-sm leading-6 border-2 rounded-md px-2 py-1;
     }
 }

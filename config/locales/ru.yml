@@ -2,6 +2,7 @@ ru:
   pages:
     base_title: "Milky Land"
     profile: "Профиль"
+    sign_in: "Вход"
     sign_out: "Выход"
     home: "Главная"
     settings: "Настройки"
@@ -14,3 +15,5 @@ ru:
     view_notifications: "Просмотр уведомлений"
     open_sidebar: "Открыть главное меню"
     close_sidebar: "Закрыть меню"
+    sign_in: "Войти"
+  models:
