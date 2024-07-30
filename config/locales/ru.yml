@@ -16,4 +16,19 @@ ru:
     open_sidebar: "Открыть главное меню"
     close_sidebar: "Закрыть меню"
     sign_in: "Войти"
-  models:
+    create_record: "Создать запись"
+    edit_record: "Правка"
+    save_record: "Сохранить"
+  user_statuses:
+    active: "Активный"
+    inactive: "Удален"
+  links:
+    transfer_url: "Ссылка для автоматического входа"
+    web_share_url: "Ссылка для входа"
+    web_share_caution: "Это Ваша приватная ссылка для входа с другого устройства."
+  tables:
+    cols:
+      name: "Имя"
+      email_address: "Электронная почта"
+      status: "Статус"
+      role: "Роль"

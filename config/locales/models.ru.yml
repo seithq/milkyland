@@ -1,6 +1,12 @@
 ru:
   activerecord:
+    enums:
+      user:
+        roles:
+          admin: Админ
+          member: Участник
     attributes:
       user:
+        name: Имя
         email_address: Электронная почта
         password: Пароль

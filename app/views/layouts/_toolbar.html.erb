@@ -51,7 +51,7 @@
                data-transition-leave-start="transform opacity-100 scale-100"
                data-transition-leave-end="transform opacity-0 scale-95"
           >
-            <%= link_to t("pages.profile"), edit_user_profile_path(Current.user), class: "block px-3 py-1 text-sm leading-6 text-gray-900 hover:bg-gray-50", role: "menuitem", tabindex: -1, id: "user-menu-item-0" %>
+            <%= link_to t("pages.profile"), edit_user_profile_path(Current.user, settings: true), class: "block px-3 py-1 text-sm leading-6 text-gray-900 hover:bg-gray-50", role: "menuitem", tabindex: -1, id: "user-menu-item-0" %>
             <%= link_to t("pages.sign_out"), session_path, class: "block px-3 py-1 text-sm leading-6 text-red-700 hover:bg-gray-50", data: { turbo_method: :delete }, role: "menuitem", tabindex: -1, id: "user-menu-item-1" %>
           </div>
         </div>

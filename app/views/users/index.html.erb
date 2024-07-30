@@ -8,6 +8,35 @@
   } %>
 <% end %>
 
-<div class="panel borderless center pad fill-none flex flex-column gap">
-  <%= render @users %>
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="mt-4 sm:mt-0 sm:flex-none">
+    <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+      <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
+      <%= t("actions.create_record") %>
+    </button>
+  </div>
+  <div class="-mx-4 mt-4 sm:mt-8 sm:-mx-0">
+    <div class="table border-collapse min-w-full divide-y divide-gray-300">
+      <div class="table-header-group">
+        <div class="table-row">
+          <div class="table-cell py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+            <%= t("tables.cols.name") %>
+          </div>
+          <div class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.status") %>
+          </div>
+          <div class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.email_address") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.role") %>
+          </div>
+          <div class="table-cell relative py-3.5 pl-3 pr-4 sm:pr-0"></div>
+        </div>
+      </div>
+      <div class="table-row-group border-collapse divide-y divide-gray-200 bg-white">
+        <%= render @users %>
+      </div>
+    </div>
+  </div>
 </div>

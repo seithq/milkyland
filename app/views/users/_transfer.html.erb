@@ -1,42 +1,33 @@
-<div class="flex flex-column align-center gap txt-medium--responsive">
+<div class="flex flex-col">
   <% url = session_transfer_url(user.transfer_id) %>
 
-  <label class="flex flex-column gap full-width">
-    <div class="flex align-center gap">
-      <% if Current.user != user %>
-        <strong id="session_transfer_label" class="txt-align-start">Share to get them back into their account</strong>
-      <% else %>
-        <strong id="session_transfer_label" class="txt-align-start">Link to automatically log in on another device</strong>
-      <% end %>
-    </div>
-    <span class="flex align-center gap margin-inline">
-      <input type="text" class="input fill-white" id="session_transfer_url" value="<%= url %>" aria-labelledby="session_transfer_label" readonly>
-    </span>
-  </label>
+  <div class="space-y-4">
+    <%= label_tag :session_transfer_url, t("links.transfer_url"), class: "form-label" %>
+    <%= text_field_tag :session_transfer_url, url, class: "form-input", readonly: true %>
+  </div>
 
-  <div class="flex align-center gap">
-    <div data-controller="dialog" class="flex-inline">
-      <%= tag.button class: "btn", data: { action: "dialog#open" } do %>
-        <span class="for-screen-reader">Show auto-login QR code</span>
+  <div class="mt-4 flex items-center justify-center space-x-2">
+    <div data-controller="dialog">
+      <%= tag.button class: "icon-btn", data: { action: "dialog#open" } do %>
+        <%= inline_svg_tag "qrcode.svg", class: "h-6 w-6" %>
       <% end %>
 
-      <dialog class="dialog panel shadow" data-dialog-target="menu">
-      <%= qr_code_image(url) %>
-
-      <form method="dialog" class="margin-block-start flex justify-center">
-        <button class="btn">
-          <span class="for-screen-reader">Close</span>
-        </button>
-      </form>
+      <dialog class="dialog shadow p-6 bg-white rounded-md flex flex-col space-y-2 items-center" data-dialog-target="menu">
+        <%= qr_code_image(url) %>
+        <form method="dialog">
+          <%= tag.button class: "icon-btn-danger", data: { action: "dialog#open" } do %>
+            <%= inline_svg_tag "close.svg", class: "h-6 w-6" %>
+          <% end %>
+        </form>
       </dialog>
     </div>
 
     <%= button_to_copy_to_clipboard(url) do %>
-      <span class="for-screen-reader">Copy auto-login link</span>
+      <%= inline_svg_tag "clipboard.svg", class: "h-6 w-6" %>
     <% end %>
 
-    <%= web_share_button(url, "Your sign-in link", "This is your own private sign-in URL, DO NOT SHARE IT. Use it to sign-in on another device or if you get locked out.") do %>
-      <span class="for-screen-reader">Share auto-login link</span>
+    <%= web_share_button(url, t("links.web_share_url"), t("links.web_share_caution")) do %>
+      <%= inline_svg_tag "share.svg", class: "h-6 w-6" %>
     <% end %>
   </div>
 </div>
