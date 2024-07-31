@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[ edit update destroy ]
 
   def index
-    @users = get_scope params
+    @pagy, @users = pagy get_scope(params)
   end
 
   def new
