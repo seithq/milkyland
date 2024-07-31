@@ -4,8 +4,12 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_secure_password validations: false
 
+  validates :name, :email_address, presence: true, uniqueness: { case_sensitive: false }
+
   scope :active, -> { where(active: true) }
   scope :ordered, -> { order(:name) }
+
+  scope :filter_by_name_or_email, ->(query) { where("LOWER(name) LIKE ? OR LOWER(email_address) LIKE ?", like(query), like(query)) }
 
   def current?
     self == Current.user

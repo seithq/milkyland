@@ -1,0 +1,12 @@
+<% content_for(:title) { @user.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: users_path, title: t("pages.users")),
+      NavLink.new(path: edit_user_path(@user), title: @user.name),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", user: @user %>

@@ -7,7 +7,7 @@ module PageLayouts
 
   private
     def layout_by_resource
-      whitelist = %w[ sessions transfers first_runs qr_code ]
+      whitelist = %w[ sessions transfers first_runs qr_code registrations ]
       if whitelist.include? controller_name
         "blank"
       else

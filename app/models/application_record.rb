@@ -1,5 +1,5 @@
 class ApplicationRecord < ActiveRecord::Base
   primary_abstract_class
 
-  include Enumable
+  include Enumable, Sortable
 end

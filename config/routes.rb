@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get "join/:join_code", to: "users#new", as: :join
-  post "join/:join_code", to: "users#create"
+  get "join/:join_code", to: "registrations#new", as: :join
+  post "join/:join_code", to: "registrations#create"
 
   resource :account do
     scope module: "accounts" do

@@ -7,6 +7,8 @@ ru:
           member: Участник
     attributes:
       user:
-        name: Имя
+        name: ФИО
         email_address: Электронная почта
         password: Пароль
+        active: Активный
+        role: Роль

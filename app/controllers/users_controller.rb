@@ -1,30 +1,33 @@
 class UsersController < ApplicationController
-  require_unauthenticated_access only: %i[ new create ]
-
-  before_action :verify_join_code, only: %i[ new create ]
-  before_action :ensure_can_administer, only: %i[ update destroy ]
-  before_action :set_user, only: %i[ update destroy ]
-
+  before_action :ensure_can_administer, only: %i[ edit update destroy ]
+  before_action :set_user, only: %i[ edit update destroy ]
 
   def index
-    @users = User.active
+    @users = get_scope params
   end
 
   def new
     @user = User.new
   end
 
+  def edit
+  end
+
   def create
-    @user = User.create!(user_params)
-    start_new_session_for @user
-    redirect_to root_url
-  rescue ActiveRecord::RecordNotUnique
-    redirect_to new_session_url(email_address: user_params[:email_address])
+    @user = User.create(user_params)
+    if @user.save
+      redirect_to users_url
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def update
-    @user.update(role_params)
-    redirect_to users_url
+    if @user.update(user_params)
+      redirect_to users_url
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -33,19 +36,19 @@ class UsersController < ApplicationController
   end
 
   private
-    def role_params
-      { role: params.require(:user)[:role].presence_in(%w[ admin member ]) || "member" }
+    def base_scope
+      User.recent_first
+    end
+
+    def search_methods
+      %i[ name_or_email ]
     end
 
     def set_user
-      @user = User.active.find(params[:id])
+      @user = User.find(params[:id])
     end
 
     def user_params
-      params.require(:user).permit(:name, :email_address, :password)
-    end
-
-    def verify_join_code
-      head :not_found if Current.account.join_code != params[:join_code]
+      params.require(:user).permit(:name, :email_address, :password, :role, :active)
     end
 end

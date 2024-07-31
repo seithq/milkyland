@@ -11,7 +11,7 @@ class Users::ProfilesController < ApplicationController
 
   def update
     @user.update!(user_params)
-    redirect_to users_url
+    redirect_to root_url
   end
 
   private

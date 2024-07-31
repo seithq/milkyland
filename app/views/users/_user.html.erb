@@ -12,6 +12,6 @@
   <div class="hidden sm:table-cell px-3 py-4 text-sm text-gray-500"><%= user.email_address %></div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500"><%= User.enum_to_s(:role, user.role) %></div>
   <div class="table-cell py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-    <%= link_to t("actions.edit_record"), edit_user_profile_path(user), class: "text-indigo-600 hover:text-indigo-900" %>
+    <%= link_to t("actions.edit_record"), edit_user_path(user), class: "text-indigo-600 hover:text-indigo-900" %>
   </div>
 </div>
