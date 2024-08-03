@@ -6,4 +6,3 @@ class Current < ActiveSupport::CurrentAttributes
     Account.first
   end
 end
-

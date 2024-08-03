@@ -17,4 +17,3 @@ class Session < ApplicationRecord
     end
   end
 end
-

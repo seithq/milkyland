@@ -42,7 +42,7 @@ module Authentication
     end
 
     def redirect_signed_in_user_to_root
-      redirect_to root_url if signed_in? && !Current.user.admin?
+      redirect_to root_url if signed_in?
     end
 
     def start_new_session_for(user)
@@ -79,4 +79,3 @@ module Authentication
       @authenticated_by ||= "".inquiry
     end
 end
-

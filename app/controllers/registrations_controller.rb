@@ -8,20 +8,21 @@ class RegistrationsController < ApplicationController
   end
 
   def create
-    @user = User.create!(user_params)
-    start_new_session_for @user
-    redirect_to root_url
-  rescue ActiveRecord::RecordNotUnique
-    redirect_to new_session_url(email_address: user_params[:email_address])
+    @user = User.new(user_params)
+    if @user.save
+      start_new_session_for @user
+      redirect_to root_url
+    else
+      redirect_to new_session_url(email_address: user_params[:email_address])
+    end
   end
 
   private
+    def user_params
+      params.require(:user).permit(:name, :email_address, :password)
+    end
 
-  def user_params
-    params.require(:user).permit(:name, :email_address, :password)
-  end
-
-  def verify_join_code
-    head :not_found if Current.account.join_code != params[:join_code]
-  end
+    def verify_join_code
+      head :not_found if Current.account.join_code != params[:join_code]
+    end
 end
