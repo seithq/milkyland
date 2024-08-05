@@ -59,6 +59,8 @@ env:
     - RAILS_MASTER_KEY
     - POSTGRES_URL
     - REDIS_URL
+    - APP_VERSION
+    - GIT_REVISION
 
 asset_path: /rails/public/assets
 
