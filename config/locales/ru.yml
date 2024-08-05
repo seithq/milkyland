@@ -1,0 +1,45 @@
+ru:
+  pages:
+    base_title: "Milky Land"
+    profile: "Профиль"
+    sign_in: "Вход"
+    sign_up: "Создание аккаунта"
+    sign_out: "Выход"
+    home: "Главная"
+    settings: "Настройки"
+    users: "Пользователи"
+    version: "Версия: %{version}"
+  alerts:
+    too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
+  actions:
+    open_user_menu: "Открыть меню пользователя"
+    view_notifications: "Просмотр уведомлений"
+    open_sidebar: "Открыть главное меню"
+    close_sidebar: "Закрыть меню"
+    close: "Закрыть"
+    sign_in: "Войти"
+    sign_up: "Создать аккаунт"
+    create_record: "Создать запись"
+    edit_record: "Правка"
+    save_record: "Сохранить"
+    destroy_record: "Удалить"
+    search_by_name_or_email: "Поиск по имени или электронному адресу"
+    have_account: "Есть аккаунт?"
+    remove_account: "Удалить аккаунт?"
+    confirm: "Подтвердить действие?"
+    not_saved: "Сохранение не удалось из-за %{count} ошибок:"
+    record_not_found: "Запись не найдена"
+  user_statuses:
+    active: "Активный"
+    inactive: "Удален"
+  links:
+    transfer_url: "Ссылка для автоматического входа"
+    invite_url: "Ссылка для приглашения"
+    web_share_url: "Ссылка для входа"
+    web_share_caution: "Это Ваша приватная ссылка для входа с другого устройства."
+  tables:
+    cols:
+      name: "Имя"
+      email_address: "Электронная почта"
+      status: "Статус"
+      role: "Роль"

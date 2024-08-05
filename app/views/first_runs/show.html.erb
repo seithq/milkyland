@@ -1,0 +1,24 @@
+<% content_for(:title) { t("pages.sign_up") } %>
+
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= form_with model: @user, url: first_run_path, class: "space-y-6" do |form| %>
+      <div>
+        <%= form.label :name, class: "form-label" %>
+        <%= form.text_field :name, required: true, autofocus: true, autocomplete: "name", class: "form-input" %>
+      </div>
+
+      <div>
+        <%= form.label :email_address, class: "form-label" %>
+        <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "email-address", class: "form-input" %>
+      </div>
+
+      <div>
+        <%= form.label :password, class: "form-label" %>
+        <%= form.password_field :password, required: true, autocomplete: "new-password", maxlength: 72, class: "form-input" %>
+      </div>
+
+      <%= form.submit t("actions.sign_up"), class: "btn" %>
+    <% end %>
+  </div>
+</div>
