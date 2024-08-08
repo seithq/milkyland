@@ -1,31 +1,30 @@
 require "application_system_test_case"
 
-class RegionsTest < ApplicationSystemTestCase
+class Settings::SalesChannelsTest < ApplicationSystemTestCase
   setup do
     sign_in "daniyar@hey.com"
   end
 
   test "visiting the index" do
-    visit regions_url
-    assert_selector ".breadcrumb-link", text: I18n.t("pages.regions")
+    visit sales_channels_url
+    assert_selector ".breadcrumb-link", text: I18n.t("pages.channels")
   end
 
-  test "should create region" do
-    visit regions_url
+  test "should create sales channel" do
+    visit sales_channels_url
     click_on I18n.t("actions.create_record")
 
-    fill_in "region_code", with: "02"
-    fill_in "region_name", with: "Almaty"
+    fill_in "sales_channel_name", with: "b2r"
     click_on I18n.t("actions.save_record")
 
     assert_text I18n.t("actions.record_created")
   end
 
-  test "should update Region" do
-    visit regions_url
+  test "should update Sales channel" do
+    visit sales_channels_url
     click_on I18n.t("actions.edit_record"), match: :first
 
-    fill_in "region_name", with: "Almaty"
+    fill_in "sales_channel_name", with: "b2r"
     click_on I18n.t("actions.save_record")
 
     assert_text I18n.t("actions.record_updated")

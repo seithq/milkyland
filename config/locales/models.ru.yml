@@ -15,3 +15,5 @@ ru:
       region:
         name: Название
         code: Префикс для QR
+      sales_channel:
+        name: Название
