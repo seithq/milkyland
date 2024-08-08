@@ -12,3 +12,6 @@ ru:
         password: Пароль
         active: Активный
         role: Роль
+      region:
+        name: Название
+        code: Префикс для QR

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_07_25_163011) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_08_073352) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_07_25_163011) do
     t.string "join_code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_regions_on_code", unique: true
+    t.index ["name"], name: "index_regions_on_name", unique: true
   end
 
   create_table "sessions", force: :cascade do |t|

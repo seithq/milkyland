@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :ensure_can_administer, only: %i[ edit update destroy ]
+  before_action :ensure_can_administer, only: %i[ create update destroy ]
   before_action :set_user, only: %i[ edit update destroy ]
 
   def index

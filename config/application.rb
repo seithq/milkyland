@@ -19,5 +19,10 @@ module Milkyland
     config.time_zone = "Asia/Almaty"
     config.active_record.default_timezone = :utc
     config.i18n.default_locale = :ru
+
+    config.generators do |generate|
+      generate.helper false
+      generate.jbuilder false
+    end
   end
 end
