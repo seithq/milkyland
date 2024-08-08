@@ -14,13 +14,13 @@ class QrCodeLink
   end
 
   private
-  class << self
-    def verifier
-      ActiveSupport::MessageVerifier.new(secret, url_safe: true)
-    end
+    class << self
+      def verifier
+        ActiveSupport::MessageVerifier.new(secret, url_safe: true)
+      end
 
-    def secret
-      Rails.application.key_generator.generate_key("qr_codes")
+      def secret
+        Rails.application.key_generator.generate_key("qr_codes")
+      end
     end
-  end
 end

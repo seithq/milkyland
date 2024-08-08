@@ -9,6 +9,7 @@ ru:
     settings: "Настройки"
     users: "Пользователи"
     regions: "Регионы"
+    channels: "Каналы продаж"
     version: "Версия: %{version}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "

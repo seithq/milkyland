@@ -1,6 +1,6 @@
 require "test_helper"
 
-class RegionsControllerTest < ActionDispatch::IntegrationTest
+class Settings::RegionsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @region = regions(:aktobe)
   end
