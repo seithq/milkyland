@@ -3,6 +3,7 @@ class Settings::RegionsController < ApplicationController
   before_action :set_region, only: %i[ show edit update ]
 
   def index
+    puts "="*80
     @pagy, @regions = pagy get_scope(params)
   end
 
