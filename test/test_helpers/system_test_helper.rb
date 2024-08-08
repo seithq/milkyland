@@ -7,6 +7,7 @@ module SystemTestHelper
     fill_in "email_address", with: email_address
     fill_in "password", with: password
 
-    click_on "sign-in"
+    click_on "sign_in"
+    assert_selector ".breadcrumb-link", text: I18n.t("pages.home")
   end
 end

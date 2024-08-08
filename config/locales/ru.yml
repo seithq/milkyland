@@ -8,6 +8,7 @@ ru:
     home: "Главная"
     settings: "Настройки"
     users: "Пользователи"
+    regions: "Регионы"
     version: "Версия: %{version}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
@@ -29,6 +30,8 @@ ru:
     confirm: "Подтвердить действие?"
     not_saved: "Сохранение не удалось из-за %{count} ошибок:"
     record_not_found: "Запись не найдена"
+    record_created: "Запись создана"
+    record_updated: "Запись обновлена"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
@@ -40,6 +43,8 @@ ru:
   tables:
     cols:
       name: "Имя"
+      title: "Название"
       email_address: "Электронная почта"
       status: "Статус"
       role: "Роль"
+      qr_prefix: "Префиск для QR"
