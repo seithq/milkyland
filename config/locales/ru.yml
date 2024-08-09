@@ -10,6 +10,7 @@ ru:
     users: "Пользователи"
     regions: "Регионы"
     channels: "Каналы сбыта"
+    contragents: "Контрагенты"
     version: "Версия: %{version}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :suppliers
   root "home#index"
 
   resource :first_run, only: %i[ show create ]
