@@ -11,6 +11,8 @@ ru:
     regions: "Регионы"
     channels: "Каналы сбыта"
     contragents: "Контрагенты"
+    suppliers: "Поставщики"
+    clients: "Заказщики"
     version: "Версия: %{version}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
@@ -47,6 +49,15 @@ ru:
       name: "Имя"
       title: "Название"
       email_address: "Электронная почта"
+      phone_number: "Номер телефона"
+      contact_person: "Контактное лицо"
       status: "Статус"
       role: "Роль"
       qr_prefix: "Префиск для QR"
+  forms:
+    profile: "Профиль"
+    profile_extra: "Основная информация по профилю и контактные данные."
+    bank_details: "Банковские реквизиты"
+    bank_details_extra: "Реквизиты банка и расчетного счета для финансовых операций."
+    phone_number_hint: "Пример ввода: +77771234567"
+
