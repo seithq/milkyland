@@ -6,7 +6,7 @@
 
 <div>
   <div class="sm:hidden">
-    <%= select_tag "tabs", options_for_select(tab_links.map { |link| [ link.title, link.path ] }, tab_links.select { |link| link.is_active == true }.first.path), data: { controller: "tab", action: "tab#redirect" }, class: "tab-select" %>
+    <%= mobile_tab_select tab_links %>
   </div>
   <div class="hidden sm:block">
     <div class="border-b border-gray-200">
