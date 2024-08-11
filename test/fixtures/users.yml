@@ -10,4 +10,4 @@ askhat:
   name: Askhat
   email_address: askhat@gmail.com
   password_digest: <%= password_digest %>
-  role: member
+  role: manager

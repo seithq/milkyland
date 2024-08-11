@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   scope module: "settings" do
     resources :regions, except: :destroy
     resources :sales_channels, except: :destroy
+    resources :suppliers, except: :destroy
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

@@ -1,0 +1,93 @@
+<% content_for(:title) { @supplier.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: suppliers_path, title: t("pages.suppliers")),
+      NavLink.new(path: supplier_path(@supplier), title: @supplier.name),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= fields_for @supplier do |form| %>
+      <div>
+        <div class="space-y-12">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.profile") %></h2>
+              <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.profile_extra") %></p>
+            </div>
+
+            <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :manager_id, class: "form-label" %>
+                <%= form.select :manager_id, options_from_collection_for_select(User.managers, :id, :name, @supplier.manager_id), {}, { disabled: true, class: "mt-2 form-select" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :name, class: "form-label" %>
+                <%= form.text_field :name, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :bin, class: "form-label" %>
+                <%= form.text_field :bin, readonly: true, class: "mt-2 form-input", max: 12 %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :contact_person, class: "form-label" %>
+                <%= form.text_field :contact_person, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :job_title, class: "form-label" %>
+                <%= form.text_field :job_title, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :phone_number, class: "form-label" %>
+                <%= form.phone_field :phone_number, readonly: true, class: "mt-2 form-input", pattern: '\+[0-9]+[0-9]{3}[0-9]{7}' %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :email_address, class: "form-label" %>
+                <%= form.email_field :email_address, readonly: true, class: "mt-2 form-input" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.bank_details") %></h2>
+              <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.bank_details_extra") %></p>
+            </div>
+
+            <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :entity_code, class: "form-label" %>
+                <%= form.text_field :entity_code, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :bank_name, class: "form-label" %>
+                <%= form.text_field :bank_name, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :bank_account, class: "form-label" %>
+                <%= form.text_field :bank_account, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :bank_code, class: "form-label" %>
+                <%= form.text_field :bank_code, readonly: true, class: "mt-2 form-input" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -2,12 +2,14 @@ class User < ApplicationRecord
   include Role, Transferable
 
   has_many :sessions, dependent: :destroy
+  has_many :suppliers, foreign_key: "manager_id", dependent: :destroy
   has_secure_password validations: false
 
   validates :name, :email_address, presence: true, uniqueness: { case_sensitive: false }
 
   scope :active, -> { where(active: true) }
   scope :ordered, -> { order(:name) }
+  scope :managers, -> { filter_by_role(:manager) }
 
   scope :filter_by_name_or_email, ->(query) { where("LOWER(name) LIKE ? OR LOWER(email_address) LIKE ?", like(query), like(query)) }
 
