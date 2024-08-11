@@ -38,5 +38,8 @@ class SupplierTest < ActiveSupport::TestCase
       assert_not supplier.save
       assert_equal :invalid, supplier.errors.where(:phone_number).first.type
     end
+
+    supplier = Supplier.new(manager: users(:askhat), name: "REGATA", bin: "921026400042", phone_number: "+77772098007")
+    assert supplier.save
   end
 end
