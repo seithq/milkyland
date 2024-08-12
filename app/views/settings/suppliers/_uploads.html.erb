@@ -1,0 +1,28 @@
+<%# locals: (supplier:, editable: true) -%>
+
+<div class="sm:col-span-4">
+  <div class="table min-w-full divide-y divide-gray-300">
+    <div class="table-header-group">
+      <div class="table-row">
+        <div class="table-cell py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+          <%= t("tables.cols.title") %>
+        </div>
+        <div class="table-cell relative py-3.5 pl-3 pr-4 sm:pr-0"></div>
+      </div>
+    </div>
+    <div class="table-row-group border-collapse divide-y divide-gray-200 bg-white">
+      <% supplier.uploads.each do |upload| %>
+        <div data-controller="upload" class="table-row">
+          <div class="table-cell w-full py-2 max-w-0 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none">
+            <%= link_to upload.filename, rails_blob_path(upload, disposition: "attachment"), class: "text-indigo-600" %>
+          </div>
+          <div class="table-cell py-2 text-right text-sm font-medium text-right">
+            <% if editable %>
+              <%= button_tag t("actions.destroy_record"), type: :button, data: { action: "upload#clear", upload_id_param: "supplier_uploads_#{ upload.id }" }, class: "text-red-600 hover:text-red-900" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
