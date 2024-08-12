@@ -36,3 +36,6 @@ ru:
       category:
         name: Название
         kind: Тип
+      measurement:
+        name: Название
+        unit: Единица

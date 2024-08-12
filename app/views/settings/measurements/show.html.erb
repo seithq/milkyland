@@ -1,0 +1,28 @@
+<% content_for(:title) { @measurement.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: measurements_path, title: t("pages.measurements")),
+      NavLink.new(path: measurement_path(@measurement), title: @measurement.name),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @measurement do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :name, class: "form-label" %>
+          <%= form.text_field :name, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :unit, class: "form-label" %>
+          <%= form.text_field :unit, readonly: true, class: "form-input" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

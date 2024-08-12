@@ -1,0 +1,7 @@
+litre:
+  name: Litre
+  unit: l
+
+kilogram:
+  name: Kilogram
+  unit: kg

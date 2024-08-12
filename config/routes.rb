@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :sales_channels, except: :destroy
     resources :suppliers, except: :destroy
     resources :categories, except: :destroy
+    resources :measurements, except: :destroy
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
