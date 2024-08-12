@@ -48,8 +48,15 @@ class Settings::SuppliersControllerTest < ActionDispatch::IntegrationTest
 
   test "should update supplier" do
     sign_in :daniyar
-    patch supplier_url(@supplier), params: { supplier: { contact_person: "Aigerim", email_address: "regata@mail.ru", phone_number: "+77772098007" } }
+    patch supplier_url(@supplier), params: {
+      supplier: { contact_person: "Aigerim",
+                  email_address: "regata@mail.ru",
+                  phone_number: "+77772098007",
+                  uploads: [ file_fixture_upload("test.txt") ]
+      }
+    }
     assert_redirected_to suppliers_url
+    assert @supplier.uploads.attached?
   end
 
   test "update does not allow non-admins to change roles" do
