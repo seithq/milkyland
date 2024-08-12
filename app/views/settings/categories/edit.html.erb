@@ -1,0 +1,12 @@
+<% content_for(:title) { @category.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: categories_path, title: t("pages.categories")),
+      NavLink.new(path: edit_category_path(@category), title: @category.name),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", category: @category %>

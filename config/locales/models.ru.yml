@@ -5,6 +5,10 @@ ru:
         roles:
           admin: Админ
           manager: Менеджер
+      category:
+        kinds:
+          end_product: ГП
+          material_asset: ТМЦ
     attributes:
       user:
         name: ФИО
@@ -29,3 +33,6 @@ ru:
         bank_account: ИИК или IBAN
         bank_code: БИК или SWIFT
         manager_id: Менеджер
+      category:
+        name: Название
+        kind: Тип
