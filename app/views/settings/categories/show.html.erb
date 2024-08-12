@@ -1,0 +1,28 @@
+<% content_for(:title) { @category.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: categories_path, title: t("pages.categories")),
+      NavLink.new(path: category_path(@category), title: @category.name),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @category do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :name, class: "form-label" %>
+          <%= form.text_field :name, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :kind, class: "form-label" %>
+          <%= form.text_field :kind, value: Category.enum_to_s(:kind, @category.kind), readonly: true, class: "form-input" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

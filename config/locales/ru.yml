@@ -1,6 +1,7 @@
 ru:
   pages:
     base_title: "Milky Land"
+    version: "Версия: %{version}"
     profile: "Профиль"
     sign_in: "Вход"
     sign_up: "Создание аккаунта"
@@ -13,7 +14,7 @@ ru:
     contragents: "Контрагенты"
     suppliers: "Поставщики"
     clients: "Заказщики"
-    version: "Версия: %{version}"
+    categories: "Категории"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -54,6 +55,7 @@ ru:
       status: "Статус"
       role: "Роль"
       qr_prefix: "Префиск для QR"
+      kind: "Тип"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

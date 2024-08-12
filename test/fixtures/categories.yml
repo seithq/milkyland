@@ -1,0 +1,7 @@
+milk:
+  name: Milk
+  kind: end_product
+
+raw:
+  name: Raw
+  kind: material_asset
