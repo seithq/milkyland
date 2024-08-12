@@ -1,0 +1,12 @@
+<% content_for(:title) { @measurement.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: measurements_path, title: t("pages.categories")),
+      NavLink.new(path: edit_measurement_path(@measurement), title: @measurement.name),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", measurement: @measurement %>

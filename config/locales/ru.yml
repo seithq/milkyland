@@ -15,6 +15,7 @@ ru:
     suppliers: "Поставщики"
     clients: "Заказщики"
     categories: "Категории"
+    measurements: "Единицы измерения"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -56,6 +57,7 @@ ru:
       role: "Роль"
       qr_prefix: "Префиск для QR"
       kind: "Тип"
+      unit: "Единица"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
