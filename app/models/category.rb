@@ -1,5 +1,6 @@
 class Category < ApplicationRecord
   has_many :material_assets, dependent: :destroy
+  has_many :groups, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 

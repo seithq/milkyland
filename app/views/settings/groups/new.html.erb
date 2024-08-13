@@ -1,0 +1,11 @@
+<% content_for(:title) { t("pages.groups") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: groups_path, title: t("pages.groups"))
+    ]
+  } %>
+<% end %>
+
+<%= render "form", group: @group %>

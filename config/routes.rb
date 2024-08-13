@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :categories, except: :destroy
     resources :measurements, except: :destroy
     resources :material_assets, except: :destroy
+    resources :groups, except: :destroy
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
