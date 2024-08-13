@@ -4,8 +4,9 @@
 %>
 
 <% settings_nav_links = [
-  NavLink.new(path: material_assets_url, title: t("pages.material_assets"), icon_name: "table.svg"),
   NavLink.new(path: users_path, title: t("pages.users"), icon_name: "users.svg"),
+  NavLink.new(path: material_assets_path, title: t("pages.material_assets"), icon_name: "table.svg"),
+  NavLink.new(path: groups_path, title: t("pages.groups"), icon_name: "view-grid.svg"),
   NavLink.new(path: regions_path, title: t("pages.regions"), icon_name: "map.svg"),
   NavLink.new(path: sales_channels_path, title: t("pages.channels"), icon_name: "speakerphone.svg"),
   NavLink.new(path: suppliers_path, title: t("pages.contragents"), icon_name: "user-group.svg"),

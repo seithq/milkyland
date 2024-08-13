@@ -1,0 +1,33 @@
+<% content_for(:title) { @group.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: groups_path, title: t("pages.groups")),
+      NavLink.new(path: group_path(@group), title: @group.name),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @group do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :category_id, class: "form-label" %>
+          <%= form.select :category_id, options_from_collection_for_select(Category.end_products, :id, :name), {}, { disabled: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :name, class: "form-label" %>
+          <%= form.text_field :name, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :metric_tonne, class: "form-label" %>
+          <%= form.number_field :metric_tonne, readonly: true, class: "form-input" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

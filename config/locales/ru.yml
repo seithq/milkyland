@@ -17,6 +17,7 @@ ru:
     categories: "Категории"
     measurements: "Единицы измерения"
     material_assets: "Номенклатура ТМЦ"
+    groups: "Группа ГП"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:

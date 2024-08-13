@@ -1,0 +1,23 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= render "layouts/error_messages", resource: group %>
+    <%= form_with model: group, class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :category_id, class: "form-label" %>
+        <%= form.select :category_id, options_from_collection_for_select(Category.end_products, :id, :name, group.category_id), { include_blank: true }, { required: true, class: "form-select" } %>
+      </div>
+
+      <div>
+        <%= form.label :name, class: "form-label" %>
+        <%= form.text_field :name, autocomplete: "name", autofocus: true, required: true, class: "form-input" %>
+      </div>
+
+      <div>
+        <%= form.label :metric_tonne, class: "form-label" %>
+        <%= form.number_field :metric_tonne, autocomplete: "metric-tonne", required: true, class: "form-input" %>
+      </div>
+
+      <%= form.submit t("actions.save_record"), class: "btn" %>
+    <% end %>
+  </div>
+</div>

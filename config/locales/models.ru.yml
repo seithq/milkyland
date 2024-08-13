@@ -48,3 +48,7 @@ ru:
         packing: Фасовка
         measurement_id: Единица измерения
         delivery_time_in_days: Срок поставки (в днях)
+      group:
+        name: Название
+        category_id: Категория
+        metric_tonne: Кол-во тонн для расчета расхода
