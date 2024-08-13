@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
+  has_many :material_assets, dependent: :destroy
+
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   enum :kind, %i[ end_product material_asset ], default: :asset

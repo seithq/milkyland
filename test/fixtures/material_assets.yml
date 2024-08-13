@@ -1,0 +1,9 @@
+sugar:
+  name: Sugar
+  category: raw
+  supplier: systemd
+  article: 777
+  entry_price: 650
+  packing: 1000
+  measurement: kilogram
+  delivery_time_in_days: 15

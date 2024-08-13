@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_12_172122) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_12_175445) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,6 +55,24 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_12_172122) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
+  create_table "material_assets", force: :cascade do |t|
+    t.string "name"
+    t.bigint "category_id", null: false
+    t.bigint "supplier_id", null: false
+    t.string "article"
+    t.decimal "entry_price", precision: 20, scale: 2
+    t.string "packing"
+    t.bigint "measurement_id", null: false
+    t.integer "delivery_time_in_days"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article"], name: "index_material_assets_on_article", unique: true
+    t.index ["category_id"], name: "index_material_assets_on_category_id"
+    t.index ["measurement_id"], name: "index_material_assets_on_measurement_id"
+    t.index ["name", "supplier_id"], name: "index_material_assets_on_name_and_supplier_id", unique: true
+    t.index ["supplier_id"], name: "index_material_assets_on_supplier_id"
   end
 
   create_table "measurements", force: :cascade do |t|
@@ -229,6 +247,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_12_172122) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "material_assets", "categories"
+  add_foreign_key "material_assets", "measurements"
+  add_foreign_key "material_assets", "suppliers"
   add_foreign_key "sessions", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

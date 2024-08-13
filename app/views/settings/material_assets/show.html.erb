@@ -1,0 +1,58 @@
+<% content_for(:title) { @material_asset.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: material_assets_path, title: t("pages.material_assets")),
+      NavLink.new(path: material_asset_path(@material_asset), title: @material_asset.name),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @material_asset do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :name, class: "form-label" %>
+          <%= form.text_field :name, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :category_id, class: "form-label" %>
+          <%= form.select :category_id, options_from_collection_for_select(Category.material_assets, :id, :name), {}, { disabled: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :supplier_id, class: "form-label" %>
+          <%= form.select :supplier_id, options_from_collection_for_select(Supplier.all, :id, :name), {}, { disabled: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :article, class: "form-label" %>
+          <%= form.text_field :article, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :entry_price, class: "form-label" %>
+          <%= form.number_field :entry_price, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :packing, class: "form-label" %>
+          <%= form.number_field :packing, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :measurement_id, class: "form-label" %>
+          <%= form.select :measurement_id, options_from_collection_for_select(Measurement.all, :id, :display_label), {}, { disabled: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :delivery_time_in_days, class: "form-label" %>
+          <%= form.number_field :delivery_time_in_days, readonly: true, class: "form-input" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
