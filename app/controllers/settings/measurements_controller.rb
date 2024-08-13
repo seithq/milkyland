@@ -42,6 +42,7 @@ class Settings::MeasurementsController < ApplicationController
     def search_methods
       []
     end
+
     def set_measurement
       @measurement = Measurement.find(params[:id])
     end

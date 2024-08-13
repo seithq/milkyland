@@ -1,0 +1,11 @@
+<% content_for(:title) { t("pages.material_assets") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: material_assets_path, title: t("pages.material_assets"))
+    ]
+  } %>
+<% end %>
+
+<%= render "form", material_asset: @material_asset %>

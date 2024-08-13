@@ -16,6 +16,7 @@ ru:
     clients: "Заказщики"
     categories: "Категории"
     measurements: "Единицы измерения"
+    material_assets: "Номенклатура ТМЦ"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -58,6 +59,13 @@ ru:
       qr_prefix: "Префиск для QR"
       kind: "Тип"
       unit: "Единица"
+      category: "Категория"
+      supplier: "Поставщик"
+      article: "Артикул"
+      entry_price: "Входящая цена"
+      packing: "Фасовка"
+      measurement: "Ед. изм"
+      delivery_time_in_days: "Срок поставки"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

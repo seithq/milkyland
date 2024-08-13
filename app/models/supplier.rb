@@ -1,6 +1,7 @@
 class Supplier < ApplicationRecord
   belongs_to :manager, class_name: "User", foreign_key: "manager_id"
 
+  has_many :material_assets, dependent: :destroy
   has_many_attached :uploads, dependent: :purge_later
 
   validates :name, :bin, presence: true, uniqueness: { case_sensitive: false }
