@@ -10,24 +10,48 @@
 <% end %>
 
 <div class="flex flex-col justify-center px-6 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+  <div class="sm:mx-auto sm:w-full">
     <%= fields_for @group do |form| %>
-      <div class="space-y-4">
-        <div>
-          <%= form.label :category_id, class: "form-label" %>
-          <%= form.select :category_id, options_from_collection_for_select(Category.end_products, :id, :name), {}, { disabled: true, class: "form-select" } %>
-        </div>
+      <div>
+        <div class="space-y-12">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+            </div>
+            <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :category_id, class: "form-label" %>
+                <%= form.select :category_id, options_from_collection_for_select(Category.end_products, :id, :name), {}, { disabled: true, class: "mt-2 form-select" } %>
+              </div>
 
-        <div>
-          <%= form.label :name, class: "form-label" %>
-          <%= form.text_field :name, readonly: true, class: "form-input" %>
-        </div>
+              <div class="sm:col-span-4">
+                <%= form.label :name, class: "form-label" %>
+                <%= form.text_field :name, readonly: true, class: "mt-2 form-input" %>
+              </div>
 
-        <div>
-          <%= form.label :metric_tonne, class: "form-label" %>
-          <%= form.number_field :metric_tonne, readonly: true, class: "form-input" %>
+              <div class="sm:col-span-4">
+                <%= form.label :metric_tonne, class: "form-label" %>
+                <%= form.number_field :metric_tonne, readonly: true, class: "mt-2 form-input" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.recipe") %></h2>
+            </div>
+            <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-full">
+                <%= form.label :cooking_technology, class: "mb-4 form-label" %>
+                <div class="prose max-w-none text-gray-900 sm:text-sm sm:leading-6">
+                  <%= @group.cooking_technology %>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
     <% end %>
   </div>
 </div>

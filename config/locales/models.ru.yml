@@ -52,3 +52,4 @@ ru:
         name: Название
         category_id: Категория
         metric_tonne: Кол-во тонн для расчета расхода
+        cooking_technology: Технология приготовления
