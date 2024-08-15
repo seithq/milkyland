@@ -1,0 +1,19 @@
+<%= turbo_frame_tag ingredient, class: "table-row hover:bg-gray-50" do %>
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <%= ingredient.material_asset.name %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= ingredient.ratio %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= ingredient.material_asset.measurement.unit %>
+  </div>
+  <% unless @readonly %>
+    <div class="table-cell relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+      <div class="flex justify-end space-x-2">
+        <%= link_to t("actions.edit_record"), edit_group_ingredient_path(@group, ingredient), data: { turbo_frame: "_top" }, class: "text-indigo-600 hover:text-indigo-900" %>
+        <%= link_to t("actions.destroy_record"), group_ingredient_path(@group, ingredient), data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "text-red-600 hover:text-red-500" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -9,7 +9,7 @@
 
       <div>
         <%= form.label :category_id, class: "form-label" %>
-        <%= form.select :category_id, options_from_collection_for_select(Category.material_assets, :id, :name, material_asset.category_id), { include_blank: true }, { required: true, class: "form-select" } %>
+        <%= form.select :category_id, options_from_collection_for_select(Category.combined_assets, :id, :name, material_asset.category_id), { include_blank: true }, { required: true, class: "form-select" } %>
       </div>
 
       <div>

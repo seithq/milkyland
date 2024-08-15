@@ -7,3 +7,13 @@ sugar:
   packing: 1000
   measurement: kilogram
   delivery_time_in_days: 15
+
+water:
+  name: Water
+  category: raw
+  supplier: systemd
+  article: 111
+  entry_price: 10
+  packing: 1
+  measurement: litre
+  delivery_time_in_days: 1

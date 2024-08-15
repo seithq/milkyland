@@ -32,7 +32,11 @@ Rails.application.routes.draw do
     resources :categories, except: :destroy
     resources :measurements, except: :destroy
     resources :material_assets, except: :destroy
-    resources :groups, except: :destroy
+    resources :groups, except: :destroy do
+      scope module: "groups" do
+        resources :ingredients, except: :show
+      end
+    end
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
