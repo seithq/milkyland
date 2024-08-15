@@ -5,6 +5,7 @@ class Group < ApplicationRecord
 
   has_many :ingredients, dependent: :destroy
   has_many :journals, dependent: :destroy
+  has_many :operations, through: :journals
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :metric_tonne, presence: true, numericality: { only_integer: true }

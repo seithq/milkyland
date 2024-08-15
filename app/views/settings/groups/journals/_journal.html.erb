@@ -1,5 +1,5 @@
 <%= tag.div id: dom_id(journal), class: "table-row hover:bg-gray-50" do %>
-  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 <%= "line-through" unless journal.active? %>">
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-semibold text-gray-900 sm:pl-6 <%= "line-through" unless journal.active? %>">
     <%= journal.name %>
   </div>
   <% unless @readonly %>

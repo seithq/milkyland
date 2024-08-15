@@ -1,0 +1,13 @@
+<% content_for(:title) { @operation.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: groups_path, title: t("pages.groups")),
+      NavLink.new(path: edit_group_path(@group), title: @group.name),
+      NavLink.new(path: edit_group_operation_path(@group, @operation), title: @operation.name)
+    ]
+  } %>
+<% end %>
+
+<%= render "form", operation: @operation %>

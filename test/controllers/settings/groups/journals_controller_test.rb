@@ -28,6 +28,14 @@ module Settings
       assert_redirected_to edit_group_path(@group)
     end
 
+    test "create does not allow non-admins to create record" do
+      sign_in :askhat
+      assert_not users(:askhat).admin?
+
+      post group_journals_url(@group), params: { journal: { name: "Boiling" } }
+      assert_response :forbidden
+    end
+
     test "should get edit" do
       sign_in :daniyar
       get edit_group_journal_url(@group, @journal)
@@ -38,6 +46,14 @@ module Settings
       sign_in :daniyar
       patch group_journal_url(@group, @journal), params: { journal: { name: "Cleaning" } }
       assert_redirected_to edit_group_path(@group)
+    end
+
+    test "update does not allow non-admins to change roles" do
+      sign_in :askhat
+      assert_not users(:askhat).admin?
+
+      patch group_journal_url(@group, @journal), params: { journal: { name: "Cleaning" } }
+      assert_response :forbidden
     end
 
     test "should destroy journal" do

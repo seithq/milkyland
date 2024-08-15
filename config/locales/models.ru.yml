@@ -62,3 +62,7 @@ ru:
       journal:
         name: Название
         active: Активная запись
+      operation:
+        journal_id: Журнал операций
+        name: Название
+        active: Активная запись
