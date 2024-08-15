@@ -54,6 +54,7 @@ ru:
         category_id: Категория
         metric_tonne: Кол-во тонн для расчета расхода
         cooking_technology: Технология приготовления
+        recipe_modified_at: Дата рецептуры
       ingredient:
         material_asset_id: Сырье
         ratio: Количество

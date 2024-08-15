@@ -8,6 +8,13 @@
             <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
           </div>
           <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <% unless group.new_record? %>
+              <div class="sm:col-span-4">
+                <%= form.label :recipe_modified_at, class: "form-label" %>
+                <%= form.datetime_field :recipe_modified_at, disabled: true, class: "mt-2 form-input" %>
+              </div>
+            <% end %>
+
             <div class="sm:col-span-4">
               <%= form.label :category_id, class: "form-label" %>
               <%= form.select :category_id, options_from_collection_for_select(Category.end_products, :id, :name, group.category_id), { include_blank: true }, { required: true, class: "mt-2 form-select" } %>

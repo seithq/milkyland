@@ -70,6 +70,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_14_111126) do
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.integer "metric_tonne"
+    t.datetime "recipe_modified_at"
     t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

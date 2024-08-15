@@ -20,6 +20,11 @@
             </div>
             <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
               <div class="sm:col-span-4">
+                <%= form.label :recipe_modified_at, class: "form-label" %>
+                <%= form.datetime_field :recipe_modified_at, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
                 <%= form.label :category_id, class: "form-label" %>
                 <%= form.select :category_id, options_from_collection_for_select(Category.end_products, :id, :name), {}, { disabled: true, class: "mt-2 form-select" } %>
               </div>
@@ -34,12 +39,14 @@
                 <%= form.number_field :metric_tonne, readonly: true, class: "mt-2 form-input" %>
               </div>
 
-              <div class="sm:col-span-full">
-                <%= form.label :cooking_technology, class: "mb-4 form-label" %>
-                <div class="prose max-w-none rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                  <%= @group.cooking_technology %>
+              <% if @group.cooking_technology? %>
+                <div class="sm:col-span-full">
+                  <%= form.label :cooking_technology, class: "mb-4 form-label" %>
+                  <div class="prose max-w-none rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <%= @group.cooking_technology %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
             </div>
           </div>
 

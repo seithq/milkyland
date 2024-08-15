@@ -1,5 +1,5 @@
 class Ingredient < ApplicationRecord
-  belongs_to :group
+  belongs_to :group, touch: :recipe_modified_at
   belongs_to :material_asset
 
   validates_presence_of :ratio
