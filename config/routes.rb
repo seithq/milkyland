@@ -37,6 +37,7 @@ Rails.application.routes.draw do
         resources :ingredients, except: :show
         resources :journals, except: :show
         resources :operations, except: :show
+        resources :fields, except: :show
       end
     end
   end

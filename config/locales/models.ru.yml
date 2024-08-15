@@ -10,6 +10,14 @@ ru:
           end_product: ГП
           material_asset: ТМЦ
           raw_product: Сырье
+      field:
+        kinds:
+          date: Дата
+          time: Время
+          range: От/До
+          binary: Да/Нет
+          measure: Ед.изм
+          collection: Список
     attributes:
       user:
         name: ФИО
@@ -65,4 +73,9 @@ ru:
       operation:
         journal_id: Журнал операций
         name: Название
+        active: Активная запись
+      field:
+        operation_id: Операция журнала
+        name: Наименование поля
+        kind: Формат поля
         active: Активная запись
