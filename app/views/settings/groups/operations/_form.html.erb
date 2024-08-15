@@ -9,7 +9,7 @@
 
       <div>
         <%= form.label :name, class: "form-label" %>
-        <%= form.text_field :name, autocomplete: ":name", disabled: !operation.active?, required: true, class: "form-input" %>
+        <%= form.text_field :name, autocomplete: "name", disabled: !operation.active?, autofocus: true, required: true, class: "form-input" %>
       </div>
 
       <% unless operation.new_record? || operation.active? %>

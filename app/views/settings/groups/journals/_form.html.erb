@@ -4,7 +4,7 @@
     <%= form_with model: [@group, journal], class: "space-y-4" do |form| %>
       <div>
         <%= form.label :name, class: "form-label" %>
-        <%= form.text_field :name, autocomplete: ":name", disabled: !journal.active?, required: true, class: "form-input" %>
+        <%= form.text_field :name, autocomplete: "name", disabled: !journal.active?, autofocus: true, required: true, class: "form-input" %>
       </div>
 
       <% unless journal.new_record? || journal.active? %>

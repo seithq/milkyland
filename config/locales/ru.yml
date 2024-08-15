@@ -22,6 +22,7 @@ ru:
     journals: "Журнал операций"
     operations: "Операции журнала"
     fields: "Поля операций журнала"
+    standards: "Нормы производства"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -77,6 +78,9 @@ ru:
       journal: "Журнал операций"
       field_name: "Наименование поля"
       field_kind: "Формат поля"
+      metric: "Показатель"
+      standard_from: "Норма от"
+      standard_to: "Норма до"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -86,6 +90,7 @@ ru:
     documents: "Документы"
     main_info: "Основная информация"
     recipe: "Рецептура"
+    standards: "Нормы производства"
     journal: "Журнал операций"
     operations: "Операции журнала"
     fields: "Поля операций журнала"

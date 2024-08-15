@@ -65,6 +65,19 @@
 
           <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
             <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.standards") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-full">
+                <%= turbo_frame_tag dom_id(@group, :standards), src: group_standards_path(@group, readonly: true) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
               <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.journal") %></h2>
             </div>
             <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">

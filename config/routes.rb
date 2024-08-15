@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     resources :groups, except: :destroy do
       scope module: "groups" do
         resources :ingredients, except: :show
+        resources :standards, except: :show
         resources :journals, except: :show
         resources :operations, except: :show
         resources :fields, except: :show

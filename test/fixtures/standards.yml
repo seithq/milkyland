@@ -1,0 +1,15 @@
+acidity:
+  group: milk25
+  measurement: kilogram
+  name: Acidity
+  from: 14
+  to: 130
+  active: true
+
+density:
+  group: milk25
+  measurement: kilogram
+  name: Density
+  from: 0
+  to: 100
+  active: true
