@@ -4,13 +4,25 @@
     <%= form_with model: [@group, ingredient], class: "space-y-4" do |form| %>
       <div>
         <%= form.label :material_asset_id, class: "form-label" %>
-        <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.raw_products, :id, :display_label, ingredient.material_asset_id), { include_blank: true }, { disabled: action_name == "edit", required: true, class: "form-select" } %>
+        <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.raw_products, :id, :display_label, ingredient.material_asset_id), { include_blank: true }, { disabled: action_name == "edit" || !ingredient.active?, required: true, class: "form-select" } %>
       </div>
 
       <div>
         <%= form.label :ratio, class: "form-label" %>
-        <%= form.number_field :ratio, autocomplete: "ratio", required: true, class: "form-input", step: ".001" %>
+        <%= form.number_field :ratio, autocomplete: "ratio", disabled: !ingredient.active?, required: true, class: "form-input", step: ".001" %>
       </div>
+
+      <% unless ingredient.new_record? || ingredient.active? %>
+        <div class="relative flex gap-x-3">
+          <div class="flex h-6 items-center">
+            <%= form.check_box :active, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+          </div>
+          <div class="text-sm leading-6">
+            <%= form.label :active, class: "font-medium text-gray-900" %>
+            <p class="text-gray-500"><%= t("forms.inactive_field") %></p>
+          </div>
+        </div>
+      <% end %>
 
       <%= form.submit t("actions.save_record"), class: "btn" %>
     <% end %>

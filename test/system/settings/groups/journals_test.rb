@@ -1,38 +1,36 @@
 require "application_system_test_case"
 
 module Settings
-  class Groups::IngredientsTest < ApplicationSystemTestCase
+  class Groups::JournalsTest < ApplicationSystemTestCase
     setup do
       @group = groups(:milk25)
       sign_in "daniyar@hey.com"
     end
 
-    test "should create ingredient" do
+    test "should create journal" do
       visit edit_group_path(@group)
-      find(".new_ingredient").click
+      find(".new_journal").click
 
-      select material_assets(:water).display_label, from: "ingredient_material_asset_id"
-      fill_in "ingredient_ratio", with: "100"
+      fill_in "journal_name", with: "Cleaning"
       click_on I18n.t("actions.save_record")
 
       assert_text I18n.t("actions.record_created")
     end
 
-    test "should update Ingredient" do
+    test "should update Journal" do
       visit edit_group_path(@group)
-      find(".edit_ingredient", match: :first).click
+      find(".edit_journal", match: :first).click
 
-      fill_in "ingredient_ratio", with: "100"
+      fill_in "journal_name", with: "Cleaning"
       click_on I18n.t("actions.save_record")
 
       assert_text I18n.t("actions.record_updated")
     end
 
-    test "should destroy Ingredient" do
+    test "should destroy Journal" do
       visit edit_group_path(@group)
-
       accept_alert do
-        find(".destroy_ingredient", match: :first).click
+        find(".destroy_journal", match: :first).click
       end
 
       assert_text I18n.t("actions.record_deleted")

@@ -19,6 +19,7 @@ ru:
     material_assets: "Номенклатура ТМЦ"
     groups: "Группа ГП"
     ingredients: "Рецептура"
+    journals: "Журнал операций"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -80,3 +81,5 @@ ru:
     documents: "Документы"
     main_info: "Основная информация"
     recipe: "Рецептура"
+    journal: "Журнал операций"
+    inactive_field: "Данная запись была удалена, чтобы активировать снова отметьте галочкой и сохраните."

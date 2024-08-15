@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_14_111126) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_15_111317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_14_111126) do
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_ingredients_on_group_id"
     t.index ["material_asset_id"], name: "index_ingredients_on_material_asset_id"
+  end
+
+  create_table "journals", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.string "name"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id", "name"], name: "index_journals_on_group_id_and_name", unique: true
+    t.index ["group_id"], name: "index_journals_on_group_id"
   end
 
   create_table "material_assets", force: :cascade do |t|
@@ -282,6 +292,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_14_111126) do
   add_foreign_key "groups", "categories"
   add_foreign_key "ingredients", "groups"
   add_foreign_key "ingredients", "material_assets"
+  add_foreign_key "journals", "groups"
   add_foreign_key "material_assets", "categories"
   add_foreign_key "material_assets", "measurements"
   add_foreign_key "material_assets", "suppliers"

@@ -58,3 +58,7 @@ ru:
       ingredient:
         material_asset_id: Сырье
         ratio: Количество
+        active: Активная запись
+      journal:
+        name: Название
+        active: Активная запись
