@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_15_160401) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_15_200343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -116,7 +116,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_15_160401) do
     t.bigint "supplier_id", null: false
     t.string "article"
     t.decimal "entry_price", precision: 20, scale: 2
-    t.string "packing"
+    t.decimal "packing", precision: 20, scale: 2
     t.bigint "measurement_id", null: false
     t.integer "delivery_time_in_days"
     t.datetime "created_at", null: false
