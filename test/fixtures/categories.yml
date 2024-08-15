@@ -4,4 +4,8 @@ milk:
 
 raw:
   name: Raw
+  kind: raw_product
+
+tetro:
+  name: Tetro
   kind: material_asset

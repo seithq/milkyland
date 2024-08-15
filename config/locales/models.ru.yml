@@ -9,6 +9,7 @@ ru:
         kinds:
           end_product: ГП
           material_asset: ТМЦ
+          raw_product: Сырье
     attributes:
       user:
         name: ФИО
@@ -52,3 +53,8 @@ ru:
         name: Название
         category_id: Категория
         metric_tonne: Кол-во тонн для расчета расхода
+        cooking_technology: Технология приготовления
+        recipe_modified_at: Дата рецептуры
+      ingredient:
+        material_asset_id: Сырье
+        ratio: Количество

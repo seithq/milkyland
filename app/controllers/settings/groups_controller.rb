@@ -48,6 +48,6 @@ class Settings::GroupsController < ApplicationController
     end
 
     def group_params
-      params.require(:group).permit(:name, :metric_tonne, :category_id)
+      params.require(:group).permit(:name, :metric_tonne, :category_id, :cooking_technology)
     end
 end

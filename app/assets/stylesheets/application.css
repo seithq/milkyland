@@ -7,6 +7,14 @@
     block-size: 50dvh;
 }
 
+.trix-content ul {
+    list-style: disc inside;
+}
+
+.trix-content ol {
+    list-style: decimal inside;
+}
+
 :is(.dialog) {
     --backdrop-speed: 150ms;
     --panel-size: max-content;

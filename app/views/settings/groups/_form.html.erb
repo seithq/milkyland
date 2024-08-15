@@ -1,23 +1,60 @@
 <div class="flex flex-col justify-center px-6 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+  <div class="sm:mx-auto sm:w-full">
     <%= render "layouts/error_messages", resource: group %>
-    <%= form_with model: group, class: "space-y-4" do |form| %>
-      <div>
-        <%= form.label :category_id, class: "form-label" %>
-        <%= form.select :category_id, options_from_collection_for_select(Category.end_products, :id, :name, group.category_id), { include_blank: true }, { required: true, class: "form-select" } %>
-      </div>
+    <%= form_with model: group do |form| %>
+      <div class="space-y-12">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <% unless group.new_record? %>
+              <div class="sm:col-span-4">
+                <%= form.label :recipe_modified_at, class: "form-label" %>
+                <%= form.datetime_field :recipe_modified_at, disabled: true, class: "mt-2 form-input" %>
+              </div>
+            <% end %>
 
-      <div>
-        <%= form.label :name, class: "form-label" %>
-        <%= form.text_field :name, autocomplete: "name", autofocus: true, required: true, class: "form-input" %>
-      </div>
+            <div class="sm:col-span-4">
+              <%= form.label :category_id, class: "form-label" %>
+              <%= form.select :category_id, options_from_collection_for_select(Category.end_products, :id, :name, group.category_id), { include_blank: true }, { required: true, class: "mt-2 form-select" } %>
+            </div>
 
-      <div>
-        <%= form.label :metric_tonne, class: "form-label" %>
-        <%= form.number_field :metric_tonne, autocomplete: "metric-tonne", required: true, class: "form-input" %>
-      </div>
+            <div class="sm:col-span-4">
+              <%= form.label :name, class: "form-label" %>
+              <%= form.text_field :name, autocomplete: "name", autofocus: true, required: true, class: "mt-2 form-input" %>
+            </div>
 
-      <%= form.submit t("actions.save_record"), class: "btn" %>
+            <div class="sm:col-span-4">
+              <%= form.label :metric_tonne, class: "form-label" %>
+              <%= form.number_field :metric_tonne, autocomplete: "metric-tonne", required: true, class: "mt-2 form-input" %>
+            </div>
+
+            <div class="sm:col-span-full">
+              <%= form.label :cooking_technology, class: "mb-4 form-label" %>
+              <%= form.rich_text_area :cooking_technology, class: "prose max-w-none py-1.5 rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+            </div>
+          </div>
+        </div>
+
+        <% unless group.new_record? %>
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.recipe") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-full">
+                <%= turbo_frame_tag dom_id(group, :ingredients), src: group_ingredients_path(group) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="mt-6 flex items-center justify-end gap-x-6">
+        <%= form.submit t("actions.save_record"), class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+      </div>
     <% end %>
   </div>
 </div>
