@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_15_144602) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_15_160401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -277,6 +277,20 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_15_144602) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "standards", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "measurement_id", null: false
+    t.string "name"
+    t.integer "from"
+    t.integer "to"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id", "name"], name: "index_standards_on_group_id_and_name", unique: true
+    t.index ["group_id"], name: "index_standards_on_group_id"
+    t.index ["measurement_id"], name: "index_standards_on_measurement_id"
+  end
+
   create_table "suppliers", force: :cascade do |t|
     t.string "name"
     t.string "bin"
@@ -326,5 +340,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_15_144602) do
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "standards", "groups"
+  add_foreign_key "standards", "measurements"
   add_foreign_key "suppliers", "users", column: "manager_id"
 end
