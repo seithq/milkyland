@@ -20,6 +20,7 @@ ru:
     groups: "Группа ГП"
     ingredients: "Рецептура"
     journals: "Журнал операций"
+    operations: "Операции журнала"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -72,6 +73,7 @@ ru:
       delivery_time_in_days: "Срок поставки"
       raw_product: "Сырье"
       ratio: "Количество"
+      journal: "Журнал операций"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -82,4 +84,5 @@ ru:
     main_info: "Основная информация"
     recipe: "Рецептура"
     journal: "Журнал операций"
+    operations: "Операции журнала"
     inactive_field: "Данная запись была удалена, чтобы активировать снова отметьте галочкой и сохраните."

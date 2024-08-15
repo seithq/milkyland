@@ -1,0 +1,30 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= render "layouts/error_messages", resource: operation %>
+    <%= form_with model: [@group, operation], class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :journal_id, class: "form-label" %>
+        <%= form.select :journal_id, options_from_collection_for_select(@group.journals, :id, :name, operation.journal_id), { include_blank: true }, { disabled: !operation.active?, required: true, class: "form-select" } %>
+      </div>
+
+      <div>
+        <%= form.label :name, class: "form-label" %>
+        <%= form.text_field :name, autocomplete: ":name", disabled: !operation.active?, required: true, class: "form-input" %>
+      </div>
+
+      <% unless operation.new_record? || operation.active? %>
+        <div class="relative flex gap-x-3">
+          <div class="flex h-6 items-center">
+            <%= form.check_box :active, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+          </div>
+          <div class="text-sm leading-6">
+            <%= form.label :active, class: "font-medium text-gray-900" %>
+            <p class="text-gray-500"><%= t("forms.inactive_field") %></p>
+          </div>
+        </div>
+      <% end %>
+
+      <%= form.submit t("actions.save_record"), class: "btn" %>
+    <% end %>
+  </div>
+</div>

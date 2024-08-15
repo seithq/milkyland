@@ -4,7 +4,7 @@
     <%= form_with model: [@group, ingredient], class: "space-y-4" do |form| %>
       <div>
         <%= form.label :material_asset_id, class: "form-label" %>
-        <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.raw_products, :id, :display_label, ingredient.material_asset_id), { include_blank: true }, { disabled: action_name == "edit" || !ingredient.active?, required: true, class: "form-select" } %>
+        <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.raw_products, :id, :display_label, ingredient.material_asset_id), { include_blank: true }, { disabled: !ingredient.active?, required: true, class: "form-select" } %>
       </div>
 
       <div>
