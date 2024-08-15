@@ -1,0 +1,24 @@
+<%= tag.div id: dom_id(field), class: "table-row hover:bg-gray-50" do %>
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
+    <div class="flex flex-col space-y-2">
+      <span class="font-semibold text-gray-900 <%= "line-through" unless field.operation.active? %>"><%= field.operation.name %></span>
+      <span class="font-medium text-gray-600 <%= "line-through" unless field.operation.journal.active? %>"><%= field.operation.journal.name %></span>
+    </div>
+  </div>
+  <div class="table-cell px-3 py-3.5 text-left text-sm font-medium text-gray-900 <%= "line-through" unless field.active? %>">
+    <%= field.name %>
+  </div>
+  <div class="table-cell px-3 py-3.5 text-left text-sm font-medium text-gray-900">
+    <%= Field.enum_to_s(:kind, field.kind) %>
+  </div>
+  <% unless @readonly %>
+    <div class="table-cell relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+      <div class="flex justify-end space-x-2">
+        <%= link_to t("actions.edit_record"), edit_group_field_path(@group, field), data: { turbo_frame: "_top" }, class: "edit_field text-indigo-600 hover:text-indigo-900" %>
+        <% if field.active? %>
+          <%= link_to t("actions.destroy_record"), group_field_path(@group, field), data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "destroy_field text-red-600 hover:text-red-500" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

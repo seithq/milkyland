@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_15_133852) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_15_144602) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,6 +65,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_15_133852) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
+  create_table "fields", force: :cascade do |t|
+    t.bigint "operation_id", null: false
+    t.string "name"
+    t.string "kind"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["operation_id", "name"], name: "index_fields_on_operation_id_and_name", unique: true
+    t.index ["operation_id"], name: "index_fields_on_operation_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -299,6 +310,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_15_133852) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "fields", "operations"
   add_foreign_key "groups", "categories"
   add_foreign_key "ingredients", "groups"
   add_foreign_key "ingredients", "material_assets"
