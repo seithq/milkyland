@@ -1,26 +1,26 @@
 module Settings
-  class Groups::IngredientsController < ApplicationController
+  class Groups::JournalsController < ApplicationController
     include GroupScoped, ReadModes
 
     before_action :ensure_can_administer, only: %i[ create update destroy ]
-    before_action :set_ingredient, only: %i[ edit update destroy ]
+    before_action :set_journal, only: %i[ edit update destroy ]
     before_action :set_read_mode, only: :index
 
     def index
-      @ingredients = base_scope.recent_first
+      @journals = base_scope.recent_first
     end
 
     def new
-      @ingredient = base_scope.new
+      @journal = base_scope.new
     end
 
     def edit
     end
 
     def create
-      @ingredient = base_scope.new(ingredient_params)
+      @journal = base_scope.new(journal_params)
 
-      if @ingredient.save
+      if @journal.save
         redirect_on_create edit_group_path(@group)
       else
         render :new, status: :unprocessable_entity
@@ -28,7 +28,7 @@ module Settings
     end
 
     def update
-      if @ingredient.update(ingredient_params)
+      if @journal.update(journal_params)
         redirect_on_update edit_group_path(@group)
       else
         render :edit, status: :unprocessable_entity
@@ -36,26 +36,26 @@ module Settings
     end
 
     def destroy
-      @ingredient.deactivate
+      @journal.deactivate
 
       redirect_on_destroy edit_group_path(@group)
     end
 
     private
       def base_scope
-        @group.ingredients
+        @group.journals
       end
 
       def search_methods
         []
       end
 
-      def set_ingredient
-        @ingredient = base_scope.find(params[:id])
+      def set_journal
+        @journal = base_scope.find(params[:id])
       end
 
-      def ingredient_params
-        params.require(:ingredient).permit(:material_asset_id, :ratio, :active)
+      def journal_params
+        params.require(:journal).permit(:name, :active)
       end
   end
 end
