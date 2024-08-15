@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :suppliers, except: :destroy
     resources :categories, except: :destroy
     resources :measurements, except: :destroy
+    resources :products, except: :destroy
     resources :material_assets, except: :destroy
     resources :groups, except: :destroy do
       scope module: "groups" do

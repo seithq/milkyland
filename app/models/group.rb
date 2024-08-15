@@ -3,6 +3,7 @@ class Group < ApplicationRecord
 
   has_rich_text :cooking_technology
 
+  has_many :products, dependent: :destroy
   has_many :ingredients, dependent: :destroy
   has_many :journals, dependent: :destroy
   has_many :operations, through: :journals

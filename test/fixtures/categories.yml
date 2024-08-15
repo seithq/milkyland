@@ -6,6 +6,10 @@ raw:
   name: Raw
   kind: raw_product
 
-tetro:
-  name: Tetro
+pallet:
+  name: Pallet
   kind: material_asset
+
+glass:
+  name: Glass
+  kind: packing

@@ -86,3 +86,14 @@ ru:
         from: Норма от
         to: Норма до
         active: Активная запись
+      product:
+        name: Название
+        group_id: Группа ГП
+        article: Артикул / SKU
+        packing: Фасовка
+        measurement_id: Единица измерения
+        expiration_in_days: Срок годности (в днях)
+        storage_conditions: Условия хранения
+        box_capacity: Количество в коробке
+        fat_fraction: Массовая доля жира (в процентах)
+        material_asset_id: Вид упаковки

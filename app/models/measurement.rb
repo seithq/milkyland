@@ -1,4 +1,5 @@
 class Measurement < ApplicationRecord
+  has_many :products, dependent: :destroy
   has_many :material_assets, dependent: :destroy
   has_many :standards, dependent: :destroy
 

@@ -1,0 +1,83 @@
+<% content_for(:title) { @product.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: products_path, title: t("pages.products")),
+      NavLink.new(path: product_path(@product), title: @product.name),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= fields_for @product do |form| %>
+      <div>
+        <div class="space-y-12">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :group_id, class: "form-label" %>
+                <%= form.select :group_id, options_from_collection_for_select(Group.all, :id, :name, @product.group_id), {}, { disabled: true, class: "mt-2 form-select" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :name, class: "form-label" %>
+                <%= form.text_field :name, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :article, class: "form-label" %>
+                <%= form.text_field :article, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :fat_fraction, class: "form-label" %>
+                <%= form.number_field :fat_fraction, disabled: true, class: "mt-2 form-input", step: ".01" %>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.packing_and_storing") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :packing, class: "form-label" %>
+                <%= form.number_field :packing, disabled: true, class: "mt-2 form-input", step: ".01" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :measurement_id, class: "form-label" %>
+                <%= form.select :measurement_id, options_from_collection_for_select(Measurement.all, :id, :display_label, @product.measurement_id), {}, { disabled: true, class: "mt-2 form-select" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :expiration_in_days, class: "form-label" %>
+                <%= form.number_field :expiration_in_days, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :storage_conditions, class: "form-label" %>
+                <%= form.text_field :storage_conditions, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :box_capacity, class: "form-label" %>
+                <%= form.number_field :box_capacity, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :material_asset_id, class: "form-label" %>
+                <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.packings, :id, :name, @product.material_asset_id), {}, { disabled: true, class: "mt-2 form-select" } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
