@@ -17,3 +17,13 @@ water:
   packing: 1
   measurement: litre
   delivery_time_in_days: 1
+
+bottle:
+  name: Bottle
+  category: glass
+  supplier: systemd
+  article: 222
+  entry_price: 100
+  packing: 6
+  measurement: piece
+  delivery_time_in_days: 5

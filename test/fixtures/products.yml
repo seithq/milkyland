@@ -1,0 +1,11 @@
+milk25:
+  group: milk25
+  name: Milk 2.5% 1L
+  article: ML25-1
+  packing: 1
+  measurement: litre
+  expiration_in_days: 3
+  storage_conditions: 3-10 celsius
+  box_capacity: 6
+  fat_fraction: 2.5
+  material_asset: bottle

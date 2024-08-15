@@ -5,3 +5,7 @@ litre:
 kilogram:
   name: Kilogram
   unit: kg
+
+piece:
+  name: Piece
+  unit: pc

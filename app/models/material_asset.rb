@@ -4,11 +4,13 @@ class MaterialAsset < ApplicationRecord
   belongs_to :measurement
 
   has_many :ingredients, dependent: :destroy
+  has_many :products, dependent: :destroy
 
   validates :article, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true, uniqueness: { scope: :supplier, case_sensitive: false }
 
-  scope :raw_products, ->() { joins(:category).where(categories: { kind: :raw_product }) }
+  scope :raw_products, ->() { joins(:category).merge(Category.raw_products) }
+  scope :packings, ->() { joins(:category).merge(Category.packings) }
 
   def display_label
     "#{ name } (#{ measurement.unit })"
