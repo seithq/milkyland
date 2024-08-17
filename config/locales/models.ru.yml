@@ -97,3 +97,8 @@ ru:
         box_capacity: Количество в коробке
         fat_fraction: Массовая доля жира (в процентах)
         material_asset_id: Вид упаковки
+      price:
+        product_id: Номенклатура ГП
+        sales_channel_id: Канал сбыта
+        value: Цена
+        active: Активная запись

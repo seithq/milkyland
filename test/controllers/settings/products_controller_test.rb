@@ -32,7 +32,7 @@ class Settings::ProductsControllerTest < ActionDispatch::IntegrationTest
                                               storage_conditions: @product.storage_conditions } }
     end
 
-    assert_redirected_to products_url
+    assert_redirected_to edit_product_url(Product.last)
   end
 
   test "should show product" do

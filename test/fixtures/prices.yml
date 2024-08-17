@@ -1,0 +1,9 @@
+milk25_b2c:
+  product: milk25
+  sales_channel: b2c
+  value: 1000
+
+milk25_b2b:
+  product: milk25
+  sales_channel: b2b
+  value: 900

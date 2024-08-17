@@ -25,7 +25,7 @@
 
             <div class="sm:col-span-4">
               <%= form.label :fat_fraction, class: "form-label" %>
-              <%= form.number_field :fat_fraction, autocomplete: "fat-fraction", required: true, class: "mt-2 form-input", step: ".01" %>
+              <%= form.number_field :fat_fraction, autocomplete: "fat-fraction", required: true, class: "mt-2 form-input", step: ".1" %>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@
           <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
             <div class="sm:col-span-4">
               <%= form.label :packing, class: "form-label" %>
-              <%= form.number_field :packing, autocomplete: "packing", required: true, class: "mt-2 form-input", step: ".01" %>
+              <%= form.number_field :packing, autocomplete: "packing", required: true, class: "mt-2 form-input", step: ".1" %>
             </div>
 
             <div class="sm:col-span-4">
@@ -63,6 +63,25 @@
               <%= form.label :material_asset_id, class: "form-label" %>
               <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.packings, :id, :name, product.material_asset_id), { include_blank: true }, { required: true, class: "mt-2 form-select" } %>
             </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.prices") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <% if product.new_record? %>
+              <div class="sm:col-span-4">
+                <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
+              </div>
+            <% else %>
+              <div class="sm:col-span-full">
+                <%= turbo_frame_tag dom_id(product, :prices), src: product_prices_path(product) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>

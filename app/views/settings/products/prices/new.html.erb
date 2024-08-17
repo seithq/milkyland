@@ -1,0 +1,13 @@
+<% content_for(:title) { t("pages.prices") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: products_path, title: t("pages.products")),
+      NavLink.new(path: edit_product_path(@product), title: @product.name),
+      NavLink.new(path: new_product_price_path(@product), title: t("pages.prices"))
+    ]
+  } %>
+<% end %>
+
+<%= render "form", price: @price %>
