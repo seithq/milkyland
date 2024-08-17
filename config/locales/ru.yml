@@ -24,6 +24,7 @@ ru:
     operations: "Операции журнала"
     fields: "Поля операций журнала"
     standards: "Нормы производства"
+    prices: "Цены по каналам сбыта"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -87,6 +88,8 @@ ru:
       packing_type: "Вид упаковки"
       fat_fraction: "Жирность"
       box_capacity: "Кол-во в коробке"
+      sales_channel: "Канал сбыта"
+      price: "Цена"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -102,3 +105,5 @@ ru:
     fields: "Поля операций журнала"
     inactive_field: "Данная запись была удалена, чтобы активировать снова отметьте галочкой и сохраните."
     packing_and_storing: "Упаковка и хранение"
+    prices: "Цены по каналам сбыта"
+    save_parent_record: "Доступно после сохранения записи."

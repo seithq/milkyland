@@ -20,7 +20,7 @@ class Settings::ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      redirect_on_create products_url
+      redirect_on_create edit_product_url(@product)
     else
       render :new, status: :unprocessable_entity
     end

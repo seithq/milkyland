@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_15_201602) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_17_144653) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -144,6 +144,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_15_201602) do
     t.datetime "updated_at", null: false
     t.index ["journal_id", "name"], name: "index_operations_on_journal_id_and_name", unique: true
     t.index ["journal_id"], name: "index_operations_on_journal_id"
+  end
+
+  create_table "prices", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "sales_channel_id", null: false
+    t.decimal "value", precision: 20, scale: 2
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id", "sales_channel_id"], name: "index_prices_on_product_id_and_sales_channel_id", unique: true
+    t.index ["product_id"], name: "index_prices_on_product_id"
+    t.index ["sales_channel_id"], name: "index_prices_on_sales_channel_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -353,6 +365,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_15_201602) do
   add_foreign_key "material_assets", "measurements"
   add_foreign_key "material_assets", "suppliers"
   add_foreign_key "operations", "journals"
+  add_foreign_key "prices", "products"
+  add_foreign_key "prices", "sales_channels"
   add_foreign_key "products", "groups"
   add_foreign_key "products", "material_assets"
   add_foreign_key "products", "measurements"

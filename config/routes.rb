@@ -31,7 +31,6 @@ Rails.application.routes.draw do
     resources :suppliers, except: :destroy
     resources :categories, except: :destroy
     resources :measurements, except: :destroy
-    resources :products, except: :destroy
     resources :material_assets, except: :destroy
     resources :groups, except: :destroy do
       scope module: "groups" do
@@ -40,6 +39,11 @@ Rails.application.routes.draw do
         resources :journals, except: :show
         resources :operations, except: :show
         resources :fields, except: :show
+      end
+    end
+    resources :products, except: :destroy do
+      scope module: "products" do
+        resources :prices, except: :show
       end
     end
   end
