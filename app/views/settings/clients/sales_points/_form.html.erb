@@ -1,0 +1,36 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= render "layouts/error_messages", resource: sales_point %>
+    <%= form_with model: [@client, sales_point], class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :name, class: "form-label" %>
+        <%= form.text_field :name, autocomplete: "name", disabled: !sales_point.active?, required: true, class: "form-input" %>
+      </div>
+
+      <div>
+        <%= form.label :address, class: "form-label" %>
+        <%= form.text_area :address, autocomplete: "address", disabled: !sales_point.active?, required: true, rows: 3, class: "form-area" %>
+      </div>
+
+      <div>
+        <%= form.label :phone_number, class: "form-label" %>
+        <%= form.phone_field :phone_number, autocomplete: "phone-number", class: "form-input", pattern: '\+[0-9]+[0-9]{3}[0-9]{7}' %>
+        <p class="mt-3 text-sm leading-6 text-gray-600"><%= t("forms.phone_number_hint") %></p>
+      </div>
+
+      <% unless sales_point.new_record? || sales_point.active? %>
+        <div class="relative flex gap-x-3">
+          <div class="flex h-6 items-center">
+            <%= form.check_box :active, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+          </div>
+          <div class="text-sm leading-6">
+            <%= form.label :active, class: "font-medium text-gray-900" %>
+            <p class="text-gray-500"><%= t("forms.inactive_field") %></p>
+          </div>
+        </div>
+      <% end %>
+
+      <%= form.submit t("actions.save_record"), class: "btn" %>
+    <% end %>
+  </div>
+</div>

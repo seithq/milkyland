@@ -1,0 +1,117 @@
+<% content_for(:title) { @client.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: clients_path, title: t("pages.clients")),
+      NavLink.new(path: client_path(@client), title: @client.name),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= fields_for @client do |form| %>
+      <div>
+        <div class="space-y-12">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.profile") %></h2>
+              <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.profile_extra") %></p>
+            </div>
+
+            <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :manager_id, class: "form-label" %>
+                <%= form.select :manager_id, options_from_collection_for_select(User.managers, :id, :name, @client.manager_id), {}, { disabled: true, class: "mt-2 form-select" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :name, class: "form-label" %>
+                <%= form.text_field :name, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :bin, class: "form-label" %>
+                <%= form.text_field :bin, readonly: true, class: "mt-2 form-input", max: 12 %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :contact_person, class: "form-label" %>
+                <%= form.text_field :contact_person, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :job_title, class: "form-label" %>
+                <%= form.text_field :job_title, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :phone_number, class: "form-label" %>
+                <%= form.phone_field :phone_number, readonly: true, class: "mt-2 form-input", pattern: '\+[0-9]+[0-9]{3}[0-9]{7}' %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :email_address, class: "form-label" %>
+                <%= form.email_field :email_address, readonly: true, class: "mt-2 form-input" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.bank_details") %></h2>
+              <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.bank_details_extra") %></p>
+            </div>
+
+            <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :entity_code, class: "form-label" %>
+                <%= form.text_field :entity_code, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :bank_name, class: "form-label" %>
+                <%= form.text_field :bank_name, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :bank_account, class: "form-label" %>
+                <%= form.text_field :bank_account, readonly: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :bank_code, class: "form-label" %>
+                <%= form.text_field :bank_code, readonly: true, class: "mt-2 form-input" %>
+              </div>
+            </div>
+          </div>
+
+          <% if @client.uploads.attached? %>
+            <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+              <div>
+                <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.documents") %></h2>
+              </div>
+              <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 md:col-span-2">
+                <%= render "uploads", client: @client, editable: false %>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.sales_points") %></h2>
+            </div>
+            <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-full">
+                <%= turbo_frame_tag dom_id(@client, :sales_points), src: client_sales_points_path(@client, readonly: true) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

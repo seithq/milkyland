@@ -46,6 +46,11 @@ Rails.application.routes.draw do
         resources :prices, except: :show
       end
     end
+    resources :clients, except: :destroy do
+      scope module: "clients" do
+        resources :sales_points, except: :show
+      end
+    end
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

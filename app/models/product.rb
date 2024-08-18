@@ -8,4 +8,9 @@ class Product < ApplicationRecord
   validates :name, :article, presence: true, uniqueness: { case_sensitive: false }
   validates_presence_of :packing, :expiration_in_days, :fat_fraction
   validates_numericality_of :fat_fraction, in: 0.0..100.0
+
+  def price(by:)
+    channel = prices.find_by(sales_channel_id: by)
+    channel ? channel.value : 0.0
+  end
 end

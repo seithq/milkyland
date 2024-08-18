@@ -13,7 +13,7 @@ ru:
     channels: "Каналы сбыта"
     contragents: "Контрагенты"
     suppliers: "Поставщики"
-    clients: "Заказщики"
+    clients: "Заказчики"
     categories: "Категории"
     measurements: "Единицы измерения"
     products: "Номенклатура ГП"
@@ -25,6 +25,7 @@ ru:
     fields: "Поля операций журнала"
     standards: "Нормы производства"
     prices: "Цены по каналам сбыта"
+    sales_points: "Точки продаж"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -40,6 +41,7 @@ ru:
     save_record: "Сохранить"
     destroy_record: "Удалить"
     search_by_name_or_email: "Поиск по имени или электронному адресу"
+    search_by_name_or_bin: "Поиск по названию или БИН компании"
     have_account: "Есть аккаунт?"
     remove_account: "Удалить аккаунт?"
     confirm: "Подтвердить действие?"
@@ -62,6 +64,7 @@ ru:
       title: "Название"
       email_address: "Электронная почта"
       phone_number: "Номер телефона"
+      address: "Адрес"
       contact_person: "Контактное лицо"
       status: "Статус"
       role: "Роль"
@@ -106,4 +109,5 @@ ru:
     inactive_field: "Данная запись была удалена, чтобы активировать снова отметьте галочкой и сохраните."
     packing_and_storing: "Упаковка и хранение"
     prices: "Цены по каналам сбыта"
+    sales_points: "Точки продаж"
     save_parent_record: "Доступно после сохранения записи."

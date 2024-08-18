@@ -43,6 +43,18 @@ ru:
         bank_account: ИИК или IBAN
         bank_code: БИК или SWIFT
         manager_id: Менеджер
+      client:
+        name: Название
+        bin: БИН
+        contact_person: Контактное лицо
+        job_title: Должность
+        phone_number: Номер телефона
+        email_address: Электронная почта
+        entity_code: КБК
+        bank_name: Банк
+        bank_account: ИИК или IBAN
+        bank_code: БИК или SWIFT
+        manager_id: Менеджер
       category:
         name: Название
         kind: Тип
@@ -101,4 +113,9 @@ ru:
         product_id: Номенклатура ГП
         sales_channel_id: Канал сбыта
         value: Цена
+        active: Активная запись
+      sales_point:
+        name: Название точки
+        address: Адрес
+        phone_number: Телефон
         active: Активная запись

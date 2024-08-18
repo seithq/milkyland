@@ -26,7 +26,7 @@ module Settings
         post product_prices_url(@product), params: { price: { sales_channel_id: channel.id, value: "750" } }
       end
 
-      assert_redirected_to edit_product_path(@product)
+      assert_redirected_to edit_product_url(@product)
     end
 
     test "create does not allow non-admins to create record" do
@@ -47,7 +47,7 @@ module Settings
     test "should update price" do
       sign_in :daniyar
       patch product_price_url(@product, @price), params: { price: { value: "800" } }
-      assert_redirected_to edit_product_path(@product)
+      assert_redirected_to edit_product_url(@product)
     end
 
     test "update does not allow non-admins to change roles" do
@@ -64,7 +64,7 @@ module Settings
         delete product_price_url(@product, @price)
       end
 
-      assert_redirected_to edit_product_path(@product)
+      assert_redirected_to edit_product_url(@product)
     end
   end
 end
