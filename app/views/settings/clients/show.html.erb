@@ -97,6 +97,19 @@
               </div>
             </div>
           <% end %>
+
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.sales_points") %></h2>
+            </div>
+            <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-full">
+                <%= turbo_frame_tag dom_id(@client, :sales_points), src: client_sales_points_path(@client, readonly: true) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     <% end %>

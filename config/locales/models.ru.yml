@@ -114,3 +114,8 @@ ru:
         sales_channel_id: Канал сбыта
         value: Цена
         active: Активная запись
+      sales_point:
+        name: Название точки
+        address: Адрес
+        phone_number: Телефон
+        active: Активная запись

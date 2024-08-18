@@ -28,7 +28,6 @@ Rails.application.routes.draw do
   scope module: "settings" do
     resources :regions, except: :destroy
     resources :sales_channels, except: :destroy
-    resources :clients, except: :destroy
     resources :suppliers, except: :destroy
     resources :categories, except: :destroy
     resources :measurements, except: :destroy
@@ -45,6 +44,11 @@ Rails.application.routes.draw do
     resources :products, except: :destroy do
       scope module: "products" do
         resources :prices, except: :show
+      end
+    end
+    resources :clients, except: :destroy do
+      scope module: "clients" do
+        resources :sales_points, except: :show
       end
     end
   end

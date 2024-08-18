@@ -10,7 +10,7 @@ module Settings
     test "should create price" do
       channel = SalesChannel.create!(name: "Test")
 
-      visit edit_product_path(@product)
+      visit edit_product_url(@product)
       find(".new_price").click
 
       select channel.name, from: "price_sales_channel_id"
@@ -21,7 +21,7 @@ module Settings
     end
 
     test "should update Price" do
-      visit edit_product_path(@product)
+      visit edit_product_url(@product)
       find(".edit_price", match: :first).click
 
       fill_in "price_value", with: "1000"
@@ -31,7 +31,7 @@ module Settings
     end
 
     test "should destroy Price" do
-      visit edit_product_path(@product)
+      visit edit_product_url(@product)
 
       accept_alert do
         find(".destroy_price", match: :first).click

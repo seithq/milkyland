@@ -1,0 +1,13 @@
+<% content_for(:title) { @sales_point.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: clients_path, title: t("pages.clients")),
+      NavLink.new(path: edit_client_path(@client), title: @client.name),
+      NavLink.new(path: edit_client_sales_point_path(@client, @sales_point), title: @sales_point.name)
+    ]
+  } %>
+<% end %>
+
+<%= render "form", sales_point: @sales_point %>

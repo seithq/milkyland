@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_18_141931) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_18_160834) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -213,6 +213,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_18_141931) do
     t.index ["name"], name: "index_sales_channels_on_name", unique: true
   end
 
+  create_table "sales_points", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.string "name"
+    t.text "address"
+    t.string "phone_number"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id", "name"], name: "index_sales_points_on_client_id_and_name", unique: true
+    t.index ["client_id"], name: "index_sales_points_on_client_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "token", null: false
@@ -390,6 +402,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_18_141931) do
   add_foreign_key "products", "groups"
   add_foreign_key "products", "material_assets"
   add_foreign_key "products", "measurements"
+  add_foreign_key "sales_points", "clients"
   add_foreign_key "sessions", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
