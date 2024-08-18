@@ -23,4 +23,9 @@ class ProductTest < ActiveSupport::TestCase
     assert_not product.save
     assert_equal :in, product.errors.where(:fat_fraction).first.type
   end
+
+  test "should get price for channel" do
+    price = products(:milk25).price by: sales_channels(:b2b).id
+    assert_equal prices(:milk25_b2b).value, price
+  end
 end

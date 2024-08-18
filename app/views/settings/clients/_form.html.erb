@@ -1,7 +1,7 @@
 <div class="flex flex-col justify-center px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full">
-    <%= render "layouts/error_messages", resource: supplier %>
-    <%= form_with model: supplier do |form| %>
+    <%= render "layouts/error_messages", resource: client %>
+    <%= form_with model: client do |form| %>
       <div class="space-y-12">
         <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
           <div>
@@ -12,7 +12,7 @@
           <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
             <div class="sm:col-span-4">
               <%= form.label :manager_id, class: "form-label" %>
-              <%= form.select :manager_id, options_from_collection_for_select(User.managers, :id, :name, supplier.manager_id), { include_blank: true, required: true }, { class: "mt-2 form-select" } %>
+              <%= form.select :manager_id, options_from_collection_for_select(User.managers, :id, :name, client.manager_id), { include_blank: true, required: true }, { class: "mt-2 form-select" } %>
             </div>
 
             <div class="sm:col-span-4">
@@ -82,20 +82,20 @@
             <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.documents") %></h2>
           </div>
           <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 md:col-span-2">
-            <% if supplier.new_record? %>
+            <% if client.new_record? %>
               <div class="sm:col-span-4">
                 <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
               </div>
             <% else %>
               <div class="sm:col-span-4">
-                <% supplier.uploads.each do |upload| %>
-                  <%= form.hidden_field :uploads, multiple: true, value: upload.signed_id, id: "supplier_uploads_#{ upload.id }" %>
+                <% client.uploads.each do |upload| %>
+                  <%= form.hidden_field :uploads, multiple: true, value: upload.signed_id, id: "client_uploads_#{ upload.id }" %>
                 <% end %>
                 <%= form.file_field :uploads, multiple: true, class: "mt-2 form-input" %>
               </div>
 
-              <% if supplier.uploads.attached? %>
-                <%= render "uploads", supplier: supplier %>
+              <% if client.uploads.attached? %>
+                <%= render "uploads", client: client %>
               <% end %>
             <% end %>
           </div>

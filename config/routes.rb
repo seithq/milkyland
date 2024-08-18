@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   scope module: "settings" do
     resources :regions, except: :destroy
     resources :sales_channels, except: :destroy
+    resources :clients, except: :destroy
     resources :suppliers, except: :destroy
     resources :categories, except: :destroy
     resources :measurements, except: :destroy

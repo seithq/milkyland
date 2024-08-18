@@ -1,9 +1,9 @@
-<% content_for(:title) { t("pages.contragents") } %>
+<% content_for(:title) { t("pages.clients") } %>
 
 <% content_for :breadcrumb do %>
   <%= render "layouts/breadcrumb", {
     nav_links: [
-      NavLink.new(path: suppliers_path, title: t("pages.contragents")),
+      NavLink.new(path: clients_path, title: t("pages.clients")),
     ]
   } %>
 <% end %>
@@ -15,7 +15,7 @@
   <div class="sm:mt-8 sm:flex sm:items-center">
     <%= render "search" %>
     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-      <%= link_to new_supplier_path, class: "btn-create" do %>
+      <%= link_to new_client_path, class: "btn-create" do %>
         <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
         <%= t("actions.create_record") %>
       <% end %>
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="table-row-group border-collapse divide-y divide-gray-200 bg-white">
-        <%= render @suppliers %>
+        <%= render @clients %>
       </div>
     </div>
     <%== pagy_nav(@pagy) %>

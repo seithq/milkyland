@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_17_144653) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_18_141931) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,6 +65,25 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_17_144653) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.string "bin"
+    t.string "contact_person"
+    t.string "job_title"
+    t.string "phone_number"
+    t.string "email_address"
+    t.string "entity_code"
+    t.string "bank_name"
+    t.string "bank_account"
+    t.string "bank_code"
+    t.bigint "manager_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bin"], name: "index_clients_on_bin", unique: true
+    t.index ["manager_id"], name: "index_clients_on_manager_id"
+    t.index ["name"], name: "index_clients_on_name", unique: true
   end
 
   create_table "fields", force: :cascade do |t|
@@ -356,6 +375,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_17_144653) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "clients", "users", column: "manager_id"
   add_foreign_key "fields", "operations"
   add_foreign_key "groups", "categories"
   add_foreign_key "ingredients", "groups"

@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :sessions, dependent: :destroy
   has_many :suppliers, foreign_key: "manager_id", dependent: :destroy
+  has_many :clients, foreign_key: "manager_id", dependent: :destroy
   has_secure_password validations: false
 
   validates :name, :email_address, presence: true, uniqueness: { case_sensitive: false }

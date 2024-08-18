@@ -20,7 +20,7 @@ class Settings::SuppliersController < ApplicationController
     @supplier = Supplier.new(supplier_params)
 
     if @supplier.save
-      redirect_on_create suppliers_path
+      redirect_on_create suppliers_url
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class Settings::SuppliersController < ApplicationController
 
   def update
     if @supplier.update(supplier_params)
-      redirect_on_update suppliers_path
+      redirect_on_update suppliers_url
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,7 +40,7 @@ class Settings::SuppliersController < ApplicationController
     end
 
     def search_methods
-      []
+      %i[ name_or_bin ]
     end
 
     def set_supplier
