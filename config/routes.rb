@@ -51,6 +51,7 @@ Rails.application.routes.draw do
         resources :sales_points, except: :show
       end
     end
+    resources :packing_machines, except: :destroy
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

@@ -26,6 +26,7 @@ ru:
     standards: "Нормы производства"
     prices: "Цены по каналам сбыта"
     sales_points: "Точки продаж"
+    packing_machines: "Фасовочное оборудование"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -111,3 +112,4 @@ ru:
     prices: "Цены по каналам сбыта"
     sales_points: "Точки продаж"
     save_parent_record: "Доступно после сохранения записи."
+    containers: "Производимые тары"

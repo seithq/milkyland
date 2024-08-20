@@ -119,3 +119,5 @@ ru:
         address: Адрес
         phone_number: Телефон
         active: Активная запись
+      packing_machine:
+        name: Название
