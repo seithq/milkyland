@@ -1,0 +1,12 @@
+<% content_for(:title) { @packing_machine.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: packing_machines_path, title: t("pages.packing_machines")),
+      NavLink.new(path: edit_packing_machine_path(@packing_machine), title: @packing_machine.name),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", packing_machine: @packing_machine %>
