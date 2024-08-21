@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_20_122100) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_21_093305) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +84,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_20_122100) do
     t.index ["bin"], name: "index_clients_on_bin", unique: true
     t.index ["manager_id"], name: "index_clients_on_manager_id"
     t.index ["name"], name: "index_clients_on_name", unique: true
+  end
+
+  create_table "containers", force: :cascade do |t|
+    t.bigint "packing_machine_id", null: false
+    t.bigint "material_asset_id", null: false
+    t.decimal "performance", precision: 20, scale: 2
+    t.decimal "losses_percentage", precision: 20, scale: 2
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["material_asset_id"], name: "index_containers_on_material_asset_id"
+    t.index ["packing_machine_id", "material_asset_id"], name: "index_containers_on_packing_machine_id_and_material_asset_id", unique: true
+    t.index ["packing_machine_id"], name: "index_containers_on_packing_machine_id"
   end
 
   create_table "fields", force: :cascade do |t|
@@ -395,6 +408,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_20_122100) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "clients", "users", column: "manager_id"
+  add_foreign_key "containers", "material_assets"
+  add_foreign_key "containers", "packing_machines"
   add_foreign_key "fields", "operations"
   add_foreign_key "groups", "categories"
   add_foreign_key "ingredients", "groups"

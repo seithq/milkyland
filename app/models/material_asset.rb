@@ -5,6 +5,7 @@ class MaterialAsset < ApplicationRecord
 
   has_many :ingredients, dependent: :destroy
   has_many :products, dependent: :destroy
+  has_many :containers, dependent: :destroy
 
   validates :article, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true, uniqueness: { scope: :supplier, case_sensitive: false }

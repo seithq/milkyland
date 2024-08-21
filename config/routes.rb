@@ -51,7 +51,11 @@ Rails.application.routes.draw do
         resources :sales_points, except: :show
       end
     end
-    resources :packing_machines, except: :destroy
+    resources :packing_machines, except: :destroy do
+      scope module: "packing_machines" do
+        resources :containers, except: :show
+      end
+    end
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
