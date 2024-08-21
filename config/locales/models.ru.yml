@@ -121,3 +121,8 @@ ru:
         active: Активная запись
       packing_machine:
         name: Название
+      container:
+        material_asset_id: Наименование тары
+        losses_percentage: Потери от объема (%)
+        performance: Производительность шт/час
+        active: Активная запись

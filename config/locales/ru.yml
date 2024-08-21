@@ -27,6 +27,7 @@ ru:
     prices: "Цены по каналам сбыта"
     sales_points: "Точки продаж"
     packing_machines: "Фасовочное оборудование"
+    containers: "Производимые тары"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -94,6 +95,9 @@ ru:
       box_capacity: "Кол-во в коробке"
       sales_channel: "Канал сбыта"
       price: "Цена"
+      container: "Наименование тары"
+      losses_percentage: "Потери от объема (%)"
+      performance: "Производительность шт/час"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

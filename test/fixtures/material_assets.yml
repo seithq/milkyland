@@ -27,3 +27,13 @@ bottle:
   packing: 6
   measurement: piece
   delivery_time_in_days: 5
+
+mini_bottle:
+  name: Mini Bottle
+  category: glass
+  supplier: systemd
+  article: 333
+  entry_price: 100
+  packing: 6
+  measurement: piece
+  delivery_time_in_days: 5

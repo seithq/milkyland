@@ -31,6 +31,9 @@
             </div>
             <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
               <div class="sm:col-span-full">
+                <%= turbo_frame_tag dom_id(@packing_machine, :containers), src: packing_machine_containers_path(@packing_machine, readonly: true) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
               </div>
             </div>
           </div>

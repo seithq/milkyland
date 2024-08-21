@@ -1,0 +1,6 @@
+bottle_pack:
+  packing_machine: bottler
+  material_asset: bottle
+  performance: 1000
+  losses_percentage: 1
+  active: true
