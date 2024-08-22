@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_22_062952) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_22_111022) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -183,6 +183,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_22_062952) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_packing_machines_on_name", unique: true
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.bigint "promotion_id", null: false
+    t.bigint "client_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_participants_on_client_id"
+    t.index ["promotion_id", "client_id"], name: "index_participants_on_promotion_id_and_client_id", unique: true
+    t.index ["promotion_id"], name: "index_participants_on_promotion_id"
   end
 
   create_table "prices", force: :cascade do |t|
@@ -432,6 +443,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_22_062952) do
   add_foreign_key "material_assets", "measurements"
   add_foreign_key "material_assets", "suppliers"
   add_foreign_key "operations", "journals"
+  add_foreign_key "participants", "clients"
+  add_foreign_key "participants", "promotions"
   add_foreign_key "prices", "products"
   add_foreign_key "prices", "sales_channels"
   add_foreign_key "products", "groups"

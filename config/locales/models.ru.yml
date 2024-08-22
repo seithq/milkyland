@@ -138,3 +138,6 @@ ru:
         start_date: Дата начала
         end_date: Дата завершения
         active: Активная запись
+      participant:
+        client_id: Заказчик
+        active: Активная запись

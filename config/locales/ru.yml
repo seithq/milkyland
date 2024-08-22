@@ -29,6 +29,7 @@ ru:
     packing_machines: "Фасовочное оборудование"
     containers: "Производимые тары"
     promotions: "Акции"
+    participants: "Участвующие клиенты"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -104,6 +105,7 @@ ru:
       discount: "Скидка"
       start_date: "Дата начала"
       end_date: "Дата завершения"
+      client: "Заказчик"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

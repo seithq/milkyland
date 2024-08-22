@@ -1,0 +1,25 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= render "layouts/error_messages", resource: participant %>
+    <%= form_with model: [@promotion, participant], class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :client_id, class: "form-label" %>
+        <%= form.select :client_id, options_from_collection_for_select(Client.all, :id, :name, participant.client_id), { include_blank: true }, { disabled: !participant.active?, required: true, class: "form-select" } %>
+      </div>
+
+      <% unless participant.new_record? || participant.active? %>
+        <div class="relative flex gap-x-3">
+          <div class="flex h-6 items-center">
+            <%= form.check_box :active, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+          </div>
+          <div class="text-sm leading-6">
+            <%= form.label :active, class: "font-medium text-gray-900" %>
+            <p class="text-gray-500"><%= t("forms.inactive_field") %></p>
+          </div>
+        </div>
+      <% end %>
+
+      <%= form.submit t("actions.save_record"), class: "btn" %>
+    <% end %>
+  </div>
+</div>

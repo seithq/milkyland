@@ -1,0 +1,4 @@
+big_deal_systemd:
+  promotion: big_deal
+  client: systemd
+  active: true

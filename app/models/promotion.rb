@@ -1,6 +1,8 @@
 class Promotion < ApplicationRecord
   include Deactivatable
 
+  has_many :participants, dependent: :destroy
+
   enum :kind, %w[ by_percent by_amount ].index_by(&:itself), default: :by_percent
 
   before_validation :normalize_dates

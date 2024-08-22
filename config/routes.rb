@@ -56,7 +56,11 @@ Rails.application.routes.draw do
         resources :containers, except: :show
       end
     end
-    resources :promotions
+    resources :promotions do
+      scope module: "promotions" do
+        resources :participants, except: :show
+      end
+    end
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
