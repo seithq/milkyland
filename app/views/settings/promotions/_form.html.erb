@@ -77,7 +77,9 @@
               </div>
             <% else %>
               <div class="sm:col-span-full">
-
+                <%= turbo_frame_tag dom_id(promotion, :participants), src: promotion_participants_path(promotion) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
               </div>
             <% end %>
           </div>
