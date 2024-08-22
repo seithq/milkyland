@@ -1,0 +1,111 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= render "layouts/error_messages", resource: promotion %>
+    <%= form_with model: promotion do |form| %>
+      <div class="space-y-12">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2" data-controller="promo" data-promo-unlimited-value="<%= promotion.unlimited %>">
+            <div class="sm:col-span-4">
+              <%= form.label :name, class: "form-label" %>
+              <%= form.text_field :name, autocomplete: "name", autofocus: true, required: true, class: "mt-2 form-input" %>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= form.label :kind, class: "form-label" %>
+              <div class="mt-6 space-y-6">
+                <div class="flex items-center gap-x-3">
+                  <%= form.radio_button :kind, "by_percent", class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                  <%= label_tag "promotion_kind_by_percent", Promotion.enum_to_s(:kind, :by_percent), class: "block text-sm font-medium leading-6 text-gray-900" %>
+                </div>
+                <div class="flex items-center gap-x-3">
+                  <%= form.radio_button :kind, "by_amount", class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                  <%= label_tag "promotion_kind_by_amount", Promotion.enum_to_s(:kind, :by_amount), class: "block text-sm font-medium leading-6 text-gray-900" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= form.label :discount, class: "form-label" %>
+              <%= form.number_field :discount, autocomplete: "discount", required: true, class: "mt-2 form-input", step: ".1" %>
+            </div>
+
+            <div class="sm:col-span-3">
+              <%= form.label :start_date, class: "form-label" %>
+              <%= form.date_field :start_date, autocomplete: "start-date", required: true, data: { promo_target: "start" }, class: "mt-2 form-input" %>
+            </div>
+
+            <div class="sm:col-span-3">
+              <%= form.label :end_date, class: "form-label" %>
+              <%= form.date_field :end_date, autocomplete: "end-date", required: true, data: { promo_target: "end" }, class: "mt-2 form-input" %>
+            </div>
+
+            <div class="sm:col-span-4 relative flex gap-x-3">
+              <div class="flex h-6 items-center">
+                <%= form.check_box :unlimited, data: { action: "promo#toggle" }, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+              </div>
+              <div class="text-sm leading-6">
+                <%= form.label :unlimited, class: "font-medium text-gray-900" %>
+                <p class="text-gray-500"><%= t("forms.unlimited") %></p>
+              </div>
+            </div>
+
+            <% unless promotion.new_record? || promotion.active? %>
+              <div class="sm:col-span-4 relative flex gap-x-3">
+                <div class="flex h-6 items-center">
+                  <%= form.check_box :active, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                </div>
+                <div class="text-sm leading-6">
+                  <%= form.label :active, class: "font-medium text-gray-900" %>
+                  <p class="text-gray-500"><%= t("forms.inactive_promo") %></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.promo_clients") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <% if promotion.new_record? %>
+              <div class="sm:col-span-4">
+                <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
+              </div>
+            <% else %>
+              <div class="sm:col-span-full">
+
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.promo_products") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <% if promotion.new_record? %>
+              <div class="sm:col-span-4">
+                <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
+              </div>
+            <% else %>
+              <div class="sm:col-span-full">
+
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 flex items-center justify-end gap-x-6">
+        <% if !promotion.new_record? && promotion.can_be_stopped? %>
+          <%= link_to t("actions.promo_deactivate"), promotion_path(promotion), data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "destroy_promotion rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" %>
+        <% end %>
+        <%= form.submit t("actions.save_record"), class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+      </div>
+    <% end %>
+  </div>
+</div>

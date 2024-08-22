@@ -1,0 +1,103 @@
+<% content_for(:title) { @promotion.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: promotions_path, title: t("pages.promotions")),
+      NavLink.new(path: promotion_path(@promotion), title: @promotion.name),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= fields_for @promotion do |form| %>
+      <div>
+        <div class="space-y-12">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :name, class: "form-label" %>
+                <%= form.text_field :name, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :kind, class: "form-label" %>
+                <div class="mt-6 space-y-6">
+                  <div class="flex items-center gap-x-3">
+                    <%= form.radio_button :kind, "by_percent", disabled: true, class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                    <%= label_tag "promotion_kind_by_percent", Promotion.enum_to_s(:kind, :by_percent), class: "block text-sm font-medium leading-6 text-gray-900" %>
+                  </div>
+                  <div class="flex items-center gap-x-3">
+                    <%= form.radio_button :kind, "by_amount", disabled: true, class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                    <%= label_tag "promotion_kind_by_amount", Promotion.enum_to_s(:kind, :by_amount), class: "block text-sm font-medium leading-6 text-gray-900" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :discount, class: "form-label" %>
+                <%= form.number_field :discount, disabled: true, class: "mt-2 form-input", step: ".1" %>
+              </div>
+
+              <div class="sm:col-span-3">
+                <%= form.label :start_date, class: "form-label" %>
+                <%= form.date_field :start_date, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-3">
+                <%= form.label :end_date, class: "form-label" %>
+                <%= form.date_field :end_date, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4 relative flex gap-x-3">
+                <div class="flex h-6 items-center">
+                  <%= form.check_box :unlimited, disabled: true, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                </div>
+                <div class="text-sm leading-6">
+                  <%= form.label :unlimited, class: "font-medium text-gray-900" %>
+                  <p class="text-gray-500"><%= t("forms.unlimited") %></p>
+                </div>
+              </div>
+
+              <% unless @promotion.active? %>
+                <div class="sm:col-span-4 relative flex gap-x-3">
+                  <div class="flex h-6 items-center">
+                    <%= form.check_box :active, disabled: true, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                  </div>
+                  <div class="text-sm leading-6">
+                    <%= form.label :active, class: "font-medium text-gray-900" %>
+                    <p class="text-gray-500"><%= t("forms.inactive_promo") %></p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.promo_clients") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-full">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.promo_products") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-full">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

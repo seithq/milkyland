@@ -1,0 +1,7 @@
+big_deal:
+  name: Big Deal
+  kind: by_percent
+  start_date: <%= 1.day.ago %>
+  end_date: <%= 7.days.from_now %>
+  discount: 10.0
+  unlimited: false
