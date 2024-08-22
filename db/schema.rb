@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_22_111022) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_22_125158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,6 +97,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_22_111022) do
     t.index ["material_asset_id"], name: "index_containers_on_material_asset_id"
     t.index ["packing_machine_id", "material_asset_id"], name: "index_containers_on_packing_machine_id_and_material_asset_id", unique: true
     t.index ["packing_machine_id"], name: "index_containers_on_packing_machine_id"
+  end
+
+  create_table "discounted_products", force: :cascade do |t|
+    t.bigint "promotion_id", null: false
+    t.bigint "product_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_discounted_products_on_product_id"
+    t.index ["promotion_id", "product_id"], name: "index_discounted_products_on_promotion_id_and_product_id", unique: true
+    t.index ["promotion_id"], name: "index_discounted_products_on_promotion_id"
   end
 
   create_table "fields", force: :cascade do |t|
@@ -434,6 +445,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_22_111022) do
   add_foreign_key "clients", "users", column: "manager_id"
   add_foreign_key "containers", "material_assets"
   add_foreign_key "containers", "packing_machines"
+  add_foreign_key "discounted_products", "products"
+  add_foreign_key "discounted_products", "promotions"
   add_foreign_key "fields", "operations"
   add_foreign_key "groups", "categories"
   add_foreign_key "ingredients", "groups"

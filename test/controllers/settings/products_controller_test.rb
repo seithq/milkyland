@@ -21,7 +21,7 @@ class Settings::ProductsControllerTest < ActionDispatch::IntegrationTest
     sign_in :daniyar
     assert_difference("Product.count") do
       post products_url, params: { product: { name: "Milk 2.5% 0.5L",
-                                              article: "ML25-2",
+                                              article: "ML25-05",
                                               packing: 0.5,
                                               box_capacity: @product.box_capacity,
                                               expiration_in_days: @product.expiration_in_days,

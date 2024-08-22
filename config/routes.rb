@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     resources :promotions do
       scope module: "promotions" do
         resources :participants, except: :show
+        resources :discounted_products, except: :show
       end
     end
   end

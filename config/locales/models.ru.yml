@@ -141,3 +141,6 @@ ru:
       participant:
         client_id: Заказчик
         active: Активная запись
+      discounted_product:
+        product_id: Номенклатура ГП
+        active: Активная запись

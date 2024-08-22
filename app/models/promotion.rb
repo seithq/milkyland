@@ -2,6 +2,7 @@ class Promotion < ApplicationRecord
   include Deactivatable
 
   has_many :participants, dependent: :destroy
+  has_many :products, class_name: "DiscountedProduct", foreign_key: "promotion_id", dependent: :destroy
 
   enum :kind, %w[ by_percent by_amount ].index_by(&:itself), default: :by_percent
 
@@ -25,9 +26,9 @@ class Promotion < ApplicationRecord
 
   def calculate_discount_for(price)
     if by_percent?
-      price * (discount / 100.0)
+      price.value * (100.0 - discount) / 100.0
     else
-      [ price - discount, 0.0 ].max
+      [ price.value - discount, 0.0 ].max
     end
   end
 
