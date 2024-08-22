@@ -13,7 +13,7 @@ gem "puma", ">= 5.0"
 gem "kamal", require: false
 
 # Jobs
-gem "solid_queue", "~> 0.3.4"
+gem "solid_queue", "~> 0.6.0"
 
 # Front-end
 gem "propshaft"
