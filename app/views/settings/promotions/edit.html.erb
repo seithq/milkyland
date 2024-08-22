@@ -1,0 +1,12 @@
+<% content_for(:title) { @promotion.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: promotions_path, title: t("pages.promotions")),
+      NavLink.new(path: edit_promotion_path(@promotion), title: @promotion.name),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", promotion: @promotion %>

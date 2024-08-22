@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_21_093305) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_22_062952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -215,6 +215,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_21_093305) do
     t.index ["material_asset_id"], name: "index_products_on_material_asset_id"
     t.index ["measurement_id"], name: "index_products_on_measurement_id"
     t.index ["name"], name: "index_products_on_name", unique: true
+  end
+
+  create_table "promotions", force: :cascade do |t|
+    t.string "name"
+    t.string "kind"
+    t.date "start_date"
+    t.date "end_date"
+    t.decimal "discount", precision: 20, scale: 2
+    t.boolean "unlimited", default: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_promotions_on_name", unique: true
   end
 
   create_table "regions", force: :cascade do |t|

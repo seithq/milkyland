@@ -28,6 +28,7 @@ ru:
     sales_points: "Точки продаж"
     packing_machines: "Фасовочное оборудование"
     containers: "Производимые тары"
+    promotions: "Акции"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -52,6 +53,8 @@ ru:
     record_created: "Запись создана"
     record_updated: "Запись обновлена"
     record_deleted: "Запись удалена"
+    promo_deactivate: "Приостановить"
+    promo_deactivated: "Акция приостановлена"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
@@ -98,6 +101,9 @@ ru:
       container: "Наименование тары"
       losses_percentage: "Потери от объема (%)"
       performance: "Производительность шт/час"
+      discount: "Скидка"
+      start_date: "Дата начала"
+      end_date: "Дата завершения"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -117,3 +123,10 @@ ru:
     sales_points: "Точки продаж"
     save_parent_record: "Доступно после сохранения записи."
     containers: "Производимые тары"
+    promo_deactivated: "Приостановлена"
+    promo_ended: "Завершена"
+    promo_running: "Активная"
+    promo_clients: "Участвующие клиенты"
+    promo_products: "Скидочные товары"
+    unlimited: "На бессрочную скидку не применяются даты начала и завершения."
+    inactive_promo: "Данная акция была приостановлена, чтобы активировать снова отметьте галочкой и сохраните."

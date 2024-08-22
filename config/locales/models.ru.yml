@@ -19,6 +19,10 @@ ru:
           binary: Да/Нет
           measure: Ед.изм
           collection: Список
+      promotion:
+        kinds:
+          by_amount: Фиксированная
+          by_percent: Процентная
     attributes:
       user:
         name: ФИО
@@ -125,4 +129,12 @@ ru:
         material_asset_id: Наименование тары
         losses_percentage: Потери от объема (%)
         performance: Производительность шт/час
+        active: Активная запись
+      promotion:
+        name: Название
+        kind: Тип
+        discount: Скидка (размер или процент)
+        unlimited: Бессрочная
+        start_date: Дата начала
+        end_date: Дата завершения
         active: Активная запись
