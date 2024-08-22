@@ -76,7 +76,7 @@ class PromotionTest < ActiveSupport::TestCase
     promo = promotions(:big_deal)
     product = products(:milk25)
 
-    discounted_price = promo.calculate_discount_for product.prices.first.value
-    assert_equal 90.0, discounted_price
+    discounted_price = promo.calculate_discount_for product.prices.first
+    assert_equal 810.0, discounted_price
   end
 end

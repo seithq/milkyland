@@ -30,6 +30,7 @@ ru:
     containers: "Производимые тары"
     promotions: "Акции"
     participants: "Участвующие клиенты"
+    discounted_products: "Скидочные товары"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -106,6 +107,7 @@ ru:
       start_date: "Дата начала"
       end_date: "Дата завершения"
       client: "Заказчик"
+      discounted_price: "Цена после скидки"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

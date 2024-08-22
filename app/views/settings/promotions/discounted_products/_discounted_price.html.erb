@@ -1,0 +1,8 @@
+<%= tag.div id: dom_id(price), class: "table-row hover:bg-gray-50" do %>
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <%= number_to_currency price.value %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">
+    <%= number_to_currency promotion.calculate_discount_for(price) %>
+  </div>
+<% end %>
