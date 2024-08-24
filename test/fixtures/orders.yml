@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sales_channel: one
+  client: one
+  sales_point: one
+  kind: 1
+  status: MyString
+  preferred_date: 2024-08-24
+
+two:
+  sales_channel: two
+  client: two
+  sales_point: two
+  kind: 1
+  status: MyString
+  preferred_date: 2024-08-24

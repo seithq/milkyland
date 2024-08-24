@@ -25,6 +25,12 @@ Rails.application.routes.draw do
     end
   end
 
+  scope module: "sales" do
+    scope "channels/:channel_id", as: "channel", constraints: { account_id: /\d+/ } do
+      resources :orders
+    end
+  end
+
   scope module: "settings" do
     resources :regions, except: :destroy
     resources :sales_channels, except: :destroy
