@@ -31,6 +31,13 @@ ru:
     promotions: "Акции"
     participants: "Участвующие клиенты"
     discounted_products: "Скидочные товары"
+    sales_by_channels: "Заявки по каналам"
+    orders_by_channel: "Заявки %{channel}"
+    status_in_planning: "Новые"
+    status_in_production: "В производстве"
+    status_in_delivery: "На доставке"
+    status_completed: "Завершенные"
+    status_cancelled: "Отмененные"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -108,6 +115,11 @@ ru:
       end_date: "Дата завершения"
       client: "Заказчик"
       discounted_price: "Цена после скидки"
+      number: "Номер"
+      sales_point: "Точка продаж"
+      order_sum: "Сумма"
+      preferred_date: "Дата поставки"
+      manager: "Менеджер"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

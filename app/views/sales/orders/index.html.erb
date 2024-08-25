@@ -1,21 +1,58 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<% content_for(:title) { t("pages.orders_by_channel", channel: @channel.name) } %>
 
-  <% content_for :title, "Orders" %>
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: channel_orders_path(@channel), title: t("pages.orders_by_channel", channel: @channel.name)),
+    ]
+  } %>
+<% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Orders</h1>
-    <%= link_to "New order", new_order_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+
+
+<div class="px-4 sm:px-6 lg:px-8">
+  <%= render "tab" %>
+  <div class="sm:mt-8 sm:flex sm:items-center">
+    <%= render "search" %>
+    <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+      <%= link_to new_channel_order_path(@channel), class: "btn-create" do %>
+        <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
+        <%= t("actions.create_record") %>
+      <% end %>
+    </div>
   </div>
-
-  <div id="orders" class="min-w-full">
-    <% @orders.each do |order| %>
-      <%= render order %>
-      <p>
-        <%= link_to "Show this order", order, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
+  <div class="-mx-4 mt-4 sm:mt-8 sm:-mx-0">
+    <div class="table border-collapse min-w-full divide-y divide-gray-300">
+      <div class="table-header-group">
+        <div class="table-row">
+          <div class="table-cell py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+            <%= t("tables.cols.number") %>
+          </div>
+          <div class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.client") %>
+          </div>
+          <div class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.sales_point") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.order_sum") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.preferred_date") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.manager") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.status") %>
+          </div>
+          <div class="table-cell relative py-3.5 pl-3 pr-4 sm:pr-0"></div>
+        </div>
+      </div>
+      <div class="table-row-group border-collapse divide-y divide-gray-200 bg-white">
+        <%= render @orders %>
+      </div>
+    </div>
+    <%== pagy_nav(@pagy) %>
   </div>
 </div>

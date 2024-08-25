@@ -2,6 +2,7 @@ class SalesPoint < ApplicationRecord
   include Deactivatable
 
   belongs_to :client
+  has_many :orders, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :client, case_sensitive: false }
   validates_presence_of :address

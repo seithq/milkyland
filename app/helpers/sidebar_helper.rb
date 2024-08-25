@@ -2,7 +2,7 @@ module SidebarHelper
   def nav_link(path, title, icon_name)
     tag.li do
       link_to path, class: nav_link_class(path) do
-        concat inline_svg_tag icon_name, class: nav_icon_class(path)
+        concat inline_svg_tag icon_name, class: nav_icon_class(path) unless icon_name.blank?
         concat title
       end
     end

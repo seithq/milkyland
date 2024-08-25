@@ -10,4 +10,8 @@ module User::Role
   def can_administer?
     admin?
   end
+
+  def can_sell?
+    manager? || can_administer?
+  end
 end

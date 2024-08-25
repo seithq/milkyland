@@ -3,4 +3,5 @@ class Client < ApplicationRecord
 
   has_many :sales_points, dependent: :destroy
   has_many :participants, dependent: :destroy
+  has_many :orders, dependent: :destroy
 end
