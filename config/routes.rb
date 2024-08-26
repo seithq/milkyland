@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   end
 
   scope module: "sales" do
-    scope "channels/:channel_id", as: "channel", constraints: { channel_id: /\d+/ } do
+    scope "sales_channels/:sales_channel_id", as: "sales_channel", constraints: { sales_channel_id: /\d+/ } do
       resources :orders
     end
   end

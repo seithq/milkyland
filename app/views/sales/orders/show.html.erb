@@ -1,0 +1,65 @@
+<% content_for(:title) { t("pages.order_number", id: @order.id) } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: sales_channel_orders_path(@sales_channel), title: t("pages.orders_by_channel", channel: @sales_channel.name)),
+      NavLink.new(path: sales_channel_order_path(@sales_channel, @order), title: t("pages.order_number", id: @order.id)),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= fields_for @order do |form| %>
+      <div>
+        <div class="space-y-12">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :kind, class: "form-label" %>
+                <div class="mt-6 space-y-6">
+                  <div class="flex items-center gap-x-3">
+                    <%= form.radio_button :kind, "planned", disabled: true, class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                    <%= label_tag "promotion_kind_planned", Order.enum_to_s(:kind, :planned), class: "block text-sm font-medium leading-6 text-gray-900" %>
+                  </div>
+                  <div class="flex items-center gap-x-3">
+                    <%= form.radio_button :kind, "unscheduled", disabled: true, class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                    <%= label_tag "promotion_kind_unscheduled", Order.enum_to_s(:kind, :unscheduled), class: "block text-sm font-medium leading-6 text-gray-900" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :client_id, class: "form-label" %>
+                <%= form.select :client_id, options_from_collection_for_select(@clients, :id, :name, @order.client_id), {}, { disabled: true, class: "mt-2 form-select" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :sales_point_id, class: "form-label" %>
+                <%= form.select :sales_point_id, option_groups_from_collection_for_select(@clients, :sales_points, :name, :id, :name, @order.sales_point_id), {}, { disabled: true, class: "mt-2 form-select" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :preferred_date, class: "form-label" %>
+                <%= form.date_field :preferred_date, disabled: true, class: "mt-2 form-input" %>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.positions") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-full">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

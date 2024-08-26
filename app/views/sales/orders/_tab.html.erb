@@ -1,9 +1,9 @@
 <% tab_links = [
-  NavLink.new(path: channel_orders_path(@channel, status: :in_planning), title: t("pages.status_in_planning"), is_active: @status == "in_planning"),
-  NavLink.new(path: channel_orders_path(@channel, status: :in_production), title: t("pages.status_in_production"), is_active: @status == "in_production"),
-  NavLink.new(path: channel_orders_path(@channel, status: :in_delivery), title: t("pages.status_in_delivery"), is_active: @status == "in_delivery"),
-  NavLink.new(path: channel_orders_path(@channel, status: :completed), title: t("pages.status_completed"), is_active: @status == "completed"),
-  NavLink.new(path: channel_orders_path(@channel, status: :cancelled), title: t("pages.status_cancelled"), is_active: @status == "cancelled"),
+  NavLink.new(path: sales_channel_orders_path(@sales_channel, status: :in_planning), title: t("pages.status_in_planning"), is_active: @status == "in_planning"),
+  NavLink.new(path: sales_channel_orders_path(@sales_channel, status: :in_production), title: t("pages.status_in_production"), is_active: @status == "in_production"),
+  NavLink.new(path: sales_channel_orders_path(@sales_channel, status: :in_delivery), title: t("pages.status_in_delivery"), is_active: @status == "in_delivery"),
+  NavLink.new(path: sales_channel_orders_path(@sales_channel, status: :completed), title: t("pages.status_completed"), is_active: @status == "completed"),
+  NavLink.new(path: sales_channel_orders_path(@sales_channel, status: :cancelled), title: t("pages.status_cancelled"), is_active: @status == "cancelled"),
 ]
 %>
 

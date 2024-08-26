@@ -3,7 +3,7 @@
 ]
 %>
 
-<% channels_nav_links = SalesChannel.all.each.map { |channel| NavLink.new(path: channel_orders_path(channel), title: channel.name) } %>
+<% channels_nav_links = SalesChannel.all.each.map { |channel| NavLink.new(path: sales_channel_orders_path(channel), title: channel.name) } %>
 
 <% settings_nav_links = [
   NavLink.new(path: users_path, title: t("pages.users"), icon_name: "users.svg"),
