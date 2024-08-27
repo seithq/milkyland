@@ -26,6 +26,6 @@ class ProductTest < ActiveSupport::TestCase
 
   test "should get price for channel" do
     price = products(:milk25).price by: sales_channels(:b2b).id
-    assert_equal prices(:milk25_b2b).value, price
+    assert_equal prices(:milk25_b2b).value, price.value
   end
 end

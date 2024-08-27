@@ -7,3 +7,13 @@ milk25_b2b:
   product: milk25
   sales_channel: b2b
   value: 900
+
+milk25_big_b2c:
+  product: milk25_big
+  sales_channel: b2c
+  value: 1500
+
+milk25_big_b2b:
+  product: milk25_big
+  sales_channel: b2b
+  value: 1300

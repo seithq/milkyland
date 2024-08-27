@@ -3,7 +3,7 @@ module ReadModes
 
   included do
     def set_read_mode
-      @readonly = params[:readonly].present?
+      @readonly = params[:readonly].present? && params[:readonly] == "true"
     end
   end
 end

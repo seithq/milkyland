@@ -39,6 +39,7 @@ ru:
     status_completed: "Завершенные"
     status_cancelled: "Отмененные"
     order_number: "Заказ #%{id}"
+    positions: "Товарные позиции"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -125,6 +126,8 @@ ru:
       order_sum: "Сумма"
       preferred_date: "Дата поставки"
       manager: "Менеджер"
+      count: "Кол-во"
+      sum: "Сумма"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

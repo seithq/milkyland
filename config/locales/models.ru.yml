@@ -160,3 +160,11 @@ ru:
         client_id: Заказчик
         sales_point_id: Точка продаж
         preferred_date: Дата поставки
+      position:
+        product_id: Номенклатура ГП
+        promotion: Акция
+        discounted_product_id: Номер товара в акции
+        count: Количество
+        base_price: Базовая стоимость
+        discounted_price: Стоимость после скидки
+        total_sum: Сумма

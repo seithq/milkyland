@@ -1,0 +1,34 @@
+<%= tag.div id: dom_id(position), class: "table-row hover:bg-gray-50" do %>
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <%= position.product.article %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= position.product.name %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= position.count %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500 space-x-2">
+    <% if position.discounted_product.present? %>
+    <span class="line-through">
+    <%= number_to_currency position.base_price %>
+    </span>
+      <span class="text-green-600">
+      <%= number_to_currency position.discounted_price %>
+    </span>
+    <% else %>
+      <%= number_to_currency position.base_price %>
+    <% end %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= number_to_currency position.total_sum %>
+  </div>
+  <% unless @readonly %>
+    <div class="table-cell relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+      <div class="flex justify-end space-x-2">
+        <%= link_to t("actions.edit_record"), edit_sales_channel_order_position_path(@sales_channel, @order, position), data: { turbo_frame: "_top" }, class: "edit_position text-indigo-600 hover:text-indigo-900" %>
+        <%= button_to t("actions.destroy_record"), sales_channel_order_position_path(@sales_channel, @order, position), method: :delete, form: { data: { turbo: false }, class: "destroy_position text-red-600 hover:text-red-500" } %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
