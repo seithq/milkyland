@@ -1,0 +1,19 @@
+<% if @product.present? %>
+
+  <%= turbo_stream.replace "position_discounted_product_id" do %>
+    <%= hidden_field_tag "position[discounted_product_id]", @discounted_product_id %>
+  <% end %>
+
+  <%= turbo_stream.replace "position_base_price" do %>
+    <%= number_field_tag "position[base_price]", @base_price.value, id: "position_base_price", readonly: true, class: "form-input", step: ".1" %>
+  <% end %>
+
+  <%= turbo_stream.replace "position_promotion" do %>
+    <%= text_field_tag "position[promotion]", @promotion.present? ? @promotion.name : "", id: "position_promotion", disabled: true, class: "form-input" %>
+  <% end %>
+
+  <%= turbo_stream.replace "position_discounted_price" do %>
+    <%= number_field_tag "position[discounted_price]", @discounted_price, id: "position_discounted_price", readonly: true, class: "form-input", step: ".1" %>
+  <% end %>
+
+<% end %>

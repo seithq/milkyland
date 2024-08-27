@@ -2,47 +2,55 @@ require "test_helper"
 
 class Sales::OrdersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @order = orders(:one)
+    @order = orders(:opening)
+    @channel = @order.sales_channel
   end
 
   test "should get index" do
-    get orders_url
+    sign_in :daniyar
+    get sales_channel_orders_url(@channel)
     assert_response :success
   end
 
   test "should get new" do
-    get new_order_url
+    sign_in :daniyar
+    get new_sales_channel_order_url(@channel)
     assert_response :success
   end
 
   test "should create order" do
+    sign_in :daniyar
     assert_difference("Order.count") do
-      post orders_url, params: { order: { client_id: @order.client_id, kind: @order.kind, preferred_date: @order.preferred_date, sales_channel_id: @order.sales_channel_id, sales_point_id: @order.sales_point_id, status: @order.status } }
+      post sales_channel_orders_url(@channel), params: { order: { client_id: @order.client_id, kind: @order.kind, preferred_date: @order.preferred_date, sales_point_id: @order.sales_point_id } }
     end
 
-    assert_redirected_to order_url(Order.last)
+    assert_redirected_to edit_sales_channel_order_url(@channel, Order.last)
   end
 
   test "should show order" do
-    get order_url(@order)
+    sign_in :daniyar
+    get sales_channel_order_url(@channel, @order)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_order_url(@order)
+    sign_in :daniyar
+    get edit_sales_channel_order_url(@channel, @order)
     assert_response :success
   end
 
   test "should update order" do
-    patch order_url(@order), params: { order: { client_id: @order.client_id, kind: @order.kind, preferred_date: @order.preferred_date, sales_channel_id: @order.sales_channel_id, sales_point_id: @order.sales_point_id, status: @order.status } }
-    assert_redirected_to order_url(@order)
+    sign_in :daniyar
+    patch sales_channel_order_url(@channel, @order), params: { order: { preferred_date: 7.days.from_now } }
+    assert_redirected_to sales_channel_orders_url(@channel)
   end
 
   test "should destroy order" do
-    assert_difference("Order.count", -1) do
-      delete order_url(@order)
+    sign_in :daniyar
+    assert_difference("Order.active.count", -1) do
+      delete sales_channel_order_url(@channel, @order)
     end
 
-    assert_redirected_to orders_url
+    assert_redirected_to sales_channel_orders_url(@channel)
   end
 end

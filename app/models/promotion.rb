@@ -12,7 +12,20 @@ class Promotion < ApplicationRecord
   validates :discount, presence: true, numericality: { greater_than: 0.0 }
   validates_presence_of :start_date, :end_date, unless: :unlimited?
 
-  scope :running, ->(date: Time.zone.today) { active.where(unlimited: true).or(where(start_date: ..date, end_date: date..)) }
+  scope :running, ->(date: Time.zone.today) { active.where(unlimited: true).or(Promotion.where(start_date: ..date, end_date: date..)) }
+
+  scope :filter_by_eligible, ->(client_id:, product_id:) do
+    ids = filter_by_product(product_id).filter_by_client(client_id).pluck(:id)
+    ids += filter_by_missing_clients.filter_by_product(product_id).pluck(:id)
+    ids += filter_by_missing_products.filter_by_client(client_id).pluck(:id)
+    where(id: ids)
+  end
+
+  scope :filter_by_product, ->(product_id) { joins(:products).where(products: { product_id: product_id }) }
+  scope :filter_by_client, ->(client_id) { joins(:participants).where(participants: { client_id: client_id }) }
+
+  scope :filter_by_missing_products, ->() { where.missing(:products) }
+  scope :filter_by_missing_clients, ->() { where.missing(:participants) }
 
   def running?
     return true if unlimited?

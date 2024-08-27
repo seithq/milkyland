@@ -1,12 +1,13 @@
-<% content_for(:title) { t("pages.order_number", id: @order.id) } %>
+<% content_for(:title) { @position.product.name } %>
 
 <% content_for :breadcrumb do %>
   <%= render "layouts/breadcrumb", {
     nav_links: [
       NavLink.new(path: sales_channel_orders_path(@sales_channel), title: t("pages.orders_by_channel", channel: @sales_channel.name)),
       NavLink.new(path: edit_sales_channel_order_path(@sales_channel, @order), title: t("pages.order_number", id: @order.id)),
+      NavLink.new(path: edit_sales_channel_order_position_path(@sales_channel, @order, @position), title: @position.product.name)
     ]
   } %>
 <% end %>
 
-<%= render "form", order: @order %>
+<%= render "form", position: @position %>

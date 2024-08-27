@@ -38,6 +38,8 @@ ru:
     status_in_delivery: "На доставке"
     status_completed: "Завершенные"
     status_cancelled: "Отмененные"
+    order_number: "Заказ #%{id}"
+    positions: "Товарные позиции"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -50,10 +52,12 @@ ru:
     sign_up: "Создать аккаунт"
     create_record: "Создать запись"
     edit_record: "Правка"
+    show_record: "Просмотр"
     save_record: "Сохранить"
     destroy_record: "Удалить"
     search_by_name_or_email: "Поиск по имени или электронному адресу"
     search_by_name_or_bin: "Поиск по названию или БИН компании"
+    search_by_id_or_client_or_sales_point: "Поиск по номеру, клиенту или точке продаж"
     have_account: "Есть аккаунт?"
     remove_account: "Удалить аккаунт?"
     confirm: "Подтвердить действие?"
@@ -64,6 +68,8 @@ ru:
     record_deleted: "Запись удалена"
     promo_deactivate: "Приостановить"
     promo_deactivated: "Акция приостановлена"
+    cancel: "Отменить"
+    order_cancelled: "Заказ отменен"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
@@ -120,6 +126,8 @@ ru:
       order_sum: "Сумма"
       preferred_date: "Дата поставки"
       manager: "Менеджер"
+      count: "Кол-во"
+      sum: "Сумма"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -146,3 +154,4 @@ ru:
     promo_products: "Скидочные товары"
     unlimited: "На бессрочную скидку не применяются даты начала и завершения."
     inactive_promo: "Данная акция была приостановлена, чтобы активировать снова отметьте галочкой и сохраните."
+    positions: "Товары"

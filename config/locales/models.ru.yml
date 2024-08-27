@@ -23,6 +23,16 @@ ru:
         kinds:
           by_amount: Фиксированная
           by_percent: Процентная
+      order:
+        kinds:
+          planned: Плановый
+          unscheduled: Внеплановый
+        statuses:
+          in_planning: "Новый"
+          in_production: "В производстве"
+          in_delivery: "На доставке"
+          completed: "Завершенные"
+          cancelled: "Отмененные"
     attributes:
       user:
         name: ФИО
@@ -144,3 +154,17 @@ ru:
       discounted_product:
         product_id: Номенклатура ГП
         active: Активная запись
+      order:
+        id: Номер
+        kind: Тип заказа
+        client_id: Заказчик
+        sales_point_id: Точка продаж
+        preferred_date: Дата поставки
+      position:
+        product_id: Номенклатура ГП
+        promotion: Акция
+        discounted_product_id: Номер товара в акции
+        count: Количество
+        base_price: Базовая стоимость
+        discounted_price: Стоимость после скидки
+        total_sum: Сумма

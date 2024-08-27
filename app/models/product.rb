@@ -5,6 +5,7 @@ class Product < ApplicationRecord
 
   has_many :prices, dependent: :destroy
   has_many :discounts, class_name: "DiscountedProduct", foreign_key: "product_id", dependent: :destroy
+  has_many :positions, dependent: :destroy
 
   validates :name, :article, presence: true, uniqueness: { case_sensitive: false }
   validates_presence_of :packing, :expiration_in_days, :fat_fraction
@@ -13,7 +14,11 @@ class Product < ApplicationRecord
   scope :ordered, -> { order(name: :asc) }
 
   def price(by:)
-    channel = prices.find_by(sales_channel_id: by)
-    channel ? channel.value : 0.0
+    base_price = prices.find_by(sales_channel_id: by)
+    base_price.presence || Price.new(value: 0.0)
+  end
+
+  def name_with_article
+    "#{ article } - #{ name }"
   end
 end

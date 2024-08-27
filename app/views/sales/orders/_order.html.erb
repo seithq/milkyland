@@ -1,32 +1,27 @@
-<div id="<%= dom_id order %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Sales channel:</strong>
-    <%= order.sales_channel_id %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Client:</strong>
-    <%= order.client_id %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Sales point:</strong>
-    <%= order.sales_point_id %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Kind:</strong>
-    <%= order.kind %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= order.status %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Preferred date:</strong>
-    <%= order.preferred_date %>
-  </p>
-
+<div class="table-row">
+  <div class="table-cell w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
+    <%= link_to order.id, sales_channel_order_path(@sales_channel, order), class: "text-indigo-600" %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500">
+    <%= order.client.name %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500">
+    <%= order.sales_point.name %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500">
+    <%= number_to_currency order.sum %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500">
+    <%= time_tag order.preferred_date %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500">
+    <%= order.client.manager.name %>
+  </div>
+  <div class="table-cell py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+    <% if order.can_edit? %>
+      <%= link_to t("actions.edit_record"), edit_sales_channel_order_path(@sales_channel, order), class: "text-indigo-600 hover:text-indigo-900" %>
+    <% else %>
+      <%= link_to t("actions.show_record"), sales_channel_order_path(@sales_channel, order), class: "text-indigo-600 hover:text-indigo-900" %>
+    <% end %>
+  </div>
 </div>
