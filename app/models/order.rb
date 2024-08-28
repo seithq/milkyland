@@ -8,6 +8,8 @@ class Order < ApplicationRecord
   enum :kind, %i[ planned unscheduled ], default: :planned
   enum :status, %w[ in_planning in_production in_delivery completed cancelled ].index_by(&:itself), default: :in_planning
 
+  validates_comparison_of :preferred_date, greater_than_or_equal_to: Time.zone.today
+
   scope :filter_by_status, ->(status) { where status: status }
   scope :filter_by_id_or_client_or_sales_point, ->(query) { joins(:client).joins(:sales_point).where("LOWER(orders.id::text) LIKE ? OR LOWER(clients.name) LIKE ? OR LOWER(sales_points.name) LIKE ?", like(query), like(query), like(query)) }
 
