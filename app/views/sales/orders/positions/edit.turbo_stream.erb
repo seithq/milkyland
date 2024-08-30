@@ -12,6 +12,14 @@
     <%= text_field_tag "position[promotion]", @promotion.present? ? @promotion.name : "", id: "position_promotion", disabled: true, class: "form-input" %>
   <% end %>
 
+  <%= turbo_stream.update "promotion_link" do %>
+    <% if @promotion.present? %>
+      <%= link_to t("actions.show_record"), promotion_path(@promotion, readonly: true), target: "_blank", class: "text-sm leading-6 text-indigo-600" %>
+    <% else %>
+      <p class="text-sm leading-6 text-gray-600"><%= t("forms.no_running_promotions") %></p>
+    <% end %>
+  <% end %>
+
   <%= turbo_stream.replace "position_discounted_price" do %>
     <%= number_field_tag "position[discounted_price]", @discounted_price, id: "position_discounted_price", readonly: true, class: "form-input", step: ".1" %>
   <% end %>

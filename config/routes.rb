@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "home#index"
+  root to: "home#index"
 
   resource :first_run, only: %i[ show create ]
 
@@ -74,7 +74,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get "up" => "rails/health#show", as: :rails_health_check
-  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  get "up", to: "rails/health#show", as: :rails_health_check
+  get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker
+  get "manifest", to: "rails/pwa#manifest", as: :pwa_manifest
 end

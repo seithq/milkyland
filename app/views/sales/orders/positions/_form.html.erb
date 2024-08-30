@@ -26,6 +26,12 @@
         <%= text_field_tag "position[promotion]", position.discounted_product.present? ? position.discounted_product.promotion.name : "", autocomplete: "promotion", disabled: true, class: "form-input", step: ".1" %>
       </div>
 
+      <div id="promotion_link">
+        <% if position.discounted_product.present? %>
+          <%= link_to t("actions.show_record"), promotion_path(position.discounted_product.promotion, readonly: true), target: "_blank", id: "promotion_link", class: "mt-4 text-sm leading-6 text-indigo-600" %>
+        <% end %>
+      </div>
+
       <div>
         <%= form.label :discounted_price, class: "form-label" %>
         <%= form.number_field :discounted_price, autocomplete: "discounted-price", readonly: true, class: "form-input", step: ".1" %>

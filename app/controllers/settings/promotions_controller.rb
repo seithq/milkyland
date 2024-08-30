@@ -1,6 +1,9 @@
 class Settings::PromotionsController < ApplicationController
+  include ReadModes
+
   before_action :ensure_can_administer, only: %i[ create update destroy ]
   before_action :set_promotion, only: %i[ show edit update destroy ]
+  before_action :set_read_mode, only: :show
 
   def index
     @pagy, @promotions = pagy get_scope(params)
