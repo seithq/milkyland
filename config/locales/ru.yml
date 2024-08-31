@@ -124,7 +124,7 @@ ru:
       number: "Номер"
       sales_point: "Точка продаж"
       order_sum: "Сумма"
-      preferred_date: "Дата поставки"
+      preferred_date: "Дата производства"
       manager: "Менеджер"
       count: "Кол-во"
       sum: "Сумма"

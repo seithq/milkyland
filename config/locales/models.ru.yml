@@ -159,7 +159,7 @@ ru:
         kind: Тип заказа
         client_id: Заказчик
         sales_point_id: Точка продаж
-        preferred_date: Дата поставки
+        preferred_date: Дата производства
       position:
         product_id: Номенклатура ГП
         promotion: Акция
