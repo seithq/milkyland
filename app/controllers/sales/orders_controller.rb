@@ -2,7 +2,7 @@ class Sales::OrdersController < ApplicationController
   include SalesChannelScoped
 
   before_action :set_order, only: %i[ show edit update destroy ]
-  before_action :set_clients, only: %i[ show new edit ]
+  before_action :set_clients, only: %i[ show new edit update ]
 
   def index
     @pagy, @orders = pagy get_scope(params)
