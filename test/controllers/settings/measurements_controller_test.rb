@@ -48,7 +48,7 @@ class Settings::MeasurementsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update measurement" do
     sign_in :daniyar
-    patch measurement_url(@measurement), params: { measurement: { name: "Litre" } }
+    patch measurement_url(@measurement), params: { measurement: { name: "Litre", tonne_ratio: 1000.0 } }
     assert_redirected_to measurements_url
   end
 

@@ -12,6 +12,12 @@
         <%= form.text_field :unit, autocomplete: "unit", required: true, class: "form-input" %>
       </div>
 
+      <div>
+        <%= form.label :tonne_ratio, class: "form-label" %>
+        <%= form.number_field :tonne_ratio, autocomplete: "tonne-ratio", class: "form-input", step: ".1" %>
+        <p class="mt-3 text-sm leading-6 text-gray-600"><%= t("forms.tonne_ratio_description") %></p>
+      </div>
+
       <%= form.submit t("actions.save_record"), class: "btn" %>
     <% end %>
   </div>

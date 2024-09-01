@@ -18,4 +18,9 @@ class MeasurementTest < ActiveSupport::TestCase
     assert_not measurement.save
     assert_equal :taken, measurement.errors.where(:unit).first.type
   end
+
+  test "should return tonnage ratio" do
+    measurement = measurements(:litre)
+    assert_equal 5, measurement.to_tonnage_ratio(5000)
+  end
 end

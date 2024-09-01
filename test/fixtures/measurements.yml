@@ -1,10 +1,12 @@
 litre:
   name: Litre
   unit: l
+  tonne_ratio: 1000
 
 kilogram:
   name: Kilogram
   unit: kg
+  tonne_ratio: 1000
 
 piece:
   name: Piece

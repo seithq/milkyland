@@ -75,6 +75,7 @@ ru:
       measurement:
         name: Название
         unit: Единица
+        tonne_ratio: Делитель для расчета тонны
       material_asset:
         name: Название
         category_id: Категория

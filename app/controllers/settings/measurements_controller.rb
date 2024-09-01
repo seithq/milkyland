@@ -48,6 +48,6 @@ class Settings::MeasurementsController < ApplicationController
     end
 
     def measurement_params
-      params.require(:measurement).permit(:name, :unit)
+      params.require(:measurement).permit(:name, :unit, :tonne_ratio)
     end
 end

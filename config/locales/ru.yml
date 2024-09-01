@@ -91,6 +91,7 @@ ru:
       qr_prefix: "Префиск для QR"
       kind: "Тип"
       unit: "Единица"
+      tonne_ratio: "Делитель"
       category: "Категория"
       supplier: "Поставщик"
       article: "Артикул"
@@ -157,3 +158,4 @@ ru:
     inactive_promo: "Данная акция была приостановлена, чтобы активировать снова отметьте галочкой и сохраните."
     positions: "Товары"
     no_running_promotions: "Активные скидки не найдены."
+    tonne_ratio_description: "N единиц / Делитель = M тонн"

@@ -26,6 +26,7 @@ class Settings::MeasurementsTest < ApplicationSystemTestCase
     click_on I18n.t("actions.edit_record"), match: :first
 
     fill_in "measurement_name", with: "Pieces"
+    fill_in "measurement_tonne_ratio", with: "1000"
     click_on I18n.t("actions.save_record")
 
     assert_text I18n.t("actions.record_updated")

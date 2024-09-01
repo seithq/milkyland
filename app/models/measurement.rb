@@ -10,4 +10,8 @@ class Measurement < ApplicationRecord
   def display_label
     "#{ name } (#{ unit })"
   end
+
+  def to_tonnage_ratio(value)
+    tonne_ratio? ? value / tonne_ratio : 0
+  end
 end

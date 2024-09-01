@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_27_073731) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_01_162920) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
@@ -176,6 +176,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_27_073731) do
     t.string "unit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "tonne_ratio", precision: 20, scale: 3
     t.index ["unit"], name: "index_measurements_on_unit", unique: true
   end
 
