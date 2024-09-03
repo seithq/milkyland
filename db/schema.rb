@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_03_102536) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_03_183059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -84,6 +84,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_03_102536) do
     t.index ["bin"], name: "index_clients_on_bin", unique: true
     t.index ["manager_id"], name: "index_clients_on_manager_id"
     t.index ["name"], name: "index_clients_on_name", unique: true
+  end
+
+  create_table "consolidations", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.bigint "order_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_consolidations_on_order_id"
+    t.index ["plan_id", "order_id"], name: "index_consolidations_on_plan_id_and_order_id", unique: true
+    t.index ["plan_id"], name: "index_consolidations_on_plan_id"
   end
 
   create_table "containers", force: :cascade do |t|
@@ -480,6 +491,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_03_102536) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "clients", "users", column: "manager_id"
+  add_foreign_key "consolidations", "orders"
+  add_foreign_key "consolidations", "plans"
   add_foreign_key "containers", "material_assets"
   add_foreign_key "containers", "packing_machines"
   add_foreign_key "discounted_products", "products"

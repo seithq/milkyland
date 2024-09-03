@@ -20,8 +20,10 @@ class OrderTest < ActiveSupport::TestCase
                       preferred_date: production_date)
 
     assert_difference -> { Plan.count }, 1 do
-      assert order.save
-      assert_equal production_date.to_date, Plan.last.production_date
+      assert_difference -> { Consolidation.count }, 1 do
+        assert order.save
+        assert_equal production_date.to_date, Plan.last.production_date
+      end
     end
   end
 
@@ -35,7 +37,9 @@ class OrderTest < ActiveSupport::TestCase
                       preferred_date: plan.production_date)
 
     assert_difference -> { Plan.count }, 0 do
-      assert order.save
+      assert_difference -> { Consolidation.count }, 1 do
+        assert order.save
+      end
     end
   end
 
@@ -43,7 +47,7 @@ class OrderTest < ActiveSupport::TestCase
     production_date = 3.days.from_now
     next_date = 7.days.from_now
 
-    [ [ :in_production, production_date ], [ :in_consolidation, next_date ] ].each do |params|
+    [[:in_production, production_date], [:in_consolidation, next_date]].each do |params|
       plan = Plan.new(status: params.first, production_date: params.second)
       assert plan.save
     end
@@ -54,8 +58,11 @@ class OrderTest < ActiveSupport::TestCase
                       preferred_date: production_date)
 
     assert_difference -> { Plan.count }, 0 do
-      assert order.save
-      assert_equal next_date.to_date, order.preferred_date
+      assert_difference -> { Consolidation.count }, 1 do
+        assert order.save
+        assert_equal next_date.to_date, order.preferred_date
+        assert_equal Plan.ordered.first, order.current_plan
+      end
     end
   end
 
@@ -72,9 +79,29 @@ class OrderTest < ActiveSupport::TestCase
                       preferred_date: production_date)
 
     assert_difference -> { Plan.count }, 1 do
-      assert order.save
-      assert_equal next_date.to_date, order.preferred_date
-      assert_equal 1, Plan.where(production_date: next_date).count
+      assert_difference -> { Consolidation.count }, 1 do
+        assert order.save
+        assert_equal next_date.to_date, order.preferred_date
+        assert_equal 1, Plan.where(production_date: next_date).count
+        assert_equal Plan.ordered.first, order.current_plan
+      end
+    end
+  end
+
+  test "should deactivate consolidation on order cancel" do
+    production_date = 3.days.from_now
+
+    order = Order.new(sales_channel: sales_channels(:b2c),
+                      client: clients(:systemd),
+                      sales_point: sales_points(:seit),
+                      preferred_date: production_date)
+    assert order.save
+
+    assert_difference -> { Plan.count }, 0 do
+      assert_difference -> { Consolidation.active.count }, -1 do
+        assert order.cancel
+        assert_not order.current_plan
+      end
     end
   end
 end
