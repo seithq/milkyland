@@ -32,14 +32,17 @@ ru:
     participants: "Участвующие клиенты"
     discounted_products: "Скидочные товары"
     sales_by_channels: "Заявки по каналам"
+    sales_by_plans: "Заявки по дням"
     orders_by_channel: "Заявки %{channel}"
     status_in_planning: "Новые"
+    status_in_consolidation: "Новые"
     status_in_production: "В производстве"
     status_in_delivery: "На доставке"
     status_completed: "Завершенные"
     status_cancelled: "Отмененные"
     order_number: "Заказ #%{id}"
     positions: "Товарные позиции"
+    plans: "Консолидированные заявки"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -70,6 +73,7 @@ ru:
     promo_deactivated: "Акция приостановлена"
     cancel: "Отменить"
     order_cancelled: "Заказ отменен"
+    plan_cancelled: "Консолидированная заявка отменена"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
@@ -130,6 +134,9 @@ ru:
       count: "Кол-во"
       sum: "Сумма"
       total: "Итого:"
+      production_date: "Дата производства"
+      orders_count: "Кол-во заявок"
+      groups_count: "Кол-во групп"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
