@@ -21,7 +21,7 @@ gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "tailwindcss-rails"
-gem "requestjs-rails", "~> 0.0.11"
+gem "requestjs-rails", "~> 0.0.12"
 gem "inline_svg", "~> 1.9"
 gem "pagy", "~> 9.0"
 
