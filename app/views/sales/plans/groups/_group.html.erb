@@ -1,0 +1,30 @@
+<% @plan.group_products(group).each do |product| %>
+  <%= tag.div id: dom_id(product), class: "table-row hover:bg-gray-50" do %>
+    <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+      <%= product.article %>
+    </div>
+    <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+      <%= product.name %>
+    </div>
+    <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+      <%= @plan.product_sum product %>
+    </div>
+    <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+      <%= @plan.product_tonnage product %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= tag.div id: dom_id(group), class: "table-row bg-gray-50" do %>
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-semibold text-gray-900 sm:pl-6">
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">
+    <%= t("tables.cols.group_total", group: group.name) %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">
+    <%= @plan.group_sum group %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">
+    <%= @plan.group_tonnage(group) %>
+  </div>
+<% end %>

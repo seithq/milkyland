@@ -243,16 +243,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_03_183059) do
   create_table "positions", force: :cascade do |t|
     t.bigint "order_id", null: false
     t.bigint "product_id", null: false
-    t.bigint "discounted_product_id"
+    t.bigint "promotion_id"
     t.integer "count"
     t.decimal "base_price", precision: 20, scale: 3
     t.decimal "discounted_price", precision: 20, scale: 3
     t.decimal "total_sum", precision: 20, scale: 3
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["discounted_product_id"], name: "index_positions_on_discounted_product_id"
     t.index ["order_id"], name: "index_positions_on_order_id"
     t.index ["product_id"], name: "index_positions_on_product_id"
+    t.index ["promotion_id"], name: "index_positions_on_promotion_id"
   end
 
   create_table "prices", force: :cascade do |t|
@@ -511,9 +511,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_03_183059) do
   add_foreign_key "orders", "sales_points"
   add_foreign_key "participants", "clients"
   add_foreign_key "participants", "promotions"
-  add_foreign_key "positions", "discounted_products"
   add_foreign_key "positions", "orders"
   add_foreign_key "positions", "products"
+  add_foreign_key "positions", "promotions"
   add_foreign_key "prices", "products"
   add_foreign_key "prices", "sales_channels"
   add_foreign_key "products", "groups"

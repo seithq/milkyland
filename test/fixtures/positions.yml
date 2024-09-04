@@ -1,7 +1,7 @@
 opening_milk25:
   order: opening
   product: milk25
-  discounted_product: big_deal_milk25
+  promotion: big_deal
   count: 2
   base_price: 1000.0
   discounted_price: 900.0

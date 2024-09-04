@@ -3,6 +3,7 @@ class Promotion < ApplicationRecord
 
   has_many :participants, dependent: :destroy
   has_many :products, class_name: "DiscountedProduct", foreign_key: "promotion_id", dependent: :destroy
+  has_many :positions, dependent: :nullify
 
   enum :kind, %w[ by_percent by_amount ].index_by(&:itself), default: :by_percent
 

@@ -4,8 +4,6 @@ class DiscountedProduct < ApplicationRecord
   belongs_to :promotion
   belongs_to :product
 
-  has_many :positions, dependent: :destroy
-
   validates_uniqueness_of :product_id, scope: :promotion_id
 
   scope :filter_by_product, ->(product_id) { where(product_id: product_id) }

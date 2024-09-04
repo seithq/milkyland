@@ -47,7 +47,7 @@ class OrderTest < ActiveSupport::TestCase
     production_date = 3.days.from_now
     next_date = 7.days.from_now
 
-    [[:in_production, production_date], [:in_consolidation, next_date]].each do |params|
+    [ [ :in_production, production_date ], [ :in_consolidation, next_date ] ].each do |params|
       plan = Plan.new(status: params.first, production_date: params.second)
       assert plan.save
     end

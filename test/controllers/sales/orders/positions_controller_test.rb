@@ -23,7 +23,7 @@ module Sales
     test "should create position" do
       sign_in :daniyar
       assert_difference("Position.count") do
-        post sales_channel_order_positions_url(@channel, @order), params: { position: { base_price: @position.base_price, count: @position.count, discounted_price: @position.discounted_price, discounted_product_id: @position.discounted_product_id, product_id: @position.product_id, total_sum: @position.total_sum } }
+        post sales_channel_order_positions_url(@channel, @order), params: { position: { base_price: @position.base_price, count: @position.count, discounted_price: @position.discounted_price, promotion_id: @position.promotion_id, product_id: @position.product_id, total_sum: @position.total_sum } }
       end
 
       assert_redirected_to edit_sales_channel_order_url(@channel, @order)

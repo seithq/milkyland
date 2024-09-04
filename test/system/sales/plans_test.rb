@@ -2,42 +2,33 @@ require "application_system_test_case"
 
 class PlansTest < ApplicationSystemTestCase
   setup do
-    @plan = plans(:one)
+    @order = orders(:opening)
+    assert @order.update(preferred_date: 10.days.from_now)
+    @plan = Plan.last
+    sign_in "daniyar@hey.com"
   end
 
   test "visiting the index" do
     visit plans_url
-    assert_selector "h1", text: "Plans"
-  end
-
-  test "should create plan" do
-    visit plans_url
-    click_on "New plan"
-
-    fill_in "Production date", with: @plan.production_date
-    fill_in "Status", with: @plan.status
-    click_on "Create Plan"
-
-    assert_text "Plan was successfully created"
-    click_on "Back"
+    assert_selector ".breadcrumb-link", text: I18n.t("pages.sales_by_plans")
   end
 
   test "should update Plan" do
-    visit plan_url(@plan)
-    click_on "Edit this plan", match: :first
+    visit plans_url
+    click_on I18n.t("actions.edit_record"), match: :first
 
-    fill_in "Production date", with: @plan.production_date
-    fill_in "Status", with: @plan.status
-    click_on "Update Plan"
+    click_on I18n.t("actions.start_plan")
 
-    assert_text "Plan was successfully updated"
-    click_on "Back"
+    assert_text I18n.t("actions.record_updated")
   end
 
   test "should destroy Plan" do
-    visit plan_url(@plan)
-    click_on "Destroy this plan", match: :first
+    visit edit_plan_url(@plan)
 
-    assert_text "Plan was successfully destroyed"
+    accept_alert do
+      find(".destroy_plan", match: :first).click
+    end
+
+    assert_text I18n.t("actions.plan_cancelled")
   end
 end

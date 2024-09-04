@@ -55,7 +55,7 @@ module Sales
       end
 
       def position_params
-        params.require(:position).permit(:product_id, :discounted_product_id, :count, :base_price, :discounted_price, :total_sum)
+        params.require(:position).permit(:product_id, :promotion_id, :count, :base_price, :discounted_price, :total_sum)
       end
 
       def set_product
@@ -65,7 +65,6 @@ module Sales
 
           @promotion = @order.eligible_promotions_for(@product).first
           @discounted_price = @promotion.present? ? @promotion.calculate_discount_for(@base_price) : @base_price.value
-          @discounted_product_id = @promotion.present? ? @promotion.products.filter_by_product(@product.id).take.id : nil
         end
       end
   end

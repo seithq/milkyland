@@ -169,3 +169,8 @@ ru:
         base_price: Базовая стоимость
         discounted_price: Стоимость после скидки
         total_sum: Сумма
+      plan:
+        production_date: Дата производства
+      consolidation:
+        order_id: Заказ
+        active: Активная запись

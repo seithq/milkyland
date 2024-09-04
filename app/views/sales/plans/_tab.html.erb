@@ -1,7 +1,7 @@
 <% tab_links = [
   NavLink.new(path: plans_path(status: :in_consolidation), title: t("pages.status_in_consolidation"), is_active: @status == "in_consolidation"),
   NavLink.new(path: plans_path(status: :in_production), title: t("pages.status_in_production"), is_active: @status == "in_production"),
-  NavLink.new(path: plans_path(status: :completed), title: t("pages.status_completed"), is_active: @status == "completed"),
+  NavLink.new(path: plans_path(status: :produced), title: t("pages.status_produced"), is_active: @status == "produced"),
   NavLink.new(path: plans_path(status: :cancelled), title: t("pages.status_cancelled"), is_active: @status == "cancelled"),
 ]
 %>

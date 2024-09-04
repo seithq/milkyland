@@ -34,7 +34,12 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :plans, except: %i[ new create ]
+    resources :plans, except: %i[ new create ] do
+      scope module: "plans" do
+        resources :consolidations, except: %i[ show new create ]
+        resources :groups, only: :index
+      end
+    end
   end
 
   scope module: "settings" do

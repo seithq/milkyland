@@ -4,7 +4,7 @@
     <%= form_with model: [@sales_channel, @order, position],
                   class: "space-y-4",
                   data: { turbo: false, controller: "position", position_search_url: new_sales_channel_order_position_path(@sales_channel, @order) } do |form| %>
-      <%= form.hidden_field :discounted_product_id %>
+      <%= form.hidden_field :promotion_id %>
 
       <div>
         <%= form.label :product_id, class: "form-label" %>
@@ -23,12 +23,12 @@
 
       <div>
         <%= form.label :promotion, class: "form-label" %>
-        <%= text_field_tag "position[promotion]", position.discounted_product.present? ? position.discounted_product.promotion.name : "", autocomplete: "promotion", disabled: true, class: "form-input", step: ".1" %>
+        <%= text_field_tag "position[promotion]", position.promotion.present? ? position.promotion.name : "", autocomplete: "promotion", disabled: true, class: "form-input", step: ".1" %>
       </div>
 
       <div id="promotion_link">
-        <% if position.discounted_product.present? %>
-          <%= link_to t("actions.show_record"), promotion_path(position.discounted_product.promotion, readonly: true), target: "_blank", id: "promotion_link", class: "mt-4 text-sm leading-6 text-indigo-600" %>
+        <% if position.promotion.present? %>
+          <%= link_to t("actions.show_record"), promotion_path(position.promotion, readonly: true), target: "_blank", id: "promotion_link", class: "mt-4 text-sm leading-6 text-indigo-600" %>
         <% end %>
       </div>
 

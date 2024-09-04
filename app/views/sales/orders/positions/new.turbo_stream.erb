@@ -1,7 +1,7 @@
 <% if @product.present? %>
 
-  <%= turbo_stream.replace "position_discounted_product_id" do %>
-    <%= hidden_field_tag "position[discounted_product_id]", @discounted_product_id %>
+  <%= turbo_stream.replace "position_promotion_id" do %>
+    <%= hidden_field_tag "position[promotion_id]", @promotion.present? ? @promotion.id : nil %>
   <% end %>
 
   <%= turbo_stream.replace "position_base_price" do %>

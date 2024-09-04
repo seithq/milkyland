@@ -23,7 +23,7 @@ class Sales::PlansController < ApplicationController
   def destroy
     @plan.cancel
 
-    redirect_on_destroy plan_url, text: t("actions.plan_cancelled")
+    redirect_on_destroy plans_url(status: @plan.status), text: t("actions.plan_cancelled")
   end
 
   private

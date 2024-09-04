@@ -12,4 +12,6 @@ class Group < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :metric_tonne, presence: true, numericality: { only_integer: true }
+
+  scope :ordered, -> { order(name: :asc) }
 end

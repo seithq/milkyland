@@ -37,6 +37,7 @@ ru:
     status_in_planning: "Новые"
     status_in_consolidation: "Новые"
     status_in_production: "В производстве"
+    status_produced: "Произведено"
     status_in_delivery: "На доставке"
     status_completed: "Завершенные"
     status_cancelled: "Отмененные"
@@ -74,6 +75,8 @@ ru:
     cancel: "Отменить"
     order_cancelled: "Заказ отменен"
     plan_cancelled: "Консолидированная заявка отменена"
+    start_plan: "Запустить"
+    order_deactivated: "Заказ исключен"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
@@ -137,6 +140,8 @@ ru:
       production_date: "Дата производства"
       orders_count: "Кол-во заявок"
       groups_count: "Кол-во групп"
+      tonnage: "Тоннаж"
+      group_total: "Итого %{group}"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -166,3 +171,4 @@ ru:
     positions: "Товары"
     no_running_promotions: "Активные скидки не найдены."
     tonne_ratio_description: "N единиц / Делитель = M тонн"
+    orders: "Заявки"

@@ -1,12 +1,11 @@
-<% content_for(:title) { @plan.production_date.to_s } %>
-
 <% content_for :breadcrumb do %>
   <%= render "layouts/breadcrumb", {
     nav_links: [
       NavLink.new(path: plans_path, title: t("pages.sales_by_plans")),
       NavLink.new(path: edit_plan_path(@plan), title: @plan.production_date),
+      NavLink.new(path: edit_plan_consolidation_path(@plan, @consolidation), title: t("pages.order_number", id: @consolidation.order.id)),
     ]
   } %>
 <% end %>
 
-<%= render "form", plan: @plan %>
+<%= render "form", consolidation: @consolidation %>

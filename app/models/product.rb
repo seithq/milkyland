@@ -11,6 +11,8 @@ class Product < ApplicationRecord
   validates_presence_of :packing, :expiration_in_days, :fat_fraction
   validates_numericality_of :fat_fraction, in: 0.0..100.0
 
+  scope :filter_by_group, ->(group_id) { where(group_id: group_id) }
+
   scope :ordered, -> { order(name: :asc) }
 
   def price(by:)

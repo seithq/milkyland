@@ -1,0 +1,25 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= render "layouts/error_messages", resource: consolidation %>
+    <%= form_with model: [@plan, consolidation], class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :order_id, class: "form-label" %>
+        <%= form.text_field :order_id, value: t("pages.order_number", id: consolidation.order.id), disabled: true, class: "form-input" %>
+      </div>
+
+      <% unless consolidation.active? %>
+        <div class="relative flex gap-x-3">
+          <div class="flex h-6 items-center">
+            <%= form.check_box :active, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+          </div>
+          <div class="text-sm leading-6">
+            <%= form.label :active, class: "font-medium text-gray-900" %>
+            <p class="text-gray-500"><%= t("forms.inactive_field") %></p>
+          </div>
+        </div>
+      <% end %>
+
+      <%= form.submit t("actions.save_record"), class: "btn" %>
+    <% end %>
+  </div>
+</div>
