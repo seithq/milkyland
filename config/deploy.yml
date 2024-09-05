@@ -46,7 +46,9 @@ registry:
     - KAMAL_REGISTRY_PASSWORD
 
 builder:
-  multiarch: true
+  remote:
+    arch: amd64
+    host: ssh://deploy@194.67.82.37
   cache:
     type: registry
     image: seithq/milkyland-build-cache
