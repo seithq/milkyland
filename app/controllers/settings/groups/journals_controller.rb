@@ -43,7 +43,7 @@ module Settings
 
     private
       def base_scope
-        @group.journals
+        @group.journals.ordered
       end
 
       def search_methods
@@ -55,7 +55,7 @@ module Settings
       end
 
       def journal_params
-        params.require(:journal).permit(:name, :active)
+        params.require(:journal).permit(:name, :chain_order, :active)
       end
   end
 end

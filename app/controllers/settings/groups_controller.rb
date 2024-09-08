@@ -20,7 +20,7 @@ class Settings::GroupsController < ApplicationController
     @group = Group.new(group_params)
 
     if @group.save
-      redirect_on_create groups_url
+      redirect_on_create edit_group_url(@group)
     else
       render :new, status: :unprocessable_entity
     end

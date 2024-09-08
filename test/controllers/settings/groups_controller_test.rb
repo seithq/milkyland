@@ -23,7 +23,7 @@ class Settings::GroupsControllerTest < ActionDispatch::IntegrationTest
       post groups_url, params: { group: { name: "Milk 5%", metric_tonne: 1, category_id: categories(:milk).id } }
     end
 
-    assert_redirected_to groups_url
+    assert_redirected_to edit_group_url(Group.last)
   end
 
   test "create does not allow non-admins to create record" do

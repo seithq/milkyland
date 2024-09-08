@@ -12,6 +12,7 @@ module Settings
       find(".new_journal").click
 
       fill_in "journal_name", with: "Cleaning"
+      fill_in "journal_chain_order", with: "1"
       click_on I18n.t("actions.save_record")
 
       assert_text I18n.t("actions.record_created")
@@ -22,6 +23,7 @@ module Settings
       find(".edit_journal", match: :first).click
 
       fill_in "journal_name", with: "Cleaning"
+      fill_in "journal_chain_order", with: "1"
       click_on I18n.t("actions.save_record")
 
       assert_text I18n.t("actions.record_updated")

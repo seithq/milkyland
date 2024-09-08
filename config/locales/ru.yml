@@ -143,6 +143,7 @@ ru:
       tonnage: "Тоннаж"
       group_total: "Итого %{group}"
       region: "Регион"
+      chain_order: "Порядковый номер"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
