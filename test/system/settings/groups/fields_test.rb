@@ -14,6 +14,7 @@ module Settings
       select operations(:analysis).name, from: "field_operation_id"
       select Field.enum_to_s(:kind, :time), from: "field_kind"
       fill_in "field_name", with: "Mid Time"
+      fill_in "field_chain_order", with: "1"
       click_on I18n.t("actions.save_record")
 
       assert_text I18n.t("actions.record_created")
@@ -24,6 +25,7 @@ module Settings
       find(".edit_field", match: :first).click
 
       fill_in "field_name", with: "Mid Time"
+      fill_in "field_chain_order", with: "1"
       click_on I18n.t("actions.save_record")
 
       assert_text I18n.t("actions.record_updated")

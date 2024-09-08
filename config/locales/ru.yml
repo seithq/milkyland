@@ -109,6 +109,7 @@ ru:
       raw_product: "Сырье"
       ratio: "Количество"
       journal: "Журнал операций"
+      operation: "Операция"
       field_name: "Наименование поля"
       field_kind: "Формат поля"
       metric: "Показатель"

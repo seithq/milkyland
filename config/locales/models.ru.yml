@@ -107,6 +107,7 @@ ru:
       field:
         operation_id: Операция журнала
         name: Наименование поля
+        chain_order: Порядковый номер
         kind: Формат поля
         active: Активная запись
       standard:

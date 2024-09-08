@@ -22,7 +22,7 @@ module Settings
     test "should create field" do
       sign_in :daniyar
       assert_difference("Field.count") do
-        post group_fields_url(@group), params: { field: { kind: "time", name: "End Time", operation_id: @field.operation_id } }
+        post group_fields_url(@group), params: { field: { kind: "time", name: "End Time", chain_order: 1, operation_id: @field.operation_id } }
       end
 
       assert_redirected_to edit_group_path(@group)
@@ -32,7 +32,7 @@ module Settings
       sign_in :askhat
       assert_not users(:askhat).admin?
 
-      post group_fields_url(@group), params: { field: { kind: "time", name: "End Time", operation_id: @field.operation_id } }
+      post group_fields_url(@group), params: { field: { kind: "time", name: "End Time", chain_order: 1, operation_id: @field.operation_id } }
       assert_response :forbidden
     end
 

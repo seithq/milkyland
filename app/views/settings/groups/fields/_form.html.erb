@@ -4,12 +4,17 @@
     <%= form_with model: [@group, field], class: "space-y-4" do |form| %>
       <div>
         <%= form.label :operation_id, class: "form-label" %>
-        <%= form.select :operation_id, options_from_collection_for_select(@group.operations, :id, :name, field.operation_id), { include_blank: true }, { disabled: !field.active?, required: true, class: "form-select" } %>
+        <%= form.select :operation_id, options_from_collection_for_select(@group.operations, :id, :name_with_journal, field.operation_id), { include_blank: true }, { disabled: !field.active?, required: true, class: "form-select" } %>
       </div>
 
       <div>
         <%= form.label :name, class: "form-label" %>
         <%= form.text_field :name, autocomplete: "name", disabled: !field.active?, autofocus: true, required: true, class: "form-input" %>
+      </div>
+
+      <div>
+        <%= form.label :chain_order, class: "form-label" %>
+        <%= form.number_field :chain_order, autocomplete: "chain-order", disabled: !field.active?, required: true, class: "form-input" %>
       </div>
 
       <div>

@@ -2,4 +2,5 @@ start_time:
   operation: analysis
   name: Start Time
   kind: time
+  chain_order: 1
   active: true
