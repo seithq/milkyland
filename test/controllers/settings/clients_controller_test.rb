@@ -23,7 +23,7 @@ class Settings::ClientsControllerTest < ActionDispatch::IntegrationTest
       post clients_url, params: { client: { bin: "921026400042", name: "REGATA", manager_id: users(:askhat).id } }
     end
 
-    assert_redirected_to clients_url
+    assert_redirected_to edit_client_url(Client.last)
   end
 
   test "create does not allow non-admins to create record" do

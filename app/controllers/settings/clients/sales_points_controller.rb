@@ -55,7 +55,7 @@ module Settings
       end
 
       def sales_point_params
-        params.require(:sales_point).permit(:name, :address, :phone_number, :active)
+        params.require(:sales_point).permit(:region_id, :name, :address, :phone_number, :active)
       end
   end
 end

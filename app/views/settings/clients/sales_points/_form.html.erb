@@ -8,6 +8,11 @@
       </div>
 
       <div>
+        <%= form.label :region_id, class: "form-label" %>
+        <%= form.select :region_id, options_from_collection_for_select(Region.ordered, :id, :name, sales_point.region_id), { include_blank: true }, { required: true, class: "form-select", data: { action: "position#refreshPricesOnProduct" } } %>
+      </div>
+
+      <div>
         <%= form.label :address, class: "form-label" %>
         <%= form.text_area :address, autocomplete: "address", disabled: !sales_point.active?, required: true, rows: 3, class: "form-area" %>
       </div>

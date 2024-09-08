@@ -20,7 +20,7 @@ class Settings::SuppliersController < ApplicationController
     @supplier = Supplier.new(supplier_params)
 
     if @supplier.save
-      redirect_on_create suppliers_url
+      redirect_on_create edit_supplier_url(@supplier)
     else
       render :new, status: :unprocessable_entity
     end

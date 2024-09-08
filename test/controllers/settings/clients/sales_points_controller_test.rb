@@ -22,7 +22,7 @@ module Settings
     test "should create sales_point" do
       sign_in :daniyar
       assert_difference("SalesPoint.count") do
-        post client_sales_points_url(@client), params: { sales_point: { address: "New Address", name: "New Store" } }
+        post client_sales_points_url(@client), params: { sales_point: { address: "New Address", name: "New Store", region_id: regions(:almaty).id } }
       end
 
       assert_redirected_to edit_client_url(@client)
@@ -33,7 +33,7 @@ module Settings
       assert_not users(:askhat).admin?
 
       channel = SalesChannel.create!(name: "Test")
-      post client_sales_points_url(@client), params: { sales_point: { address: "New Address", name: "New Store" } }
+      post client_sales_points_url(@client), params: { sales_point: { address: "New Address", name: "New Store", region_id: regions(:almaty).id } }
       assert_response :forbidden
     end
 

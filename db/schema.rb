@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_03_183059) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_08_153504) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -324,8 +324,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_03_183059) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "region_id", null: false
     t.index ["client_id", "name"], name: "index_sales_points_on_client_id_and_name", unique: true
     t.index ["client_id"], name: "index_sales_points_on_client_id"
+    t.index ["region_id"], name: "index_sales_points_on_region_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -520,6 +522,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_03_183059) do
   add_foreign_key "products", "material_assets"
   add_foreign_key "products", "measurements"
   add_foreign_key "sales_points", "clients"
+  add_foreign_key "sales_points", "regions"
   add_foreign_key "sessions", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

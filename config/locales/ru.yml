@@ -142,6 +142,7 @@ ru:
       groups_count: "Кол-во групп"
       tonnage: "Тоннаж"
       group_total: "Итого %{group}"
+      region: "Регион"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

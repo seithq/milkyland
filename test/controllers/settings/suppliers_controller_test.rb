@@ -23,7 +23,7 @@ class Settings::SuppliersControllerTest < ActionDispatch::IntegrationTest
       post suppliers_url, params: { supplier: { bin: "921026400042", name: "REGATA", manager_id: users(:askhat).id } }
     end
 
-    assert_redirected_to suppliers_url
+    assert_redirected_to edit_supplier_url(Supplier.last)
   end
 
   test "create does not allow non-admins to create record" do

@@ -1,5 +1,6 @@
 seit:
   client: systemd
+  region: almaty
   name: SEIT HQ
   address: Kasymova 32
   phone_number: "+77272311889"

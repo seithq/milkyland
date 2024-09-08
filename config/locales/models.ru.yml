@@ -130,6 +130,7 @@ ru:
         value: Цена
         active: Активная запись
       sales_point:
+        region_id: Регион
         name: Название точки
         address: Адрес
         phone_number: Телефон

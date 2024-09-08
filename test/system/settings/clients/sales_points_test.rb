@@ -12,6 +12,7 @@ module Settings
       find(".new_sales_point").click
 
       fill_in "sales_point_name", with: "New Store"
+      select regions(:almaty).name, from: "sales_point_region_id"
       fill_in "sales_point_address", with: "New Address"
       fill_in "sales_point_phone_number", with: "+77772514515"
       click_on I18n.t("actions.save_record")

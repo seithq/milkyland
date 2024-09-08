@@ -20,7 +20,7 @@ class Settings::ClientsController < ApplicationController
     @client = Client.new(client_params)
 
     if @client.save
-      redirect_on_create clients_url
+      redirect_on_create edit_client_url(@client)
     else
       render :new, status: :unprocessable_entity
     end

@@ -20,7 +20,7 @@ class Settings::RegionsControllerTest < ActionDispatch::IntegrationTest
   test "should create region" do
     sign_in :daniyar
     assert_difference("Region.count") do
-      post regions_url, params: { region: { code: "02", name: "Almaty" } }
+      post regions_url, params: { region: { code: "01", name: "Astana" } }
     end
 
     assert_redirected_to regions_url
@@ -30,7 +30,7 @@ class Settings::RegionsControllerTest < ActionDispatch::IntegrationTest
     sign_in :askhat
     assert_not users(:askhat).admin?
 
-    post regions_url, params: { region: { code: "02", name: "Almaty" } }
+    post regions_url, params: { region: { code: "01", name: "Astana" } }
     assert_response :forbidden
   end
 
@@ -48,7 +48,7 @@ class Settings::RegionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update region" do
     sign_in :daniyar
-    patch region_url(@region), params: { region: { code: @region.code, name: "Almaty" } }
+    patch region_url(@region), params: { region: { code: "01", name: "Astana" } }
     assert_redirected_to regions_url
   end
 
@@ -56,7 +56,7 @@ class Settings::RegionsControllerTest < ActionDispatch::IntegrationTest
     sign_in :askhat
     assert_not users(:askhat).admin?
 
-    patch region_url(@region), params: { region: { code: @region.code, name: "Almaty" } }
+    patch region_url(@region), params: { region: { code: "01", name: "Astana" } }
     assert_response :forbidden
   end
 end
