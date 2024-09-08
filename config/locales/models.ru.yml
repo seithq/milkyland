@@ -102,6 +102,7 @@ ru:
       operation:
         journal_id: Журнал операций
         name: Название
+        chain_order: Порядковый номер
         active: Активная запись
       field:
         operation_id: Операция журнала

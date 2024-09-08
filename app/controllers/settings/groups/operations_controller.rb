@@ -55,7 +55,7 @@ module Settings
       end
 
       def operation_params
-        params.require(:operation).permit(:journal_id, :name, :active)
+        params.require(:operation).permit(:journal_id, :name, :chain_order, :active)
       end
   end
 end

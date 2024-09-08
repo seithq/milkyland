@@ -5,4 +5,6 @@ class Operation < ApplicationRecord
   has_many :fields, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :journal, case_sensitive: false }
+
+  scope :ordered, -> { merge(Journal.ordered).order(name: :asc) }
 end

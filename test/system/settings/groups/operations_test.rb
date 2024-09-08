@@ -13,6 +13,7 @@ module Settings
 
       select journals(:skimming).name, from: "operation_journal_id"
       fill_in "operation_name", with: "Final Probe"
+      fill_in "operation_chain_order", with: "1"
       click_on I18n.t("actions.save_record")
 
       assert_text I18n.t("actions.record_created")
@@ -23,6 +24,7 @@ module Settings
       find(".edit_operation", match: :first).click
 
       fill_in "operation_name", with: "Final Probe"
+      fill_in "operation_chain_order", with: "1"
       click_on I18n.t("actions.save_record")
 
       assert_text I18n.t("actions.record_updated")

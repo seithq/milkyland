@@ -22,7 +22,7 @@ module Settings
     test "should create operation" do
       sign_in :daniyar
       assert_difference("Operation.count") do
-        post group_operations_url(@group), params: { operation: { journal_id: @operation.journal_id, name: "New Operation" } }
+        post group_operations_url(@group), params: { operation: { journal_id: @operation.journal_id, name: "New Operation", chain_order: 1 } }
       end
 
       assert_redirected_to edit_group_path(@group)
@@ -32,7 +32,7 @@ module Settings
       sign_in :askhat
       assert_not users(:askhat).admin?
 
-      post group_operations_url(@group), params: { operation: { journal_id: @operation.journal_id, name: "New Operation" } }
+      post group_operations_url(@group), params: { operation: { journal_id: @operation.journal_id, name: "New Operation", chain_order: 1 } }
       assert_response :forbidden
     end
 
@@ -44,7 +44,7 @@ module Settings
 
     test "should update operation" do
       sign_in :daniyar
-      patch group_operation_url(@group, @operation), params: { operation: { name: "New Name" } }
+      patch group_operation_url(@group, @operation), params: { operation: { name: "New Name", chain_order: 1 } }
       assert_redirected_to edit_group_path(@group)
     end
 
@@ -52,7 +52,7 @@ module Settings
       sign_in :askhat
       assert_not users(:askhat).admin?
 
-      patch group_operation_url(@group, @operation), params: { operation: { name: "New Name" } }
+      patch group_operation_url(@group, @operation), params: { operation: { name: "New Name", chain_order: 1 } }
       assert_response :forbidden
     end
 

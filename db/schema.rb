@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_08_155431) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_08_161552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -198,6 +198,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_08_155431) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "chain_order", default: 0
     t.index ["journal_id", "name"], name: "index_operations_on_journal_id_and_name", unique: true
     t.index ["journal_id"], name: "index_operations_on_journal_id"
   end

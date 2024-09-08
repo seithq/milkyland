@@ -5,10 +5,11 @@ class Group < ApplicationRecord
 
   has_many :products, dependent: :destroy
   has_many :ingredients, dependent: :destroy
-  has_many :journals, dependent: :destroy
-  has_many :operations, through: :journals
-  has_many :fields, through: :operations
   has_many :standards, dependent: :destroy
+
+  has_many :journals, -> { ordered }, dependent: :destroy
+  has_many :operations, -> { ordered }, through: :journals
+  has_many :fields, through: :operations
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :metric_tonne, presence: true, numericality: { only_integer: true }

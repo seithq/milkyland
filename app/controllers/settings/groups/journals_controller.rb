@@ -43,7 +43,7 @@ module Settings
 
     private
       def base_scope
-        @group.journals.ordered
+        @group.journals
       end
 
       def search_methods

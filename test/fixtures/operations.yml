@@ -1,4 +1,5 @@
 analysis:
   journal: skimming
   name: Analysis
+  chain_order: 1
   active: true

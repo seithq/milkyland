@@ -12,6 +12,11 @@
         <%= form.text_field :name, autocomplete: "name", disabled: !operation.active?, autofocus: true, required: true, class: "form-input" %>
       </div>
 
+      <div>
+        <%= form.label :chain_order, class: "form-label" %>
+        <%= form.number_field :chain_order, autocomplete: "chain-order", disabled: !operation.active?, required: true, class: "form-input" %>
+      </div>
+
       <% unless operation.new_record? || operation.active? %>
         <div class="relative flex gap-x-3">
           <div class="flex h-6 items-center">

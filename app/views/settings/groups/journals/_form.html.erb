@@ -9,7 +9,7 @@
 
       <div>
         <%= form.label :chain_order, class: "form-label" %>
-        <%= form.text_field :chain_order, autocomplete: "chain-order", disabled: !journal.active?, required: true, class: "form-input" %>
+        <%= form.number_field :chain_order, autocomplete: "chain-order", disabled: !journal.active?, required: true, class: "form-input" %>
       </div>
 
       <% unless journal.new_record? || journal.active? %>
