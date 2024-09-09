@@ -15,6 +15,10 @@ class Plan < ApplicationRecord
 
   scope :ordered, -> { order(production_date: :desc) }
 
+  # Для табов во вкладке производства
+  scope :active,    -> { filter_by_status(%i[ in_consolidation in_production ]) }
+  scope :completed, -> { filter_by_status(%i[ produced cancelled ]) }
+
   def self.after(from_date)
     Plan.where(status: :in_consolidation, production_date: (from_date + 1.day)..).order(production_date: :asc).first
   end
