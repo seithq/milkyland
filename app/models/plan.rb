@@ -1,4 +1,6 @@
 class Plan < ApplicationRecord
+  SHARED = %w[ ready_to_production in_production produced cancelled ]
+
   has_many :consolidations, dependent: :destroy
   has_many :orders, -> { merge(Consolidation.active) }, through: :consolidations
   has_many :positions, through: :orders
@@ -9,7 +11,7 @@ class Plan < ApplicationRecord
 
   validates :production_date, presence: true, comparison: { greater_than_or_equal_to: Time.zone.today }
 
-  enum :status, %w[ in_consolidation ready_to_production in_production produced cancelled ].index_by(&:itself), default: :in_consolidation
+  enum :status, (%w[ in_consolidation ] + SHARED).index_by(&:itself), default: :in_consolidation
 
   scope :filter_by_status, ->(status) { where status: status }
 
@@ -61,7 +63,7 @@ class Plan < ApplicationRecord
 
   private
     def update_orders
-      return if in_consolidation?
+      return unless SHARED.include? status
 
       orders.update_all status: self.status if status_previously_changed?
     end
