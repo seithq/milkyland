@@ -36,6 +36,7 @@ ru:
     orders_by_channel: "Заявки %{channel}"
     status_in_planning: "Новые"
     status_in_consolidation: "Новые"
+    status_ready_to_production: "Готовы к производству"
     status_in_production: "В производстве"
     status_produced: "Произведено"
     status_in_delivery: "На доставке"
@@ -44,6 +45,7 @@ ru:
     order_number: "Заказ #%{id}"
     positions: "Товарные позиции"
     plans: "Консолидированные заявки"
+    plan: "Заявка %{date}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -75,7 +77,7 @@ ru:
     cancel: "Отменить"
     order_cancelled: "Заказ отменен"
     plan_cancelled: "Консолидированная заявка отменена"
-    start_plan: "Запустить"
+    mark_for_production: "Передать на производство"
     order_deactivated: "Заказ исключен"
   user_statuses:
     active: "Активный"

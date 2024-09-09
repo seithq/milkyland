@@ -1,10 +1,10 @@
-<% content_for(:title) { @plan.production_date.to_s } %>
+<% content_for(:title) { t("pages.plan", date: l(@plan.production_date)) } %>
 
 <% content_for :breadcrumb do %>
   <%= render "layouts/breadcrumb", {
     nav_links: [
       NavLink.new(path: plans_path, title: t("pages.sales_by_plans")),
-      NavLink.new(path: plan_path(@plan), title: @plan.production_date),
+      NavLink.new(path: plan_path(@plan), title: t("pages.plan", date: l(@plan.production_date))),
     ]
   } %>
 <% end %>

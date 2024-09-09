@@ -9,14 +9,14 @@ class Plan < ApplicationRecord
 
   validates :production_date, presence: true, comparison: { greater_than_or_equal_to: Time.zone.today }
 
-  enum :status, %w[ in_consolidation in_production produced cancelled ].index_by(&:itself), default: :in_consolidation
+  enum :status, %w[ in_consolidation ready_to_production in_production produced cancelled ].index_by(&:itself), default: :in_consolidation
 
   scope :filter_by_status, ->(status) { where status: status }
 
   scope :ordered, -> { order(production_date: :desc) }
 
   # Для табов во вкладке производства
-  scope :active,    -> { filter_by_status(%i[ in_consolidation in_production ]) }
+  scope :active,    -> { filter_by_status(%i[ ready_to_production in_production ]) }
   scope :completed, -> { filter_by_status(%i[ produced cancelled ]) }
 
   def self.after(from_date)
