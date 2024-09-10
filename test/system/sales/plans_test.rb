@@ -1,6 +1,6 @@
 require "application_system_test_case"
 
-class PlansTest < ApplicationSystemTestCase
+class Sales::PlansTest < ApplicationSystemTestCase
   setup do
     @order = orders(:opening)
     assert @order.update(preferred_date: 10.days.from_now)
