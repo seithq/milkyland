@@ -11,7 +11,7 @@
               </span>
         </button>
       </dt>
-      <dd class="mt-2 pr-12" id="<%= dom_id(plan) %>"
+      <dd class="mt-6" id="<%= dom_id(plan) %>"
           data-detail-target="summary"
           data-transition-enter="transition ease-out duration-100"
           data-transition-enter-start="transform opacity-0 scale-95"
@@ -19,10 +19,14 @@
           data-transition-leave="transition ease-in duration-75"
           data-transition-leave-start="transform opacity-100 scale-100"
           data-transition-leave-end="transform opacity-0 scale-95">
-        <p class="text-base leading-7 text-gray-600">
-          I don&#039;t know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-          cupiditate laboriosam fugiat.
-        </p>
+
+        <%= turbo_frame_tag dom_id(plan, :summary), src: production_plan_summary_path(plan), loading: "lazy" do %>
+          <%= inline_svg_tag "spinner.svg" %>
+        <% end %>
+
+        <div class="mt-4 flex justify-end">
+          <%= link_to t("actions.more"), production_plan_path(plan), class: "btn-more" %>
+        </div>
       </dd>
     </div>
   </dl>

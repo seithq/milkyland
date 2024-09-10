@@ -10,9 +10,9 @@ class Production::PlansTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Plans"
   end
 
-  test "should create plan" do
+  test "should create plans" do
     visit plans_url
-    click_on "New plan"
+    click_on "New plans"
 
     click_on "Create Plan"
 
@@ -22,7 +22,7 @@ class Production::PlansTest < ApplicationSystemTestCase
 
   test "should update Plan" do
     visit plan_url(@plan)
-    click_on "Edit this plan", match: :first
+    click_on "Edit this plans", match: :first
 
     click_on "Update Plan"
 
@@ -32,7 +32,7 @@ class Production::PlansTest < ApplicationSystemTestCase
 
   test "should destroy Plan" do
     visit plan_url(@plan)
-    click_on "Destroy this plan", match: :first
+    click_on "Destroy this plans", match: :first
 
     assert_text "Plan was successfully destroyed"
   end

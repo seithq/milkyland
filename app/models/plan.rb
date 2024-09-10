@@ -26,7 +26,7 @@ class Plan < ApplicationRecord
   end
 
   def cancel(comment: "")
-    update status: :cancelled
+    update status: :cancelled, comment: comment
   end
 
   def add(order)
@@ -59,6 +59,10 @@ class Plan < ApplicationRecord
 
   def can_edit?
     in_consolidation?
+  end
+
+  def progress
+    20.0
   end
 
   private

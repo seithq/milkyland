@@ -1,17 +1,21 @@
-<%= form_with(model: plan, class: "contents") do |form| %>
-  <% if plan.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(plan.errors.count, "error") %> prohibited this plan from being saved:</h2>
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= render "layouts/error_messages", resource: plan %>
+    <%= form_with model: plan, url: production_plan_path(plan), class: "space-y-4" do |form| %>
+      <% if should_cancel? %>
+        <%= form.hidden_field :status, value: :cancelled %>
+      <% end %>
 
-      <ul>
-        <% plan.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+      <div>
+        <%= form.label :comment, class: "form-label" %>
+        <%= form.text_area :comment, autocomplete: "comment", autofocus: true, required: true, class: "form-input" %>
+      </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+      <% if should_cancel? %>
+        <%= form.submit t("actions.force_finish"), class: "btn-danger", data: { turbo_confirm: t("actions.confirm") } %>
+      <% else %>
+        <%= form.submit t("actions.save_record"), class: "btn" %>
+      <% end %>
+    <% end %>
   </div>
-<% end %>
+</div>

@@ -1,6 +1,8 @@
 class Production::PlansController < ProductionController
   before_action :set_status
-  before_action :set_plan, only: %i[ show edit update destroy ]
+  before_action :set_plan, only: %i[ show edit update ]
+
+  helper_method :should_cancel?
 
   def index
     @plans = get_scope(params)
@@ -14,16 +16,10 @@ class Production::PlansController < ProductionController
 
   def update
     if @plan.update(plan_params)
-      redirect_to plan_url(@plan)
+      redirect_on_update production_plan_path(@plan)
     else
       render :edit, status: :unprocessable_entity
     end
-  end
-
-  def destroy
-    @plan.cancel comment: ""
-
-    redirect_to plans_url
   end
 
   private
@@ -40,10 +36,14 @@ class Production::PlansController < ProductionController
     end
 
     def plan_params
-      params.require(:plan).permit(:status)
+      params.require(:plan).permit(:status, :comment)
     end
 
     def set_status
       @status = params[:status].presence || "active"
+    end
+
+    def should_cancel?
+      params[:cancel].present? && params[:cancel] == "true"
     end
 end

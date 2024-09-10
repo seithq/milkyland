@@ -42,8 +42,8 @@ ru:
           ready_to_production: "Готов к производству"
           in_production: "В производстве"
           produced: "Произведено"
-          completed: "Завершенные"
-          cancelled: "Отмененные"
+          completed: "Завершен"
+          cancelled: "Отменен"
     attributes:
       user:
         name: ФИО
@@ -186,6 +186,7 @@ ru:
         total_sum: Сумма
       plan:
         production_date: Дата производства
+        comment: Комментарий
       consolidation:
         order_id: Заказ
         active: Активная запись

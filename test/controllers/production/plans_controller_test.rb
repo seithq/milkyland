@@ -15,7 +15,7 @@ class Production::PlansControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create plan" do
+  test "should create plans" do
     assert_difference("Plan.count") do
       post plans_url, params: { plan: {} }
     end
@@ -23,7 +23,7 @@ class Production::PlansControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to plan_url(Plan.last)
   end
 
-  test "should show plan" do
+  test "should show plans" do
     get plan_url(@plan)
     assert_response :success
   end
@@ -33,12 +33,12 @@ class Production::PlansControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should update plan" do
+  test "should update plans" do
     patch plan_url(@plan), params: { plan: {} }
     assert_redirected_to plan_url(@plan)
   end
 
-  test "should destroy plan" do
+  test "should destroy plans" do
     assert_difference("Plan.count", -1) do
       delete plan_url(@plan)
     end

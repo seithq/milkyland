@@ -1,8 +1,12 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing plan</h1>
+<% content_for(:title) { t("pages.plan", date: l(@plan.production_date)) } %>
 
-  <%= render "form", plan: @plan %>
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: production_plans_path, title: t("pages.production_plans")),
+      NavLink.new(path: production_plan_path(@plan), title: t("pages.production_plan", date: l(@plan.production_date))),
+    ]
+  } %>
+<% end %>
 
-  <%= link_to "Show this plan", @plan, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to plans", plans_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-</div>
+<%= render "form", plan: @plan %>

@@ -48,6 +48,7 @@ ru:
     plans: "Консолидированные заявки"
     plan: "Заявка %{date}"
     production: "Производство"
+    production_plan: "План производства %{date}"
     production_plans: "Планы производства"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
@@ -82,6 +83,11 @@ ru:
     plan_cancelled: "Консолидированная заявка отменена"
     mark_for_production: "Передать на производство"
     order_deactivated: "Заказ исключен"
+    more: "Подробнее"
+    start: "Запуск"
+    finish: "Завершить"
+    force_finish: "Остановить"
+    production_plan_stopped: "План приостановлен"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
@@ -180,3 +186,5 @@ ru:
     no_running_promotions: "Активные скидки не найдены."
     tonne_ratio_description: "N единиц / Делитель = M тонн"
     orders: "Заявки"
+    cancel_reason: "Причина отмены"
+    groups: "Группы товаров"
