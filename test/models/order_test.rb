@@ -11,7 +11,7 @@ class OrderTest < ActiveSupport::TestCase
     assert order.valid?
   end
 
-  test "should create plan on order create" do
+  test "should create plans on order create" do
     production_date = 3.days.from_now
 
     order = Order.new(sales_channel: sales_channels(:b2c),
@@ -27,7 +27,7 @@ class OrderTest < ActiveSupport::TestCase
     end
   end
 
-  test "should not create plan on order create" do
+  test "should not create plans on order create" do
     plan = Plan.new(production_date: 3.days.from_now)
     assert plan.save
 
@@ -43,7 +43,7 @@ class OrderTest < ActiveSupport::TestCase
     end
   end
 
-  test "should update preferred date for next plan date" do
+  test "should update preferred date for next plans date" do
     production_date = 3.days.from_now
     next_date = 7.days.from_now
 

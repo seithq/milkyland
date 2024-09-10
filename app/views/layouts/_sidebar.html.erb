@@ -1,3 +1,5 @@
+<%# locals: (hide_toggle: true) -%>
+
 <% common_nav_links = [
   NavLink.new(path: root_path, title: t("pages.home"), icon_name: "home.svg")
 ]
@@ -26,7 +28,7 @@
 %>
 
 <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
-<div class="hidden lg:hidden relative z-50" role="dialog" aria-modal="true" data-sidebar-target="mobileMenu">
+<div class="hidden relative z-50 <%= "lg:hidden" if hide_toggle %>" role="dialog" aria-modal="true" data-sidebar-target="mobileMenu">
   <!-- Off-canvas menu backdrop, show/hide based on off-canvas menu state. -->
   <div class="hidden fixed inset-0 bg-gray-900/80" aria-hidden="true" data-sidebar-target="mobileOverlay"
        data-transition-enter="transition-opacity ease-linear duration-300"
@@ -93,6 +95,14 @@
                 </ul>
               </li>
             <% end %>
+            <% if Current.user.can_launch? %>
+              <li>
+                <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.production") %></div>
+                <ul role="list" class="-mx-2 space-y-1">
+                  <%= nav_link production_plans_path, t("pages.production_plans"), "cube.svg" %>
+                </ul>
+              </li>
+            <% end %>
             <% if Current.user.can_administer? %>
               <li>
                 <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.settings") %></div>
@@ -113,51 +123,61 @@
   </div>
 </div>
 
-<!-- Static sidebar for desktop -->
-<div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-  <!-- Sidebar component, swap this element with another sidebar if you like -->
-  <div class="flex grow flex-col overflow-y-auto border-r border-gray-200 bg-white px-6 pt-8 py-4">
-    <nav class="flex flex-1 flex-col">
-      <ul role="list" class="flex flex-1 flex-col gap-y-7">
-        <li>
-          <ul role="list" class="-mx-2 space-y-1">
-            <% common_nav_links.each do |link| %>
-              <%= nav_link link.path, link.title, link.icon_name %>
-            <% end %>
-          </ul>
-        </li>
-        <% if Current.user.can_sell? %>
+<% if hide_toggle %>
+  <!-- Static sidebar for desktop -->
+  <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+    <!-- Sidebar component, swap this element with another sidebar if you like -->
+    <div class="flex grow flex-col overflow-y-auto border-r border-gray-200 bg-white px-6 pt-8 py-4">
+      <nav class="flex flex-1 flex-col">
+        <ul role="list" class="flex flex-1 flex-col gap-y-7">
           <li>
-            <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.sales_by_channels") %></div>
-            <ul role="list" class="-mx-2 mt-2 space-y-1">
-              <% channels_nav_links.each do |link| %>
-                <%= nav_link link.path, link.title, "" %>
-              <% end %>
-            </ul>
-          </li>
-          <li>
-            <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.sales_by_plans") %></div>
             <ul role="list" class="-mx-2 space-y-1">
-              <% sales_nav_links.each do |link| %>
+              <% common_nav_links.each do |link| %>
                 <%= nav_link link.path, link.title, link.icon_name %>
               <% end %>
             </ul>
           </li>
-        <% end %>
-        <% if Current.user.can_administer? %>
-          <li>
-            <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.settings") %></div>
-            <ul role="list" class="-mx-2 mt-2 space-y-1">
-              <% settings_nav_links.each do |link| %>
-                <%= nav_link link.path, link.title, link.icon_name %>
-              <% end %>
-            </ul>
+          <% if Current.user.can_sell? %>
+            <li>
+              <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.sales_by_channels") %></div>
+              <ul role="list" class="-mx-2 mt-2 space-y-1">
+                <% channels_nav_links.each do |link| %>
+                  <%= nav_link link.path, link.title, "" %>
+                <% end %>
+              </ul>
+            </li>
+            <li>
+              <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.sales_by_plans") %></div>
+              <ul role="list" class="-mx-2 space-y-1">
+                <% sales_nav_links.each do |link| %>
+                  <%= nav_link link.path, link.title, link.icon_name %>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+          <% if Current.user.can_launch? %>
+            <li>
+              <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.production") %></div>
+              <ul role="list" class="-mx-2 space-y-1">
+                <%= nav_link production_plans_path, t("pages.production_plans"), "cube.svg" %>
+              </ul>
+            </li>
+          <% end %>
+          <% if Current.user.can_administer? %>
+            <li>
+              <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.settings") %></div>
+              <ul role="list" class="-mx-2 mt-2 space-y-1">
+                <% settings_nav_links.each do |link| %>
+                  <%= nav_link link.path, link.title, link.icon_name %>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+          <li class="mt-auto">
+            <%= version_badge %>
           </li>
-        <% end %>
-        <li class="mt-auto">
-          <%= version_badge %>
-        </li>
-      </ul>
-    </nav>
+        </ul>
+      </nav>
+    </div>
   </div>
-</div>
+<% end %>

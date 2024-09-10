@@ -1,26 +1,32 @@
 class Plan < ApplicationRecord
+  SHARED = %w[ ready_to_production in_production produced cancelled ]
+
   has_many :consolidations, dependent: :destroy
   has_many :orders, -> { merge(Consolidation.active) }, through: :consolidations
   has_many :positions, through: :orders
   has_many :products, through: :positions
   has_many :groups, through: :products
 
-  after_update :update_orders
+  after_update :call_update_callbacks
 
   validates :production_date, presence: true, comparison: { greater_than_or_equal_to: Time.zone.today }
 
-  enum :status, %w[ in_consolidation in_production produced cancelled ].index_by(&:itself), default: :in_consolidation
+  enum :status, (%w[ in_consolidation ] + SHARED).index_by(&:itself), default: :in_consolidation
 
   scope :filter_by_status, ->(status) { where status: status }
 
   scope :ordered, -> { order(production_date: :desc) }
 
+  # Для табов во вкладке производства
+  scope :active,    -> { filter_by_status(%i[ ready_to_production in_production ]) }
+  scope :completed, -> { filter_by_status(%i[ produced cancelled ]) }
+
   def self.after(from_date)
     Plan.where(status: :in_consolidation, production_date: (from_date + 1.day)..).order(production_date: :asc).first
   end
 
-  def cancel
-    update status: :cancelled
+  def cancel(comment: "")
+    update status: :cancelled, comment: comment
   end
 
   def add(order)
@@ -55,10 +61,26 @@ class Plan < ApplicationRecord
     in_consolidation?
   end
 
+  def progress
+    20.0
+  end
+
   private
     def update_orders
-      return if in_consolidation?
+      orders.update_all status: self.status
+    end
 
-      orders.update_all status: self.status if status_previously_changed?
+    def create_production_units
+      return unless in_production?
+
+      # Create production units
+    end
+
+    def call_update_callbacks
+      return unless SHARED.include? status
+      return unless status_previously_changed?
+
+      update_orders
+      create_production_units
     end
 end

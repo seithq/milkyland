@@ -7,6 +7,10 @@ module.exports = {
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,haml,html,slim}'
   ],
+  safelist: [
+    'pagy',
+    'spinner',
+  ],
   theme: {
     extend: {
       fontFamily: {

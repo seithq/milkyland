@@ -2,7 +2,7 @@
   <div class="sm:mx-auto sm:w-full">
     <%= render "layouts/error_messages", resource: plan %>
     <%= form_with model: plan do |form| %>
-      <%= form.hidden_field :status, value: :in_production %>
+      <%= form.hidden_field :status, value: :ready_to_production %>
       <div class="space-y-12">
         <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
           <div>
@@ -42,7 +42,7 @@
       </div>
       <div class="mt-6 flex items-center justify-end gap-x-6">
         <%= link_to t("actions.cancel"), plan_path(plan), data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "destroy_plan rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" %>
-        <%= form.submit t("actions.start_plan"), class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+        <%= form.submit t("actions.mark_for_production"), data: { turbo_confirm: t("actions.confirm") }, class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
       </div>
     <% end %>
   </div>

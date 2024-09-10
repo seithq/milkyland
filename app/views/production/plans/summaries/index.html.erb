@@ -1,0 +1,7 @@
+<%= turbo_frame_tag dom_id(@plan, :summary) do %>
+  <% if card_view? %>
+    <%= render "grid", groups: @groups %>
+  <% else %>
+    <%= render "table", groups: @groups %>
+  <% end %>
+<% end %>

@@ -5,6 +5,7 @@ ru:
         roles:
           admin: Админ
           manager: Менеджер
+          launcher: Системная роль
       category:
         kinds:
           end_product: ГП
@@ -29,10 +30,20 @@ ru:
           unscheduled: Внеплановый
         statuses:
           in_planning: "Новый"
+          ready_to_production: "Готов к производству"
           in_production: "В производстве"
+          produced: "Произведено"
           in_delivery: "На доставке"
           completed: "Завершенные"
           cancelled: "Отмененные"
+      plan:
+        statuses:
+          in_consolidation: "На консолидации"
+          ready_to_production: "Готов к производству"
+          in_production: "В производстве"
+          produced: "Произведено"
+          completed: "Завершен"
+          cancelled: "Отменен"
     attributes:
       user:
         name: ФИО
@@ -175,6 +186,7 @@ ru:
         total_sum: Сумма
       plan:
         production_date: Дата производства
+        comment: Комментарий
       consolidation:
         order_id: Заказ
         active: Активная запись

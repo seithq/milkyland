@@ -7,7 +7,7 @@ class Order < ApplicationRecord
   has_many :consolidations, dependent: :destroy
 
   enum :kind, %i[ planned unscheduled ], default: :planned
-  enum :status, %w[ in_planning in_production produced in_delivery completed cancelled ].index_by(&:itself), default: :in_planning
+  enum :status, (%w[ in_planning in_delivery completed ] + Plan::SHARED).index_by(&:itself), default: :in_planning
 
   validates :preferred_date, presence: true, comparison: { greater_than_or_equal_to: Time.zone.today }
 

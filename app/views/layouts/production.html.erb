@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html class="h-full bg-white">
+  <head>
+    <title><%= content_for(:title) || t("pages.base_title") %></title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta charset="UTF-8">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, interactive-widget=resizes-content">
+    <meta name="view-transition" content="same-origin">
+    <meta name="turbo-cache-control" content="no-cache">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/app-icon.png">
+
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :all, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="h-full">
+    <div id="app" data-controller="sidebar">
+      <%= render "layouts/sidebar", hide_toggle: false %>
+
+      <div class="">
+        <%= render "layouts/toolbar", hide_toggle: false %>
+
+        <main id="main" class="py-4 sm:py-10">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <%= yield %>
+          </div>
+        </main>
+      </div>
+
+      <%= render "layouts/flashes" %>
+    </div>
+  </body>
+</html>
