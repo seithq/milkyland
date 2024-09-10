@@ -1,0 +1,29 @@
+<%= tag.li id: dom_id(plan), class: "overflow-hidden rounded-md bg-white px-6 py-4 shadow" do %>
+  <dl data-controller="detail" data-detail-open-value="<%= plan.in_production? %>">
+    <div class="py-2">
+      <dt>
+        <button type="button" data-action="detail#toggle" class="flex w-full items-start justify-between text-left text-gray-900" aria-controls="<%= dom_id(plan) %>" aria-expanded="false">
+          <span class="text-base font-semibold leading-7"><%= l(plan.production_date) %></span>
+          <span class="ml-6 flex h-7 items-center">
+            <%= plan_status plan %>
+            <%= inline_svg_tag "plus-sm.svg", class: "h-6 w-6", data: { detail_target: "opener" } %>
+            <%= inline_svg_tag "minus-sm.svg", class: "h-6 w-6", data: { detail_target: "closer" } %>
+              </span>
+        </button>
+      </dt>
+      <dd class="mt-2 pr-12" id="<%= dom_id(plan) %>"
+          data-detail-target="summary"
+          data-transition-enter="transition ease-out duration-100"
+          data-transition-enter-start="transform opacity-0 scale-95"
+          data-transition-enter-end="transform opacity-100 scale-100"
+          data-transition-leave="transition ease-in duration-75"
+          data-transition-leave-start="transform opacity-100 scale-100"
+          data-transition-leave-end="transform opacity-0 scale-95">
+        <p class="text-base leading-7 text-gray-600">
+          I don&#039;t know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
+          cupiditate laboriosam fugiat.
+        </p>
+      </dd>
+    </div>
+  </dl>
+<% end %>

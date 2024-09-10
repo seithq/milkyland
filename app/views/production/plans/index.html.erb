@@ -1,0 +1,16 @@
+<% content_for(:title) { t("pages.production_plans") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: production_plans_path, title: t("pages.production_plans"))
+    ]
+  } %>
+<% end %>
+
+<div class="space-y-4">
+  <%= render "tab" %>
+  <ul role="list" class="space-y-3">
+    <%= render @plans %>
+  </ul>
+</div>

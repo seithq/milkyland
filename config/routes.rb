@@ -42,6 +42,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace "production" do
+    resources :plans, except: %i[ new create ]
+  end
+
   scope module: "settings" do
     resources :regions, except: :destroy
     resources :sales_channels, except: :destroy

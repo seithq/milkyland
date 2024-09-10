@@ -40,12 +40,15 @@ ru:
     status_in_production: "В производстве"
     status_produced: "Произведено"
     status_in_delivery: "На доставке"
+    status_active: "Активные"
     status_completed: "Завершенные"
     status_cancelled: "Отмененные"
     order_number: "Заказ #%{id}"
     positions: "Товарные позиции"
     plans: "Консолидированные заявки"
     plan: "Заявка %{date}"
+    production: "Производство"
+    production_plans: "Планы производства"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:

@@ -25,7 +25,7 @@ class Plan < ApplicationRecord
     Plan.where(status: :in_consolidation, production_date: (from_date + 1.day)..).order(production_date: :asc).first
   end
 
-  def cancel
+  def cancel(comment: "")
     update status: :cancelled
   end
 
