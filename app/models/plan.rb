@@ -7,7 +7,7 @@ class Plan < ApplicationRecord
   has_many :products, through: :positions
   has_many :groups, through: :products
 
-  after_update :update_orders
+  after_update :call_update_callbacks
 
   validates :production_date, presence: true, comparison: { greater_than_or_equal_to: Time.zone.today }
 
@@ -67,8 +67,20 @@ class Plan < ApplicationRecord
 
   private
     def update_orders
-      return unless SHARED.include? status
+      orders.update_all status: self.status
+    end
 
-      orders.update_all status: self.status if status_previously_changed?
+    def create_production_units
+      return unless in_production?
+
+      # Create production units
+    end
+
+    def call_update_callbacks
+      return unless SHARED.include? status
+      return unless status_previously_changed?
+
+      update_orders
+      create_production_units
     end
 end

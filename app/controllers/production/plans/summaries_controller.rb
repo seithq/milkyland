@@ -2,6 +2,8 @@ module Production
   class Plans::SummariesController < ApplicationController
     include PlanScoped
 
+    helper_method :card_view?
+
     def index
       @groups = base_scope
     end
@@ -11,8 +13,8 @@ module Production
         @plan.groups.ordered.uniq
       end
 
-      def search_methods
-        []
+      def card_view?
+        params[:card_view].present? && params[:card_view] == "true"
       end
   end
 end
