@@ -7,6 +7,8 @@ class Plan < ApplicationRecord
   has_many :products, through: :positions
   has_many :groups, through: :products
 
+  has_many :units, class_name: "ProductionUnit", foreign_key: "plan_id", dependent: :destroy
+
   after_update :call_update_callbacks
 
   validates :production_date, presence: true, comparison: { greater_than_or_equal_to: Time.zone.today }
@@ -73,7 +75,10 @@ class Plan < ApplicationRecord
     def create_production_units
       return unless in_production?
 
-      # Create production units
+      transaction do
+        unit_attributes = self.groups.map { |group| { group_id: group.id, count: group_sum(group), tonnage: group_tonnage(group) } }
+        self.units.create!(unit_attributes)
+      end
     end
 
     def call_update_callbacks

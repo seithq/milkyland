@@ -11,6 +11,8 @@ class Group < ApplicationRecord
   has_many :operations, -> { ordered }, through: :journals
   has_many :fields, -> { ordered }, through: :operations
 
+  has_many :units, class_name: "ProductionUnit", foreign_key: "group_id", dependent: :destroy
+
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :metric_tonne, presence: true, numericality: { only_integer: true }
 

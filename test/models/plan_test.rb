@@ -25,7 +25,9 @@ class PlanTest < ActiveSupport::TestCase
     end
 
     assert_difference -> { plan.orders.filter_by_status(:in_production).count }, 1 do
-      assert plan.update(status: :in_production)
+      assert_difference -> { plan.units.count }, 1 do
+        assert plan.update(status: :in_production)
+      end
     end
   end
 

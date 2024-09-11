@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_10_122845) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_11_080329) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -271,6 +271,20 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_10_122845) do
     t.index ["sales_channel_id"], name: "index_prices_on_sales_channel_id"
   end
 
+  create_table "production_units", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.bigint "group_id", null: false
+    t.integer "count"
+    t.decimal "tonnage"
+    t.integer "status"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_production_units_on_group_id"
+    t.index ["plan_id", "group_id"], name: "index_production_units_on_plan_id_and_group_id", unique: true
+    t.index ["plan_id"], name: "index_production_units_on_plan_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.bigint "group_id", null: false
     t.string "name"
@@ -522,6 +536,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_10_122845) do
   add_foreign_key "positions", "promotions"
   add_foreign_key "prices", "products"
   add_foreign_key "prices", "sales_channels"
+  add_foreign_key "production_units", "groups"
+  add_foreign_key "production_units", "plans"
   add_foreign_key "products", "groups"
   add_foreign_key "products", "material_assets"
   add_foreign_key "products", "measurements"
