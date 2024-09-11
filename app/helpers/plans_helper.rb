@@ -5,6 +5,10 @@ module PlansHelper
     end
   end
 
+  def should_cancel?
+    params[:cancel].present? && params[:cancel] == "true"
+  end
+
   private
     def plan_color(plan)
       base = "px-2 py-1 rounded-lg text-base font-semibold leading-7 mr-2"

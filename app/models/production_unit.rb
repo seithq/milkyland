@@ -8,4 +8,8 @@ class ProductionUnit < ApplicationRecord
 
   validates :count, presence: true, numericality: { only_integer: true }
   validates :tonnage, presence: true, numericality: { greater_than: 0.0 }
+
+  def progress
+    20.0
+  end
 end

@@ -1,0 +1,34 @@
+<% if @plan.in_production? %>
+  <% if production_unit.in_plan? %>
+    <%= button_to t("actions.start"), production_plan_unit_path(@plan, production_unit), method: :patch, params: { production_unit: { status: :in_progress } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
+  <% elsif production_unit.in_progress? %>
+    <div class="relative" data-controller="dropdown">
+      <button type="button" class="btn-in-production" id="plan-menu-button" aria-expanded="false" aria-haspopup="true" data-dropdown-target="button" data-action="dropdown#toggle click@window->dropdown#close">
+      <span class="flex items-center space-x-2">
+        <span aria-hidden="true"><%= ProductionUnit.enum_to_s(:statuses, :in_progress) %></span>
+        <%= inline_svg_tag "chevron-down.svg", class: "h-5 w-5 text-gray-400" %>
+      </span>
+      </button>
+
+      <!-- Dropdown menu, show/hide based on menu state. -->
+      <div class="hidden absolute right-0 z-10 flex flex-col items-stretch space-y-2 mt-2.5 origin-top-right rounded-md bg-white p-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="plan-menu-button" tabindex="-1"
+           data-dropdown-target="menu"
+           data-transition-enter="transition ease-out duration-100"
+           data-transition-enter-start="transform opacity-0 scale-95"
+           data-transition-enter-end="transform opacity-100 scale-100"
+           data-transition-leave="transition ease-in duration-75"
+           data-transition-leave-start="transform opacity-100 scale-100"
+           data-transition-leave-end="transform opacity-0 scale-95"
+      >
+        <%= button_to t("actions.finish"), production_plan_unit_path(@plan, production_unit), method: :patch, params: { production_unit: { status: :completed } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "w-full btn-stop" %>
+        <%= link_to t("actions.force_finish"), edit_production_plan_unit_path(@plan, production_unit, cancel: true), class: "btn-force-stop" %>
+      </div>
+    </div>
+  <% elsif production_unit.completed? %>
+    <span class="btn-produced"><%= ProductionUnit.enum_to_s(:statuses, :completed) %></span>
+  <% elsif production_unit.cancelled? %>
+    <span class="btn-cancelled"><%= ProductionUnit.enum_to_s(:statuses, :cancelled) %></span>
+  <% end %>
+<% else %>
+  <span class="btn-start"><%= ProductionUnit.enum_to_s(:statuses, production_unit.status) %></span>
+<% end %>

@@ -19,7 +19,7 @@
          data-transition-leave-start="transform opacity-100 scale-100"
          data-transition-leave-end="transform opacity-0 scale-95"
     >
-      <%= button_to t("actions.finish"), production_plan_path(plan), method: :patch, params: { data: { status: :produced } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "w-full btn-stop" %>
+      <%= button_to t("actions.finish"), production_plan_path(plan), method: :patch, params: { plan: { status: :produced } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "w-full btn-stop" %>
       <%= link_to t("actions.force_finish"), edit_production_plan_path(plan, cancel: true), class: "btn-force-stop" %>
     </div>
   </div>

@@ -76,7 +76,7 @@ class Plan < ApplicationRecord
       return unless in_production?
 
       transaction do
-        unit_attributes = self.groups.map { |group| { group_id: group.id, count: group_sum(group), tonnage: group_tonnage(group) } }
+        unit_attributes = self.groups.uniq.map { |group| { group_id: group.id, count: group_sum(group), tonnage: group_tonnage(group) } }
         self.units.create!(unit_attributes)
       end
     end

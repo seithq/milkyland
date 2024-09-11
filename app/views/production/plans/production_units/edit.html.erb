@@ -1,0 +1,13 @@
+<% content_for(:title) { @production_unit.group.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: production_plans_path, title: t("pages.production_plans")),
+      NavLink.new(path: production_plan_path(@plan), title: t("pages.production_plan", date: l(@plan.production_date))),
+      NavLink.new(path: production_plan_unit_path(@plan, @production_unit), title: @production_unit.group.name),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", production_unit: @production_unit %>

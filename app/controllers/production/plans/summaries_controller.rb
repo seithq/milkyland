@@ -1,5 +1,5 @@
 module Production
-  class Plans::SummariesController < ApplicationController
+  class Plans::SummariesController < ProductionController
     include PlanScoped
 
     helper_method :card_view?

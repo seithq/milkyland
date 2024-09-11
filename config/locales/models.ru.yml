@@ -44,6 +44,12 @@ ru:
           produced: "Произведено"
           completed: "Завершен"
           cancelled: "Отменен"
+      production_unit:
+        statuses:
+          in_progress: "В процессе"
+          in_plan: "В плане"
+          completed: "Завершен"
+          cancelled: "Отменен"
     attributes:
       user:
         name: ФИО

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :production_units
   root to: "home#index"
 
   resource :first_run, only: %i[ show create ]
@@ -47,6 +46,7 @@ Rails.application.routes.draw do
     resources :plans, except: %i[ new create destroy ] do
       scope module: "plans" do
         get :summary, to: "summaries#index"
+        resources :units, controller: "production_units", except: %i[ new create destroy ]
       end
     end
   end

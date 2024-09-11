@@ -2,8 +2,6 @@ class Production::PlansController < ProductionController
   before_action :set_status
   before_action :set_plan, only: %i[ show edit update ]
 
-  helper_method :should_cancel?
-
   def index
     @plans = get_scope(params)
   end
@@ -41,9 +39,5 @@ class Production::PlansController < ProductionController
 
     def set_status
       @status = params[:status].presence || "active"
-    end
-
-    def should_cancel?
-      params[:cancel].present? && params[:cancel] == "true"
     end
 end

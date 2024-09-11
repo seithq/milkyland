@@ -30,8 +30,14 @@
   <div class="mt-10">
     <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900"><%= t("forms.groups") %></h1>
     <div class="mt-6">
-      <%= turbo_frame_tag dom_id(@plan, :summary), src: production_plan_summary_path(@plan, card_view: true), loading: "lazy" do %>
-        <%= inline_svg_tag "spinner.svg" %>
+      <% if @plan.ready_to_production? %>
+        <%= turbo_frame_tag dom_id(@plan, :summary), src: production_plan_summary_path(@plan, card_view: true) do %>
+          <%= inline_svg_tag "spinner.svg" %>
+        <% end %>
+      <% else %>
+        <%= turbo_frame_tag dom_id(@plan, :units), src: production_plan_units_path(@plan) do %>
+          <%= inline_svg_tag "spinner.svg" %>
+        <% end %>
       <% end %>
     </div>
   </div>
