@@ -1,0 +1,5 @@
+<%= turbo_frame_tag dom_id(@production_unit, :batches) do %>
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+    <%= render @batches %>
+  </div>
+<% end %>

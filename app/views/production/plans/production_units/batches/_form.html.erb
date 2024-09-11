@@ -1,0 +1,41 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <%= render "layouts/error_messages", resource: batch %>
+    <%= form_with model: batch, url: batch_url(batch), class: "space-y-4" do |form| %>
+      <% if should_cancel? %>
+        <%= form.hidden_field :status, value: :cancelled %>
+      <% end %>
+
+      <div>
+        <%= form.label :machiner_id, class: "form-label-xl" %>
+        <%= form.select :machiner_id, options_from_collection_for_select(User.machiners.ordered, :id, :name, batch.machiner_id), { include_blank: true, required: true }, { class: "mt-2 form-select-xl" } %>
+      </div>
+
+      <div>
+        <%= form.label :tester_id, class: "form-label-xl" %>
+        <%= form.select :tester_id, options_from_collection_for_select(User.testers.ordered, :id, :name, batch.tester_id), { include_blank: true, required: true }, { class: "mt-2 form-select-xl" } %>
+      </div>
+
+      <div>
+        <%= form.label :operator_id, class: "form-label-xl" %>
+        <%= form.select :operator_id, options_from_collection_for_select(User.operators.ordered, :id, :name, batch.operator_id), { include_blank: true, required: true }, { class: "mt-2 form-select-xl" } %>
+      </div>
+
+      <div>
+        <%= form.label :loader_id, class: "form-label-xl" %>
+        <%= form.select :loader_id, options_from_collection_for_select(User.loaders.ordered, :id, :name, batch.loader_id), { include_blank: true, required: true }, { class: "mt-2 form-select-xl" } %>
+      </div>
+
+      <div>
+        <%= form.label :comment, class: "form-label-xl" %>
+        <%= form.text_area :comment, autocomplete: "comment", required: should_cancel?, class: "mt-2 form-input-xl" %>
+      </div>
+
+      <% if should_cancel? %>
+        <%= form.submit t("actions.force_finish"), class: "w-full btn-force-stop", data: { turbo_confirm: t("actions.confirm") } %>
+      <% else %>
+        <%= form.submit t("actions.save_record"), class: "w-full btn-xl" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

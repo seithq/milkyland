@@ -2,9 +2,15 @@ module User::Role
   extend ActiveSupport::Concern
 
   included do
-    enum :role, %i[ admin manager launcher ], default: :manager
+    enum :role, %i[ admin manager launcher machiner tester operator loader ], default: :manager
 
     scope :filter_by_role, ->(role) { where(role: role) }
+
+    scope :managers,  -> { filter_by_role(:manager) }
+    scope :machiners, -> { filter_by_role(:machiner) }
+    scope :testers,   -> { filter_by_role(:tester) }
+    scope :operators, -> { filter_by_role(:operator) }
+    scope :loaders,   -> { filter_by_role(:loader) }
   end
 
   def can_administer?

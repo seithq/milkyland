@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_11_080329) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_11_101755) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -57,6 +57,23 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_11_080329) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "batches", force: :cascade do |t|
+    t.bigint "production_unit_id", null: false
+    t.bigint "machiner_id", null: false
+    t.bigint "tester_id", null: false
+    t.bigint "operator_id", null: false
+    t.bigint "loader_id", null: false
+    t.integer "status"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["loader_id"], name: "index_batches_on_loader_id"
+    t.index ["machiner_id"], name: "index_batches_on_machiner_id"
+    t.index ["operator_id"], name: "index_batches_on_operator_id"
+    t.index ["production_unit_id"], name: "index_batches_on_production_unit_id"
+    t.index ["tester_id"], name: "index_batches_on_tester_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -510,6 +527,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_11_080329) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "batches", "production_units"
+  add_foreign_key "batches", "users", column: "loader_id"
+  add_foreign_key "batches", "users", column: "machiner_id"
+  add_foreign_key "batches", "users", column: "operator_id"
+  add_foreign_key "batches", "users", column: "tester_id"
   add_foreign_key "clients", "users", column: "manager_id"
   add_foreign_key "consolidations", "orders"
   add_foreign_key "consolidations", "plans"

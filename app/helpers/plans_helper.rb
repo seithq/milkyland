@@ -9,6 +9,14 @@ module PlansHelper
     params[:cancel].present? && params[:cancel] == "true"
   end
 
+  def batch_url(batch)
+    if batch.new_record?
+      production_plan_unit_batches_path(@plan, @production_unit)
+    else
+      production_plan_unit_batch_path(@plan, @production_unit, batch)
+    end
+  end
+
   private
     def plan_color(plan)
       base = "px-2 py-1 rounded-lg text-base font-semibold leading-7 mr-2"

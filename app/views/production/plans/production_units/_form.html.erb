@@ -7,14 +7,14 @@
       <% end %>
 
       <div>
-        <%= form.label :comment, class: "form-label" %>
-        <%= form.text_area :comment, autocomplete: "comment", autofocus: true, required: true, class: "form-input" %>
+        <%= form.label :comment, class: "form-label-xl" %>
+        <%= form.text_area :comment, autocomplete: "comment", autofocus: true, required: true, class: "mt-2 form-area-xl" %>
       </div>
 
       <% if should_cancel? %>
-        <%= form.submit t("actions.force_finish"), class: "btn-danger", data: { turbo_confirm: t("actions.confirm") } %>
+        <%= form.submit t("actions.force_finish"), class: "w-full btn-force-stop", data: { turbo_confirm: t("actions.confirm") } %>
       <% else %>
-        <%= form.submit t("actions.save_record"), class: "btn" %>
+        <%= form.submit t("actions.save_record"), class: "w-full btn-xl" %>
       <% end %>
     <% end %>
   </div>

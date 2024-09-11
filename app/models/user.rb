@@ -10,7 +10,6 @@ class User < ApplicationRecord
 
   scope :active, -> { where(active: true) }
   scope :ordered, -> { order(:name) }
-  scope :managers, -> { filter_by_role(:manager) }
 
   scope :filter_by_name_or_email, ->(query) { where("LOWER(name) LIKE ? OR LOWER(email_address) LIKE ?", like(query), like(query)) }
 

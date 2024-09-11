@@ -1,0 +1,5 @@
+<%= turbo_frame_tag dom_id(@batch, :operations) do %>
+  <ul role="list" class="space-y-3">
+    <%= render partial: "operation", collection: @journal.operations, as: :operation %>
+  </ul>
+<% end %>

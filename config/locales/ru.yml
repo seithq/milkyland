@@ -48,8 +48,10 @@ ru:
     plans: "Консолидированные заявки"
     plan: "Заявка %{date}"
     production: "Производство"
-    production_plan: "План производства %{date}"
+    production_plan: "%{date}"
     production_plans: "Планы производства"
+    batch: "Партия #%{id}"
+    batches: "Партия производства"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -88,6 +90,7 @@ ru:
     finish: "Завершить"
     force_finish: "Остановить"
     production_plan_stopped: "План приостановлен"
+    create_batch: "Создать партию"
   user_statuses:
     active: "Активный"
     inactive: "Удален"

@@ -8,7 +8,7 @@ module Production
 
     test "visiting the index" do
       visit production_units_url
-      assert_selector "h1", text: "Production units"
+      assert_selector "h1", text: "Production production_units"
     end
 
     test "should create production unit" do

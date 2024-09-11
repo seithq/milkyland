@@ -46,7 +46,15 @@ Rails.application.routes.draw do
     resources :plans, except: %i[ new create destroy ] do
       scope module: "plans" do
         get :summary, to: "summaries#index"
-        resources :units, controller: "production_units", except: %i[ new create destroy ]
+        resources :units, controller: "production_units", except: %i[ new create destroy ] do
+          scope module: "production_units" do
+            resources :batches, except: :destroy do
+              scope module: "batches" do
+                resources :journals, only: %i[ index show ]
+              end
+            end
+          end
+        end
       end
     end
   end

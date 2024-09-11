@@ -31,9 +31,17 @@
   <% end %>
 
   <div class="mt-10">
-    <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900"><%= t("forms.batches") %></h1>
-    <div class="mt-6">
+    <div class="flex items-center justify-between">
+      <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900"><%= t("forms.batches") %></h1>
+      <% if @production_unit.in_progress? %>
+        <%= link_to t("actions.create_batch"), new_production_plan_unit_batch_path(@plan, @production_unit), data: { turbo_frame: "_top" }, class: "btn-start" %>
+      <% end %>
+    </div>
 
+    <div class="mt-6">
+      <%= turbo_frame_tag dom_id(@production_unit, :batches), src: production_plan_unit_batches_path(@plan, @production_unit) do %>
+        <%= inline_svg_tag "spinner.svg" %>
+      <% end %>
     </div>
   </div>
 </div>

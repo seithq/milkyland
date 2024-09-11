@@ -6,6 +6,10 @@ ru:
           admin: Админ
           manager: Менеджер
           launcher: Системная роль
+          machiner: Аппаратчик
+          tester: Лаборант
+          operator: Оператор
+          loader: Грузчик
       category:
         kinds:
           end_product: ГП
@@ -45,6 +49,12 @@ ru:
           completed: "Завершен"
           cancelled: "Отменен"
       production_unit:
+        statuses:
+          in_progress: "В процессе"
+          in_plan: "В плане"
+          completed: "Завершен"
+          cancelled: "Отменен"
+      batch:
         statuses:
           in_progress: "В процессе"
           in_plan: "В плане"
@@ -196,3 +206,11 @@ ru:
       consolidation:
         order_id: Заказ
         active: Активная запись
+      production_unit:
+        comment: Комментарий
+      batch:
+        machiner_id: Аппаратчик
+        tester_id: Лаборант
+        operator_id: Оператор
+        loader_id: Грузчик
+        comment: Комментарий
