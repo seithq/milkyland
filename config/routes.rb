@@ -51,6 +51,7 @@ Rails.application.routes.draw do
             resources :batches, except: :destroy do
               scope module: "batches" do
                 resources :journals, only: :show
+                resources :steps, only: %i[ edit create update ]
               end
             end
           end

@@ -1,10 +1,12 @@
-<li id="<%= dom_id(operation) %>" class="overflow-hidden rounded-md bg-white px-6 py-4 shadow">
+<li id="<%= dom_id(operation) %>" class="rounded-md bg-white p-6 shadow<%= step_color @batch, operation %>">
   <div class="flex justify-between items-center">
     <div class="text-xl leading-6 font-medium text-gray-900">
       <%= "#{ operation_counter + 1 }. #{ operation.name }" %>
     </div>
     <div>
-      <button class="btn-start"><%= t("actions.start") %></button>
+      <% if @batch.in_progress? %>
+        <%= render "action", operation: operation %>
+      <% end %>
     </div>
   </div>
 </li>

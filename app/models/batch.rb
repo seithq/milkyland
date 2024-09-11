@@ -8,6 +8,8 @@ class Batch < ApplicationRecord
   belongs_to :operator, -> { User.filter_by_role(:operator) }, class_name: "User", foreign_key: "operator_id"
   belongs_to :loader,   -> { User.filter_by_role(:loader) },   class_name: "User", foreign_key: "loader_id"
 
+  has_many :steps, dependent: :destroy
+
   def progress
     10.0
   end

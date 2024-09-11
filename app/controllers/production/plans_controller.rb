@@ -14,7 +14,7 @@ class Production::PlansController < ProductionController
 
   def update
     if @plan.update(plan_params)
-      redirect_on_update production_plan_path(@plan)
+      redirect_on_update production_plan_url(@plan)
     else
       render :edit, status: :unprocessable_entity
     end

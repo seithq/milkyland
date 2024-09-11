@@ -16,7 +16,7 @@ module Production
 
     def update
       if @production_unit.update(production_unit_params)
-        redirect_on_update production_plan_unit_path(@plan, @production_unit)
+        redirect_on_update production_plan_unit_url(@plan, @production_unit)
       else
         render :edit, status: :unprocessable_entity
       end

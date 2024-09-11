@@ -1,11 +1,10 @@
-<% if @plan.in_production? %>
-  <% if production_unit.in_plan? %>
-    <%= button_to t("actions.start"), production_plan_unit_path(@plan, production_unit), method: :patch, params: { production_unit: { status: :in_progress } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
-  <% elsif production_unit.in_progress? %>
+<% if operation.has_step? @batch %>
+  <% step = operation.batch_steps(@batch).first %>
+  <% if step.in_progress? %>
     <div class="relative" data-controller="dropdown">
       <button type="button" class="btn-in-production" id="plan-menu-button" aria-expanded="false" aria-haspopup="true" data-dropdown-target="button" data-action="dropdown#toggle click@window->dropdown#close">
       <span class="flex items-center space-x-2">
-        <span aria-hidden="true"><%= ProductionUnit.enum_to_s(:statuses, :in_progress) %></span>
+        <span aria-hidden="true"><%= Step.enum_to_s(:statuses, :in_progress) %></span>
         <%= inline_svg_tag "chevron-down.svg", class: "h-5 w-5 text-white" %>
       </span>
       </button>
@@ -20,15 +19,15 @@
            data-transition-leave-start="transform opacity-100 scale-100"
            data-transition-leave-end="transform opacity-0 scale-95"
       >
-        <%= button_to t("actions.finish"), production_plan_unit_path(@plan, production_unit), method: :patch, params: { production_unit: { status: :completed } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "w-full btn-stop" %>
-        <%= link_to t("actions.force_finish"), edit_production_plan_unit_path(@plan, production_unit, cancel: true), class: "btn-force-stop" %>
+        <%= link_to t("actions.force_finish"), edit_production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step, cancel: true), data: { turbo_frame: "_top" }, class: "btn-force-stop" %>
+        <%= link_to t("actions.finish"), edit_production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step), data: { turbo_frame: "_top" }, class: "btn-stop" %>
       </div>
     </div>
-  <% elsif production_unit.completed? %>
-    <span class="btn-produced"><%= ProductionUnit.enum_to_s(:statuses, :completed) %></span>
-  <% elsif production_unit.cancelled? %>
-    <span class="btn-cancelled"><%= ProductionUnit.enum_to_s(:statuses, :cancelled) %></span>
+  <% elsif step.completed? %>
+    <span class="btn-produced"><%= Step.enum_to_s(:statuses, :completed) %></span>
+  <% elsif step.cancelled? %>
+    <span class="btn-cancelled"><%= Step.enum_to_s(:statuses, :cancelled) %></span>
   <% end %>
 <% else %>
-  <span class="btn-start"><%= ProductionUnit.enum_to_s(:statuses, production_unit.status) %></span>
+  <%= button_to t("actions.start"), production_plan_unit_batch_steps_path(@plan, @production_unit, @batch), method: :post, params: { step: { operation_id: operation.id, status: :in_progress } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
 <% end %>

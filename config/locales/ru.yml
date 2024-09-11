@@ -91,6 +91,7 @@ ru:
     force_finish: "Остановить"
     production_plan_stopped: "План приостановлен"
     create_batch: "Создать партию"
+    operation_started: "Операция запущена"
   user_statuses:
     active: "Активный"
     inactive: "Удален"

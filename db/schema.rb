@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_11_101755) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_11_165356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -494,6 +494,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_11_101755) do
     t.index ["measurement_id"], name: "index_standards_on_measurement_id"
   end
 
+  create_table "steps", force: :cascade do |t|
+    t.bigint "batch_id", null: false
+    t.bigint "operation_id", null: false
+    t.integer "status"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batch_id", "operation_id"], name: "index_steps_on_batch_id_and_operation_id", unique: true
+    t.index ["batch_id"], name: "index_steps_on_batch_id"
+    t.index ["operation_id"], name: "index_steps_on_operation_id"
+  end
+
   create_table "suppliers", force: :cascade do |t|
     t.string "name"
     t.string "bin"
@@ -574,5 +586,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_11_101755) do
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "standards", "groups"
   add_foreign_key "standards", "measurements"
+  add_foreign_key "steps", "batches"
+  add_foreign_key "steps", "operations"
   add_foreign_key "suppliers", "users", column: "manager_id"
 end

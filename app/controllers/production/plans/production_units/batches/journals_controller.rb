@@ -8,14 +8,13 @@ module Production::Plans::ProductionUnits
     end
 
     private
+      def base_scope
+        @batch.production_unit.group.journals
+      end
 
-    def base_scope
-      @batch.production_unit.group.journals
-    end
-
-    def set_journal
-      @journals = base_scope
-      @journal  = @journals.find(params[:id])
-    end
+      def set_journal
+        @journals = base_scope
+        @journal  = @journals.find(params[:id])
+      end
   end
 end

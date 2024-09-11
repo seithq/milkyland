@@ -9,6 +9,10 @@ module PlansHelper
     params[:cancel].present? && params[:cancel] == "true"
   end
 
+  def should_finish?
+    params[:finish].present? && params[:finish] == "true"
+  end
+
   def batch_url(batch)
     if batch.new_record?
       production_plan_unit_batches_path(@plan, @production_unit)

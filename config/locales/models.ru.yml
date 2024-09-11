@@ -60,6 +60,12 @@ ru:
           in_plan: "В плане"
           completed: "Завершен"
           cancelled: "Отменен"
+      step:
+        statuses:
+          in_progress: "В процессе"
+          in_plan: "В плане"
+          completed: "Завершен"
+          cancelled: "Отменен"
     attributes:
       user:
         name: ФИО
@@ -213,4 +219,6 @@ ru:
         tester_id: Лаборант
         operator_id: Оператор
         loader_id: Грузчик
+        comment: Комментарий
+      step:
         comment: Комментарий
