@@ -19,4 +19,8 @@ class Batch < ApplicationRecord
   def produced_tonnage
     0.0
   end
+
+  def journals
+    self.production_unit.group.journals
+  end
 end

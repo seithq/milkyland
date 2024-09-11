@@ -50,7 +50,7 @@ Rails.application.routes.draw do
           scope module: "production_units" do
             resources :batches, except: :destroy do
               scope module: "batches" do
-                resources :journals, only: %i[ index show ]
+                resources :journals, only: :show
               end
             end
           end

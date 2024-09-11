@@ -29,9 +29,11 @@
     </div>
   <% end %>
 
-  <div class="mt-10">
-    <%= turbo_frame_tag dom_id(@batch, :journals), src: production_plan_unit_batch_journals_path(@plan, @production_unit, @batch) do %>
-      <%= inline_svg_tag "spinner.svg" %>
-    <% end %>
-  </div>
+  <% if @batch.journals.any? %>
+    <div class="mt-10">
+      <%= turbo_frame_tag dom_id(@batch, :journals), src: production_plan_unit_batch_journal_path(@plan, @production_unit, @batch, @batch.journals.first) do %>
+        <%= inline_svg_tag "spinner.svg" %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

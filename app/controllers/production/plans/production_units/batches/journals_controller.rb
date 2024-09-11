@@ -4,10 +4,6 @@ module Production::Plans::ProductionUnits
 
     before_action :set_journal, only: :show
 
-    def index
-      @journals = base_scope
-    end
-
     def show
     end
 
@@ -18,7 +14,8 @@ module Production::Plans::ProductionUnits
     end
 
     def set_journal
-      @journal = base_scope.find(params[:id])
+      @journals = base_scope
+      @journal  = @journals.find(params[:id])
     end
   end
 end

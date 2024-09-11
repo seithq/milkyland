@@ -1,5 +1,5 @@
 <li>
-  <%= link_to production_plan_unit_batch_journal_path(@plan, @production_unit, @batch, journal), data: { turbo_frame: dom_id(@batch, :operations) }, class: "group flex gap-x-3 rounded-md p-2 text-xl font-semibold leading-6 text-gray-700 hover:text-indigo-600 hover:bg-gray-50" do %>
+  <%= link_to production_plan_unit_batch_journal_path(@plan, @production_unit, @batch, journal), data: { turbo_frame: dom_id(@batch, :operations) }, class: "group nav-link-base-xl #{ @journal.id == journal.id ? "nav-link-active" : "nav-link-default" }" do %>
     <%= journal.name %>
   <% end %>
 </li>

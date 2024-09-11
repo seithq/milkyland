@@ -1,5 +1,25 @@
-<%= turbo_frame_tag dom_id(@batch, :operations) do %>
-  <ul role="list" class="space-y-3">
-    <%= render partial: "operation", collection: @journal.operations, as: :operation %>
-  </ul>
+<%= turbo_frame_tag dom_id(@batch, :journals) do %>
+  <div>
+    <div class="fixed flex w-72 flex-col">
+      <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
+        <nav class="flex flex-1 flex-col">
+          <ul role="list" class="flex flex-1 flex-col gap-y-7">
+            <li>
+              <ul role="list" class="-mx-2 space-y-3">
+                <%= render @journals %>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="pl-72">
+      <div class="px-4 sm:px-6 lg:px-8">
+        <ul role="list" class="space-y-3">
+          <%= render partial: "operation", collection: @journal.operations, as: :operation %>
+        </ul>
+      </div>
+    </div>
+  </div>
 <% end %>
