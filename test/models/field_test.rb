@@ -26,4 +26,10 @@ class FieldTest < ActiveSupport::TestCase
     field = Field.new(operation: operation, name: fields(:start_time).name)
     assert field.save
   end
+
+  test "should validate presence of measurement id" do
+    field = Field.new(operation: operations(:analysis), kind: :measure, name: "Test Name")
+    assert_not field.save
+    assert_equal :blank, field.errors.where(:measurement_id).first.type
+  end
 end

@@ -1,12 +1,14 @@
-<li id="<%= dom_id(operation) %>" class="rounded-md bg-white p-6 shadow<%= step_color @batch, operation %>">
-  <div class="flex justify-between items-center">
-    <div class="text-xl leading-6 font-medium text-gray-900">
-      <%= "#{ operation_counter + 1 }. #{ operation.name }" %>
-    </div>
+<%= tag.li id: dom_id(operation), class: "rounded-md bg-white p-6 shadow#{ step_color @batch, operation }" do %>
+  <div class="flex justify-between items-end">
     <div>
-      <% if @batch.in_progress? %>
-        <%= render "action", operation: operation %>
-      <% end %>
+      <div class="text-xl leading-6 font-medium text-gray-900">
+        <%= operation.name_with_index operation_counter + 1 %>
+      </div>
+      <div class="mt-4 grid grid-cols-1 gap-2">
+        <%= render partial: "metric", collection: operation.metrics, as: :metric %>
+      </div>
+      <%= render "reason", operation: operation %>
     </div>
+    <%= render "action", operation: operation %>
   </div>
-</li>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_11_165356) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_12_073511) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -146,8 +146,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_11_165356) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "chain_order", default: 0
+    t.bigint "measurement_id"
+    t.bigint "standard_id"
+    t.index ["measurement_id"], name: "index_fields_on_measurement_id"
     t.index ["operation_id", "name"], name: "index_fields_on_operation_id_and_name", unique: true
     t.index ["operation_id"], name: "index_fields_on_operation_id"
+    t.index ["standard_id"], name: "index_fields_on_standard_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -208,6 +212,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_11_165356) do
     t.datetime "updated_at", null: false
     t.decimal "tonne_ratio", precision: 20, scale: 3
     t.index ["unit"], name: "index_measurements_on_unit", unique: true
+  end
+
+  create_table "metrics", force: :cascade do |t|
+    t.bigint "step_id", null: false
+    t.bigint "field_id", null: false
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["field_id"], name: "index_metrics_on_field_id"
+    t.index ["step_id"], name: "index_metrics_on_step_id"
   end
 
   create_table "operations", force: :cascade do |t|
@@ -551,7 +565,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_11_165356) do
   add_foreign_key "containers", "packing_machines"
   add_foreign_key "discounted_products", "products"
   add_foreign_key "discounted_products", "promotions"
+  add_foreign_key "fields", "measurements"
   add_foreign_key "fields", "operations"
+  add_foreign_key "fields", "standards"
   add_foreign_key "groups", "categories"
   add_foreign_key "ingredients", "groups"
   add_foreign_key "ingredients", "material_assets"
@@ -559,6 +575,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_11_165356) do
   add_foreign_key "material_assets", "categories"
   add_foreign_key "material_assets", "measurements"
   add_foreign_key "material_assets", "suppliers"
+  add_foreign_key "metrics", "fields"
+  add_foreign_key "metrics", "steps"
   add_foreign_key "operations", "journals"
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "sales_channels"

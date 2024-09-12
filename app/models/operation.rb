@@ -5,6 +5,7 @@ class Operation < ApplicationRecord
   has_many :fields, dependent: :destroy
 
   has_many :steps, dependent: :destroy
+  has_many :metrics, -> { ordered }, through: :steps
 
   validates :name, presence: true, uniqueness: { scope: :journal, case_sensitive: false }
 
@@ -12,6 +13,10 @@ class Operation < ApplicationRecord
 
   def name_with_journal
     "#{ journal.name } - #{ name }"
+  end
+
+  def name_with_index(index)
+    "#{ index }. #{ name }"
   end
 
   def has_step?(batch)

@@ -195,3 +195,6 @@ ru:
     batches: "Партии"
     plan_label: "Плановые показатели"
     fact_label: "Фактические показатели"
+    binary_yes: "Да"
+    binary_no: "Нет"
+    standard: "Норма от %{from} до %{to}"

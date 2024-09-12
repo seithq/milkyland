@@ -8,7 +8,9 @@ module Production::Plans::ProductionUnits
     end
 
     def create
-      @step = base_scope.create!(step_params)
+      @step = base_scope.new(step_params)
+      @step.build_fields
+      @step.save!
 
       redirect_on_create production_plan_unit_batch_journal_url(@plan, @production_unit, @batch, @step.operation.journal), text: t("actions.operation_started")
     end
@@ -31,7 +33,7 @@ module Production::Plans::ProductionUnits
       end
 
       def step_params
-        params.require(:step).permit(:operation_id, :status, :comment)
+        params.require(:step).permit(:operation_id, :status, :comment, metrics_attributes: %i[ id value ])
       end
   end
 end

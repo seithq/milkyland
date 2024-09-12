@@ -22,6 +22,16 @@
         <%= form.select :kind, options_for_enum_select(Field, :kind, field.kind), { include_blank: true }, { disabled: !field.active?, required: true, class: "form-input" } %>
       </div>
 
+      <div>
+        <%= form.label :measurement_id, class: "form-label" %>
+        <%= form.select :measurement_id, options_from_collection_for_select(Measurement.all, :id, :display_label, field.measurement_id), { include_blank: true }, { disabled: !field.active?, required: false, class: "form-select" } %>
+      </div>
+
+      <div>
+        <%= form.label :standard_id, class: "form-label" %>
+        <%= form.select :standard_id, options_from_collection_for_select(@group.standards, :id, :name, field.standard_id), { include_blank: true }, { disabled: !field.active?, required: false, class: "form-select" } %>
+      </div>
+
       <% unless field.new_record? || field.active? %>
         <div class="relative flex gap-x-3">
           <div class="flex h-6 items-center">

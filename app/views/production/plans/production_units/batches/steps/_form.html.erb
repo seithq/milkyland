@@ -1,18 +1,46 @@
 <div class="flex flex-col justify-center px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
     <%= render "layouts/error_messages", resource: step %>
-    <%= form_with model: step, url: production_plan_unit_batch_step_path(@plan, @production_unit, @batch, @step), class: "space-y-4" do |form| %>
+    <%= form_with model: step, url: production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step), class: "space-y-4" do |form| %>
       <% if should_cancel? %>
         <%= form.hidden_field :status, value: :cancelled %>
 
         <div>
           <%= form.label :comment, class: "form-label-xl" %>
-          <%= form.text_area :comment, autocomplete: "comment", required: should_cancel?, class: "mt-2 form-input-xl" %>
+          <%= form.text_area :comment, autocomplete: "comment", required: should_cancel?, class: "mt-2 form-area-xl" %>
         </div>
 
         <%= form.submit t("actions.force_finish"), class: "w-full btn-force-stop", data: { turbo_confirm: t("actions.confirm") } %>
       <% else %>
         <%= form.hidden_field :status, value: :completed %>
+
+        <%= form.fields_for :metrics do |metric_form| %>
+          <%= metric_form.label :value, metric_form.object.display_label, class: "form-label-xl" %>
+
+          <% if metric_form.object.field.date? %>
+            <%= metric_form.date_field :value, required: true, class: "mt-2 form-input-xl" %>
+          <% elsif metric_form.object.field.time? %>
+            <%= metric_form.time_field :value, required: true, class: "mt-2 form-input-xl" %>
+          <% elsif metric_form.object.field.time? %>
+            <%= metric_form.time_field :value, required: true, class: "mt-2 form-input-xl" %>
+          <% elsif metric_form.object.field.binary? %>
+            <div class="space-y-6 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
+              <div class="flex items-center">
+                <%= metric_form.radio_button :value, "true", class: "h-6 w-6 border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                <%= label_tag "metric_value_true", t("forms.binary_yes"), class: "ml-3 block text-xl font-medium leading-6 text-gray-900" %>
+              </div>
+              <div class="flex items-center">
+                <%= metric_form.radio_button :value, "false", class: "h-6 w-6 border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                <%= label_tag "metric_value_true", t("forms.binary_no"), class: "ml-3 block text-xl font-medium leading-6 text-gray-900" %>
+              </div>
+            </div>
+          <% elsif metric_form.object.field.measure? %>
+            <%= metric_form.number_field :value, required: true, class: "mt-2 form-input-xl", step: ".1" %>
+          <% elsif metric_form.object.field.normal? %>
+            <%= metric_form.number_field :value, required: true, class: "mt-2 form-input-xl", step: ".1" %>
+            <p class="mt-2 text-sm text-gray-500" id="email-description"><%= t("forms.standard", from: metric_form.object.field.standard.from, to: metric_form.object.field.standard.to) %></p>
+          <% end %>
+        <% end %>
 
         <%= form.submit t("actions.finish"), class: "w-full btn-stop", data: { turbo_confirm: t("actions.confirm") } %>
       <% end %>

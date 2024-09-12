@@ -4,6 +4,8 @@ class Standard < ApplicationRecord
   belongs_to :group
   belongs_to :measurement
 
+  has_many :fields, dependent: :nullify
+
   validates :name, presence: true, uniqueness: { scope: :group, case_sensitive: false }
   validates :from, :to, presence: true, numericality: { only_integer: true }
 

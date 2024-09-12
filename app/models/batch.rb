@@ -11,7 +11,15 @@ class Batch < ApplicationRecord
   has_many :steps, dependent: :destroy
 
   def progress
-    10.0
+    (total_completed_steps.to_d / total_operations.to_d) * 100.0
+  end
+
+  def total_completed_steps
+    steps.filter_by_status(%i[ completed cancelled ]).count
+  end
+
+  def total_operations
+    production_unit.group.operations.count
   end
 
   def produced_sum

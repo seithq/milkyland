@@ -1,0 +1,11 @@
+<% steps = operation.batch_steps(@batch) %>
+<% if steps.any? %>
+  <div class="mt-4 flex flex-col space-y-1">
+    <div class="text-xl leading-6 font-medium text-gray-900">
+      <%= t("forms.cancel_reason") %>
+    </div>
+    <div class="text-sm leading-6 font-medium text-gray-500">
+      <%= steps.first.comment %>
+    </div>
+  </div>
+<% end %>

@@ -20,10 +20,9 @@ ru:
         kinds:
           date: Дата
           time: Время
-          range: От/До
           binary: Да/Нет
           measure: Ед.изм
-          collection: Список
+          normal: Норма
       promotion:
         kinds:
           by_amount: Фиксированная
@@ -142,6 +141,8 @@ ru:
         name: Наименование поля
         chain_order: Порядковый номер
         kind: Формат поля
+        measurement_id: Ед.изм
+        standard_id: Норма
         active: Активная запись
       standard:
         measurement_id: Единица измерения
@@ -222,3 +223,6 @@ ru:
         comment: Комментарий
       step:
         comment: Комментарий
+      metric:
+        field_id: Поле
+        value: Значение
