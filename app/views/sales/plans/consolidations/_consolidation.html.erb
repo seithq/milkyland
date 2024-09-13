@@ -6,7 +6,7 @@
     <%= consolidation.order.client.name %>
   </div>
   <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-    <%= consolidation.order.sum %>
+    <%= number_with_delimiter consolidation.order.sum %>
   </div>
   <% unless @readonly %>
     <div class="table-cell relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">

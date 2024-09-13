@@ -7,10 +7,10 @@
       <%= product.name %>
     </div>
     <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-      <%= @plan.product_sum product %>
+      <%= number_with_delimiter @plan.product_sum product %>
     </div>
     <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-      <%= @plan.product_tonnage product %>
+      <%= number_with_delimiter @plan.product_tonnage product %>
     </div>
   <% end %>
 <% end %>
@@ -22,9 +22,9 @@
     <%= t("tables.cols.group_total", group: group.name) %>
   </div>
   <div class="table-cell whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">
-    <%= @plan.group_sum group %>
+    <%= number_with_delimiter @plan.group_sum group %>
   </div>
   <div class="table-cell whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">
-    <%= @plan.group_tonnage group %>
+    <%= number_with_delimiter @plan.group_tonnage group %>
   </div>
 <% end %>
