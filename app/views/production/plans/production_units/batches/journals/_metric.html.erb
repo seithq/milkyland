@@ -1,12 +1,9 @@
-<div class="flex justify-between items-center overflow-hidden rounded-lg bg-white px-2 py-1 shadow">
-  <span class="text-sm font-medium text-gray-500"><%= metric.display_label %></span>
-  <span class="ml-3 text-sm font-semibold tracking-tight text-gray-900">
-              <% if metric.field.date? %>
-                <%= time_tag metric.value.to_date if metric.value? %>
-              <% elsif metric.field.binary? %>
-                <%= metric.value == "true" ? t("forms.binary_yes") : t("forms.binary_no") %>
-              <% else %>
-                <%= metric.value %>
-              <% end %>
-            </span>
-</div>
+<tr>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= metric.display_label %></td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+    <%= metric_plan_tag metric %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+    <%= metric_fact_tag metric %>
+  </td>
+</tr>

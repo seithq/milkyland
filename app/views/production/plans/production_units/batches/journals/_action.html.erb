@@ -1,37 +1,36 @@
 <% if @batch.in_progress? %>
-  <div>
-    <% if operation.has_step? @batch %>
-      <% step = operation.batch_steps(@batch).first %>
-      <% if step.in_progress? %>
-        <div class="relative" data-controller="dropdown">
-          <button type="button" class="btn-in-production" id="plan-menu-button" aria-expanded="false" aria-haspopup="true" data-dropdown-target="button" data-action="dropdown#toggle click@window->dropdown#close">
-      <span class="flex items-center space-x-2">
-        <span aria-hidden="true"><%= Step.enum_to_s(:statuses, :in_progress) %></span>
-        <%= inline_svg_tag "chevron-down.svg", class: "h-5 w-5 text-white" %>
-      </span>
-          </button>
+  <% if operation.has_step? @batch %>
+    <% step = operation.batch_steps(@batch).first %>
+    <% if step.in_progress? %>
+      <div class="relative" data-controller="dropdown">
+        <button type="button" class="btn-in-production" id="plan-menu-button" aria-expanded="false" aria-haspopup="true" data-dropdown-target="button" data-action="dropdown#toggle click@window->dropdown#close">
+            <span class="flex items-center space-x-2">
+              <span aria-hidden="true"><%= Step.enum_to_s(:statuses, :in_progress) %></span>
+              <%= inline_svg_tag "chevron-down.svg", class: "h-5 w-5 text-white" %>
+            </span>
+        </button>
 
-          <!-- Dropdown menu, show/hide based on menu state. -->
-          <div class="hidden absolute right-0 z-10 flex flex-col items-stretch space-y-2 mt-2.5 origin-top-right rounded-md bg-white p-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="plan-menu-button" tabindex="-1"
-               data-dropdown-target="menu"
-               data-transition-enter="transition ease-out duration-100"
-               data-transition-enter-start="transform opacity-0 scale-95"
-               data-transition-enter-end="transform opacity-100 scale-100"
-               data-transition-leave="transition ease-in duration-75"
-               data-transition-leave-start="transform opacity-100 scale-100"
-               data-transition-leave-end="transform opacity-0 scale-95"
-          >
-            <%= link_to t("actions.force_finish"), edit_production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step, cancel: true), data: { turbo_frame: "_top" }, class: "btn-force-stop" %>
-            <%= link_to t("actions.finish"), edit_production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step), data: { turbo_frame: "_top" }, class: "btn-stop" %>
-          </div>
+        <!-- Dropdown menu, show/hide based on menu state. -->
+        <div class="hidden absolute right-0 z-10 flex flex-col items-stretch space-y-2 mt-2.5 origin-top-right rounded-md bg-white p-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="plan-menu-button" tabindex="-1"
+             data-dropdown-target="menu"
+             data-transition-enter="transition ease-out duration-100"
+             data-transition-enter-start="transform opacity-0 scale-95"
+             data-transition-enter-end="transform opacity-100 scale-100"
+             data-transition-leave="transition ease-in duration-75"
+             data-transition-leave-start="transform opacity-100 scale-100"
+             data-transition-leave-end="transform opacity-0 scale-95"
+        >
+          <%= link_to t("actions.edit_record"), edit_production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step), data: { turbo_frame: "_top" }, class: "btn-xl" %>
+          <%= link_to t("actions.force_finish"), edit_production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step, cancel: true), data: { turbo_frame: "_top" }, class: "btn-force-stop" %>
+          <%= link_to t("actions.finish"), edit_production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step, finish: true), data: { turbo_frame: "_top" }, class: "btn-stop" %>
         </div>
-      <% elsif step.completed? %>
-        <span class="btn-produced"><%= Step.enum_to_s(:statuses, :completed) %></span>
-      <% elsif step.cancelled? %>
-        <span class="btn-cancelled"><%= Step.enum_to_s(:statuses, :cancelled) %></span>
-      <% end %>
-    <% else %>
-      <%= button_to t("actions.start"), production_plan_unit_batch_steps_path(@plan, @production_unit, @batch), method: :post, params: { step: { operation_id: operation.id, status: :in_progress } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
+      </div>
+    <% elsif step.completed? %>
+      <span class="btn-produced"><%= Step.enum_to_s(:statuses, :completed) %></span>
+    <% elsif step.cancelled? %>
+      <span class="btn-cancelled"><%= Step.enum_to_s(:statuses, :cancelled) %></span>
     <% end %>
-  </div>
+  <% else %>
+    <%= button_to t("actions.start"), production_plan_unit_batch_steps_path(@plan, @production_unit, @batch), method: :post, params: { step: { operation_id: operation.id, status: :in_progress } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
+  <% end %>
 <% end %>

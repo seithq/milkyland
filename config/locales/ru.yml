@@ -160,6 +160,9 @@ ru:
       group_total: "Итого %{group}"
       region: "Регион"
       chain_order: "Порядковый номер"
+      field: "Параметр"
+      plan: "План"
+      fact: "Факт"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -198,3 +201,6 @@ ru:
     binary_yes: "Да"
     binary_no: "Нет"
     standard: "Норма от %{from} до %{to}"
+    no_data: "Нет данных"
+    measurement: "%{value} %{unit}"
+    measurement_detail: "Ед.изм: %{unit}"
