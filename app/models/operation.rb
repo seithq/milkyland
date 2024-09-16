@@ -11,6 +11,8 @@ class Operation < ApplicationRecord
 
   scope :ordered, -> { merge(Journal.ordered).order(chain_order: :asc) }
 
+  scope :filter_by_journal, ->(journal_id) { where(journal_id: journal_id) }
+
   def name_with_journal
     "#{ journal.name } - #{ name }"
   end

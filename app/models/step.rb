@@ -9,7 +9,7 @@ class Step < ApplicationRecord
 
   validates_uniqueness_of :operation_id, scope: :batch_id
 
-  scope :filter_by_operation, ->(operation_id) { where(operation_id: operation_id) }
+  scope :filter_by_journal, ->(journal_id) { joins(:operation).merge(Operation.filter_by_journal(journal_id)) }
 
   scope :ordered, -> { joins(:operation).order(operations: { chain_order: :asc }) }
 
