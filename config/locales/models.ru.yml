@@ -23,6 +23,10 @@ ru:
           binary: Да/Нет
           measure: Ед.изм
           normal: Норма
+          collection: Список
+        collections:
+          unset: Не установлено
+          packing_machine: Фасовочное оборудование
       promotion:
         kinds:
           by_amount: Фиксированная
@@ -143,6 +147,7 @@ ru:
         kind: Формат поля
         measurement_id: Ед.изм
         standard_id: Норма
+        collection: Справочник
         active: Активная запись
       standard:
         measurement_id: Единица измерения

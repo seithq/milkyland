@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_12_073511) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_16_081642) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -148,6 +148,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_12_073511) do
     t.integer "chain_order", default: 0
     t.bigint "measurement_id"
     t.bigint "standard_id"
+    t.string "collection"
     t.index ["measurement_id"], name: "index_fields_on_measurement_id"
     t.index ["operation_id", "name"], name: "index_fields_on_operation_id_and_name", unique: true
     t.index ["operation_id"], name: "index_fields_on_operation_id"

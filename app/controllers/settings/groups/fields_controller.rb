@@ -55,7 +55,7 @@ module Settings
       end
 
       def field_params
-        params.require(:field).permit(:operation_id, :name, :chain_order, :kind, :active, :measurement_id, :standard_id)
+        params.require(:field).permit(:operation_id, :name, :chain_order, :kind, :active, :measurement_id, :standard_id, :collection)
       end
   end
 end

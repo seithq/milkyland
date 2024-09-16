@@ -18,6 +18,8 @@ module MetricsHelper
       measure_tag metric
     elsif metric.field.normal?
       normal_tag metric
+    elsif metric.field.collection?
+      collection_tag metric
     end
   end
 
@@ -38,6 +40,8 @@ module MetricsHelper
       measure_input form
     elsif metric.field.normal?
       normal_input form
+    elsif metric.field.collection?
+      collection_input form
     end
   end
 
@@ -53,6 +57,12 @@ module MetricsHelper
     def normal_tag(metric)
       passed = metric.field.standard.passed?(metric.value.to_i)
       default_tag metric.value, class_name: passed ? "text-green-600" : "text-red-600"
+    end
+
+    def collection_tag(metric)
+      if metric.field.packing_machine?
+        PackingMachine.where(id: metric.value).first&.name
+      end
     end
 
     def default_tag(text, class_name: "")
@@ -85,6 +95,12 @@ module MetricsHelper
       tag.div do
         concat form.number_field :value, required: true, class: default_input_class, step: ".1"
         concat tag.p t("forms.standard", from: form.object.field.standard.from, to: form.object.field.standard.to), class: "mt-2 text-sm text-gray-500"
+      end
+    end
+
+    def collection_input(form)
+      if form.object.field.packing_machine?
+        form.select :value, options_from_collection_for_select(PackingMachine.all, :id, :name, form.object.value), { include_blank: true }, { required: true, class: "mt-2 form-select-xl" }
       end
     end
 
