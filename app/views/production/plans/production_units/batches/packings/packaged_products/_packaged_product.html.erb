@@ -1,0 +1,19 @@
+<tr id=<%= dom_id(packaged_product) %>>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+    <%= packaged_product.product.name %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+    <%= packaged_product.start_time.strftime("%H:%M") if packaged_product.start_time %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+    <%= packaged_product.end_time.strftime("%H:%M") if packaged_product.end_time %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+    <%= number_with_delimiter packaged_product.count %>
+  </td>
+  <% if @packing.in_progress? %>
+    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+      <%= link_to t("actions.edit_record"), edit_production_plan_unit_batch_packing_packaged_product_path(@plan, @production_unit, @batch, packaged_product), data: { turbo_frame: "_top" }, class: "text-indigo-600 hover:text-indigo-900" %>
+    </td>
+  <% end %>
+</tr>

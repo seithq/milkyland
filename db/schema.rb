@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_17_082258) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_17_111754) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -248,6 +248,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_17_082258) do
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["sales_channel_id"], name: "index_orders_on_sales_channel_id"
     t.index ["sales_point_id"], name: "index_orders_on_sales_point_id"
+  end
+
+  create_table "packaged_products", force: :cascade do |t|
+    t.bigint "packing_id", null: false
+    t.bigint "product_id", null: false
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["packing_id", "product_id"], name: "index_packaged_products_on_packing_id_and_product_id", unique: true
+    t.index ["packing_id"], name: "index_packaged_products_on_packing_id"
+    t.index ["product_id"], name: "index_packaged_products_on_product_id"
   end
 
   create_table "packing_machines", force: :cascade do |t|
@@ -591,6 +604,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_17_082258) do
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "sales_channels"
   add_foreign_key "orders", "sales_points"
+  add_foreign_key "packaged_products", "packings"
+  add_foreign_key "packaged_products", "products"
   add_foreign_key "packings", "batches"
   add_foreign_key "participants", "clients"
   add_foreign_key "participants", "promotions"

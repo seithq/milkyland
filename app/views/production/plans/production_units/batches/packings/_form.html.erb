@@ -1,19 +1,21 @@
-<% if packing.new_record? %>
-  <%= tag.li id: dom_id(packing), class: "rounded-md bg-white p-6 shadow#{ packing_color packing }" do %>
-    <div class="grid grid-cols-1 gap-2">
-      <div>
-        <div class="text-xl leading-6 font-medium text-gray-900">
-          <%= t("pages.packing") %>
-        </div>
-        <div class="mt-4">
-          <%= render "reason", packing: packing %>
-        </div>
-      </div>
-      <div class="sm:flex sm:items-end sm:justify-end">
-        <%= render "action", packing: packing %>
-      </div>
-    </div>
-  <% end %>
-<% else %>
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <%= render "layouts/error_messages", resource: packing %>
+    <%= form_with model: packing, url: production_plan_unit_batch_packing_path(@plan, @production_unit, @batch), class: "space-y-4" do |form| %>
+      <% if should_cancel? %>
+        <%= form.hidden_field :status, value: :cancelled %>
+      <% end %>
 
-<% end %>
+      <div>
+        <%= form.label :comment, class: "form-label-xl" %>
+        <%= form.text_area :comment, autocomplete: "comment", required: should_cancel?, class: "mt-2 form-area-xl" %>
+      </div>
+
+      <% if should_cancel? %>
+        <%= form.submit t("actions.force_finish"), class: "w-full btn-force-stop", data: { turbo_confirm: t("actions.confirm") } %>
+      <% else %>
+        <%= form.submit t("actions.save_record"), class: "w-full btn-xl", data: { turbo_confirm: t("actions.confirm") } %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

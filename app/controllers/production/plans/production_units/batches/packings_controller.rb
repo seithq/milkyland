@@ -3,6 +3,7 @@ module Production::Plans::ProductionUnits
     include PlanScoped, ProductionUnitScoped, BatchScoped
 
     before_action :set_journals
+    before_action :avoid_override, only: :new
     before_action :set_packing, only: %i[ show edit update ]
 
     def show
@@ -20,7 +21,7 @@ module Production::Plans::ProductionUnits
       @packing.build_commodities
 
       if @packing.save
-        redirect_on_update @packing
+        redirect_on_update production_plan_unit_batch_packing_url(@plan, @production_unit, @batch)
       else
         render :new, status: :unprocessable_entity
       end
@@ -28,7 +29,7 @@ module Production::Plans::ProductionUnits
 
     def update
       if @packing.update(packing_params)
-        redirect_on_update @packing
+        redirect_on_update production_plan_unit_batch_packing_url(@plan, @production_unit, @batch)
       else
         render :edit, status: :unprocessable_entity
       end
@@ -40,11 +41,17 @@ module Production::Plans::ProductionUnits
       end
 
       def set_packing
-        @packing  = @batch.packing
+        @packing = @batch.packing
       end
 
       def packing_params
-        params.require(packing).permit(:status, :comment)
+        params.require(:packing).permit(:status, :comment)
+      end
+
+      def avoid_override
+        if Packing.exists?(batch_id: @batch.id)
+          redirect_to production_plan_unit_batch_packing_url(@plan, @production_unit, @batch)
+        end
       end
   end
 end

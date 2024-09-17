@@ -239,3 +239,7 @@ ru:
         value: Значение
       packing:
         comment: Комментарий
+      packaged_product:
+        start_time: Время начала
+        end_time: Время окончания
+        count: Количество

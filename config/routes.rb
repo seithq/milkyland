@@ -52,7 +52,11 @@ Rails.application.routes.draw do
               scope module: "batches" do
                 resources :journals, only: :show
                 resources :steps, only: %i[ edit create update ]
-                resource :packing, except: :destroy
+                resource :packing, except: :destroy do
+                  scope module: "packings" do
+                    resources :packaged_products, only: %i[ index edit update ]
+                  end
+                end
               end
             end
           end
