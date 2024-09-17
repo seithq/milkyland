@@ -52,6 +52,7 @@ ru:
     production_plans: "Планы производства"
     batch: "Партия #%{id}"
     batches: "Партия производства"
+    packing: "Фасовка"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:

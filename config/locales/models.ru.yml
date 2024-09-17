@@ -69,6 +69,12 @@ ru:
           in_plan: "В плане"
           completed: "Завершен"
           cancelled: "Отменен"
+      packing:
+        statuses:
+          in_progress: "В процессе"
+          in_plan: "В плане"
+          completed: "Завершен"
+          cancelled: "Отменен"
     attributes:
       user:
         name: ФИО
@@ -231,3 +237,5 @@ ru:
       metric:
         field_id: Поле
         value: Значение
+      packing:
+        comment: Комментарий

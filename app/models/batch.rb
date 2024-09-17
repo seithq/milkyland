@@ -9,6 +9,7 @@ class Batch < ApplicationRecord
   belongs_to :loader,   -> { User.filter_by_role(:loader) },   class_name: "User", foreign_key: "loader_id"
 
   has_many :steps, dependent: :destroy
+  has_one :packing, dependent: :destroy
 
   def progress
     (total_completed_steps.to_d / total_operations.to_d) * 100.0
@@ -40,5 +41,9 @@ class Batch < ApplicationRecord
 
   def completed_journal?(journal)
     total_completed_steps(journal_id: journal.id) == total_operations(journal_id: journal.id)
+  end
+
+  def completed_journals?
+    total_completed_steps == total_operations
   end
 end

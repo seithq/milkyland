@@ -1,5 +1,6 @@
-<nav aria-label="Progress" class="w-72">
+<nav aria-label="Progress" class="w-96">
   <ol role="list" class="overflow-hidden">
-    <%= render partial: "journal", collection: @journals, as: :journal %>
+    <%= render partial: "production/plans/production_units/batches/journals/journal", collection: @journals, as: :journal %>
+    <%= render "production/plans/production_units/batches/packings/packing", batch: @batch %>
   </ol>
 </nav>

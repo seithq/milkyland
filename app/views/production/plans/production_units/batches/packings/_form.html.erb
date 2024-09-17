@@ -1,0 +1,19 @@
+<% if packing.new_record? %>
+  <%= tag.li id: dom_id(packing), class: "rounded-md bg-white p-6 shadow#{ packing_color packing }" do %>
+    <div class="grid grid-cols-1 gap-2">
+      <div>
+        <div class="text-xl leading-6 font-medium text-gray-900">
+          <%= t("pages.packing") %>
+        </div>
+        <div class="mt-4">
+          <%= render "reason", packing: packing %>
+        </div>
+      </div>
+      <div class="sm:flex sm:items-end sm:justify-end">
+        <%= render "action", packing: packing %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+
+<% end %>

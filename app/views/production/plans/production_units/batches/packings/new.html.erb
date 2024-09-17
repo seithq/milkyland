@@ -33,11 +33,11 @@
     <div class="mt-10">
       <%= turbo_frame_tag dom_id(@batch, :journals) do %>
         <div class="flex flex-row space-x-2">
-          <%= render "side_nav" %>
+          <%= render "production/plans/production_units/batches/journals/side_nav" %>
 
           <div class="w-full">
             <ul role="list" class="space-y-3">
-              <%= render partial: "operation", collection: @journal.operations, as: :operation %>
+              <%= render "form", packing: @packing %>
             </ul>
           </div>
         </div>

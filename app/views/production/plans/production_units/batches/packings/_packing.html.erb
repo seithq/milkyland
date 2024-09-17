@@ -1,7 +1,7 @@
-<% path = production_plan_unit_batch_journal_path(@plan, @production_unit, @batch, journal) %>
-
 <li class="relative pb-10">
-  <% if @batch.completed_journal? journal %>
+  <% path = batch_packing_path batch %>
+
+  <% if batch.packing.present? && batch.packing.step_completed? %>
     <div class="absolute left-4 top-4 -ml-px mt-0.5 h-full w-0.5 bg-indigo-600" aria-hidden="true"></div>
     <%= link_to path, data: { turbo_frame: "_top" }, class: "group relative flex items-center" do %>
       <span class="flex h-9 items-center">
@@ -10,10 +10,10 @@
         </span>
       </span>
       <span class="ml-4 flex min-w-0 flex-col">
-        <span class="text-sm sm:text-xl font-medium text-gray-900"><%= journal.name %></span>
+        <span class="text-sm sm:text-xl font-medium text-gray-900"><%= t("pages.packing") %></span>
       </span>
     <% end %>
-  <% elsif @journal.id == journal.id %>
+  <% elsif current_page?(path) %>
     <div class="absolute left-4 top-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300" aria-hidden="true"></div>
     <%= link_to path, data: { turbo_frame: "_top" }, class: "group relative flex items-center" do %>
       <span class="flex h-9 items-center" aria-hidden="true">
@@ -22,7 +22,7 @@
         </span>
       </span>
       <span class="ml-4 flex min-w-0 flex-col">
-        <span class="text-sm sm:text-xl font-medium text-indigo-600"><%= journal.name %></span>
+        <span class="text-sm sm:text-xl font-medium text-gray-900"><%= t("pages.packing") %></span>
       </span>
     <% end %>
   <% else %>
@@ -34,7 +34,7 @@
         </span>
       </span>
       <span class="ml-4 flex min-w-0 flex-col">
-        <span class="text-sm sm:text-xl font-medium text-gray-500"><%= journal.name %></span>
+        <span class="text-sm sm:text-xl font-medium text-gray-900"><%= t("pages.packing") %></span>
       </span>
     <% end %>
   <% end %>
