@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  distribution: one
+  packaged_product: one
+  region: one
+  production_date: 2024-09-18
+  count: 1
+
+two:
+  distribution: two
+  packaged_product: two
+  region: two
+  production_date: 2024-09-18
+  count: 1

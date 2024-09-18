@@ -75,6 +75,12 @@ ru:
           in_plan: "В плане"
           completed: "Завершен"
           cancelled: "Отменен"
+      distribution:
+        statuses:
+          in_progress: "В процессе"
+          in_plan: "В плане"
+          completed: "Завершен"
+          cancelled: "Отменен"
     attributes:
       user:
         name: ФИО
@@ -242,4 +248,9 @@ ru:
       packaged_product:
         start_time: Время начала
         end_time: Время окончания
+        count: Количество
+      distribution:
+        comment: Комментарий
+      distributed_product:
+        production_date: Дата производства
         count: Количество

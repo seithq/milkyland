@@ -17,6 +17,7 @@ class Order < ApplicationRecord
   after_destroy :deactivate_plans
 
   scope :filter_by_status, ->(status) { where status: status }
+  scope :filter_by_region, ->(region_id) { joins(:sales_point).where(sales_points: { region_id: region_id }) }
   scope :filter_by_id_or_client_or_sales_point, ->(query) { joins(:client).joins(:sales_point).where("LOWER(orders.id::text) LIKE ? OR LOWER(clients.name) LIKE ? OR LOWER(sales_points.name) LIKE ?", like(query), like(query), like(query)) }
 
   scope :active, ->() { where.not(status: %i[ completed cancelled ]) }

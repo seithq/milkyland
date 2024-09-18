@@ -19,5 +19,9 @@ module Progressable
     def cancel(comment: "")
       update status: :cancelled, comment: comment
     end
+
+    def step_completed?
+      completed? || cancelled?
+    end
   end
 end

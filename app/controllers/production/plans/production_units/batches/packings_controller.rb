@@ -18,7 +18,7 @@ module Production::Plans::ProductionUnits
 
     def create
       @packing = @batch.build_packing(packing_params)
-      @packing.build_commodities
+      @packing.build_products
 
       if @packing.save
         redirect_on_update production_plan_unit_batch_packing_url(@plan, @production_unit, @batch)

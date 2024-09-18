@@ -1,0 +1,18 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <%= render "layouts/error_messages", resource: distributed_product %>
+    <%= form_with model: distributed_product, url: production_plan_unit_batch_distribution_distributed_product_path(@plan, @production_unit, @batch, distributed_product), class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :production_date, class: "form-label-xl" %>
+        <%= form.date_field :production_date, autocomplete: "production-date", required: true, class: "mt-2 form-input-xl" %>
+      </div>
+
+      <div>
+        <%= form.label :count, class: "form-label-xl" %>
+        <%= form.number_field :count, autocomplete: "count", required: true, class: "mt-2 form-input-xl" %>
+      </div>
+
+      <%= form.submit t("actions.save_record"), class: "w-full btn-xl" %>
+    <% end %>
+  </div>
+</div>

@@ -7,7 +7,14 @@ class Plan < ApplicationRecord
   has_many :products, through: :positions
   has_many :groups, through: :products
 
+  has_many :sales_points, through: :orders
+  has_many :regions, through: :sales_points
+
   has_many :units, class_name: "ProductionUnit", foreign_key: "plan_id", dependent: :destroy
+  has_many :batches, through: :units
+
+  has_many :packings, through: :batches
+  has_many :packaged_products, through: :packings, source: :products
 
   after_update :call_update_callbacks
 
@@ -51,6 +58,18 @@ class Plan < ApplicationRecord
 
   def product_sum(product)
     self.positions.filter_by_product(product.id).sum(:count)
+  end
+
+  def product_region_remaining_sum(batch, region, product)
+    total = self.product_region_sum(region, product)
+    packed = self.packaged_products.filter_by_product(product.id).without_current_batch(batch.id).sum(:count)
+    total - packed
+  end
+
+  def product_region_sum(region, product)
+    Position.filter_by_product(product)
+            .where(order_id: self.orders.filter_by_region(region.id))
+            .sum(:count)
   end
 
   def product_tonnage(product)

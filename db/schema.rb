@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_17_111754) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_18_053530) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -136,6 +136,28 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_17_111754) do
     t.index ["product_id"], name: "index_discounted_products_on_product_id"
     t.index ["promotion_id", "product_id"], name: "index_discounted_products_on_promotion_id_and_product_id", unique: true
     t.index ["promotion_id"], name: "index_discounted_products_on_promotion_id"
+  end
+
+  create_table "distributed_products", force: :cascade do |t|
+    t.bigint "distribution_id", null: false
+    t.bigint "packaged_product_id", null: false
+    t.bigint "region_id", null: false
+    t.date "production_date"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["distribution_id"], name: "index_distributed_products_on_distribution_id"
+    t.index ["packaged_product_id"], name: "index_distributed_products_on_packaged_product_id"
+    t.index ["region_id"], name: "index_distributed_products_on_region_id"
+  end
+
+  create_table "distributions", force: :cascade do |t|
+    t.bigint "batch_id", null: false
+    t.integer "status"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batch_id"], name: "index_distributions_on_batch_id"
   end
 
   create_table "fields", force: :cascade do |t|
@@ -588,6 +610,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_17_111754) do
   add_foreign_key "containers", "packing_machines"
   add_foreign_key "discounted_products", "products"
   add_foreign_key "discounted_products", "promotions"
+  add_foreign_key "distributed_products", "distributions"
+  add_foreign_key "distributed_products", "packaged_products"
+  add_foreign_key "distributed_products", "regions"
+  add_foreign_key "distributions", "batches"
   add_foreign_key "fields", "measurements"
   add_foreign_key "fields", "operations"
   add_foreign_key "fields", "standards"

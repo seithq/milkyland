@@ -1,0 +1,22 @@
+<tr id=<%= dom_id(distributed_product) %>>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+    <%= distributed_product.region.name %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+    <%= distributed_product.packaged_product.product.name %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+    <%= number_with_delimiter @plan.product_region_remaining_sum(@batch, distributed_product.region, distributed_product.packaged_product.product) %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+    <%= number_with_delimiter distributed_product.count %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+    <%= time_tag distributed_product.production_date %>
+  </td>
+  <% if @distribution.in_progress? %>
+    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+      <%= link_to t("actions.edit_record"), edit_production_plan_unit_batch_distribution_distributed_product_path(@plan, @production_unit, @batch, distributed_product), data: { turbo_frame: "_top" }, class: "text-indigo-600 hover:text-indigo-900" %>
+    </td>
+  <% end %>
+</tr>

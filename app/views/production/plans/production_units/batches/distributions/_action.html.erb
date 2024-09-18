@@ -1,12 +1,12 @@
 <% if @batch.in_progress? %>
-  <% if packing.new_record? %>
-    <%= button_to t("actions.start"), production_plan_unit_batch_packing_path(@plan, @production_unit, @batch), method: :post, params: { packing: { status: :in_progress } }, disabled: !@batch.completed_journals?, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
+  <% if distribution.new_record? %>
+    <%= button_to t("actions.start"), production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch), method: :post, params: { distribution: { status: :in_progress } }, disabled: !(@batch.completed_journals? && @batch.packing.step_completed?), form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
   <% else %>
-    <% if packing.in_progress? %>
+    <% if distribution.in_progress? %>
       <div class="relative" data-controller="dropdown">
         <button type="button" class="btn-in-production" id="plan-menu-button" aria-expanded="false" aria-haspopup="true" data-dropdown-target="button" data-action="dropdown#toggle click@window->dropdown#close">
             <span class="flex items-center space-x-2">
-              <span aria-hidden="true"><%= Packing.enum_to_s(:statuses, :in_progress) %></span>
+              <span aria-hidden="true"><%= Distribution.enum_to_s(:statuses, :in_progress) %></span>
               <%= inline_svg_tag "chevron-down.svg", class: "h-5 w-5 text-white" %>
             </span>
         </button>
@@ -21,14 +21,14 @@
              data-transition-leave-start="transform opacity-100 scale-100"
              data-transition-leave-end="transform opacity-0 scale-95"
         >
-          <%= link_to t("actions.force_finish"), edit_production_plan_unit_batch_packing_path(@plan, @production_unit, @batch, cancel: true), data: { turbo_frame: "_top" }, class: "btn-force-stop" %>
-          <%= button_to t("actions.finish"), production_plan_unit_batch_packing_path(@plan, @production_unit, @batch), method: :put, params: { packing: { status: :completed } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-stop" %>
+          <%= link_to t("actions.force_finish"), edit_production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch, cancel: true), data: { turbo_frame: "_top" }, class: "btn-force-stop" %>
+          <%= button_to t("actions.finish"), production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch), method: :put, params: { distribution: { status: :completed } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-stop" %>
         </div>
       </div>
-    <% elsif packing.completed? %>
-      <span class="btn-produced"><%= Packing.enum_to_s(:statuses, :completed) %></span>
-    <% elsif packing.cancelled? %>
-      <span class="btn-cancelled"><%= Packing.enum_to_s(:statuses, :cancelled) %></span>
+    <% elsif distribution.completed? %>
+      <span class="btn-produced"><%= Distribution.enum_to_s(:statuses, :completed) %></span>
+    <% elsif distribution.cancelled? %>
+      <span class="btn-cancelled"><%= Distribution.enum_to_s(:statuses, :cancelled) %></span>
     <% end %>
   <% end %>
 <% end %>
