@@ -6,6 +6,8 @@ class Metric < ApplicationRecord
 
   scope :ordered, -> { joins(:field).order(fields: { chain_order: :asc }) }
 
+  scope :filter_by_batch, ->(batch_id) { joins(:step).where(steps: { batch_id: batch_id }) }
+
   def display_label
     field.name
   end

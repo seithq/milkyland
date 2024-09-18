@@ -32,6 +32,10 @@ module Production::Plans::ProductionUnits
 
     def update
       if @distribution.update(distribution_params)
+        if @distribution.completed?
+          # Generate QR images
+        end
+
         redirect_on_update production_plan_unit_batch_distribution_url(@plan, @production_unit, @batch)
       else
         render :edit, status: :unprocessable_entity

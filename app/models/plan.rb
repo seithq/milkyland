@@ -60,6 +60,12 @@ class Plan < ApplicationRecord
     self.positions.filter_by_product(product.id).sum(:count)
   end
 
+  def product_remaining_sum(batch, product)
+    total = Position.filter_by_product(product).sum(:count)
+    packed = self.packaged_products.filter_by_product(product.id).without_current_batch(batch.id).sum(:count)
+    total - packed
+  end
+
   def product_region_remaining_sum(batch, region, product)
     total = self.product_region_sum(region, product)
     packed = self.packaged_products.filter_by_product(product.id).without_current_batch(batch.id).sum(:count)
@@ -78,12 +84,20 @@ class Plan < ApplicationRecord
     total > 0.0 ? scope.first.product.measurement.to_tonnage_ratio(total) : 0.0
   end
 
+  def count
+    self.positions.sum(:count)
+  end
+
+  def produced_count
+    self.packaged_products.approved.sum(:count)
+  end
+
   def can_edit?
     in_consolidation?
   end
 
   def progress
-    20.0
+    (produced_count.to_d / count.to_d) * 100.0
   end
 
   private

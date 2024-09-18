@@ -18,7 +18,27 @@
           </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
-          <%= render @distributed_products %>
+          <% @distribution.available_products.each do |product| %>
+            <%= render partial: "distributed_product", collection: @distributed_products.filter_by_product(product.id), as: :distributed_product %>
+            <tr>
+              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-0"></td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                <%= t("tables.cols.total") %>
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                <%= number_with_delimiter @plan.product_remaining_sum(@batch, product) %>
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                <%= number_with_delimiter @distribution.distributed_count(product_id: product.id) %>
+              </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                <%= t("tables.cols.packed", count: number_with_delimiter(@batch.packing.packed_count(product_id: product.id))) %>
+              </td>
+              <% if @distribution.in_progress? %>
+                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"></td>
+              <% end %>
+            </tr>
+          <% end %>
           </tbody>
         </table>
       </div>

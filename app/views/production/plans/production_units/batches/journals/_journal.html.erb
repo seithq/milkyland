@@ -13,7 +13,7 @@
         <span class="text-sm sm:text-xl font-medium text-gray-900"><%= journal.name %></span>
       </span>
     <% end %>
-  <% elsif @journal.id == journal.id %>
+  <% elsif @journal&.id == journal.id %>
     <div class="absolute left-4 top-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300" aria-hidden="true"></div>
     <%= link_to path, data: { turbo_frame: "_top" }, class: "group relative flex items-center" do %>
       <span class="flex h-9 items-center" aria-hidden="true">

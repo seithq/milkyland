@@ -22,7 +22,7 @@
              data-transition-leave-end="transform opacity-0 scale-95"
         >
           <%= link_to t("actions.force_finish"), edit_production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch, cancel: true), data: { turbo_frame: "_top" }, class: "btn-force-stop" %>
-          <%= button_to t("actions.finish"), production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch), method: :put, params: { distribution: { status: :completed } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-stop" %>
+          <%= button_to t("actions.finish"), production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch), method: :put, params: { distribution: { status: :completed } }, disabled: !@distribution.equal_to_packing?, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-stop" %>
         </div>
       </div>
     <% elsif distribution.completed? %>

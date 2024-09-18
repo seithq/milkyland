@@ -2,6 +2,7 @@ class Batch < ApplicationRecord
   include Progressable
 
   belongs_to :production_unit
+  has_many :groups, through: :production_unit
 
   belongs_to :machiner, -> { User.filter_by_role(:machiner) }, class_name: "User", foreign_key: "machiner_id"
   belongs_to :tester,   -> { User.filter_by_role(:tester) },   class_name: "User", foreign_key: "tester_id"
@@ -11,7 +12,10 @@ class Batch < ApplicationRecord
   has_many :steps, dependent: :destroy
 
   has_one :packing, dependent: :destroy
+  has_many :packaged_products, through: :packing, source: :products
+
   has_one :distribution, dependent: :destroy
+  has_many :distributed_products, through: :distribution, source: :products
 
   def progress
     (total_completed_steps.to_d / total_operations.to_d) * 100.0
@@ -29,12 +33,14 @@ class Batch < ApplicationRecord
     base_scope.count
   end
 
-  def produced_sum
-    0
+  def produced_count
+    packaged_products.approved.sum(:count)
   end
 
   def produced_tonnage
-    0.0
+    scope = self.packaged_products.filter_by_group(groups.pluck(:id))
+    total = scope.sum("packaged_products.count * products.packing")
+    total > 0.0 ? scope.first.product.measurement.to_tonnage_ratio(total) : 0.0
   end
 
   def journals

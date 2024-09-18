@@ -5,4 +5,6 @@ class DistributedProduct < ApplicationRecord
 
   validates_presence_of :production_date
   validates :count, presence: true, numericality: { only_integer: true }
+
+  scope :filter_by_product, ->(product_id) { joins(:packaged_product).where(packaged_products: { product_id: product_id }) }
 end
