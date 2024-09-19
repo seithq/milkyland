@@ -1,5 +1,5 @@
 <li class="relative pb-10">
-  <% path = batch_distribution_path batch %>
+  <% path = production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch) %>
 
   <% if batch.distribution.present? && batch.distribution.step_completed? %>
     <%= link_to path, data: { turbo_frame: "_top" }, class: "group relative flex items-center" do %>

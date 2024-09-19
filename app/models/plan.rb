@@ -16,6 +16,9 @@ class Plan < ApplicationRecord
   has_many :packings, through: :batches
   has_many :packaged_products, through: :packings, source: :products
 
+  has_many :distributions, through: :batches
+  has_many :distributed_products, through: :distributions, source: :products
+
   after_update :call_update_callbacks
 
   validates :production_date, presence: true, comparison: { greater_than_or_equal_to: Time.zone.today }
@@ -63,13 +66,17 @@ class Plan < ApplicationRecord
   def product_remaining_sum(batch, product)
     total = self.positions.filter_by_product(product).sum(:count)
     packed = self.packaged_products.filter_by_product(product.id).without_current_batch(batch.id).sum(:count)
-    total - packed
+    total.zero? ? 0 : total - packed
   end
 
   def product_region_remaining_sum(batch, region, product)
     total = self.product_region_sum(region, product)
-    packed = self.packaged_products.filter_by_product(product.id).without_current_batch(batch.id).sum(:count)
-    total - packed
+    packed = self.distributed_products.filter_by_product(product.id).without_current_batch(batch.id).sum(:count)
+    total.zero? ? 0 : total - packed
+  end
+
+  def product_region_produced_sum(batch, region, product)
+    self.distributed_products.filter_by_region(region.id).filter_by_product(product.id).sum(:count)
   end
 
   def product_region_sum(region, product)

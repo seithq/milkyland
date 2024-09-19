@@ -1,5 +1,5 @@
 <li class="relative pb-10">
-  <% path = batch_packing_path batch %>
+  <% path = production_plan_unit_batch_packing_path(@plan, @production_unit, @batch) %>
 
   <% if batch.packing.present? && batch.packing.step_completed? %>
     <div class="absolute left-4 top-4 -ml-px mt-0.5 h-full w-0.5 bg-indigo-600" aria-hidden="true"></div>

@@ -11,6 +11,7 @@ module Production::Plans::ProductionUnits::Batches::Distributions
     end
 
     def show
+      @pagy, @boxes = pagy @generation.boxes
     end
 
     def new

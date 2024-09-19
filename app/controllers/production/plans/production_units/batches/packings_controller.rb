@@ -3,8 +3,8 @@ module Production::Plans::ProductionUnits
     include PlanScoped, ProductionUnitScoped, BatchScoped
 
     before_action :set_journals
-    before_action :avoid_override, only: :new
-    before_action :set_packing, only: %i[ show edit update ]
+    before_action :ensure_has_no_packing, only: :new
+    before_action :ensure_has_packing, :set_packing, only: %i[ show edit update ]
 
     def show
     end
@@ -48,9 +48,15 @@ module Production::Plans::ProductionUnits
         params.require(:packing).permit(:status, :comment)
       end
 
-      def avoid_override
-        if Packing.exists?(batch_id: @batch.id)
-          redirect_to production_plan_unit_batch_packing_url(@plan, @production_unit, @batch)
+      def ensure_has_no_packing
+        if @batch.packing.present?
+          redirect_to production_plan_unit_batch_packing_path(@plan, @production_unit, @batch)
+        end
+      end
+
+      def ensure_has_packing
+        unless @batch.packing.present?
+          redirect_to new_production_plan_unit_batch_packing_path(@plan, @production_unit, @batch)
         end
       end
   end

@@ -28,7 +28,7 @@
         <div class="h-2 rounded-full bg-indigo-600" style="width: <%= @generation.box_progress %>%"></div>
       </div>
       <div class="mt-6 hidden grid-cols-2 text-sm sm:text-xl font-medium text-gray-600 sm:grid">
-        <div class="text-indigo-600"><%= @generation.generated_boxes %></div>
+        <div class="text-indigo-600"><%= number_with_delimiter @generation.generated_boxes %></div>
         <div class="text-right text-indigo-600"><%= number_with_delimiter @generation.total_boxes %></div>
       </div>
     </div>
@@ -41,11 +41,11 @@
         <div class="h-2 rounded-full bg-indigo-600" style="width: <%= @generation.pieces_progress %>%"></div>
       </div>
       <div class="mt-6 hidden grid-cols-2 text-sm sm:text-xl font-medium text-gray-600 sm:grid">
-        <div class="text-indigo-600"><%= @generation.generated_pieces %></div>
+        <div class="text-indigo-600"><%= number_with_delimiter @generation.generated_pieces %></div>
         <div class="text-right text-indigo-600"><%= number_with_delimiter @generation.total_pieces %></div>
       </div>
     </div>
   </div>
 
-  <%= render "boxes", generation: @generation %>
+  <%= render "boxes", boxes: @boxes %>
 </div>

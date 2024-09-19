@@ -21,7 +21,7 @@ module Production::Plans::ProductionUnits::Batches
 
     private
       def base_scope
-        @distribution.products
+        @distribution.products.ordered
       end
 
       def set_distributed_product

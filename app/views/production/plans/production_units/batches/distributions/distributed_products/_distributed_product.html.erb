@@ -6,7 +6,9 @@
     <%= distributed_product.packaged_product.product.name %>
   </td>
   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
-    <%= number_with_delimiter @plan.product_region_remaining_sum(@batch, distributed_product.region, distributed_product.packaged_product.product) %>
+    <%= number_with_delimiter @plan.product_region_produced_sum(@batch, distributed_product.region, distributed_product.packaged_product.product) %>
+    /
+    <%= number_with_delimiter @plan.product_region_sum(distributed_product.region, distributed_product.packaged_product.product) %>
   </td>
   <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
     <%= number_with_delimiter distributed_product.count %>

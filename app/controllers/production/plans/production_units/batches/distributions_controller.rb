@@ -3,8 +3,8 @@ module Production::Plans::ProductionUnits
     include PlanScoped, ProductionUnitScoped, BatchScoped
 
     before_action :set_journals
-    before_action :avoid_override, only: :new
-    before_action :set_distribution, only: %i[ show edit update ]
+    before_action :ensure_has_no_distribution, only: :new
+    before_action :ensure_has_distribution, :set_distribution, only: %i[ show edit update ]
 
     def show
     end
@@ -32,10 +32,6 @@ module Production::Plans::ProductionUnits
 
     def update
       if @distribution.update(distribution_params)
-        if @distribution.completed?
-          # Generate QR images
-        end
-
         redirect_on_update production_plan_unit_batch_distribution_url(@plan, @production_unit, @batch)
       else
         render :edit, status: :unprocessable_entity
@@ -55,9 +51,15 @@ module Production::Plans::ProductionUnits
       params.require(:distribution).permit(:status, :comment)
     end
 
-    def avoid_override
-      if Distribution.exists?(batch_id: @batch.id)
-        redirect_to redirect_on_update production_plan_unit_batch_distribution_url(@plan, @production_unit, @batch)
+    def ensure_has_no_distribution
+      if @batch.distribution.present?
+        redirect_to production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch)
+      end
+    end
+
+    def ensure_has_distribution
+      unless @batch.distribution.present?
+        redirect_to new_production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch)
       end
     end
   end

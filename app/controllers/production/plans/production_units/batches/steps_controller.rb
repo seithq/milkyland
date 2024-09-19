@@ -17,7 +17,7 @@ module Production::Plans::ProductionUnits
 
     def update
       if @step.update(step_params)
-        redirect_on_update production_plan_unit_batch_url(@plan, @production_unit, @batch)
+        redirect_on_update production_plan_unit_batch_journal_url(@plan, @production_unit, @batch, @step.operation.journal)
       else
         render :edit, status: :unprocessable_entity
       end

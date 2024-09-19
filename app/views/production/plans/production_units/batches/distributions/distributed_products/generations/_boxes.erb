@@ -5,7 +5,7 @@
       <p class="mt-2 text-sm text-gray-700"><%= t("forms.boxes_to_print") %></p>
     </div>
     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-      <% if generation.boxes.any? %>
+      <% if @boxes.any? %>
         <%= button_to t("actions.download_all"), download_production_plan_unit_batch_distribution_distributed_product_generation_path(@plan, @production_unit, @batch, @distributed_product), data: { turbo: false }, class: "btn" %>
       <% end %>
     </div>
@@ -26,9 +26,10 @@
           </tr>
           </thead>
           <tbody class="bg-white">
-          <%= render partial: "production/plans/production_units/batches/distributions/distributed_products/generations/box", collection: generation.boxes, as: :box  %>
+          <%= render partial: "production/plans/production_units/batches/distributions/distributed_products/generations/box", collection: @boxes, as: :box  %>
           </tbody>
         </table>
+        <%== pagy_nav(@pagy) %>
       </div>
     </div>
   </div>
