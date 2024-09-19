@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 81ad0351819322b9842f05a550688cad54e54176
+  revision: 7abc8fb982ad853a2df5637a567227a70f5b52ce
   branch: main
   specs:
     actioncable (8.0.0.alpha)
@@ -172,7 +172,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    i18n (1.14.5)
+    i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     image_processing (1.13.0)
       mini_magick (>= 4.9.5, < 5)
