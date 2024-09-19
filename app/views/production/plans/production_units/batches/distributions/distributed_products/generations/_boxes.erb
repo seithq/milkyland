@@ -1,0 +1,35 @@
+<div>
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-base font-semibold leading-6 text-gray-900"><%= t("tables.cols.boxes") %></h1>
+      <p class="mt-2 text-sm text-gray-700"><%= t("forms.boxes_to_print") %></p>
+    </div>
+    <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+      <% if generation.boxes.any? %>
+        <%= button_to t("actions.download_all"), download_production_plan_unit_batch_distribution_distributed_product_generation_path(@plan, @production_unit, @batch, @distributed_product), data: { turbo: false }, class: "btn" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="mt-8 flow-root">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+          <tr>
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3"><%= t("tables.cols.code") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.region") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.product") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.box_capacity") %></th>
+            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-3">
+              <span class="sr-only"><%= t("actions.edit_record") %></span>
+            </th>
+          </tr>
+          </thead>
+          <tbody class="bg-white">
+          <%= render partial: "production/plans/production_units/batches/distributions/distributed_products/generations/box", collection: generation.boxes, as: :box  %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,9 +6,7 @@ milk25:
   measurement: litre
   expiration_in_days: 3
   storage_conditions: 3-10 celsius
-  box_capacity: 6
   fat_fraction: 2.5
-  material_asset: bottle
 
 milk25_big:
   group: milk25
@@ -18,6 +16,4 @@ milk25_big:
   measurement: litre
   expiration_in_days: 3
   storage_conditions: 3-10 celsius
-  box_capacity: 6
   fat_fraction: 2.5
-  material_asset: bottle

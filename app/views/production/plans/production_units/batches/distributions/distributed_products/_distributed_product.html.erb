@@ -14,9 +14,11 @@
   <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
     <%= time_tag distributed_product.production_date %>
   </td>
-  <% if @distribution.in_progress? %>
-    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+    <% if @distribution.in_progress? %>
       <%= link_to t("actions.edit_record"), edit_production_plan_unit_batch_distribution_distributed_product_path(@plan, @production_unit, @batch, distributed_product), data: { turbo_frame: "_top" }, class: "text-indigo-600 hover:text-indigo-900" %>
-    </td>
-  <% end %>
+    <% elsif @distribution.completed? && distributed_product.count.positive? %>
+      <%= link_to t("actions.print_qr"), production_plan_unit_batch_distribution_distributed_product_generation_url(@plan, @production_unit, @batch, distributed_product), data: { turbo_frame: "_top" }, class: "text-indigo-600 hover:text-indigo-900" %>
+    <% end %>
+  </td>
 </tr>

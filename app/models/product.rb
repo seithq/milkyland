@@ -1,12 +1,15 @@
 class Product < ApplicationRecord
   belongs_to :group
   belongs_to :measurement
-  belongs_to :material_asset, -> { packings }
 
   has_many :prices, dependent: :destroy
+  has_many :box_packagings, dependent: :destroy
+
   has_many :discounts, class_name: "DiscountedProduct", foreign_key: "product_id", dependent: :destroy
   has_many :packages, class_name: "PackagedProduct", foreign_key: "product_id", dependent: :destroy
   has_many :positions, dependent: :destroy
+
+  has_many :boxes, dependent: :destroy
 
   validates :name, :article, presence: true, uniqueness: { case_sensitive: false }
   validates_presence_of :packing, :expiration_in_days, :fat_fraction

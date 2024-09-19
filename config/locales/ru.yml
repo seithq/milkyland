@@ -54,6 +54,8 @@ ru:
     batches: "Партия производства"
     packing: "Фасовка"
     distribution: "Распределение QR"
+    box_packagings: "Виды упаковки"
+    generation: "Генерация QR"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -94,6 +96,9 @@ ru:
     production_plan_stopped: "План приостановлен"
     create_batch: "Создать партию"
     operation_started: "Операция запущена"
+    print_qr: "Печать QR"
+    download: "Скачать"
+    download_all: "Скачать все"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
@@ -169,6 +174,9 @@ ru:
       start_time: "Время начала"
       end_time: "Время окончания"
       packed: "Расфасовано: %{count}"
+      boxes: "Коробки"
+      pieces: "Штуки"
+      code: "Код"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -210,3 +218,5 @@ ru:
     no_data: "Нет данных"
     measurement: "%{value} %{unit}"
     measurement_detail: "Ед.изм: %{unit}"
+    box_packaging_label: "%{name} (%{count} шт)"
+    boxes_to_print: "QR коробок, готовых к применению."

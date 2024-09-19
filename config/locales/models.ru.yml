@@ -81,6 +81,11 @@ ru:
           in_plan: "В плане"
           completed: "Завершен"
           cancelled: "Отменен"
+      generation:
+        statuses:
+          processing: "В процессе"
+          in_planning: "Подготовка"
+          completed: "Завершено"
     attributes:
       user:
         name: ФИО
@@ -175,9 +180,7 @@ ru:
         measurement_id: Единица измерения
         expiration_in_days: Срок годности (в днях)
         storage_conditions: Условия хранения
-        box_capacity: Количество в коробке
         fat_fraction: Массовая доля жира (в процентах)
-        material_asset_id: Вид упаковки
       price:
         product_id: Номенклатура ГП
         sales_channel_id: Канал сбыта
@@ -254,3 +257,7 @@ ru:
       distributed_product:
         production_date: Дата производства
         count: Количество
+      box_packaging:
+        material_asset_id: Вид упаковки
+        count: Кол-во штук внутри
+        active: Активная запись

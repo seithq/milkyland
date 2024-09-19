@@ -7,20 +7,7 @@
   </div>
 
   <div class="mt-4 flex items-center justify-center space-x-2">
-    <div data-controller="dialog">
-      <%= tag.button class: "icon-btn", data: { action: "dialog#open" } do %>
-        <%= inline_svg_tag "qrcode.svg", class: "h-6 w-6" %>
-      <% end %>
-
-      <dialog class="dialog shadow p-6 bg-white rounded-md flex flex-col space-y-2 items-center" data-dialog-target="menu">
-        <%= qr_code_image(url) %>
-        <form method="dialog">
-          <%= tag.button class: "icon-btn-danger", data: { action: "dialog#open" } do %>
-            <%= inline_svg_tag "close.svg", class: "h-6 w-6" %>
-          <% end %>
-        </form>
-      </dialog>
-    </div>
+    <%= render "shared/qr_dialog", qr_text: url %>
 
     <%= button_to_copy_to_clipboard(url) do %>
       <%= inline_svg_tag "clipboard.svg", class: "h-6 w-6" %>

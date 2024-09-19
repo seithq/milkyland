@@ -59,7 +59,13 @@ Rails.application.routes.draw do
                 end
                 resource :distribution, except: :destroy do
                   scope module: "distributions" do
-                    resources :distributed_products, only: %i[ index edit update ]
+                    resources :distributed_products, only: %i[ index edit update ] do
+                      scope module: "distributed_products" do
+                        resource :generation, only: %i[ show new create ] do
+                          post :download, to: "generations#download"
+                        end
+                      end
+                    end
                   end
                 end
               end
@@ -89,6 +95,7 @@ Rails.application.routes.draw do
     resources :products, except: :destroy do
       scope module: "products" do
         resources :prices, except: :show
+        resources :box_packagings, except: :show
       end
     end
     resources :clients, except: :destroy do

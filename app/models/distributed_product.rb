@@ -3,6 +3,8 @@ class DistributedProduct < ApplicationRecord
   belongs_to :packaged_product
   belongs_to :region
 
+  has_one :generation, dependent: :destroy
+
   validates_presence_of :production_date
   validates :count, presence: true, numericality: { only_integer: true }
 

@@ -1,0 +1,3 @@
+<%= tag.span class: generation_status_color(generation) do %>
+  <%= Generation.enum_to_s(:statuses, generation.status) %>
+<% end %>

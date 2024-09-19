@@ -61,7 +61,7 @@ class Plan < ApplicationRecord
   end
 
   def product_remaining_sum(batch, product)
-    total = Position.filter_by_product(product).sum(:count)
+    total = self.positions.filter_by_product(product).sum(:count)
     packed = self.packaged_products.filter_by_product(product.id).without_current_batch(batch.id).sum(:count)
     total - packed
   end

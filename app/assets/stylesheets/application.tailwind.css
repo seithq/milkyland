@@ -63,6 +63,10 @@
         @apply flex items-center rounded-md bg-blue-600 px-6 py-3 text-sm sm:text-xl font-semibold text-white shadow-sm hover:bg-blue-700;
     }
 
+    .btn-preparing {
+        @apply flex items-center rounded-md bg-orange-600 px-6 py-3 text-sm sm:text-xl font-semibold text-white shadow-sm hover:bg-orange-700;
+    }
+
     .btn-stop {
         @apply flex items-center rounded-md bg-green-600 px-6 py-3 text-sm sm:text-xl font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-green-700;
     }

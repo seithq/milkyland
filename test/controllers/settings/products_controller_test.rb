@@ -23,11 +23,9 @@ class Settings::ProductsControllerTest < ActionDispatch::IntegrationTest
       post products_url, params: { product: { name: "Milk 2.5% 0.5L",
                                               article: "ML25-05",
                                               packing: 0.5,
-                                              box_capacity: @product.box_capacity,
                                               expiration_in_days: @product.expiration_in_days,
                                               fat_fraction: @product.fat_fraction,
                                               group_id: @product.group_id,
-                                              material_asset_id: @product.material_asset_id,
                                               measurement_id: @product.measurement_id,
                                               storage_conditions: @product.storage_conditions } }
     end
@@ -42,11 +40,9 @@ class Settings::ProductsControllerTest < ActionDispatch::IntegrationTest
     post products_url, params: { product: { name: "Milk 2.5% 0.5L",
                                             article: "ML25-2",
                                             packing: 0.5,
-                                            box_capacity: @product.box_capacity,
                                             expiration_in_days: @product.expiration_in_days,
                                             fat_fraction: @product.fat_fraction,
                                             group_id: @product.group_id,
-                                            material_asset_id: @product.material_asset_id,
                                             measurement_id: @product.measurement_id,
                                             storage_conditions: @product.storage_conditions } }
     assert_response :forbidden

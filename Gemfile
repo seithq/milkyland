@@ -49,3 +49,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "zipline", "~> 2.0"

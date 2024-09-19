@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_18_053530) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_19_182902) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -74,6 +74,45 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_053530) do
     t.index ["operator_id"], name: "index_batches_on_operator_id"
     t.index ["production_unit_id"], name: "index_batches_on_production_unit_id"
     t.index ["tester_id"], name: "index_batches_on_tester_id"
+  end
+
+  create_table "box_packagings", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "material_asset_id", null: false
+    t.integer "count"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["material_asset_id"], name: "index_box_packagings_on_material_asset_id"
+    t.index ["product_id", "material_asset_id"], name: "index_box_packagings_on_product_id_and_material_asset_id", unique: true
+    t.index ["product_id"], name: "index_box_packagings_on_product_id"
+  end
+
+  create_table "box_requests", force: :cascade do |t|
+    t.bigint "generation_id", null: false
+    t.bigint "box_packaging_id", null: false
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["box_packaging_id"], name: "index_box_requests_on_box_packaging_id"
+    t.index ["generation_id"], name: "index_box_requests_on_generation_id"
+  end
+
+  create_table "boxes", force: :cascade do |t|
+    t.string "code"
+    t.bigint "region_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "capacity"
+    t.date "production_date"
+    t.date "expiration_date"
+    t.bigint "box_request_id"
+    t.datetime "scanned_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["box_request_id"], name: "index_boxes_on_box_request_id"
+    t.index ["code"], name: "index_boxes_on_code", unique: true
+    t.index ["product_id"], name: "index_boxes_on_product_id"
+    t.index ["region_id"], name: "index_boxes_on_region_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -175,6 +214,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_053530) do
     t.index ["operation_id", "name"], name: "index_fields_on_operation_id_and_name", unique: true
     t.index ["operation_id"], name: "index_fields_on_operation_id"
     t.index ["standard_id"], name: "index_fields_on_standard_id"
+  end
+
+  create_table "generations", force: :cascade do |t|
+    t.bigint "distributed_product_id", null: false
+    t.string "status"
+    t.datetime "finished_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["distributed_product_id"], name: "index_generations_on_distributed_product_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -369,14 +417,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_053530) do
     t.bigint "measurement_id", null: false
     t.integer "expiration_in_days"
     t.string "storage_conditions"
-    t.integer "box_capacity"
     t.decimal "fat_fraction", precision: 20, scale: 2
-    t.bigint "material_asset_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["article"], name: "index_products_on_article", unique: true
     t.index ["group_id"], name: "index_products_on_group_id"
-    t.index ["material_asset_id"], name: "index_products_on_material_asset_id"
     t.index ["measurement_id"], name: "index_products_on_measurement_id"
     t.index ["name"], name: "index_products_on_name", unique: true
   end
@@ -603,6 +648,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_053530) do
   add_foreign_key "batches", "users", column: "machiner_id"
   add_foreign_key "batches", "users", column: "operator_id"
   add_foreign_key "batches", "users", column: "tester_id"
+  add_foreign_key "box_packagings", "material_assets"
+  add_foreign_key "box_packagings", "products"
+  add_foreign_key "box_requests", "box_packagings"
+  add_foreign_key "box_requests", "generations"
+  add_foreign_key "boxes", "box_requests"
+  add_foreign_key "boxes", "products"
+  add_foreign_key "boxes", "regions"
   add_foreign_key "clients", "users", column: "manager_id"
   add_foreign_key "consolidations", "orders"
   add_foreign_key "consolidations", "plans"
@@ -617,6 +669,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_053530) do
   add_foreign_key "fields", "measurements"
   add_foreign_key "fields", "operations"
   add_foreign_key "fields", "standards"
+  add_foreign_key "generations", "distributed_products"
   add_foreign_key "groups", "categories"
   add_foreign_key "ingredients", "groups"
   add_foreign_key "ingredients", "material_assets"
@@ -643,7 +696,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_053530) do
   add_foreign_key "production_units", "groups"
   add_foreign_key "production_units", "plans"
   add_foreign_key "products", "groups"
-  add_foreign_key "products", "material_assets"
   add_foreign_key "products", "measurements"
   add_foreign_key "sales_points", "clients"
   add_foreign_key "sales_points", "regions"

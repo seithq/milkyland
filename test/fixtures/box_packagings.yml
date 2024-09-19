@@ -1,0 +1,9 @@
+bottle_milk25:
+  product: milk25
+  material_asset: bottle
+  count: 6
+
+bottle_milk25_big:
+  product: milk25_big
+  material_asset: bottle
+  count: 6

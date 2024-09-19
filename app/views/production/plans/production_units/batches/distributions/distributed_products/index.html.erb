@@ -34,9 +34,7 @@
               <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
                 <%= t("tables.cols.packed", count: number_with_delimiter(@batch.packing.packed_count(product_id: product.id))) %>
               </td>
-              <% if @distribution.in_progress? %>
-                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"></td>
-              <% end %>
+              <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"></td>
             </tr>
           <% end %>
           </tbody>
