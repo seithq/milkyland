@@ -3,8 +3,11 @@ class Generation < ApplicationRecord
 
   has_many :box_requests, dependent: :destroy
   accepts_nested_attributes_for :box_requests
-
   has_many :boxes, through: :box_requests
+
+  has_many :pallet_requests, dependent: :destroy
+  accepts_nested_attributes_for :pallet_requests
+  has_many :pallets, through: :pallet_requests
 
   enum :status, %w[ in_planning processing completed ].index_by(&:itself), default: :in_planning
 

@@ -3,12 +3,7 @@ module Production::Plans::ProductionUnits::Batches::Distributions
     include PlanScoped, ProductionUnitScoped, BatchScoped, DistributionScoped, DistributedProductScoped
 
     before_action :ensure_has_no_generation, only: :new
-    before_action :ensure_has_generation, :set_generation, only: %i[ download show ]
-
-    def download
-      images = @generation.boxes.map { |box| [ box.qr_image, box.qr_image.filename, modification_time: box.created_at ] }
-      zipline images, @generation.zip_name
-    end
+    before_action :ensure_has_generation, :set_generation, only: :show
 
     def show
       @pagy, @boxes = pagy @generation.boxes

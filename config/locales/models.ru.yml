@@ -261,3 +261,5 @@ ru:
         material_asset_id: Вид упаковки
         count: Кол-во штук внутри
         active: Активная запись
+      pallet_request:
+        count: Количество

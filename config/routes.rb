@@ -62,9 +62,17 @@ Rails.application.routes.draw do
                     resources :distributed_products, only: %i[ index edit update ] do
                       scope module: "distributed_products" do
                         resource :generation, only: %i[ show new create ] do
-                          post :download, to: "generations#download"
                           scope module: "generations" do
-                            resources :boxes, only: :index
+                            resources :boxes, only: :index do
+                              collection do
+                                post :download, to: "boxes#download"
+                              end
+                            end
+                            resources :pallets, only: %i[ index new create ] do
+                              collection do
+                                post :download, to: "pallets#download"
+                              end
+                            end
                           end
                         end
                       end

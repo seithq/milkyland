@@ -1,5 +1,18 @@
 <%= turbo_frame_tag dom_id(@generation, :records) do %>
   <div>
+    <nav class="isolate flex divide-x divide-gray-200 rounded-lg shadow" aria-label="Tabs">
+      <%= link_to production_plan_unit_batch_distribution_distributed_product_generation_boxes_path(@plan, @production_unit, @batch, @distributed_product), data: { turbo_frame: dom_id(@generation, :records) }, class: "group relative min-w-0 flex-1 overflow-hidden rounded-l-lg bg-white px-4 py-4 text-center text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10" do %>
+        <span><%= t("tables.cols.boxes") %></span>
+        <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-0.5 bg-indigo-500"></span>
+      <% end %>
+      <%= link_to production_plan_unit_batch_distribution_distributed_product_generation_pallets_path(@plan, @production_unit, @batch, @distributed_product), data: { turbo_frame: dom_id(@generation, :records) }, class: "group relative min-w-0 flex-1 overflow-hidden rounded-r-lg bg-white px-4 py-4 text-center text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10" do %>
+        <span><%= t("tables.cols.pallets") %></span>
+        <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-0.5 bg-transparent"></span>
+      <% end %>
+    </nav>
+  </div>
+
+  <div class="mt-10">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
         <h1 class="text-base font-semibold leading-6 text-gray-900"><%= t("tables.cols.boxes") %></h1>
@@ -7,7 +20,7 @@
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
         <% if @boxes.any? %>
-          <%= button_to t("actions.download_all"), download_production_plan_unit_batch_distribution_distributed_product_generation_path(@plan, @production_unit, @batch, @distributed_product), data: { turbo: false }, class: "btn" %>
+          <%= button_to t("actions.download_all"), download_production_plan_unit_batch_distribution_distributed_product_generation_boxes_path(@plan, @production_unit, @batch, @distributed_product, @generation), data: { turbo: false }, class: "btn" %>
         <% end %>
       </div>
     </div>

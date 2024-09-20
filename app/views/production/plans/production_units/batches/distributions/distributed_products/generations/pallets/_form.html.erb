@@ -1,0 +1,14 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <%= render "layouts/error_messages", resource: pallet_request %>
+    <%= form_with model: pallet_request, url: production_plan_unit_batch_distribution_distributed_product_generation_pallets_path(@plan, @production_unit, @batch, @distributed_product), class: "space-y-4" do |form| %>
+
+      <div>
+        <%= form.label :count, class: "form-label-xl" %>
+        <%= form.number_field :count, autocomplete: "count", required: true, class: "mt-2 form-input-xl" %>
+      </div>
+
+      <%= form.submit t("actions.save_record"), data: { generation_target: "submit", turbo_confirm: t("actions.confirm") }, class: "w-full btn-xl" %>
+    <% end %>
+  </div>
+</div>

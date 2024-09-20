@@ -1,0 +1,101 @@
+<% content_for(:title) { @distributed_product.packaged_product.product.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: production_plans_path, title: t("pages.production_plans")),
+      NavLink.new(path: production_plan_path(@plan), title: t("pages.production_plan", date: l(@plan.production_date))),
+      NavLink.new(path: production_plan_unit_path(@plan, @production_unit), title: @production_unit.group.name),
+      NavLink.new(path: production_plan_unit_batch_path(@plan, @production_unit, @batch), title: t("pages.batch", id: @batch.id)),
+      NavLink.new(path: production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch), title: t("pages.distribution")),
+      NavLink.new(path: production_plan_unit_batch_distribution_distributed_product_generation_path(@plan, @production_unit, @batch, @distributed_product), title: t("actions.print_qr")),
+    ]
+  } %>
+<% end %>
+
+<%= turbo_stream_from @generation %>
+
+<div class="space-y-10">
+  <div class="flex justify-between">
+    <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900"><%= t("pages.generation") %></h1>
+    <%= render "production/plans/production_units/batches/distributions/distributed_products/generations/status", generation: @generation %>
+  </div>
+
+  <div>
+    <p class="text-sm sm:text-xl font-medium text-gray-900"><%= t("tables.cols.boxes") %></p>
+    <div class="mt-6" aria-hidden="true">
+      <div class="overflow-hidden rounded-full bg-gray-200">
+        <div class="h-2 rounded-full bg-indigo-600" style="width: <%= @generation.box_progress %>%"></div>
+      </div>
+      <div class="mt-6 hidden grid-cols-2 text-sm sm:text-xl font-medium text-gray-600 sm:grid">
+        <div class="text-indigo-600"><%= number_with_delimiter @generation.generated_boxes %></div>
+        <div class="text-right text-indigo-600"><%= number_with_delimiter @generation.total_boxes %></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="text-sm sm:text-xl font-medium text-gray-900"><%= t("tables.cols.pieces") %></p>
+    <div class="mt-6" aria-hidden="true">
+      <div class="overflow-hidden rounded-full bg-gray-200">
+        <div class="h-2 rounded-full bg-indigo-600" style="width: <%= @generation.pieces_progress %>%"></div>
+      </div>
+      <div class="mt-6 hidden grid-cols-2 text-sm sm:text-xl font-medium text-gray-600 sm:grid">
+        <div class="text-indigo-600"><%= number_with_delimiter @generation.generated_pieces %></div>
+        <div class="text-right text-indigo-600"><%= number_with_delimiter @generation.total_pieces %></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <%= turbo_frame_tag dom_id(@generation, :records) do %>
+      <div>
+        <nav class="isolate flex divide-x divide-gray-200 rounded-lg shadow" aria-label="Tabs">
+          <%= link_to production_plan_unit_batch_distribution_distributed_product_generation_boxes_path(@plan, @production_unit, @batch, @distributed_product), data: { turbo_frame: dom_id(@generation, :records) }, class: "group relative min-w-0 flex-1 overflow-hidden rounded-l-lg bg-white px-4 py-4 text-center text-sm font-medium  text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:z-10" do %>
+            <span><%= t("tables.cols.boxes") %></span>
+            <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-0.5 bg-transparent"></span>
+          <% end %>
+          <%= link_to production_plan_unit_batch_distribution_distributed_product_generation_pallets_path(@plan, @production_unit, @batch, @distributed_product), data: { turbo_frame: dom_id(@generation, :records) }, class: "group relative min-w-0 flex-1 overflow-hidden rounded-r-lg bg-white px-4 py-4 text-center text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10" do %>
+            <span><%= t("tables.cols.pallets") %></span>
+            <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-0.5 bg-indigo-500"></span>
+          <% end %>
+        </nav>
+      </div>
+
+      <div class="mt-10">
+        <div class="sm:flex sm:items-center">
+          <div class="sm:flex-auto">
+            <h1 class="text-base font-semibold leading-6 text-gray-900"><%= t("tables.cols.pallets") %></h1>
+            <p class="mt-2 text-sm text-gray-700"><%= t("forms.pallets_to_print") %></p>
+          </div>
+          <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+            <%= link_to t("actions.create_record"), new_production_plan_unit_batch_distribution_distributed_product_generation_pallet_path(@plan, @production_unit, @batch, @distributed_product), data: { turbo: false }, class: "btn" %>
+            <% if @pallets.any? %>
+              <%= button_to t("actions.download_all"), download_production_plan_unit_batch_distribution_distributed_product_generation_pallets_path(@plan, @production_unit, @batch, @distributed_product, @generation), data: { turbo: false }, class: "mt-2 btn" %>
+            <% end %>
+          </div>
+        </div>
+        <div class="mt-8 flow-root">
+          <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+              <table class="min-w-full divide-y divide-gray-300">
+                <thead>
+                <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3"><%= t("tables.cols.code") %></th>
+                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-3">
+                    <span class="sr-only"><%= t("actions.edit_record") %></span>
+                  </th>
+                </tr>
+                </thead>
+                <tbody class="bg-white">
+                <%= render partial: "production/plans/production_units/batches/distributions/distributed_products/generations/pallets/pallet", collection: @pallets, as: :pallet %>
+                </tbody>
+              </table>
+              <%== pagy_nav(@pagy) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

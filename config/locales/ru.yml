@@ -56,6 +56,7 @@ ru:
     distribution: "Распределение QR"
     box_packagings: "Виды упаковки"
     generation: "Генерация QR"
+    pallets: "Палеты"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -175,6 +176,7 @@ ru:
       end_time: "Время окончания"
       packed: "Расфасовано: %{count}"
       boxes: "Коробки"
+      pallets: "Палеты"
       pieces: "Штуки"
       code: "Код"
   forms:
@@ -220,3 +222,4 @@ ru:
     measurement_detail: "Ед.изм: %{unit}"
     box_packaging_label: "%{name} (%{count} шт)"
     boxes_to_print: "QR коробок, готовых к применению."
+    pallets_to_print: "QR паллет, готовых к применению."

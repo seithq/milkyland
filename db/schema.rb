@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_19_182902) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_20_095057) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -347,6 +347,24 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_19_182902) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["batch_id"], name: "index_packings_on_batch_id"
+  end
+
+  create_table "pallet_requests", force: :cascade do |t|
+    t.bigint "generation_id", null: false
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["generation_id"], name: "index_pallet_requests_on_generation_id"
+  end
+
+  create_table "pallets", force: :cascade do |t|
+    t.string "code"
+    t.bigint "pallet_request_id"
+    t.datetime "scanned_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_pallets_on_code", unique: true
+    t.index ["pallet_request_id"], name: "index_pallets_on_pallet_request_id"
   end
 
   create_table "participants", force: :cascade do |t|
@@ -686,6 +704,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_19_182902) do
   add_foreign_key "packaged_products", "packings"
   add_foreign_key "packaged_products", "products"
   add_foreign_key "packings", "batches"
+  add_foreign_key "pallet_requests", "generations"
+  add_foreign_key "pallets", "pallet_requests"
   add_foreign_key "participants", "clients"
   add_foreign_key "participants", "promotions"
   add_foreign_key "positions", "orders"
