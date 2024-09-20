@@ -63,6 +63,9 @@ Rails.application.routes.draw do
                       scope module: "distributed_products" do
                         resource :generation, only: %i[ show new create ] do
                           post :download, to: "generations#download"
+                          scope module: "generations" do
+                            resources :boxes, only: :index
+                          end
                         end
                       end
                     end
