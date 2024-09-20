@@ -3,48 +3,21 @@ require "test_helper"
 module Production::Plans::ProductionUnits
   class Batches::JournalsControllerTest < ActionDispatch::IntegrationTest
     setup do
-      @journal = journals(:one)
-    end
-
-    test "should get index" do
-      get journals_url
-      assert_response :success
-    end
-
-    test "should get new" do
-      get new_journal_url
-      assert_response :success
-    end
-
-    test "should create journal" do
-      assert_difference("Journal.count") do
-        post journals_url, params: { journal: {} }
-      end
-
-      assert_redirected_to journal_url(Journal.last)
+      @order = orders(:opening)
+      assert @order.update preferred_date: 10.days.from_now
+      @plan = Plan.last
+      assert @plan.update status: :ready_to_production
+      assert @plan.update status: :in_production
+      @production_unit = @plan.units.last
+      assert @production_unit.batches.create(loader: users(:loader), tester: users(:tester), machiner: users(:machiner), operator: users(:operator))
+      @batch = @production_unit.batches.last
+      @journal = @production_unit.group.journals.last
     end
 
     test "should show journal" do
-      get journal_url(@journal)
+      sign_in :daniyar
+      get production_plan_unit_batch_journal_url(@plan, @production_unit, @batch, @journal)
       assert_response :success
-    end
-
-    test "should get edit" do
-      get edit_journal_url(@journal)
-      assert_response :success
-    end
-
-    test "should update journal" do
-      patch journal_url(@journal), params: { journal: {} }
-      assert_redirected_to journal_url(@journal)
-    end
-
-    test "should destroy journal" do
-      assert_difference("Journal.count", -1) do
-        delete journal_url(@journal)
-      end
-
-      assert_redirected_to journals_url
     end
   end
 end

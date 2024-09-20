@@ -75,7 +75,7 @@ class Plan < ApplicationRecord
     total.zero? ? 0 : total - packed
   end
 
-  def product_region_produced_sum(batch, region, product)
+  def product_region_produced_sum(region, product)
     self.distributed_products.filter_by_region(region.id).filter_by_product(product.id).sum(:count)
   end
 

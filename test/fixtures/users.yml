@@ -11,3 +11,27 @@ askhat:
   email_address: askhat@gmail.com
   password_digest: <%= password_digest %>
   role: manager
+
+machiner:
+  name: Machiner
+  email_address: machiner@example.com
+  password_digest: <%= password_digest %>
+  role: machiner
+
+operator:
+  name: Operator
+  email_address: operator@example.com
+  password_digest: <%= password_digest %>
+  role: operator
+
+tester:
+  name: Tester
+  email_address: tester@example.com
+  password_digest: <%= password_digest %>
+  role: tester
+
+loader:
+  name: Loader
+  email_address: loader@example.com
+  password_digest: <%= password_digest %>
+  role: loader

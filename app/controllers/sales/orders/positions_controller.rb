@@ -21,7 +21,7 @@ module Sales
       @position = base_scope.new(position_params)
 
       if @position.save
-        redirect_on_create edit_sales_channel_order_path(@sales_channel, @order)
+        redirect_on_create edit_sales_channel_order_url(@sales_channel, @order)
       else
         render :new, status: :unprocessable_entity
       end
@@ -29,7 +29,7 @@ module Sales
 
     def update
       if @position.update(position_params)
-        redirect_on_update edit_sales_channel_order_path(@sales_channel, @order)
+        redirect_on_update edit_sales_channel_order_url(@sales_channel, @order)
       else
         render :edit, status: :unprocessable_entity
       end
@@ -38,7 +38,7 @@ module Sales
     def destroy
       @position.destroy!
 
-      redirect_on_destroy edit_sales_channel_order_path(@sales_channel, @order)
+      redirect_on_destroy edit_sales_channel_order_url(@sales_channel, @order)
     end
 
     private

@@ -50,13 +50,13 @@ module Production::Plans::ProductionUnits
 
       def ensure_has_no_packing
         if @batch.packing.present?
-          redirect_to production_plan_unit_batch_packing_path(@plan, @production_unit, @batch)
+          redirect_to production_plan_unit_batch_packing_url(@plan, @production_unit, @batch)
         end
       end
 
       def ensure_has_packing
         unless @batch.packing.present?
-          redirect_to new_production_plan_unit_batch_packing_path(@plan, @production_unit, @batch)
+          redirect_to new_production_plan_unit_batch_packing_url(@plan, @production_unit, @batch)
         end
       end
   end

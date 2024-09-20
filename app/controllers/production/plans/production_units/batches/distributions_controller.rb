@@ -23,9 +23,6 @@ module Production::Plans::ProductionUnits
       if @distribution.save
         redirect_on_update production_plan_unit_batch_distribution_url(@plan, @production_unit, @batch)
       else
-        puts "="*80
-        puts @distribution.errors.full_messages
-        puts "="*80
         render :new, status: :unprocessable_entity
       end
     end
@@ -53,13 +50,13 @@ module Production::Plans::ProductionUnits
 
     def ensure_has_no_distribution
       if @batch.distribution.present?
-        redirect_to production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch)
+        redirect_to production_plan_unit_batch_distribution_url(@plan, @production_unit, @batch)
       end
     end
 
     def ensure_has_distribution
       unless @batch.distribution.present?
-        redirect_to new_production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch)
+        redirect_to new_production_plan_unit_batch_distribution_url(@plan, @production_unit, @batch)
       end
     end
   end

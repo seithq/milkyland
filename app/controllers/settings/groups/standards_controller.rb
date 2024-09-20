@@ -21,7 +21,7 @@ module Settings
       @standard = base_scope.new(standard_params)
 
       if @standard.save
-        redirect_on_create edit_group_path(@group)
+        redirect_on_create edit_group_url(@group)
       else
         render :new, status: :unprocessable_entity
       end
@@ -29,7 +29,7 @@ module Settings
 
     def update
       if @standard.update(standard_params)
-        redirect_on_update edit_group_path(@group)
+        redirect_on_update edit_group_url(@group)
       else
         render :edit, status: :unprocessable_entity
       end
@@ -38,7 +38,7 @@ module Settings
     def destroy
       @standard.deactivate
 
-      redirect_on_destroy edit_group_path(@group)
+      redirect_on_destroy edit_group_url(@group)
     end
 
     private
