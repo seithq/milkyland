@@ -71,7 +71,6 @@ module MetricsHelper
 
     def binary_input(form)
       tag.div class: "space-y-6 sm:flex sm:items-center sm:space-x-6 sm:space-y-0" do
-
         yes = tag.div class: "flex items-center" do
           concat form.radio_button :value, true, class: "metric-radio-btn"
           concat label_tag "metric_value_true", t("forms.binary_yes"), class: "metric-radio-label"
