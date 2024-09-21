@@ -1,6 +1,97 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "4bb8ef1a1ccd1fe52e1fa2f996ee56e865e3c21c4b3cab6f43ef157ae35f2445",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/production/plans/index.html.erb",
+      "line": 14,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => get_scope(params), {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Production::PlansController",
+          "method": "index",
+          "line": 7,
+          "file": "app/controllers/production/plans_controller.rb",
+          "rendered": {
+            "name": "production/plans/index",
+            "file": "app/views/production/plans/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "production/plans/index"
+      },
+      "user_input": "params",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "54264160b35b9b713b51a7c93ed1417912a5aabe0393e859755d1d988989a26e",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/production/plans/production_units/batches/packings/packaged_products/index.html.erb",
+      "line": 20,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => get_scope(params), {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Production::Plans::ProductionUnits::Batches::Packings::PackagedProductsController",
+          "method": "index",
+          "line": 9,
+          "file": "app/controllers/production/plans/production_units/batches/packings/packaged_products_controller.rb",
+          "rendered": {
+            "name": "production/plans/production_units/batches/packings/packaged_products/index",
+            "file": "app/views/production/plans/production_units/batches/packings/packaged_products/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "production/plans/production_units/batches/packings/packaged_products/index"
+      },
+      "user_input": "params",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "9aeb5ea5c311e0e209366bca132563ef437b81890dbcdc9fea0fab5b426235dd",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/production/plans_controller.rb",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "Plan.send((params[:status] or \"active\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Production::PlansController",
+        "method": "base_scope"
+      },
+      "user_input": "params[:status]",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
       "fingerprint": "eec6e6c8b275b580e6259cad2e8bef5e207e1a8770043960f60ca66a40bd6cbb",
@@ -24,6 +115,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-08-05 11:14:55 +0500",
-  "brakeman_version": "6.1.2"
+  "updated": "2024-09-22 01:15:25 +0500",
+  "brakeman_version": "6.2.1"
 }
