@@ -17,7 +17,9 @@ class Sales::PlansTest < ApplicationSystemTestCase
     visit plans_url
     click_on I18n.t("actions.edit_record"), match: :first
 
-    click_on I18n.t("actions.start_plan")
+    accept_alert do
+      click_on I18n.t("actions.mark_for_production")
+    end
 
     assert_text I18n.t("actions.record_updated")
   end

@@ -1,6 +1,6 @@
 <div class="relative flex items-center space-x-3 rounded-lg bg-white px-6 py-5 shadow-sm<%= unit_color production_unit %>">
   <div class="min-w-0 flex-1">
-    <%= link_to production_plan_unit_path(@plan, production_unit), class: "focus:outline-none", data: { turbo_frame: "_top" } do %>
+    <%= link_to production_plan_unit_path(@plan, production_unit), class: "focus:outline-none", id: dom_id(production_unit), data: { turbo_frame: "_top" } do %>
       <p class="text-xl font-semibold text-gray-900"><%= production_unit.group.name %></p>
       <div class="mt-4 flex flex-col space-y-1">
         <div class="flex justify-between text-md">

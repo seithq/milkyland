@@ -22,7 +22,7 @@ module Production::Plans
       @batch = base_scope.new(batch_params)
 
       if @batch.save
-        redirect_on_create production_plan_unit_path(@plan, @production_unit)
+        redirect_on_create production_plan_unit_url(@plan, @production_unit)
       else
         render :new, status: :unprocessable_entity
       end
@@ -30,7 +30,7 @@ module Production::Plans
 
     def update
       if @batch.update(batch_params)
-        redirect_on_update production_plan_unit_batch_path(@plan, @production_unit, @batch)
+        redirect_on_update production_plan_unit_batch_url(@plan, @production_unit, @batch)
       else
         render :edit, status: :unprocessable_entity
       end

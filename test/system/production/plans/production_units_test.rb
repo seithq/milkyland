@@ -3,51 +3,27 @@ require "application_system_test_case"
 module Production
   class Plans::ProductionUnitsTest < ApplicationSystemTestCase
     setup do
-      @production_unit = production_units(:one)
+      sample_generation
+      sign_in "daniyar@hey.com"
     end
 
     test "visiting the index" do
-      visit production_units_url
-      assert_selector "h1", text: "Production production_units"
-    end
-
-    test "should create production unit" do
-      visit production_units_url
-      click_on "New production unit"
-
-      fill_in "Comment", with: @production_unit.comment
-      fill_in "Count", with: @production_unit.count
-      fill_in "Group", with: @production_unit.group_id
-      fill_in "Plan", with: @production_unit.plan_id
-      fill_in "Status", with: @production_unit.status
-      fill_in "Tonnage", with: @production_unit.tonnage
-      click_on "Create Production unit"
-
-      assert_text "Production unit was successfully created"
-      click_on "Back"
+      visit production_plan_units_url(@plan)
+      assert_text @production_unit.group.name
     end
 
     test "should update Production unit" do
-      visit production_unit_url(@production_unit)
-      click_on "Edit this production unit", match: :first
+      visit production_plan_unit_url(@plan, @production_unit)
 
-      fill_in "Comment", with: @production_unit.comment
-      fill_in "Count", with: @production_unit.count
-      fill_in "Group", with: @production_unit.group_id
-      fill_in "Plan", with: @production_unit.plan_id
-      fill_in "Status", with: @production_unit.status
-      fill_in "Tonnage", with: @production_unit.tonnage
-      click_on "Update Production unit"
+      click_on "unit-menu-button"
+      click_on I18n.t("actions.force_finish")
 
-      assert_text "Production unit was successfully updated"
-      click_on "Back"
-    end
+      fill_in "production_unit_comment", with: "Testing"
+      accept_alert do
+        click_on I18n.t("actions.force_finish")
+      end
 
-    test "should destroy Production unit" do
-      visit production_unit_url(@production_unit)
-      click_on "Destroy this production unit", match: :first
-
-      assert_text "Production unit was successfully destroyed"
+      assert_text I18n.t("actions.record_updated")
     end
   end
 end

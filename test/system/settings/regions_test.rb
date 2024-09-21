@@ -14,8 +14,8 @@ class Settings::RegionsTest < ApplicationSystemTestCase
     visit regions_url
     click_on I18n.t("actions.create_record")
 
-    fill_in "region_code", with: "02"
-    fill_in "region_name", with: "Almaty"
+    fill_in "region_code", with: "01"
+    fill_in "region_name", with: "Astana"
     click_on I18n.t("actions.save_record")
 
     assert_text I18n.t("actions.record_created")
