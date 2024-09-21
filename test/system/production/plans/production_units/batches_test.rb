@@ -3,53 +3,42 @@ require "application_system_test_case"
 module Production::Plans
   class ProductionUnits::BatchesTest < ApplicationSystemTestCase
     setup do
-      @batch = batches(:one)
+      sample_generation
+      sign_in "daniyar@hey.com"
     end
 
     test "visiting the index" do
-      visit batches_url
-      assert_selector "h1", text: "Batches"
+      visit production_plan_unit_batches_url(@plan, @production_unit)
+      assert_selector "p", text: I18n.t("pages.batch", id: @batch.id)
     end
 
     test "should create batch" do
-      visit batches_url
-      click_on "New batch"
+      visit production_plan_unit_url(@plan, @production_unit)
+      click_on I18n.t("actions.create_batch")
 
-      fill_in "Comment", with: @batch.comment
-      fill_in "Loader", with: @batch.loader_id
-      fill_in "Machiner", with: @batch.machiner_id
-      fill_in "Operator", with: @batch.operator_id
-      fill_in "Production unit", with: @batch.production_unit_id
-      fill_in "Status", with: @batch.status
-      fill_in "Tester", with: @batch.tester_id
-      click_on "Create Batch"
+      select users(:machiner).name, from: "batch_machiner_id"
+      select users(:tester).name, from: "batch_tester_id"
+      select users(:operator).name, from: "batch_operator_id"
+      select users(:loader).name, from: "batch_loader_id"
+      fill_in "batch_comment", with: "Testing"
+      click_on I18n.t("actions.save_record")
 
-      assert_text "Batch was successfully created"
-      click_on "Back"
+      assert_text I18n.t("actions.record_created")
     end
 
     test "should update Batch" do
-      visit batch_url(@batch)
-      click_on "Edit this batch", match: :first
+      visit production_plan_unit_url(@plan, @production_unit)
+      click_on I18n.t("pages.batch", id: @batch.id)
 
-      fill_in "Comment", with: @batch.comment
-      fill_in "Loader", with: @batch.loader_id
-      fill_in "Machiner", with: @batch.machiner_id
-      fill_in "Operator", with: @batch.operator_id
-      fill_in "Production unit", with: @batch.production_unit_id
-      fill_in "Status", with: @batch.status
-      fill_in "Tester", with: @batch.tester_id
-      click_on "Update Batch"
+      click_on "batch-menu-button"
+      click_on I18n.t("actions.force_finish")
 
-      assert_text "Batch was successfully updated"
-      click_on "Back"
-    end
+      fill_in "batch_comment", with: "Testing"
+      accept_alert do
+        click_on I18n.t("actions.force_finish")
+      end
 
-    test "should destroy Batch" do
-      visit batch_url(@batch)
-      click_on "Destroy this batch", match: :first
-
-      assert_text "Batch was successfully destroyed"
+      assert_text I18n.t("actions.record_updated")
     end
   end
 end

@@ -3,7 +3,7 @@
     <%= button_to t("actions.start"), production_plan_unit_batch_path(@plan, @production_unit, batch), method: :patch, params: { batch: { status: :in_progress } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
   <% elsif batch.in_progress? %>
     <div class="relative" data-controller="dropdown">
-      <button type="button" class="btn-in-production" id="plan-menu-button" aria-expanded="false" aria-haspopup="true" data-dropdown-target="button" data-action="dropdown#toggle click@window->dropdown#close">
+      <button type="button" class="btn-in-production" id="batch-menu-button" aria-expanded="false" aria-haspopup="true" data-dropdown-target="button" data-action="dropdown#toggle click@window->dropdown#close">
       <span class="flex items-center space-x-2">
         <span aria-hidden="true"><%= Batch.enum_to_s(:statuses, :in_progress) %></span>
         <%= inline_svg_tag "chevron-down.svg", class: "h-5 w-5 text-white" %>

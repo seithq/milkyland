@@ -2,38 +2,27 @@ require "application_system_test_case"
 
 class Production::PlansTest < ApplicationSystemTestCase
   setup do
-    @plan = plans(:one)
+    sample_generation
+    sign_in "daniyar@hey.com"
   end
 
   test "visiting the index" do
-    visit plans_url
-    assert_selector "h1", text: "Plans"
-  end
-
-  test "should create plans" do
-    visit plans_url
-    click_on "New plans"
-
-    click_on "Create Plan"
-
-    assert_text "Plan was successfully created"
-    click_on "Back"
+    visit production_plans_url
+    assert_selector ".breadcrumb-link", text: I18n.t("pages.production_plans")
   end
 
   test "should update Plan" do
-    visit plan_url(@plan)
-    click_on "Edit this plans", match: :first
+    visit production_plans_url
+    click_on I18n.t("actions.more"), match: :first
 
-    click_on "Update Plan"
+    click_on "plan-menu-button"
+    click_on I18n.t("actions.force_finish")
 
-    assert_text "Plan was successfully updated"
-    click_on "Back"
-  end
+    fill_in "plan_comment", with: "Testing"
+    accept_alert do
+      click_on I18n.t("actions.force_finish")
+    end
 
-  test "should destroy Plan" do
-    visit plan_url(@plan)
-    click_on "Destroy this plans", match: :first
-
-    assert_text "Plan was successfully destroyed"
+    assert_text I18n.t("actions.record_updated")
   end
 end

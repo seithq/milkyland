@@ -17,4 +17,3 @@ class BoxGenerationJobTest < ActiveJob::TestCase
     assert_not BoxGenerationJob.perform_now @generation.id
   end
 end
-

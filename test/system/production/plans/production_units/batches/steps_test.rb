@@ -3,47 +3,39 @@ require "application_system_test_case"
 module Production::Plans::ProductionUnits
   class Batches::StepsTest < ApplicationSystemTestCase
     setup do
-      @step = steps(:one)
-    end
-
-    test "visiting the index" do
-      visit steps_url
-      assert_selector "h1", text: "Steps"
+      sample_generation
+      sign_in "daniyar@hey.com"
     end
 
     test "should create step" do
-      visit steps_url
-      click_on "New step"
+      visit production_plan_unit_batch_journal_url(@plan, @production_unit, @batch, @journal)
 
-      fill_in "Batch", with: @step.batch_id
-      fill_in "Comment", with: @step.comment
-      fill_in "Operation", with: @step.operation_id
-      fill_in "Status", with: @step.status
-      click_on "Create Step"
+      accept_alert do
+        click_on I18n.t("actions.start"), match: :first
+      end
 
-      assert_text "Step was successfully created"
-      click_on "Back"
+      assert_selector "th", text: I18n.t("tables.cols.plan")
+      assert_selector "th", text: I18n.t("tables.cols.fact")
+
+      assert_text Step.enum_to_s(:statuses, :in_progress)
     end
 
     test "should update Step" do
-      visit step_url(@step)
-      click_on "Edit this step", match: :first
+      visit production_plan_unit_batch_journal_url(@plan, @production_unit, @batch, @journal)
 
-      fill_in "Batch", with: @step.batch_id
-      fill_in "Comment", with: @step.comment
-      fill_in "Operation", with: @step.operation_id
-      fill_in "Status", with: @step.status
-      click_on "Update Step"
+      accept_alert do
+        click_on I18n.t("actions.start"), match: :first
+      end
 
-      assert_text "Step was successfully updated"
-      click_on "Back"
-    end
+      click_on "operation-menu-button"
+      click_on I18n.t("actions.finish")
 
-    test "should destroy Step" do
-      visit step_url(@step)
-      click_on "Destroy this step", match: :first
+      fill_in "step_metrics_attributes_0_value", with: Time.zone.now
+      accept_alert do
+        click_on I18n.t("actions.finish")
+      end
 
-      assert_text "Step was successfully destroyed"
+      assert_text I18n.t("actions.record_updated")
     end
   end
 end

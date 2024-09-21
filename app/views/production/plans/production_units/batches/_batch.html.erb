@@ -1,6 +1,6 @@
 <div class="relative flex items-center space-x-3 rounded-lg bg-white px-6 py-5 shadow-sm<%= batch_color batch %>">
   <div class="min-w-0 flex-1">
-    <%= link_to production_plan_unit_batch_path(@plan, @production_unit, batch), class: "focus:outline-none", data: { turbo_frame: "_top" } do %>
+    <%= link_to production_plan_unit_batch_path(@plan, @production_unit, batch), class: "focus:outline-none", id: dom_id(batch), data: { turbo_frame: "_top" } do %>
       <p class="text-xl font-semibold text-gray-900"><%= t("pages.batch", id: batch.id) %></p>
       <div class="mt-4 flex flex-col space-y-1">
         <div class="flex justify-between text-md">
