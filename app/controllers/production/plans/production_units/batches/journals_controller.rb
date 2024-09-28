@@ -9,7 +9,7 @@ module Production::Plans::ProductionUnits
 
     private
       def base_scope
-        @batch.production_unit.group.journals
+        @batch.journals
       end
 
       def set_journal

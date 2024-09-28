@@ -44,7 +44,7 @@ class Batch < ApplicationRecord
   end
 
   def journals
-    self.production_unit.group.journals
+    self.production_unit.group.journals.active
   end
 
   def completed_journal?(journal)

@@ -14,12 +14,12 @@
 
       <div>
         <%= form.label :from, class: "form-label" %>
-        <%= form.number_field :from, autocomplete: "from", disabled: !standard.active?, required: true, class: "form-input" %>
+        <%= form.number_field :from, autocomplete: "from", disabled: !standard.active?, required: true, class: "form-input", step: ".1" %>
       </div>
 
       <div>
         <%= form.label :to, class: "form-label" %>
-        <%= form.number_field :to, autocomplete: "to", disabled: !standard.active?, required: true, class: "form-input" %>
+        <%= form.number_field :to, autocomplete: "to", disabled: !standard.active?, required: true, class: "form-input", step: ".1" %>
       </div>
 
       <% unless standard.new_record? || standard.active? %>

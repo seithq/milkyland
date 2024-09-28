@@ -7,7 +7,7 @@ class Standard < ApplicationRecord
   has_many :fields, dependent: :nullify
 
   validates :name, presence: true, uniqueness: { scope: :group, case_sensitive: false }
-  validates :from, :to, presence: true, numericality: { only_integer: true }
+  validates_presence_of :from, :to
 
   def passed?(value)
     from <= value && value <= to
