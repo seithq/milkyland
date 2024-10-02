@@ -282,6 +282,9 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails-i18n (7.0.9)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 8)
     rainbow (3.1.1)
     rake (13.2.1)
     rdoc (6.7.0)
@@ -421,6 +424,7 @@ DEPENDENCIES
   propshaft
   puma (>= 5.0)
   rails!
+  rails-i18n (~> 7.0)
   redis (>= 4.0.1)
   requestjs-rails (~> 0.0.11)
   rqrcode (~> 2.2)

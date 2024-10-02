@@ -37,7 +37,7 @@ module Production::Plans::ProductionUnits
 
     private
       def set_journals
-        @journals = @batch.production_unit.group.journals
+        @journals = @batch.journals
       end
 
       def set_packing

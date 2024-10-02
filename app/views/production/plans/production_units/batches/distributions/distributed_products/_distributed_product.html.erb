@@ -6,9 +6,10 @@
     <%= distributed_product.packaged_product.product.name %>
   </td>
   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+    <% region_sum = @plan.product_region_sum(distributed_product.region, distributed_product.packaged_product.product) %>
     <%= number_with_delimiter @plan.product_region_produced_sum(distributed_product.region, distributed_product.packaged_product.product) %>
     /
-    <%= number_with_delimiter @plan.product_region_sum(distributed_product.region, distributed_product.packaged_product.product) %>
+    <%= number_with_delimiter region_sum %>
   </td>
   <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
     <%= number_with_delimiter distributed_product.count %>
@@ -17,7 +18,7 @@
     <%= time_tag distributed_product.production_date %>
   </td>
   <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-    <% if @distribution.in_progress? %>
+    <% if @distribution.in_progress? && region_sum > 0 %>
       <%= link_to t("actions.edit_record"), edit_production_plan_unit_batch_distribution_distributed_product_path(@plan, @production_unit, @batch, distributed_product), data: { turbo_frame: "_top" }, class: "text-indigo-600 hover:text-indigo-900" %>
     <% elsif @distribution.completed? && distributed_product.count.positive? %>
       <%= link_to t("actions.print_qr"), production_plan_unit_batch_distribution_distributed_product_generation_url(@plan, @production_unit, @batch, distributed_product), data: { turbo_frame: "_top" }, class: "text-indigo-600 hover:text-indigo-900" %>

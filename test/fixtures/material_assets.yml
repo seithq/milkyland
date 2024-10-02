@@ -42,7 +42,7 @@ mini_bottle:
   name: Сardboard
   category: сardboard
   supplier: systemd
-  article: 222
+  article: 444
   entry_price: 100
   packing: 1
   measurement: piece

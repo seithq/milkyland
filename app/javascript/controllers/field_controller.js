@@ -3,7 +3,7 @@ import { enter, leave } from "el-transition"
 
 export default class extends Controller {
   static values = { kind: String }
-  static targets = [ "measurement", "standard", "collection" ]
+  static targets = [ "measurement", "standard", "collection", "trigger" ]
 
   kindValueChanged() {
     this.displayFieldsOn(this.kindValue)
@@ -21,18 +21,22 @@ export default class extends Controller {
     switch (kind) {
       case "measure":
         enabled = [this.measurementTarget]
-        disabled = [ this.standardTarget, this.collectionTarget ]
+        disabled = [ this.standardTarget, this.collectionTarget, this.triggerTarget ]
         break
       case "normal":
         enabled = [this.standardTarget]
-        disabled = [ this.measurementTarget, this.collectionTarget ]
+        disabled = [ this.measurementTarget, this.collectionTarget, this.triggerTarget ]
         break
       case "collection":
         enabled = [this.collectionTarget]
-        disabled = [ this.measurementTarget, this.standardTarget ]
+        disabled = [ this.measurementTarget, this.standardTarget, this.triggerTarget ]
+        break
+      case "time":
+        enabled = [this.triggerTarget]
+        disabled = [ this.measurementTarget, this.standardTarget, this.collectionTarget ]
         break
       default:
-        disabled = [ this.measurementTarget, this.standardTarget, this.collectionTarget ]
+        disabled = [ this.measurementTarget, this.standardTarget, this.collectionTarget, this.triggerTarget ]
     }
     enabled.forEach((target) => { this.enableField(target) })
     disabled.forEach((target) => { this.disableField(target) })

@@ -37,6 +37,11 @@
         <%= form.select :collection, options_for_enum_select(Field, :collection, field.collection, excluded_options: [:unset]), { include_blank: true }, { disabled: !field.active?, required: false, class: "form-input" } %>
       </div>
 
+      <div class="hidden" data-field-target="trigger">
+        <%= form.label :trigger, class: "form-label" %>
+        <%= form.select :trigger, options_for_enum_select(Field, :trigger, field.trigger), { include_blank: false }, { disabled: !field.active?, required: false, class: "form-input" } %>
+      </div>
+
       <% unless field.new_record? || field.active? %>
         <div class="relative flex gap-x-3">
           <div class="flex h-6 items-center">

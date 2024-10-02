@@ -24,6 +24,7 @@ gem "tailwindcss-rails"
 gem "requestjs-rails", "~> 0.0.11"
 gem "inline_svg", "~> 1.9"
 gem "pagy", "~> 9.0"
+gem "rails-i18n", "~> 7.0"
 
 # Other
 gem "jbuilder"
@@ -34,6 +35,7 @@ gem "image_processing", "~> 1.2"
 gem "aws-sdk-s3", "~> 1.156"
 gem "rqrcode", "~> 2.2"
 gem "useragent", github: "basecamp/useragent"
+gem "zipline", "~> 2.0"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -49,5 +51,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "zipline", "~> 2.0"

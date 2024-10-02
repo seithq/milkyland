@@ -4,12 +4,12 @@
     <%= form_with model: packaged_product, url: production_plan_unit_batch_packing_packaged_product_path(@plan, @production_unit, @batch, packaged_product), class: "space-y-4" do |form| %>
       <div>
         <%= form.label :start_time, class: "form-label-xl" %>
-        <%= form.time_field :start_time, autocomplete: "start-time", required: true, class: "mt-2 form-input-xl" %>
+        <%= form.datetime_field :start_time, autocomplete: "start-time", required: true, class: "mt-2 form-input-xl" %>
       </div>
 
       <div>
         <%= form.label :end_time, class: "form-label-xl" %>
-        <%= form.time_field :end_time, autocomplete: "end-time", required: true, class: "mt-2 form-input-xl" %>
+        <%= form.datetime_field :end_time, autocomplete: "end-time", required: true, class: "mt-2 form-input-xl" %>
       </div>
 
       <div>

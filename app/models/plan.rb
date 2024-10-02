@@ -63,12 +63,13 @@ class Plan < ApplicationRecord
     self.positions.filter_by_product(product.id).sum(:count)
   end
 
-  def product_remaining_sum(batch, product)
+  def product_remaining_sum(product)
     total = self.positions.filter_by_product(product).sum(:count)
-    packed = self.packaged_products.filter_by_product(product.id).without_current_batch(batch.id).sum(:count)
+    packed = self.packaged_products.filter_by_product(product.id).approved.sum(:count)
     total.zero? ? 0 : total - packed
   end
 
+  @deprecated
   def product_region_remaining_sum(batch, region, product)
     total = self.product_region_sum(region, product)
     packed = self.distributed_products.filter_by_product(product.id).without_current_batch(batch.id).sum(:count)

@@ -22,6 +22,7 @@ class Settings::ProductsTest < ApplicationSystemTestCase
     fill_in "product_name", with: "KIDS MILK"
     fill_in "product_packing", with: 1
     fill_in "product_storage_conditions", with: "3-6 celsius"
+    select material_assets(:bottle).name, from: "product_material_asset_id"
     click_on I18n.t("actions.save_record")
 
     assert_text I18n.t("actions.record_created")

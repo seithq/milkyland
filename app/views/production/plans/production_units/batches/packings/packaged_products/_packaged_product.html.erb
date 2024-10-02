@@ -3,10 +3,10 @@
     <%= packaged_product.product.name %>
   </td>
   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
-    <%= packaged_product.start_time.strftime("%H:%M") if packaged_product.start_time %>
+    <%= l packaged_product.start_time, format: :fact if packaged_product.start_time %>
   </td>
   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
-    <%= packaged_product.end_time.strftime("%H:%M") if packaged_product.end_time %>
+    <%= l packaged_product.end_time, format: :fact if packaged_product.end_time %>
   </td>
   <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
     <%= number_with_delimiter packaged_product.count %>

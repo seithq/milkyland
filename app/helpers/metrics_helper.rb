@@ -9,9 +9,9 @@ module MetricsHelper
     return default_tag t("forms.no_data") unless metric.value?
 
     if metric.field.date?
-      time_tag metric.value.to_date
+      default_tag I18n.l(metric.value.to_date)
     elsif metric.field.time?
-      default_tag metric.value
+      default_tag I18n.l(metric.value.to_datetime, format: :fact)
     elsif metric.field.binary?
       binary_tag metric.value
     elsif metric.field.measure?
@@ -27,13 +27,13 @@ module MetricsHelper
     form.label :value, form.object.display_label, class: "form-label-xl"
   end
 
-  def metric_input_tag(form)
+  def metric_input_tag(form, step: nil)
     metric = form.object
 
     if metric.field.date?
       form.date_field :value, required: true, class: default_input_class
     elsif metric.field.time?
-      form.time_field :value, required: true, class: default_input_class
+      time_input form, step: step
     elsif metric.field.binary?
       binary_input form
     elsif metric.field.measure?
@@ -67,6 +67,17 @@ module MetricsHelper
 
     def default_tag(text, class_name: "")
       tag.span text, class: class_name
+    end
+
+    def time_input(form, step: nil)
+      default_value = Time.current
+      if form.object.field.trigger_on_start?
+        form.datetime_field :value, value: step ? step.created_at : default_value, readonly: true, class: default_input_class
+      elsif form.object.field.trigger_on_stop?
+        form.datetime_field :value, value: default_value, readonly: true, class: default_input_class
+      else
+        form.datetime_field :value, required: true, class: default_input_class
+      end
     end
 
     def binary_input(form)

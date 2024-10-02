@@ -27,6 +27,10 @@ ru:
         collections:
           unset: Не установлено
           packing_machine: Фасовочное оборудование
+        triggers:
+          on_save: По умолчанию
+          on_start: Сохранение при запуске
+          on_stop: Сохранение при завершении
       promotion:
         kinds:
           by_amount: Фиксированная
@@ -166,6 +170,7 @@ ru:
         standard_id: Норма
         collection: Справочник
         active: Активная запись
+        trigger: Триггер
       standard:
         measurement_id: Единица измерения
         name: Показатель

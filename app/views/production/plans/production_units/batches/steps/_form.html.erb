@@ -18,7 +18,7 @@
 
         <%= form.fields_for :metrics do |metric_form| %>
           <%= metric_label_tag metric_form %>
-          <%= metric_input_tag metric_form %>
+          <%= metric_input_tag metric_form, step: form.object %>
         <% end %>
 
         <div>

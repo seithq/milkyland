@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_02_132851) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_02_182605) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -210,6 +210,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_02_132851) do
     t.bigint "measurement_id"
     t.bigint "standard_id"
     t.string "collection"
+    t.string "trigger"
     t.index ["measurement_id"], name: "index_fields_on_measurement_id"
     t.index ["operation_id", "name"], name: "index_fields_on_operation_id_and_name", unique: true
     t.index ["operation_id"], name: "index_fields_on_operation_id"
@@ -323,11 +324,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_02_132851) do
   create_table "packaged_products", force: :cascade do |t|
     t.bigint "packing_id", null: false
     t.bigint "product_id", null: false
-    t.time "start_time"
-    t.time "end_time"
     t.integer "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.index ["packing_id", "product_id"], name: "index_packaged_products_on_packing_id_and_product_id", unique: true
     t.index ["packing_id"], name: "index_packaged_products_on_packing_id"
     t.index ["product_id"], name: "index_packaged_products_on_product_id"

@@ -32,4 +32,15 @@ class FieldTest < ActiveSupport::TestCase
     assert_not field.save
     assert_equal :blank, field.errors.where(:measurement_id).first.type
   end
+
+  test "should discard trigger if not time" do
+    field = Field.new(
+      operation: operations(:analysis),
+      kind: :date,
+      name: "Test Date",
+      trigger: :on_start
+    )
+    assert field.save
+    assert field.trigger_on_save?
+  end
 end
