@@ -32,7 +32,7 @@ gem "bcrypt", "~> 3.1.7"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem "image_processing", "~> 1.2"
-gem "aws-sdk-s3", "~> 1.156"
+gem "aws-sdk-s3", "~> 1.167"
 gem "rqrcode", "~> 2.2"
 gem "useragent", github: "basecamp/useragent"
 gem "zipline", "~> 2.0"
