@@ -181,6 +181,7 @@ ru:
         expiration_in_days: Срок годности (в днях)
         storage_conditions: Условия хранения
         fat_fraction: Массовая доля жира (в процентах)
+        material_asset_id: Упаковочная тара
       price:
         product_id: Номенклатура ГП
         sales_channel_id: Канал сбыта

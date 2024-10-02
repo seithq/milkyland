@@ -13,3 +13,7 @@ pallet:
 glass:
   name: Glass
   kind: packing
+
+сardboard:
+  name: Cardboard
+  kind: packing

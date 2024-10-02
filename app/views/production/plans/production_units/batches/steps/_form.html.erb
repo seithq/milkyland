@@ -21,6 +21,11 @@
           <%= metric_input_tag metric_form %>
         <% end %>
 
+        <div>
+          <%= form.label :comment, class: "form-label-xl" %>
+          <%= form.text_area :comment, autocomplete: "comment", required: should_cancel?, class: "mt-2 form-area-xl" %>
+        </div>
+
         <% if should_finish? %>
           <%= form.submit t("actions.finish"), class: "w-full btn-stop", data: { turbo_confirm: t("actions.confirm") } %>
         <% else %>

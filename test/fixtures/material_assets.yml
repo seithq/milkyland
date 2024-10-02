@@ -37,3 +37,13 @@ mini_bottle:
   packing: 6
   measurement: piece
   delivery_time_in_days: 5
+
+сardboard:
+  name: Сardboard
+  category: сardboard
+  supplier: systemd
+  article: 222
+  entry_price: 100
+  packing: 1
+  measurement: piece
+  delivery_time_in_days: 5
