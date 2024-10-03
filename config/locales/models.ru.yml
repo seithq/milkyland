@@ -67,6 +67,9 @@ ru:
           in_plan: "В плане"
           completed: "Завершен"
           cancelled: "Отменен"
+        work_shifts:
+          daily: "Дневная"
+          night: "Ночная"
       step:
         statuses:
           in_progress: "В процессе"
@@ -171,6 +174,8 @@ ru:
         collection: Справочник
         active: Активная запись
         trigger: Триггер
+        trackable_id: Отслеживаемое поле
+        time_window: Норма времени в минутах
       standard:
         measurement_id: Единица измерения
         name: Показатель
@@ -247,6 +252,7 @@ ru:
         operator_id: Оператор
         loader_id: Грузчик
         comment: Комментарий
+        work_shift: Рабочая смена
       step:
         comment: Комментарий
       metric:

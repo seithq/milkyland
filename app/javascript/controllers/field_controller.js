@@ -2,17 +2,28 @@ import { Controller } from "@hotwired/stimulus"
 import { enter, leave } from "el-transition"
 
 export default class extends Controller {
-  static values = { kind: String }
-  static targets = [ "measurement", "standard", "collection", "trigger" ]
+  static values = { kind: String, trigger: String }
+  static targets = [ "measurement", "standard", "collection", "trigger", "trackable", "timeWindow" ]
 
   kindValueChanged() {
     this.displayFieldsOn(this.kindValue)
+  }
+
+  triggerValueChanged() {
+    this.displayTrackableOn(this.triggerValue)
   }
 
   reveal(event) {
     const kind = event.target.value
     if (kind !== "") {
       this.kindValue = kind
+    }
+  }
+
+  track(event) {
+    const trigger = event.target.value
+    if (trigger !== "") {
+      this.triggerValue = trigger
     }
   }
 
@@ -37,6 +48,19 @@ export default class extends Controller {
         break
       default:
         disabled = [ this.measurementTarget, this.standardTarget, this.collectionTarget, this.triggerTarget ]
+    }
+    enabled.forEach((target) => { this.enableField(target) })
+    disabled.forEach((target) => { this.disableField(target) })
+  }
+
+  displayTrackableOn(trigger) {
+    let enabled = [], disabled = []
+    switch (trigger) {
+      case "on_stop":
+        enabled = [ this.trackableTarget, this.timeWindowTarget ]
+        break
+      default:
+        disabled = [ this.trackableTarget, this.timeWindowTarget ]
     }
     enabled.forEach((target) => { this.enableField(target) })
     disabled.forEach((target) => { this.disableField(target) })

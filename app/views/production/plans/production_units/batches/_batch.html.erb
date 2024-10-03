@@ -4,16 +4,20 @@
       <p class="text-xl font-semibold text-gray-900"><%= t("pages.batch", id: batch.id) %></p>
       <div class="mt-4 flex flex-col space-y-1">
         <div class="flex justify-between text-md">
+          <span class="font-medium text-gray-500"><%= t("tables.cols.work_shift") %></span>
+          <span class="font-semibold text-gray-700"><%= Batch.enum_to_s(:work_shifts, batch.work_shift) %></span>
+        </div>
+        <div class="flex justify-between text-md">
+          <span class="font-medium text-gray-500"><%= t("tables.cols.status") %></span>
+          <span class="font-semibold text-gray-700"><%= Batch.enum_to_s(:statuses, batch.status) %></span>
+        </div>
+        <div class="flex justify-between text-md">
           <span class="font-medium text-gray-500"><%= t("tables.cols.tonnage") %></span>
           <span class="font-semibold text-gray-700"><%= batch.produced_tonnage %></span>
         </div>
         <div class="flex justify-between text-md">
           <span class="font-medium text-gray-500"><%= t("tables.cols.count") %></span>
           <span class="font-semibold text-gray-700"><%= number_with_delimiter batch.produced_count %></span>
-        </div>
-        <div class="flex justify-between text-md">
-          <span class="font-medium text-gray-500"><%= t("tables.cols.status") %></span>
-          <span class="font-semibold text-gray-700"><%= Batch.enum_to_s(:statuses, batch.status) %></span>
         </div>
       </div>
     <% end %>

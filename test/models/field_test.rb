@@ -43,4 +43,31 @@ class FieldTest < ActiveSupport::TestCase
     assert field.save
     assert field.trigger_on_save?
   end
+
+  test "should discard trackable if not on stop" do
+    field = Field.new(
+      operation: operations(:analysis),
+      kind: :time,
+      name: "Test Time",
+      trigger: :on_save,
+      trackable: fields(:start_time)
+    )
+    assert field.save
+    assert field.trackable.blank?
+  end
+
+  test "should save trackable" do
+    start_field = fields(:start_time)
+    assert start_field.update trigger: :on_start
+
+    end_field = Field.new(
+      operation: operations(:analysis),
+      kind: :time,
+      name: "End Time",
+      trigger: :on_stop,
+      trackable: fields(:start_time)
+    )
+    assert end_field.save
+    assert end_field.trackable.present?
+  end
 end

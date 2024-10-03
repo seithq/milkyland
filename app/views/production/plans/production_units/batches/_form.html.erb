@@ -7,6 +7,11 @@
       <% end %>
 
       <div>
+        <%= form.label :work_shift, class: "form-label-xl" %>
+        <%= form.select :work_shift, options_for_enum_select(Batch, :work_shift, batch.work_shift), { include_blank: true, required: true }, { class: "mt-2 form-select-xl" } %>
+      </div>
+
+      <div>
         <%= form.label :machiner_id, class: "form-label-xl" %>
         <%= form.select :machiner_id, options_from_collection_for_select(User.machiners.ordered, :id, :name, batch.machiner_id), { include_blank: true, required: true }, { class: "mt-2 form-select-xl" } %>
       </div>

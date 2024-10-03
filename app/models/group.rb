@@ -17,4 +17,11 @@ class Group < ApplicationRecord
   validates :metric_tonne, presence: true, numericality: { only_integer: true }
 
   scope :ordered, -> { order(name: :asc) }
+
+  def available_trackable_fields(field)
+    base_scope = self.fields.filter_by_trigger(:on_start)
+    return base_scope if field.new_record?
+
+    base_scope.filter_by_operation(field.operation_id)
+  end
 end

@@ -2,6 +2,8 @@ module MetricsHelper
   def metric_plan_tag(metric)
     if metric.field.normal?
       t("forms.standard", from: metric.field.standard.from, to: metric.field.standard.to)
+    elsif metric.field.should_apply_time_window?
+      t("forms.time_window", time_window: metric.field.time_window)
     end
   end
 
@@ -11,7 +13,7 @@ module MetricsHelper
     if metric.field.date?
       default_tag I18n.l(metric.value.to_date)
     elsif metric.field.time?
-      default_tag I18n.l(metric.value.to_datetime, format: :fact)
+      default_tag I18n.l(metric.value.to_datetime, format: :fact), class_name: time_class_name(metric)
     elsif metric.field.binary?
       binary_tag metric.value
     elsif metric.field.measure?
@@ -65,6 +67,16 @@ module MetricsHelper
       end
     end
 
+    def time_class_name(metric)
+      stop_time = metric.value ? Time.zone.parse(metric.value) : Time.current
+      if metric.field.should_apply_time_window? &&
+        !metric.field.valid_time_window_for?(metric.step, stop_time)
+        "text-red-600"
+      else
+        ""
+      end
+    end
+
     def default_tag(text, class_name: "")
       tag.span text, class: class_name
     end
@@ -74,7 +86,12 @@ module MetricsHelper
       if form.object.field.trigger_on_start?
         form.datetime_field :value, value: step ? step.created_at : default_value, readonly: true, class: default_input_class
       elsif form.object.field.trigger_on_stop?
-        form.datetime_field :value, value: default_value, readonly: true, class: default_input_class
+        tag.div do
+          concat form.datetime_field :value, value: default_value, readonly: true, class: default_input_class
+          unless form.object.field.valid_time_window_for? step, default_value
+            concat tag.p t("forms.time_window_overdue", min: form.object.field.time_window), class: "mt-2 text-sm text-red-600"
+          end
+        end
       else
         form.datetime_field :value, required: true, class: default_input_class
       end

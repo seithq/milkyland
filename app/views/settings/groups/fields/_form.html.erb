@@ -1,5 +1,5 @@
 <div class="flex flex-col justify-center px-6 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm" data-controller="field" data-field-kind-value="<%= field.kind %>">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm" data-controller="field" data-field-kind-value="<%= field.kind %>" data-field-trigger-value="<%= field.trigger %>">
     <%= render "layouts/error_messages", resource: field %>
     <%= form_with model: [@group, field], class: "space-y-4" do |form| %>
       <div>
@@ -39,7 +39,17 @@
 
       <div class="hidden" data-field-target="trigger">
         <%= form.label :trigger, class: "form-label" %>
-        <%= form.select :trigger, options_for_enum_select(Field, :trigger, field.trigger), { include_blank: false }, { disabled: !field.active?, required: false, class: "form-input" } %>
+        <%= form.select :trigger, options_for_enum_select(Field, :trigger, field.trigger), { include_blank: false }, { disabled: !field.active?, required: false, class: "form-input", data: { action: "field#track" } } %>
+      </div>
+
+      <div class="hidden" data-field-target="trackable">
+        <%= form.label :trackable_id, class: "form-label" %>
+        <%= form.select :trackable_id, options_from_collection_for_select(@group.available_trackable_fields(field), :id, :name_with_operation, field.trackable_id), { include_blank: true }, { disabled: !field.active?, required: true, class: "form-select" } %>
+      </div>
+
+      <div class="hidden" data-field-target="timeWindow">
+        <%= form.label :time_window, class: "form-label" %>
+        <%= form.number_field :time_window, autocomplete: "time-window", disabled: !field.active?, required: false, class: "form-input" %>
       </div>
 
       <% unless field.new_record? || field.active? %>

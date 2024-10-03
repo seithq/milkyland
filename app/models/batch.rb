@@ -17,6 +17,8 @@ class Batch < ApplicationRecord
   has_one :distribution, dependent: :destroy
   has_many :distributed_products, through: :distribution, source: :products
 
+  enum :work_shift, %w[ daily night ].index_by(&:itself), default: :daily
+
   def progress
     (total_completed_steps.to_d / total_operations.to_d) * 100.0
   end

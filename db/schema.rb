@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_02_182605) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_03_162958) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -69,6 +69,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_02_182605) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "work_shift", default: "daily"
     t.index ["loader_id"], name: "index_batches_on_loader_id"
     t.index ["machiner_id"], name: "index_batches_on_machiner_id"
     t.index ["operator_id"], name: "index_batches_on_operator_id"
@@ -211,10 +212,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_02_182605) do
     t.bigint "standard_id"
     t.string "collection"
     t.string "trigger"
+    t.bigint "trackable_id"
+    t.integer "time_window"
     t.index ["measurement_id"], name: "index_fields_on_measurement_id"
     t.index ["operation_id", "name"], name: "index_fields_on_operation_id_and_name", unique: true
     t.index ["operation_id"], name: "index_fields_on_operation_id"
     t.index ["standard_id"], name: "index_fields_on_standard_id"
+    t.index ["trackable_id"], name: "index_fields_on_trackable_id"
   end
 
   create_table "generations", force: :cascade do |t|
@@ -687,6 +691,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_02_182605) do
   add_foreign_key "distributed_products", "packaged_products"
   add_foreign_key "distributed_products", "regions"
   add_foreign_key "distributions", "batches"
+  add_foreign_key "fields", "fields", column: "trackable_id"
   add_foreign_key "fields", "measurements"
   add_foreign_key "fields", "operations"
   add_foreign_key "fields", "standards"
