@@ -23,7 +23,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "requestjs-rails", "~> 0.0.11"
 gem "inline_svg", "~> 1.9"
-gem "pagy", "~> 9.0"
+gem "pagy", "~> 9.1"
 gem "rails-i18n", "~> 7.0"
 
 # Other
