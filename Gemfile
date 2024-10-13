@@ -11,9 +11,10 @@ gem "redis", ">= 4.0.1"
 # Deployment
 gem "puma", ">= 5.0"
 gem "kamal", require: false
+gem "thruster", require: false
 
-# Jobs
-gem "solid_queue", "~> 0.3.4"
+# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_queue"
 
 # Front-end
 gem "propshaft"
@@ -26,13 +27,15 @@ gem "inline_svg", "~> 1.9"
 gem "pagy", "~> 9.0"
 gem "rails-i18n", "~> 7.0"
 
+# Storage
+gem "image_processing", "~> 1.2"
+gem "aws-sdk-s3", "~> 1.156"
+
 # Other
 gem "jbuilder"
 gem "bcrypt", "~> 3.1.7"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
-gem "image_processing", "~> 1.2"
-gem "aws-sdk-s3", "~> 1.156"
 gem "rqrcode", "~> 2.2"
 gem "useragent", github: "basecamp/useragent"
 gem "zipline", "~> 2.0"

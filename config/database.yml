@@ -14,4 +14,10 @@ test:
   database: milkyland_test
 
 production:
-  url: <%= ENV["POSTGRES_URL"] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  host: <%= ENV["DB_HOST"] %>
+  username: milkyland
+  password: <%= ENV["DB_PASSWORD"] %>
+  database: milkyland_production
