@@ -13,10 +13,6 @@ servers:
   web:
     hosts:
       - 194.32.141.210
-  job:
-    hosts:
-      - 194.32.141.210
-    cmd: bin/jobs
 
 registry:
   server: ghcr.io
@@ -43,9 +39,9 @@ env:
   clear:
     DB_HOST: milkyland-postgres
     REDIS_URL: redis://milkyland-redis:6379/1
-    SOLID_QUEUE_IN_PUMA: false
+    SOLID_QUEUE_IN_PUMA: true
     JOB_CONCURRENCY: 1
-    WEB_CONCURRENCY: 1
+    WEB_CONCURRENCY: 2
     RAILS_LOG_LEVEL: info
 
 accessories:
