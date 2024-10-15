@@ -15,7 +15,7 @@ ru:
           end_product: ГП
           material_asset: ТМЦ
           raw_product: Сырье
-          packing: Упаковочные тары
+          packing: Упаковочная тара
       field:
         kinds:
           date: Дата
