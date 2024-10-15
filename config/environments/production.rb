@@ -70,14 +70,14 @@ Rails.application.configure do
   # caching is enabled.
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: "milkyland.okpock.com" }
+  config.action_mailer.default_url_options = { host: "qr.milkyland.kz" }
   config.action_mailer.deliver_later_queue_name = "mailers"
-  config.action_mailer.default_options = { from: "no-reply@milkyland.okpock.com" }
+  config.action_mailer.default_options = { from: "no-reply@qr.milkyland.kz" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              "email-smtp.us-east-1.amazonaws.com",
     port:                 587,
-    domain:               "milkyland.okpock.com",
+    domain:               "qr.milkyland.kz",
     user_name:            Rails.application.credentials.dig(:aws, :smtp_username),
     password:             Rails.application.credentials.dig(:aws, :smtp_password),
     authentication:       "plain",
@@ -101,7 +101,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  config.hosts = [ "milkyland.okpock.com" ]
+  config.hosts = [ "qr.milkyland.kz" ]
   # Skip DNS rebinding protection for the default health check endpoint.
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
