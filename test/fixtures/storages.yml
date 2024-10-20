@@ -1,0 +1,7 @@
+one:
+  name: MyString
+  kind: MyString
+
+two:
+  name: MyString
+  kind: MyString
