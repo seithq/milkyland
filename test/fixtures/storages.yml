@@ -1,7 +1,11 @@
-one:
-  name: MyString
-  kind: MyString
+material_assets:
+  name: Склад ТМЦ
+  kind: for_material_assets
 
-two:
-  name: MyString
-  kind: MyString
+masters:
+  name: Склад мастеров
+  kind: for_masters
+
+goods:
+  name: Склад ГП
+  kind: for_goods

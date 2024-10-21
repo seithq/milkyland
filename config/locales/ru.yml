@@ -57,6 +57,8 @@ ru:
     box_packagings: "Виды упаковки"
     generation: "Генерация QR"
     pallets: "Палеты"
+    warehouse: "Управление остатками"
+    storages: "Склады"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -72,6 +74,8 @@ ru:
     show_record: "Просмотр"
     save_record: "Сохранить"
     destroy_record: "Удалить"
+    select_kind: "Выберите тип"
+    search_by_name: "Поиск по названию"
     search_by_name_or_email: "Поиск по имени или электронному адресу"
     search_by_name_or_bin: "Поиск по названию или БИН компании"
     search_by_id_or_client_or_sales_point: "Поиск по номеру, клиенту или точке продаж"
@@ -110,6 +114,7 @@ ru:
     web_share_caution: "Это Ваша приватная ссылка для входа с другого устройства."
   tables:
     cols:
+      id: "Номер"
       name: "Имя"
       title: "Название"
       email_address: "Электронная почта"

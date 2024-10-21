@@ -1,0 +1,18 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= render "layouts/error_messages", resource: storage %>
+    <%= form_with model: storage, class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :name, class: "form-label" %>
+        <%= form.text_field :name, autocomplete: "name", autofocus: true, required: true, class: "form-input" %>
+      </div>
+
+      <div>
+        <%= form.label :kind, class: "form-label" %>
+        <%= form.select :kind, options_for_enum_select(Storage, :kind, storage.kind), { required: true, include_blank: true }, class: "form-input" %>
+      </div>
+
+      <%= form.submit t("actions.save_record"), class: "btn" %>
+    <% end %>
+  </div>
+</div>

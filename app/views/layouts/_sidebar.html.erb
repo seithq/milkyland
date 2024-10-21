@@ -99,7 +99,15 @@
               <li>
                 <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.production") %></div>
                 <ul role="list" class="-mx-2 space-y-1">
-                  <%= nav_link production_plans_path, t("pages.production_plans"), "cube.svg" %>
+                  <%= nav_link production_plans_path, t("pages.production_plans"), "cube-transparent.svg" %>
+                </ul>
+              </li>
+            <% end %>
+            <% if Current.user.can_store? %>
+              <li>
+                <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.warehouse") %></div>
+                <ul role="list" class="-mx-2 space-y-1">
+                  <%= nav_link storages_path, t("pages.storages"), "cube.svg" %>
                 </ul>
               </li>
             <% end %>
@@ -159,7 +167,15 @@
             <li>
               <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.production") %></div>
               <ul role="list" class="-mx-2 space-y-1">
-                <%= nav_link production_plans_path, t("pages.production_plans"), "cube.svg" %>
+                <%= nav_link production_plans_path, t("pages.production_plans"), "cube-transparent.svg" %>
+              </ul>
+            </li>
+          <% end %>
+          <% if Current.user.can_store? %>
+            <li>
+              <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.warehouse") %></div>
+              <ul role="list" class="-mx-2 space-y-1">
+                <%= nav_link storages_path, t("pages.storages"), "cube.svg" %>
               </ul>
             </li>
           <% end %>

@@ -1,0 +1,10 @@
+<% content_for(:title) { @storage.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: storages_path, title: t("pages.storages")),
+      NavLink.new(path: storage_path(@storage), title: @storage.name)
+    ]
+  } %>
+<% end %>

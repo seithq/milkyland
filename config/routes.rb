@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :storages
   root to: "home#index"
 
   resource :first_run, only: %i[ show create ]
@@ -86,6 +85,10 @@ Rails.application.routes.draw do
         end
       end
     end
+  end
+
+  scope module: "warehouse" do
+    resources :storages, except: :destroy
   end
 
   scope module: "settings" do

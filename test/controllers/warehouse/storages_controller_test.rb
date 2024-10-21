@@ -1,8 +1,9 @@
 require "test_helper"
 
-class StoragesControllerTest < ActionDispatch::IntegrationTest
+class Warehouse::StoragesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @storage = storages(:one)
+    @storage = storages(:goods)
+    sign_in :daniyar
   end
 
   test "should get index" do
@@ -17,10 +18,10 @@ class StoragesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create storage" do
     assert_difference("Storage.count") do
-      post storages_url, params: { storage: { kind: @storage.kind, name: @storage.name } }
+      post storages_url, params: { storage: { kind: :for_goods, name: "New Storage" } }
     end
 
-    assert_redirected_to storage_url(Storage.last)
+    assert_redirected_to storages_url
   end
 
   test "should show storage" do
@@ -34,15 +35,7 @@ class StoragesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update storage" do
-    patch storage_url(@storage), params: { storage: { kind: @storage.kind, name: @storage.name } }
-    assert_redirected_to storage_url(@storage)
-  end
-
-  test "should destroy storage" do
-    assert_difference("Storage.count", -1) do
-      delete storage_url(@storage)
-    end
-
+    patch storage_url(@storage), params: { storage: { kind: @storage.kind, name: "New Name" } }
     assert_redirected_to storages_url
   end
 end

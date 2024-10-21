@@ -10,6 +10,7 @@ ru:
           tester: Лаборант
           operator: Оператор
           loader: Грузчик
+          warehouser: Зав.склада
       category:
         kinds:
           end_product: ГП
@@ -93,6 +94,11 @@ ru:
           processing: "В процессе"
           in_planning: "Подготовка"
           completed: "Завершено"
+      storage:
+        kinds:
+          for_material_assets: "Склад ТМЦ"
+          for_masters: "Склад мастеров"
+          for_goods: "Склад ГП"
     attributes:
       user:
         name: ФИО
@@ -275,3 +281,6 @@ ru:
         active: Активная запись
       pallet_request:
         count: Количество
+      storage:
+        name: Название
+        kind: Тип
