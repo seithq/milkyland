@@ -29,7 +29,7 @@ gem "rails-i18n", "~> 7.0"
 
 # Storage
 gem "image_processing", "~> 1.2"
-gem "aws-sdk-s3", "~> 1.156"
+gem "aws-sdk-s3", "~> 1.169"
 
 # Other
 gem "jbuilder"
