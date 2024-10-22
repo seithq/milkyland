@@ -59,6 +59,10 @@ ru:
     pallets: "Палеты"
     warehouse: "Управление остатками"
     storages: "Склады"
+    supply_orders: "Заказы ТМЦ"
+    supply_operations: "Операции"
+    supply_leftovers: "Остатки"
+    supply_order: "Заказ #%{id}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -79,6 +83,8 @@ ru:
     search_by_name_or_email: "Поиск по имени или электронному адресу"
     search_by_name_or_bin: "Поиск по названию или БИН компании"
     search_by_id_or_client_or_sales_point: "Поиск по номеру, клиенту или точке продаж"
+    search_by_start_date: "Дата от"
+    search_by_end_date: "Дата до"
     have_account: "Есть аккаунт?"
     remove_account: "Удалить аккаунт?"
     confirm: "Подтвердить действие?"
@@ -185,6 +191,12 @@ ru:
       pieces: "Штуки"
       code: "Код"
       work_shift: "Смена"
+      date: "Дата"
+      payment_date: "Срок оплаты"
+      payment_status: "Оплата"
+      delivery_status: "Доставка"
+      material_asset: "Номенклатура ТМЦ"
+      amount: "Количество"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

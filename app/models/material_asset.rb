@@ -9,9 +9,12 @@ class MaterialAsset < ApplicationRecord
   has_many :products, dependent: :destroy
   has_many :box_packagings, dependent: :destroy
 
+  has_many :supply_orders, dependent: :destroy
+
   validates :article, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true, uniqueness: { scope: :supplier, case_sensitive: false }
 
+  scope :combined_assets, ->() { joins(:category).merge(Category.combined_assets) }
   scope :raw_products, ->() { joins(:category).merge(Category.raw_products) }
   scope :packings, ->() { joins(:category).merge(Category.packings) }
 

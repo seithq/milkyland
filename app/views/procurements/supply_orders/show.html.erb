@@ -1,0 +1,43 @@
+<% content_for(:title) { t("pages.supply_order", id: @supply_order.id) } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: supply_orders_path, title: t("pages.supply_orders")),
+      NavLink.new(path: supply_order_path(@supply_order), title: t("pages.supply_order", id: @supply_order.id))
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @supply_order do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :material_asset_id, class: "form-label" %>
+          <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :display_label), {}, { disabled: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :amount, class: "form-label" %>
+          <%= form.number_field :amount, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :payment_date, class: "form-label" %>
+          <%= form.date_field :payment_date, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :payment_status, class: "form-label" %>
+          <%= text_field_tag :payment_status, SupplyOrder.enum_to_s(:payment_status, @supply_order.payment_status), readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :delivery_status, class: "form-label" %>
+          <%= text_field_tag :delivery_status, SupplyOrder.enum_to_s(:delivery_status, @supply_order.delivery_status), readonly: true, class: "form-input" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

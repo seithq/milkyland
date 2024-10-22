@@ -1,0 +1,13 @@
+sugar_order:
+  material_asset: sugar
+  amount: 5000
+  payment_date: <%= 1.month.from_now %>
+  payment_status: pending
+  delivery_status: delivering
+
+bottle_order:
+  material_asset: bottle
+  amount: 1000
+  payment_date: <%= 1.month.from_now %>
+  payment_status: pending
+  delivery_status: delivering

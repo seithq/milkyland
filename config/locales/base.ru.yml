@@ -16,6 +16,8 @@ ru:
     precision:
       format:
         delimiter: ''
+    format:
+      separator: "."
   time:
     formats:
       default: "%a, %d %b %Y, %H:%M:%S %z"

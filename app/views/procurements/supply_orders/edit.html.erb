@@ -1,0 +1,12 @@
+<% content_for(:title) { t("pages.supply_order", id: @supply_order.id) } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: supply_orders_path, title: t("pages.supply_orders")),
+      NavLink.new(path: edit_supply_order_path(@supply_order), title: t("pages.supply_order", id: @supply_order.id))
+    ]
+  } %>
+<% end %>
+
+<%= render "form", supply_order: @supply_order %>

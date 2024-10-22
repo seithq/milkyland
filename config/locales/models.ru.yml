@@ -99,6 +99,13 @@ ru:
           for_material_assets: "Склад ТМЦ"
           for_masters: "Склад мастеров"
           for_goods: "Склад ГП"
+      supply_order:
+        payment_statuses:
+          pending: "В ожидании"
+          paid: "Оплачено"
+        delivery_statuses:
+          delivering: "На доставке"
+          delivered: "Доставлено"
     attributes:
       user:
         name: ФИО
@@ -284,3 +291,9 @@ ru:
       storage:
         name: Название
         kind: Тип
+      supply_order:
+        material_asset_id: Номенклатура ТМЦ
+        amount: Количество
+        payment_date: Срок оплаты
+        payment_status: Статус оплаты
+        delivery_status: Статус доставки

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_20_170634) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_22_093249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -680,6 +680,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_20_170634) do
     t.index ["name"], name: "index_suppliers_on_name", unique: true
   end
 
+  create_table "supply_orders", force: :cascade do |t|
+    t.bigint "material_asset_id", null: false
+    t.decimal "amount", precision: 20, scale: 2
+    t.date "payment_date"
+    t.string "payment_status"
+    t.string "delivery_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["material_asset_id"], name: "index_supply_orders_on_material_asset_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email_address", null: false
@@ -766,4 +777,5 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_20_170634) do
   add_foreign_key "steps", "batches"
   add_foreign_key "steps", "operations"
   add_foreign_key "suppliers", "users", column: "manager_id"
+  add_foreign_key "supply_orders", "material_assets"
 end

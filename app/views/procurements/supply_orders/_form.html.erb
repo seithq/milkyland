@@ -1,0 +1,33 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= render "layouts/error_messages", resource: supply_order %>
+    <%= form_with model: supply_order, class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :material_asset_id, class: "form-label" %>
+        <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :display_label, supply_order.material_asset_id), { include_blank: true }, { required: true, class: "form-select" } %>
+      </div>
+
+      <div>
+        <%= form.label :amount, class: "form-label" %>
+        <%= form.number_field :amount, required: true, class: "form-input", step: ".1" %>
+      </div>
+
+      <div>
+        <%= form.label :payment_date, class: "form-label" %>
+        <%= form.date_field :payment_date, required: true, class: "form-input" %>
+      </div>
+
+      <div>
+        <%= form.label :payment_status, class: "form-label" %>
+        <%= form.select :payment_status, options_for_enum_select(SupplyOrder, :payment_status, supply_order.payment_status), { include_blank: true }, { required: true, class: "form-input" } %>
+      </div>
+
+      <div>
+        <%= form.label :delivery_status, class: "form-label" %>
+        <%= form.select :delivery_status, options_for_enum_select(SupplyOrder, :delivery_status, supply_order.delivery_status), { include_blank: true }, { required: true, class: "form-input" } %>
+      </div>
+
+      <%= form.submit t("actions.save_record"), class: "btn" %>
+    <% end %>
+  </div>
+</div>
