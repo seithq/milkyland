@@ -10,9 +10,9 @@
 
 <div class="px-4 sm:px-6 lg:px-8">
   <%= render "tab" %>
-  <div class="sm:mt-8 sm:flex sm:items-center">
+  <div class="sm:mt-8 sm:flex sm:items-end">
     <%= render "search" %>
-    <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+    <div class="mt-4 sm:ml-8 sm:mt-0 sm:flex-none">
       <%= link_to new_supply_order_path, class: "btn-create" do %>
         <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
         <%= t("actions.create_record") %>

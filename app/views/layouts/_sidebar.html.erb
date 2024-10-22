@@ -111,6 +111,14 @@
                 </ul>
               </li>
             <% end %>
+            <% if Current.user.can_supply? %>
+              <li>
+                <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.procurements") %></div>
+                <ul role="list" class="-mx-2 space-y-1">
+                  <%= nav_link supply_orders_path, t("pages.supply_orders"), "truck.svg" %>
+                </ul>
+              </li>
+            <% end %>
             <% if Current.user.can_administer? %>
               <li>
                 <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.settings") %></div>
@@ -176,6 +184,14 @@
               <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.warehouse") %></div>
               <ul role="list" class="-mx-2 space-y-1">
                 <%= nav_link storages_path, t("pages.storages"), "cube.svg" %>
+              </ul>
+            </li>
+          <% end %>
+          <% if Current.user.can_supply? %>
+            <li>
+              <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.procurements") %></div>
+              <ul role="list" class="-mx-2 space-y-1">
+                <%= nav_link supply_orders_path, t("pages.supply_orders"), "truck.svg" %>
               </ul>
             </li>
           <% end %>

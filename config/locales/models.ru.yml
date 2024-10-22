@@ -11,6 +11,7 @@ ru:
           operator: Оператор
           loader: Грузчик
           warehouser: Зав.склада
+          procurement_officer: Закупщик
       category:
         kinds:
           end_product: ГП

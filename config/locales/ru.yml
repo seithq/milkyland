@@ -63,6 +63,8 @@ ru:
     supply_operations: "Операции"
     supply_leftovers: "Остатки"
     supply_order: "Заказ #%{id}"
+    procurements: "Закупки"
+    boxes: "Коробки"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
