@@ -1,0 +1,50 @@
+<% content_for(:title) { t("pages.supply_operations") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: supply_operations_path, title: t("pages.supply_operations")),
+    ]
+  } %>
+<% end %>
+
+<div class="px-4 sm:px-6 lg:px-8">
+  <%= render "tab" %>
+  <div class="sm:mt-8 sm:flex sm:items-end">
+    <%= render "search" %>
+    <div class="mt-4 sm:ml-8 sm:mt-0 sm:flex-none">
+      <%= link_to new_supply_operation_path, class: "btn-create" do %>
+        <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
+        <%= t("actions.create_record") %>
+      <% end %>
+    </div>
+  </div>
+  <div class="-mx-4 mt-4 sm:mt-8 sm:-mx-0">
+    <div class="table border-collapse min-w-full divide-y divide-gray-300">
+      <div class="table-header-group">
+        <div class="table-row">
+          <div class="table-cell py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+            <%= t("tables.cols.id") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.kind") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.date") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.sender_storage") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.receiver_storage") %>
+          </div>
+          <div class="table-cell relative py-3.5 pl-3 pr-4 sm:pr-0"></div>
+        </div>
+      </div>
+      <div class="table-row-group border-collapse divide-y divide-gray-200 bg-white">
+        <%= render partial: "waybill", collection: @waybills, as: :waybill %>
+      </div>
+    </div>
+    <%== pagy_nav(@pagy) %>
+  </div>
+</div>

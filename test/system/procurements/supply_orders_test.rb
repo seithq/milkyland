@@ -22,7 +22,7 @@ class Procurements::SupplyOrdersTest < ApplicationSystemTestCase
     assert_text material_assets(:сardboard).display_label
   end
 
-  test "should update Supply order" do
+  test "should update SupplyHelper order" do
     visit supply_orders_url
     click_on I18n.t("actions.edit_record"), match: :first
 

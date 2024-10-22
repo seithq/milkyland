@@ -1,0 +1,17 @@
+one:
+  kind: MyString
+  storage: one
+  new_storage: one
+  sender: one
+  receiver: one
+  batch: one
+  comment: MyText
+
+two:
+  kind: MyString
+  storage: two
+  new_storage: two
+  sender: two
+  receiver: two
+  batch: two
+  comment: MyText

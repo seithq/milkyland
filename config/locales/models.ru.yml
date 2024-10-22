@@ -107,6 +107,14 @@ ru:
         delivery_statuses:
           delivering: "На доставке"
           delivered: "Доставлено"
+      waybill:
+        kinds:
+          arrival: "ПРИХОД"
+          departure: "РАСХОД"
+          transfer: "ПЕРЕМЕЩЕНИЕ"
+          write_off: "СПИСАНИЕ"
+          production_write_off: "АВТО СПИСАНИЕ"
+          return_back: "ВОЗВРАТ"
     attributes:
       user:
         name: ФИО
@@ -298,3 +306,8 @@ ru:
         payment_date: Срок оплаты
         payment_status: Статус оплаты
         delivery_status: Статус доставки
+      waybill:
+        kind: Тип
+        storage_id: Склад отправления
+        new_storage_id: Склад назначения
+        comment: Комментарий

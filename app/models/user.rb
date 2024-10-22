@@ -6,6 +6,9 @@ class User < ApplicationRecord
   has_many :clients, foreign_key: "manager_id", dependent: :destroy
   has_secure_password validations: false
 
+  has_many :out_waybills, class_name: "Waybill", foreign_key: "sender_id",   dependent: :nullify
+  has_many :in_waybills,  class_name: "Waybill", foreign_key: "receiver_id", dependent: :nullify
+
   validates :name, :email_address, presence: true, uniqueness: { case_sensitive: false }
 
   scope :active, -> { where(active: true) }

@@ -17,6 +17,8 @@ class Batch < ApplicationRecord
   has_one :distribution, dependent: :destroy
   has_many :distributed_products, through: :distribution, source: :products
 
+  has_many :waybills, -> { automatic }, dependent: :destroy
+
   enum :work_shift, %w[ daily night ].index_by(&:itself), default: :daily
 
   def progress

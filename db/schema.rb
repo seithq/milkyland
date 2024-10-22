@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_22_093249) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_22_151318) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -703,6 +703,24 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_22_093249) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
+  create_table "supply_operations", force: :cascade do |t|
+    t.string "kind"
+    t.bigint "storage_id"
+    t.bigint "new_storage_id"
+    t.bigint "sender_id"
+    t.bigint "receiver_id"
+    t.bigint "batch_id"
+    t.text "comment"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batch_id"], name: "index_waybills_on_batch_id"
+    t.index ["new_storage_id"], name: "index_waybills_on_new_storage_id"
+    t.index ["receiver_id"], name: "index_waybills_on_receiver_id"
+    t.index ["sender_id"], name: "index_waybills_on_sender_id"
+    t.index ["storage_id"], name: "index_waybills_on_storage_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "batches", "production_units"
@@ -778,4 +796,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_22_093249) do
   add_foreign_key "steps", "operations"
   add_foreign_key "suppliers", "users", column: "manager_id"
   add_foreign_key "supply_orders", "material_assets"
+  add_foreign_key "supply_operations", "batches"
+  add_foreign_key "supply_operations", "storages"
+  add_foreign_key "supply_operations", "storages", column: "new_storage_id"
+  add_foreign_key "supply_operations", "users", column: "receiver_id"
+  add_foreign_key "supply_operations", "users", column: "sender_id"
 end
