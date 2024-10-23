@@ -54,7 +54,9 @@
               </div>
             <% else %>
               <div class="sm:col-span-full">
-
+                <%= turbo_frame_tag dom_id(waybill, :leftovers), src: supply_operation_leftovers_path(waybill, readonly: !waybill.active?) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
               </div>
             <% end %>
           </div>

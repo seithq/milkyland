@@ -1,0 +1,24 @@
+<%= tag.div id: dom_id(leftover), class: "table-row hover:bg-gray-50" do %>
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <%= leftover.subject.article %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= leftover.subject.display_label %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= leftover.storage.name %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= number_with_delimiter leftover.count %>
+  </div>
+  <% unless @readonly %>
+    <div class="table-cell relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+      <div class="flex justify-end space-x-2">
+        <% if leftover.parent.blank? %>
+          <%= link_to t("actions.edit_record"), edit_supply_operation_leftover_path(@waybill, leftover), data: { turbo_frame: "_top" }, class: "edit_leftover text-indigo-600 hover:text-indigo-900" %>
+          <%= button_to t("actions.destroy_record"), supply_operation_leftover_path(@waybill, leftover), method: :delete, form: { data: { turbo_confirm: t("actions.confirm") }, class: "destroy_leftover text-red-600 hover:text-red-500" } %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

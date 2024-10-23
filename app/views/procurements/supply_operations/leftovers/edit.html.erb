@@ -1,0 +1,13 @@
+<% content_for(:title) { @leftover.subject.display_label } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: supply_operations_path, title: t("pages.supply_operations")),
+      NavLink.new(path: edit_supply_operation_path(@waybill), title: t("pages.supply_operation", id: @waybill.id)),
+      NavLink.new(path: edit_supply_operation_leftover_path(@waybill, @leftover), title: @leftover.subject.display_label)
+    ]
+  } %>
+<% end %>
+
+<%= render "form", leftover: @leftover %>

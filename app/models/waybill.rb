@@ -9,6 +9,8 @@ class Waybill < ApplicationRecord
 
   belongs_to :batch, optional: true
 
+  has_many :leftovers, dependent: :destroy
+
   enum :kind, %w[ arrival departure transfer write_off production_write_off return_back ].index_by(&:itself)
 
   validates_presence_of :storage_id, unless: ->() { arrival? }

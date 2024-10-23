@@ -201,6 +201,7 @@ ru:
       delivery_status: "Доставка"
       material_asset: "Номенклатура ТМЦ"
       amount: "Количество"
+      storage: "Склад"
       sender_storage: "Склад отправления"
       receiver_storage: "Склад назначения"
   forms:
