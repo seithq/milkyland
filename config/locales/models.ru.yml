@@ -312,3 +312,6 @@ ru:
         new_storage_id: Склад назначения
         comment: Комментарий
         active: Активная запись
+      leftover:
+        subject_id: Номенклатура
+        count: Количество

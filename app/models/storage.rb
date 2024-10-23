@@ -4,6 +4,8 @@ class Storage < ApplicationRecord
   has_many :out_waybills, class_name: "Waybill", foreign_key: "storage_id",     dependent: :nullify
   has_many :in_waybills,  class_name: "Waybill", foreign_key: "new_storage_id", dependent: :nullify
 
+  has_many :leftovers, dependent: :destroy
+
   enum :kind, %w[ for_material_assets for_masters for_goods ].index_by(&:itself), default: :for_goods
 
   scope :filter_by_name, ->(name) { where("LOWER(name) LIKE ?", like(name)) }

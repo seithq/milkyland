@@ -46,7 +46,9 @@
             </div>
             <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
               <div class="sm:col-span-full">
-
+                <%= turbo_frame_tag dom_id(@waybill, :leftovers), src: supply_operation_leftovers_path(@waybill, readonly: true) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
               </div>
             </div>
           </div>

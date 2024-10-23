@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_22_151318) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_23_110353) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -261,6 +261,21 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_22_151318) do
     t.integer "chain_order", default: 0
     t.index ["group_id", "name"], name: "index_journals_on_group_id_and_name", unique: true
     t.index ["group_id"], name: "index_journals_on_group_id"
+  end
+
+  create_table "leftovers", force: :cascade do |t|
+    t.bigint "waybill_id", null: false
+    t.bigint "storage_id", null: false
+    t.string "subject_type", null: false
+    t.bigint "subject_id", null: false
+    t.decimal "count", precision: 20, scale: 2
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_leftovers_on_parent_id"
+    t.index ["storage_id"], name: "index_leftovers_on_storage_id"
+    t.index ["subject_type", "subject_id"], name: "index_leftovers_on_subject"
+    t.index ["waybill_id"], name: "index_leftovers_on_waybill_id"
   end
 
   create_table "material_assets", force: :cascade do |t|
@@ -755,6 +770,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_22_151318) do
   add_foreign_key "ingredients", "groups"
   add_foreign_key "ingredients", "material_assets"
   add_foreign_key "journals", "groups"
+  add_foreign_key "leftovers", "leftovers", column: "parent_id"
+  add_foreign_key "leftovers", "storages"
+  add_foreign_key "leftovers", "waybills"
   add_foreign_key "material_assets", "categories"
   add_foreign_key "material_assets", "measurements"
   add_foreign_key "material_assets", "suppliers"

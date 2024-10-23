@@ -1,0 +1,28 @@
+assets_arrival_in:
+  waybill: assets_arrival
+  storage: material_assets
+  subject: sugar
+  subject_type: MaterialAsset
+  count: 1000
+
+assets_transfer_in:
+  waybill: assets_transfer
+  storage: material_assets_reserve
+  subject: sugar
+  subject_type: MaterialAsset
+  count: 500
+
+assets_transfer_out:
+  waybill: assets_transfer
+  storage: material_assets
+  subject: sugar
+  subject_type: MaterialAsset
+  count: -500
+  parent: assets_transfer_in
+
+assets_write_off_out:
+  waybill: assets_write_off
+  storage: material_assets_reserve
+  subject: sugar
+  subject_type: MaterialAsset
+  count: 100
