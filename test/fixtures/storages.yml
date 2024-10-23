@@ -9,3 +9,7 @@ masters:
 goods:
   name: Склад ГП
   kind: for_goods
+
+material_assets_reserve:
+  name: Резервный склад ТМЦ
+  kind: for_material_assets

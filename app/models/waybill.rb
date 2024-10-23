@@ -20,7 +20,11 @@ class Waybill < ApplicationRecord
   scope :filter_by_kind, ->(kind) { where(kind: kind) }
   scope :automatic, ->() { filter_by_kind(:production_write_off) }
 
-  scope :for_material_assets, ->() { joins(:storage).joins(:new_storage).where(storages: { kind: :for_material_assets }).or(where(new_storages_waybills: { kind: :for_material_assets })) }
+  scope :for_material_assets, ->() { left_joins(:storage).left_joins(:new_storage).where(storages: { kind: :for_material_assets }).or(where(new_storages_waybills: { kind: :for_material_assets })) }
+
+  def editable?
+    self.new_record? && self.active?
+  end
 
   private
     def storage_integrity

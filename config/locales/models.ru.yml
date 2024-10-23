@@ -311,3 +311,4 @@ ru:
         storage_id: Склад отправления
         new_storage_id: Склад назначения
         comment: Комментарий
+        active: Активная запись

@@ -42,8 +42,7 @@ class Procurements::SupplyOperationsController < ApplicationController
 
   private
     def base_scope
-      # Waybill.for_material_assets.recent_first
-      Waybill.recent_first
+      Waybill.for_material_assets.recent_first
     end
 
     def search_methods

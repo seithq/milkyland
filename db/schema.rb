@@ -703,7 +703,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_22_151318) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
-  create_table "supply_operations", force: :cascade do |t|
+  create_table "waybills", force: :cascade do |t|
     t.string "kind"
     t.bigint "storage_id"
     t.bigint "new_storage_id"
@@ -796,9 +796,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_22_151318) do
   add_foreign_key "steps", "operations"
   add_foreign_key "suppliers", "users", column: "manager_id"
   add_foreign_key "supply_orders", "material_assets"
-  add_foreign_key "supply_operations", "batches"
-  add_foreign_key "supply_operations", "storages"
-  add_foreign_key "supply_operations", "storages", column: "new_storage_id"
-  add_foreign_key "supply_operations", "users", column: "receiver_id"
-  add_foreign_key "supply_operations", "users", column: "sender_id"
+  add_foreign_key "waybills", "batches"
+  add_foreign_key "waybills", "storages"
+  add_foreign_key "waybills", "storages", column: "new_storage_id"
+  add_foreign_key "waybills", "users", column: "receiver_id"
+  add_foreign_key "waybills", "users", column: "sender_id"
 end

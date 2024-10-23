@@ -1,14 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+  static values = { kind: String }
   static targets = ["sender", "receiver"]
 
-  connect() {
-    this.setSelectorStates("arrival")
+  kindValueChanged() {
+    this.setSelectorStates(this.kindValue)
   }
 
   toggleSelectors(event) {
-    this.setSelectorStates(event.target.value)
+    this.kindValue = event.target.value
   }
 
   setSelectorStates(kind) {
@@ -23,6 +24,9 @@ export default class extends Controller {
         break
       case "write_off":
         [senderDisabled, receiverDisabled] = [false, true]
+        break
+      default:
+        [senderDisabled, receiverDisabled] = [true, true]
         break
     }
 

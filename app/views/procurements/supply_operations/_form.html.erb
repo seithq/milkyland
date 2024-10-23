@@ -1,7 +1,7 @@
 <div class="flex flex-col justify-center px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full">
     <%= render "layouts/error_messages", resource: waybill %>
-    <%= form_with model: waybill, url: supply_operation_url_for(waybill), data: { controller: "waybill" } do |form| %>
+    <%= form_with model: waybill, url: supply_operation_url_for(waybill), data: { controller: "waybill", waybill_kind_value: waybill.editable? ? waybill.kind : "" } do |form| %>
       <div class="space-y-12">
         <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
           <div>
@@ -12,23 +12,35 @@
 
             <div class="sm:col-span-4">
               <%= form.label :kind, class: "form-label" %>
-              <%= form.select :kind, options_for_enum_select(Waybill, :kind, waybill.kind, excluded_options: %i[ departure production_write_off return_back ]), { include_blank: true }, { disabled: !waybill.new_record?, required: true, data: { action: "waybill#toggleSelectors" }, class: "mt-2 form-select" } %>
+              <%= form.select :kind, options_for_enum_select(Waybill, :kind, waybill.kind, excluded_options: %i[ departure production_write_off return_back ]), { include_blank: true }, { disabled: !waybill.editable?, required: true, data: { action: "waybill#toggleSelectors" }, class: "mt-2 form-select" } %>
             </div>
 
             <div class="sm:col-span-4">
               <%= form.label :storage_id, class: "form-label" %>
-              <%= form.select :storage_id, options_from_collection_for_select(Storage.for_material_assets, :id, :name, waybill.storage_id), { include_blank: true }, { required: true, data: { waybill_target: "sender" }, class: "mt-2 form-select" } %>
+              <%= form.select :storage_id, options_from_collection_for_select(Storage.for_material_assets, :id, :name, waybill.storage_id), { include_blank: true }, { disabled: !waybill.editable?, required: true, data: { waybill_target: "sender" }, class: "mt-2 form-select" } %>
             </div>
 
             <div class="sm:col-span-4">
               <%= form.label :new_storage_id, class: "form-label" %>
-              <%= form.select :new_storage_id, options_from_collection_for_select(Storage.for_material_assets, :id, :name, waybill.new_storage_id), { include_blank: true }, { required: true, data: { waybill_target: "receiver" }, class: "mt-2 form-select" } %>
+              <%= form.select :new_storage_id, options_from_collection_for_select(Storage.for_material_assets, :id, :name, waybill.new_storage_id), { include_blank: true }, { disabled: !waybill.editable?, required: true, data: { waybill_target: "receiver" }, class: "mt-2 form-select" } %>
             </div>
 
             <div class="sm:col-span-4">
               <%= form.label :comment, class: "form-label" %>
               <%= form.text_area :comment, autocomplete: "comment", class: "mt-2 form-input" %>
             </div>
+
+            <% unless waybill.active? %>
+              <div class="sm:col-span-4 flex gap-x-3">
+                <div class="flex h-6 items-center">
+                  <%= form.check_box :active, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+                </div>
+                <div class="text-sm leading-6">
+                  <%= form.label :active, class: "font-medium text-gray-900" %>
+                  <p class="text-gray-500"><%= t("forms.inactive_field") %></p>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
@@ -36,7 +48,7 @@
             <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.nomenclature") %></h2>
           </div>
           <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-            <% if waybill.new_record? %>
+            <% if waybill.editable? %>
               <div class="sm:col-span-4">
                 <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
               </div>
@@ -49,6 +61,9 @@
         </div>
       </div>
       <div class="mt-6 flex items-center justify-end gap-x-6">
+        <% unless waybill.editable? %>
+          <%= link_to t("actions.destroy_record"), supply_operation_path(waybill), data: { turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" %>
+        <% end %>
         <%= form.submit t("actions.save_record"), class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
       </div>
     <% end %>
