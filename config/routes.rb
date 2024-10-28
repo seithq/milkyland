@@ -105,6 +105,7 @@ Rails.application.routes.draw do
     resources :storages, except: :destroy do
       scope module: "storages" do
         resources :subjects, only: :index
+        resources :waybills, only: :index
       end
     end
   end

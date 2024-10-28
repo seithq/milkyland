@@ -1,0 +1,17 @@
+<%= tag.div id: dom_id(waybill), class: "table-row hover:bg-gray-50" do %>
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <%= link_to waybill.id, root_path, class: "text-indigo-600" %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500 <%= "line-through text-red-500" unless waybill.active? %>">
+    <%= Waybill.enum_to_s :kind, waybill.kind %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= l waybill.created_at.to_date %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= waybill.storage&.name %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= waybill.new_storage&.name %>
+  </div>
+<% end %>
