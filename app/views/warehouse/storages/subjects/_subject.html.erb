@@ -1,0 +1,17 @@
+<%= tag.div id: dom_id(subject), class: "table-row hover:bg-gray-50" do %>
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <%= subject.article %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= subject.name %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= subject_category subject %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-900 font-medium">
+    <%= number_with_delimiter @storage.available_count subject %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= subject.measurement.unit %>
+  </div>
+<% end %>

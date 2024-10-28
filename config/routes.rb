@@ -102,7 +102,11 @@ Rails.application.routes.draw do
   end
 
   scope module: "warehouse" do
-    resources :storages, except: :destroy
+    resources :storages, except: :destroy do
+      scope module: "storages" do
+        resources :subjects, only: :index
+      end
+    end
   end
 
   scope module: "settings" do

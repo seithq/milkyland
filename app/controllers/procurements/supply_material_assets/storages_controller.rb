@@ -1,8 +1,6 @@
 module Procurements
   class SupplyMaterialAssets::StoragesController < ApplicationController
-    include MaterialAssetScoped, ReadModes
-
-    before_action :set_read_mode, only: :index
+    include MaterialAssetScoped
 
     def index
       @storages = base_scope
@@ -11,10 +9,6 @@ module Procurements
     private
       def base_scope
         @material_asset.storages.uniq
-      end
-
-      def search_methods
-        []
       end
   end
 end

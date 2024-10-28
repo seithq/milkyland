@@ -66,7 +66,7 @@
             </div>
             <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
               <div class="sm:col-span-full">
-                <%= turbo_frame_tag dom_id(@material_asset, :storages), src: supply_material_asset_storages_path(@material_asset, readonly: true) do %>
+                <%= turbo_frame_tag dom_id(@material_asset, :storages), src: supply_material_asset_storages_path(@material_asset) do %>
                   <%= inline_svg_tag "spinner.svg" %>
                 <% end %>
               </div>
