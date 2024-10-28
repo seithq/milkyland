@@ -94,7 +94,11 @@ Rails.application.routes.draw do
         resources :leftovers, except: :show
       end
     end
-    resources :supply_material_assets, only: %i[ index show ]
+    resources :supply_material_assets, only: %i[ index show ] do
+      scope module: "supply_material_assets" do
+        resources :storages, only: :index
+      end
+    end
   end
 
   scope module: "warehouse" do

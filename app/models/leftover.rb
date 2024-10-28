@@ -17,6 +17,8 @@ class Leftover < ApplicationRecord
   scope :positive, ->() { where("count > 0") }
   scope :negative, ->() { where("count < 0") }
 
+  scope :filter_by_subject, ->(subject) { where(subject: subject) }
+
   private
     def set_storage
       self.storage = %w[ arrival transfer return_back ].include?(waybill.kind) ? waybill.new_storage : waybill.storage

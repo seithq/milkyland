@@ -12,4 +12,8 @@ class Storage < ApplicationRecord
   scope :filter_by_kind, ->(kind) { where(kind: kind) }
 
   scope :for_material_assets, ->() { filter_by_kind(:for_material_assets) }
+
+  def available_count(subject)
+    leftovers.filter_by_subject(subject).sum(:count)
+  end
 end
