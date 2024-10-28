@@ -204,6 +204,7 @@ ru:
       storage: "Склад"
       sender_storage: "Склад отправления"
       receiver_storage: "Склад назначения"
+      leftover: "Остаток"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -251,3 +252,5 @@ ru:
     boxes_to_print: "QR коробок, готовых к применению."
     pallets_to_print: "QR паллет, готовых к применению."
     nomenclature: "Номенклатура"
+    leftovers: "Остаток"
+    supply_operations: "Операции"

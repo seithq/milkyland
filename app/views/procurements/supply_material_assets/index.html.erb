@@ -1,0 +1,44 @@
+<% content_for(:title) { t("pages.supply_leftovers") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: supply_material_assets_path, title: t("pages.supply_leftovers")),
+    ]
+  } %>
+<% end %>
+
+<div class="px-4 sm:px-6 lg:px-8">
+  <%= render "tab" %>
+  <div class="sm:mt-8 sm:flex sm:items-end">
+    <%= render "search" %>
+  </div>
+  <div class="-mx-4 mt-4 sm:mt-8 sm:-mx-0">
+    <div class="table border-collapse min-w-full divide-y divide-gray-300">
+      <div class="table-header-group">
+        <div class="table-row">
+          <div class="table-cell py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+            <%= t("tables.cols.article") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.title") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.supplier") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.leftover") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.measurement") %>
+          </div>
+          <div class="table-cell relative py-3.5 pl-3 pr-4 sm:pr-0"></div>
+        </div>
+      </div>
+      <div class="table-row-group border-collapse divide-y divide-gray-200 bg-white">
+        <%= render partial: "supply_material_asset", collection: @material_assets, as: :material_asset %>
+      </div>
+    </div>
+    <%== pagy_nav(@pagy) %>
+  </div>
+</div>
