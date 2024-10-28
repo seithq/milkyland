@@ -1,6 +1,6 @@
 module Procurements
   class SupplyOperations::LeftoversController < ApplicationController
-    include WaybillScoped, ReadModes
+    include SupplyOperationScoped, ReadModes
 
     before_action :set_leftover, only: %i[ edit update destroy ]
     before_action :set_read_mode, only: :index

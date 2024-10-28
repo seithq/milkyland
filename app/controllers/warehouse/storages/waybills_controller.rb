@@ -7,8 +7,8 @@ module Warehouse
     end
 
     private
-    def base_scope
-      Waybill.filter_by_storage(@storage).recent_first
-    end
+      def base_scope
+        Waybill.filter_by_both_storage(@storage).recent_first
+      end
   end
 end

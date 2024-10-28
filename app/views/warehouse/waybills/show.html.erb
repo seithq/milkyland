@@ -1,0 +1,59 @@
+<% content_for(:title) { t("pages.waybill", id: @waybill.id) } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: waybills_path, title: t("pages.waybills")),
+      NavLink.new(path: waybill_path(@waybill), title: t("pages.waybill", id: @waybill.id))
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= fields_for @waybill do |form| %>
+      <div>
+        <div class="space-y-12">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :kind, class: "form-label" %>
+                <%= form.select :kind, options_for_enum_select(Waybill, :kind, @waybill.kind, excluded_options: %i[ departure production_write_off return_back ]), {}, { disabled: true, class: "mt-2 form-select" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :storage_id, class: "form-label" %>
+                <%= form.select :storage_id, options_from_collection_for_select(Storage.for_material_assets, :id, :name, @waybill.storage_id), {}, { disabled: true, class: "mt-2 form-input" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :new_storage_id, class: "form-label" %>
+                <%= form.select :new_storage_id, options_from_collection_for_select(Storage.for_material_assets, :id, :name, @waybill.new_storage_id), {}, { disabled: true, class: "mt-2 form-input" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :comment, class: "form-label" %>
+                <%= form.text_area :comment, disabled: true, class: "mt-2 form-input" %>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.nomenclature") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-full">
+                <%= turbo_frame_tag dom_id(@waybill, :leftovers), src: waybill_leftovers_path(@waybill) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

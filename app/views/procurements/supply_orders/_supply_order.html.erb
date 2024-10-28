@@ -6,10 +6,13 @@
     <%= l supply_order.created_at.to_date %>
   </div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500">
-    <%= supply_order.material_asset.display_label %>
+    <%= supply_order.material_asset.name %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-900 font-medium">
+    <%= number_with_delimiter supply_order.amount %>
   </div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500">
-    <%= number_with_delimiter supply_order.amount %>
+    <%= supply_order.material_asset.measurement.unit %>
   </div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500">
     <%= supply_order.material_asset.supplier.name %>

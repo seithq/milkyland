@@ -24,7 +24,10 @@ class Waybill < ApplicationRecord
 
   scope :for_material_assets, ->() { left_joins(:storage).left_joins(:new_storage).where(storages: { kind: :for_material_assets }).or(where(new_storages_waybills: { kind: :for_material_assets })) }
 
-  scope :filter_by_storage, ->(storage_id) { where(storage_id: storage_id).or(where(new_storage_id: storage_id)) }
+  scope :filter_by_both_storage, ->(storage_id) { where(storage_id: storage_id).or(where(new_storage_id: storage_id)) }
+
+  scope :filter_by_storage, ->(storage_id) { where(storage_id: storage_id) }
+  scope :filter_by_new_storage, ->(storage_id) { where(new_storage_id: storage_id) }
 
   def editable?
     self.new_record? && self.active?

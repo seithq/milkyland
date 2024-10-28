@@ -1,4 +1,4 @@
-module WaybillScoped
+module SupplyOperationScoped
   extend ActiveSupport::Concern
 
   included do
@@ -7,6 +7,6 @@ module WaybillScoped
 
   private
     def set_waybill
-      @waybill = Waybill.find(params[:waybill_id])
+      @waybill = Waybill.find(params[:supply_operation_id])
     end
 end

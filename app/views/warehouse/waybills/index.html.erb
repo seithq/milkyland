@@ -1,9 +1,9 @@
-<% content_for(:title) { t("pages.supply_orders") } %>
+<% content_for(:title) { t("pages.waybills") } %>
 
 <% content_for :breadcrumb do %>
   <%= render "layouts/breadcrumb", {
     nav_links: [
-      NavLink.new(path: supply_orders_path, title: t("pages.supply_orders")),
+      NavLink.new(path: waybills_path, title: t("pages.waybills")),
     ]
   } %>
 <% end %>
@@ -12,12 +12,6 @@
   <%= render "tab" %>
   <div class="sm:mt-8 sm:flex sm:items-end">
     <%= render "search" %>
-    <div class="mt-4 sm:ml-8 sm:mt-0 sm:flex-none">
-      <%= link_to new_supply_order_path, class: "btn-create" do %>
-        <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
-        <%= t("actions.create_record") %>
-      <% end %>
-    </div>
   </div>
   <div class="-mx-4 mt-4 sm:mt-8 sm:-mx-0">
     <div class="table border-collapse min-w-full divide-y divide-gray-300">
@@ -27,34 +21,22 @@
             <%= t("tables.cols.id") %>
           </div>
           <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= t("tables.cols.kind") %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
             <%= t("tables.cols.date") %>
           </div>
           <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-            <%= t("tables.cols.material_asset") %>
+            <%= t("tables.cols.sender_storage") %>
           </div>
           <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-            <%= t("tables.cols.amount") %>
-          </div>
-          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-            <%= t("tables.cols.measurement") %>
-          </div>
-          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-            <%= t("tables.cols.supplier") %>
-          </div>
-          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-            <%= t("tables.cols.payment_date") %>
-          </div>
-          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-            <%= t("tables.cols.payment_status") %>
-          </div>
-          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-            <%= t("tables.cols.delivery_status") %>
+            <%= t("tables.cols.receiver_storage") %>
           </div>
           <div class="table-cell relative py-3.5 pl-3 pr-4 sm:pr-0"></div>
         </div>
       </div>
       <div class="table-row-group border-collapse divide-y divide-gray-200 bg-white">
-        <%= render @supply_orders %>
+        <%= render @waybills %>
       </div>
     </div>
     <%== pagy_nav(@pagy) %>

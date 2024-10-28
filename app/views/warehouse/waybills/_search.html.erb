@@ -1,0 +1,23 @@
+<div class="mt-2 sm:mt-0 sm:flex-auto">
+  <%= form_tag waybills_path, data: {}, method: :get do %>
+    <div class="grid grid-cols-4 rounded-md gap-2">
+      <div class="col-span-full lg:col-span-2 grid grid-cols-2 gap-1">
+        <%= date_field :search, :start_date, class: "form-input" %>
+        <%= date_field :search, :end_date, class: "form-input" %>
+      </div>
+      <div class="col-span-full lg:col-span-2 grid grid-cols-2 gap-1">
+        <%= select :search, :storage, options_from_collection_for_select(Storage.all, :id, :name), { include_blank: t("tables.cols.sender_storage") }, { class: "form-select" } %>
+        <%= select :search, :new_storage, options_from_collection_for_select(Storage.all, :id, :name), { include_blank: t("tables.cols.receiver_storage") }, { class: "form-select" } %>
+      </div>
+      <div class="col-span-full lg:col-span-2 relative flex flex-grow items-stretch focus-within:z-10">
+        <%= search_enum_selector Waybill, :kind, "form-select rounded-none rounded-l-md", t("tables.cols.kind"), excluded_options: %i[ departure production_write_off return_back ] %>
+        <%= link_to waybills_path, class: "relative -ml-px inline-flex items-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+          <%= inline_svg_tag "refresh.svg", class: "-ml-0.5 h-5 w-5 text-gray-400" %>
+        <% end %>
+        <%= button_tag type: "submit", class: "relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+          <%= inline_svg_tag "search.svg", class: "-ml-0.5 h-5 w-5 text-gray-400" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

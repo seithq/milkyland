@@ -1,0 +1,21 @@
+<div class="table-row">
+  <div class="table-cell w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
+    <%= link_to waybill.id, waybill_path(waybill), class: "text-indigo-600" %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500 <%= "line-through text-red-500" unless waybill.active? %>">
+    <%= Waybill.enum_to_s :kind, waybill.kind %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500">
+    <%= l waybill.created_at.to_date %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500">
+    <%= link_to waybill.storage.name, storage_path(waybill.storage), class: "text-indigo-600", target: "_blank" if waybill.storage.present? %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500">
+    <%= link_to waybill.new_storage.name, storage_path(waybill.new_storage), class: "text-indigo-600", target: "_blank" if waybill.new_storage.present? %>
+  </div>
+  <div class="table-cell py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+    <%= link_to t("actions.show_record"), waybill_path(waybill), class: "text-indigo-600 hover:text-indigo-900" %>
+  </div>
+</div>
+

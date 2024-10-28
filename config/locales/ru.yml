@@ -59,6 +59,8 @@ ru:
     pallets: "Палеты"
     warehouse: "Управление остатками"
     storages: "Склады"
+    waybills: "Операции"
+    waybill: "Операция #%{id}"
     supply_orders: "Заказы ТМЦ"
     supply_operations: "Операции"
     supply_operation: "Операция #%{id}"

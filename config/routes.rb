@@ -108,6 +108,11 @@ Rails.application.routes.draw do
         resources :waybills, only: :index
       end
     end
+    resources :waybills, only: %i[ index show ] do
+      scope module: "waybills" do
+        resources :leftovers, only: :index
+      end
+    end
   end
 
   scope module: "settings" do
