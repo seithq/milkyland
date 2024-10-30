@@ -22,7 +22,8 @@ module Production::Plans
         post production_plan_unit_batches_url(@plan, @production_unit), params: { batch: { loader_id: users(:loader).id,
                                                                                            machiner_id: users(:machiner).id,
                                                                                            operator_id: users(:operator).id,
-                                                                                           tester_id: users(:tester).id } }
+                                                                                           tester_id: users(:tester).id,
+                                                                                           storage_id: storages(:material_assets).id } }
       end
 
       assert_redirected_to production_plan_unit_url(@plan, @production_unit)

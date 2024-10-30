@@ -2,7 +2,7 @@ class Batch < ApplicationRecord
   include Progressable
 
   belongs_to :production_unit
-  has_many :groups, through: :production_unit
+  has_one :group, through: :production_unit
 
   belongs_to :machiner, -> { User.filter_by_role(:machiner) }, class_name: "User", foreign_key: "machiner_id"
   belongs_to :tester,   -> { User.filter_by_role(:tester) },   class_name: "User", foreign_key: "tester_id"
@@ -18,6 +18,8 @@ class Batch < ApplicationRecord
 
   has_one :distribution, dependent: :destroy
   has_many :distributed_products, through: :distribution, source: :products
+  has_many :generations, through: :distributed_products
+  has_many :box_requests, through: :generations
 
   has_many :waybills, -> { automatic }, dependent: :destroy
 
@@ -44,7 +46,7 @@ class Batch < ApplicationRecord
   end
 
   def produced_tonnage
-    scope = self.packaged_products.filter_by_group(groups.pluck(:id))
+    scope = self.packaged_products.filter_by_group(self.group.id)
     total = scope.sum("packaged_products.count * products.packing")
     total > 0.0 ? scope.first.product.measurement.to_tonnage_ratio(total) : 0.0
   end
