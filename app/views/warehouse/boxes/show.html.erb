@@ -1,0 +1,10 @@
+<% content_for(:title) { @box.code } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: boxes_path, title: t("pages.boxes")),
+      NavLink.new(path: box_path(@box), title: @box.code)
+    ]
+  } %>
+<% end %>

@@ -113,6 +113,7 @@ Rails.application.routes.draw do
         resources :leftovers, only: :index
       end
     end
+    resources :boxes, only: %i[ index show ]
   end
 
   scope module: "settings" do

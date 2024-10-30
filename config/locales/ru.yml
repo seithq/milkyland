@@ -90,6 +90,7 @@ ru:
     search_by_id_or_client_or_sales_point: "Поиск по номеру, клиенту или точке продаж"
     search_by_start_date: "Дата от"
     search_by_end_date: "Дата до"
+    search_by_code: "Поиск по коду"
     have_account: "Есть аккаунт?"
     remove_account: "Удалить аккаунт?"
     confirm: "Подтвердить действие?"
