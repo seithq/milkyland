@@ -19,7 +19,7 @@
 
       <div>
         <%= form.label :password, class: "form-label" %>
-        <%= form.password_field :password, autocomplete: "new-password", maxlength: 72, class: "form-input" %>
+        <%= form.password_field :password, required: user.new_record?, autocomplete: "new-password", maxlength: 72, class: "form-input" %>
       </div>
 
       <% if !user.new_record? && !user.active? %>

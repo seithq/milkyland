@@ -1,4 +1,6 @@
 class Pallet < ApplicationRecord
+  include Codable
+
   belongs_to :pallet_request, optional: true
 
   has_one_attached :qr_image, dependent: :purge_later

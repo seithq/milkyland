@@ -258,3 +258,5 @@ ru:
     leftovers: "Остаток"
     supply_operations: "Операции"
     waybills: "Операции"
+    box_request: "Распределение QR"
+    qr: "QR"

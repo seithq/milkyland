@@ -1,17 +1,17 @@
-<% content_for(:title) { @box.code } %>
+<% content_for(:title) { @pallet.code } %>
 
 <% content_for :breadcrumb do %>
   <%= render "layouts/breadcrumb", {
     nav_links: [
-      NavLink.new(path: boxes_path, title: t("pages.boxes")),
-      NavLink.new(path: box_path(@box), title: @box.code)
+      NavLink.new(path: pallets_path, title: t("pages.pallets")),
+      NavLink.new(path: pallet_path(@pallet), title: @pallet.code)
     ]
   } %>
 <% end %>
 
 <div class="flex flex-col justify-center px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full">
-    <%= fields_for @box do |form| %>
+    <%= fields_for @pallet do |form| %>
       <div>
         <div class="space-y-12">
           <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
@@ -23,25 +23,9 @@
                 <%= form.label :code, class: "form-label" %>
                 <div class="flex items-end space-x-2">
                   <%= form.text_field :code, disabled: true, class: "mt-2 form-input" %>
-                  <%= render "shared/qr_dialog", qr_text: @box.code %>
+                  <%= render "shared/qr_dialog", qr_text: @pallet.code %>
                 </div>
               </div>
-
-              <div class="sm:col-span-4">
-                <%= form.label :region_id, class: "form-label" %>
-                <%= form.select :region_id, options_from_collection_for_select(Region.ordered, :id, :name, @box.region_id), {}, { disabled: true, class: "mt-2 form-input" } %>
-              </div>
-
-              <div class="sm:col-span-4">
-                <%= form.label :product_id, class: "form-label" %>
-                <%= form.select :product_id, options_from_collection_for_select(Product.all, :id, :name, @box.product_id), {}, { disabled: true, class: "mt-2 form-input" } %>
-              </div>
-
-              <div class="sm:col-span-4">
-                <%= form.label :capacity, class: "form-label" %>
-                <%= form.number_field :capacity, disabled: true, class: "mt-2 form-input" %>
-              </div>
-
               <div class="sm:col-span-4">
                 <%= form.label :scanned_at, class: "form-label" %>
                 <%= form.datetime_field :scanned_at, disabled: true, class: "mt-2 form-input" %>
@@ -53,9 +37,9 @@
               <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.box_request") %></h2>
             </div>
             <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-              <%= fields_for @box.box_request do %>
-                <%= fields_for @box.box_request.generation do |gen_form| %>
-                  <%= fields_for @box.box_request.generation.distributed_product.distribution.batch do |batch_form| %>
+              <%= fields_for @pallet.pallet_request do %>
+                <%= fields_for @pallet.pallet_request.generation do |gen_form| %>
+                  <%= fields_for @pallet.pallet_request.generation.distributed_product.distribution.batch do |batch_form| %>
                     <div class="sm:col-span-4">
                       <%= batch_form.label :id, class: "form-label" %>
                       <%= batch_form.text_field :id, disabled: true, class: "mt-2 form-input" %>
@@ -63,13 +47,7 @@
                   <% end %>
                   <div class="sm:col-span-4">
                     <%= gen_form.label :status, class: "form-label" %>
-                    <%= gen_form.select :status, options_for_enum_select(Generation, :status, @box.box_request.generation.status), {}, { disabled: true, class: "mt-2 form-select" } %>
-                  </div>
-                <% end %>
-                <%= fields_for @box.box_request.box_packaging do |pck_form| %>
-                  <div class="sm:col-span-4">
-                    <%= pck_form.label :material_asset_id, class: "form-label" %>
-                    <%= pck_form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.packings, :id, :name, @box.box_request.box_packaging.material_asset_id), {}, { disabled: true, class: "mt-2 form-input" } %>
+                    <%= gen_form.select :status, options_for_enum_select(Generation, :status, @pallet.pallet_request.generation.status), {}, { disabled: true, class: "mt-2 form-select" } %>
                   </div>
                 <% end %>
               <% end %>

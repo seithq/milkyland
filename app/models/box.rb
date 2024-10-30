@@ -1,4 +1,6 @@
 class Box < ApplicationRecord
+  include Codable
+
   belongs_to :region
   belongs_to :product
   belongs_to :box_request, optional: true
@@ -14,7 +16,6 @@ class Box < ApplicationRecord
   broadcasts_refreshes_to ->(box) { box.box_request.generation }
 
   scope :filter_by_region, ->(region_id) { where(region_id: region_id) }
-  scope :filter_by_code, ->(code) { where("LOWER(code) LIKE ?", like(code)) }
 
   def scan!(time: Time.zone.now)
     update! scanned_at: time

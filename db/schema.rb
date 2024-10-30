@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_23_110353) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_30_085559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -70,10 +70,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_23_110353) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "work_shift", default: "daily"
+    t.bigint "storage_id", null: false
     t.index ["loader_id"], name: "index_batches_on_loader_id"
     t.index ["machiner_id"], name: "index_batches_on_machiner_id"
     t.index ["operator_id"], name: "index_batches_on_operator_id"
     t.index ["production_unit_id"], name: "index_batches_on_production_unit_id"
+    t.index ["storage_id"], name: "index_batches_on_storage_id"
     t.index ["tester_id"], name: "index_batches_on_tester_id"
   end
 
@@ -739,6 +741,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_23_110353) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "batches", "production_units"
+  add_foreign_key "batches", "storages"
   add_foreign_key "batches", "users", column: "loader_id"
   add_foreign_key "batches", "users", column: "machiner_id"
   add_foreign_key "batches", "users", column: "operator_id"

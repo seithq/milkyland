@@ -269,12 +269,14 @@ ru:
       production_unit:
         comment: Комментарий
       batch:
+        id: Номер партии
         machiner_id: Аппаратчик
         tester_id: Лаборант
         operator_id: Оператор
         loader_id: Грузчик
         comment: Комментарий
         work_shift: Рабочая смена
+        storage_id: Склад списания ТМЦ
       step:
         comment: Комментарий
       metric:
@@ -315,3 +317,14 @@ ru:
       leftover:
         subject_id: Номенклатура
         count: Количество
+      box:
+        code: Код
+        region_id: Регион
+        product_id: Продукт
+        capacity: Кол-во в коробке
+        scanned_at: Время сканирования
+      generation:
+        status: Статус
+      pallet:
+        code: Код
+        scanned_at: Время сканирования

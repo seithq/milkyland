@@ -9,6 +9,8 @@ class Batch < ApplicationRecord
   belongs_to :operator, -> { User.filter_by_role(:operator) }, class_name: "User", foreign_key: "operator_id"
   belongs_to :loader,   -> { User.filter_by_role(:loader) },   class_name: "User", foreign_key: "loader_id"
 
+  belongs_to :storage, -> { for_material_assets }
+
   has_many :steps, dependent: :destroy
 
   has_one :packing, dependent: :destroy
