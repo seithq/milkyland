@@ -1,5 +1,6 @@
 <% unit = ingredient.material_asset.measurement.unit %>
 <% required_count  = ingredient.ratio * @production_unit.tonnage %>
+<% produced_count  = ingredient.ratio * @production_unit.produced_tonnage %>
 <% available_count = ingredient.material_asset.available_count %>
 <% not_enough = required_count > available_count %>
 
@@ -9,6 +10,9 @@
   </td>
   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
     <%= t("forms.measurement", value: number_with_delimiter(required_count), unit: unit) %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= t("forms.measurement", value: number_with_delimiter(produced_count), unit: unit) %>
   </td>
   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 <%= "text-red-600 font-semibold" if not_enough %>">
     <%= t("forms.measurement", value: number_with_delimiter(available_count), unit: unit) %>

@@ -30,7 +30,7 @@ module Production::Plans
 
     def update
       if @batch.update(batch_params)
-        # TODO: batch automatic write_off
+        WriteOffMaterialAssetsJob.perform_later @batch.id if @batch.step_completed?
         redirect_on_update production_plan_unit_batch_url(@plan, @production_unit, @batch)
       else
         render :edit, status: :unprocessable_entity

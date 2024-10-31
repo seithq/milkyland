@@ -23,7 +23,7 @@ class ProductionUnit < ApplicationRecord
   end
 
   def produced_tonnage
-    scope = self.packaged_products.filter_by_group(self.group_id)
+    scope = self.packaged_products.approved.filter_by_group(self.group_id)
     total = scope.sum("packaged_products.count * products.packing")
     total > 0.0 ? scope.first.product.measurement.to_tonnage_ratio(total) : 0.0
   end

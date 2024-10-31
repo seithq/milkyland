@@ -22,7 +22,7 @@ class Leftover < ApplicationRecord
   private
     def set_storage
       self.storage = %w[ arrival transfer return_back ].include?(waybill.kind) ? waybill.new_storage : waybill.storage
-      self.count   *= -1.0 if %w[ departure write_off ].include?(waybill.kind)
+      self.count   *= -1.0 if %w[ departure write_off production_write_off ].include?(waybill.kind)
     end
 
     def create_child_leftover

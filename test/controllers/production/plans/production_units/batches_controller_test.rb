@@ -2,6 +2,8 @@ require "test_helper"
 
 module Production::Plans
   class ProductionUnits::BatchesControllerTest < ActionDispatch::IntegrationTest
+    include ActiveJob::TestHelper
+
     setup do
       sample_generation
       sign_in :daniyar
@@ -40,7 +42,9 @@ module Production::Plans
     end
 
     test "should update batch" do
-      patch production_plan_unit_batch_url(@plan, @production_unit, @batch), params: { batch: { comment: "Testing", status: :cancelled } }
+      assert_enqueued_jobs 1, only: WriteOffMaterialAssetsJob do
+        patch production_plan_unit_batch_url(@plan, @production_unit, @batch), params: { batch: { comment: "Testing", status: :cancelled } }
+      end
       assert_redirected_to production_plan_unit_batch_url(@plan, @production_unit, @batch)
     end
   end
