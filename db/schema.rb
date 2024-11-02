@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_30_085559) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_01_144037) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -278,6 +278,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_30_085559) do
     t.index ["storage_id"], name: "index_leftovers_on_storage_id"
     t.index ["subject_type", "subject_id"], name: "index_leftovers_on_subject"
     t.index ["waybill_id"], name: "index_leftovers_on_waybill_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "storable_type", null: false
+    t.bigint "storable_id", null: false
+    t.string "positionable_type", null: false
+    t.bigint "positionable_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["positionable_type", "positionable_id"], name: "index_locations_on_positionable"
+    t.index ["storable_type", "storable_id"], name: "index_locations_on_storable"
   end
 
   create_table "material_assets", force: :cascade do |t|

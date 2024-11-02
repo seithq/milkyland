@@ -1,19 +1,17 @@
 class Pallet < ApplicationRecord
-  include Codable
+  include Codable, Scannable, Locatable
 
   belongs_to :pallet_request, optional: true
 
   has_one_attached :qr_image, dependent: :purge_later
 
+  has_many :boxes, through: :elements, source: :storable, source_type: "Box"
+
   before_validation :assign_code, on: :create
 
   validates_uniqueness_of :code
 
-  broadcasts_refreshes_to ->(pallet) { pallet.pallet_request.generation }
-
-  def scan!(time: Time.zone.now)
-    update! scanned_at: time
-  end
+  broadcasts_refreshes_to ->(pallet) { pallet.pallet_request.present? ? pallet.pallet_request.generation : "" }
 
   private
     def assign_code

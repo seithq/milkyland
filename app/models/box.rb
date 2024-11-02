@@ -1,5 +1,5 @@
 class Box < ApplicationRecord
-  include Codable
+  include Codable, Scannable, Locatable
 
   belongs_to :region
   belongs_to :product
@@ -7,19 +7,17 @@ class Box < ApplicationRecord
 
   has_one_attached :qr_image, dependent: :purge_later
 
+  has_many :pallets, through: :locations, source: :positionable, source_type: "Pallet"
+
   before_validation :assign_code, on: :create
 
   validates_uniqueness_of :code
   validates_presence_of :production_date, :expiration_date
   validates :capacity, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
-  broadcasts_refreshes_to ->(box) { box.box_request.generation }
+  broadcasts_refreshes_to ->(box) { box.box_request.present? ? box.box_request.generation : ""  }
 
   scope :filter_by_region, ->(region_id) { where(region_id: region_id) }
-
-  def scan!(time: Time.zone.now)
-    update! scanned_at: time
-  end
 
   private
     def assign_code

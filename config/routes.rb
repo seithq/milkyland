@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :locations
   root to: "home#index"
 
   resource :first_run, only: %i[ show create ]
