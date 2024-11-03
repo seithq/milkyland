@@ -10,8 +10,8 @@ module Locatable
 
     def locate_to(position)
       transaction do
-        location = Location.create!(storable: self, positionable: position)
-        locations.where.not(id: location.id).each { |location| location.deactivate }
+        locations.update_all(active: false)
+        Location.create!(storable: self, positionable: position)
       end
     end
   end
