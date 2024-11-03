@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_01_144037) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_03_143915) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -748,6 +748,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_01_144037) do
     t.index ["receiver_id"], name: "index_waybills_on_receiver_id"
     t.index ["sender_id"], name: "index_waybills_on_sender_id"
     t.index ["storage_id"], name: "index_waybills_on_storage_id"
+  end
+
+  create_table "zones", force: :cascade do |t|
+    t.string "code"
+    t.string "kind"
+    t.string "display_index"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_zones_on_code", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

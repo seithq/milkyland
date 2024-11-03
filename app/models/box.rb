@@ -9,8 +9,6 @@ class Box < ApplicationRecord
 
   has_many :pallets, through: :locations, source: :positionable, source_type: "Pallet"
 
-  before_validation :assign_code, on: :create
-
   validates_uniqueness_of :code
   validates_presence_of :production_date, :expiration_date
   validates :capacity, presence: true, numericality: { only_integer: true, greater_than: 0 }
@@ -20,16 +18,9 @@ class Box < ApplicationRecord
   scope :filter_by_region, ->(region_id) { where(region_id: region_id) }
 
   private
-    def assign_code
-      self.code = loop do
-        new_code = generate_code
-        break new_code unless Box.find_by(code: new_code)
-      end
-    end
-
     def generate_code
       parts = [
-        "BOX",
+        "B",
         region.code,
         product.article,
         capacity,

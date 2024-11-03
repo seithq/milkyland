@@ -68,6 +68,8 @@ ru:
     supply_order: "Заказ #%{id}"
     procurements: "Закупки"
     boxes: "Коробки"
+    zones: "Зоны"
+    zone: "Зона %{index}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -260,3 +262,5 @@ ru:
     waybills: "Операции"
     box_request: "Распределение QR"
     qr: "QR"
+    zones: "Зоны"
+    lines: "Ряды / Линии"

@@ -1,4 +1,6 @@
 class Storage < ApplicationRecord
+  include Locatable
+
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   has_many :out_waybills, class_name: "Waybill", foreign_key: "storage_id",     dependent: :nullify
@@ -10,6 +12,8 @@ class Storage < ApplicationRecord
   has_many :material_assets, through: :leftovers, source: :subject, source_type: "MaterialAsset"
 
   has_many :batches, dependent: :destroy
+
+  has_many :zones, -> { ordered }, through: :elements, source: :storable, source_type: "Zone"
 
   enum :kind, %w[ for_material_assets for_masters for_goods ].index_by(&:itself), default: :for_goods
 

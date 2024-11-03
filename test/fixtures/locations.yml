@@ -1,1 +1,3 @@
-# Keep empty
+goods_zone_location:
+  storable: goods_zone (Zone)
+  positionable: goods (Storage)

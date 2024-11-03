@@ -1,0 +1,13 @@
+<% content_for(:title) { t("pages.zones") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: storages_path, title: t("pages.storages")),
+      NavLink.new(path: edit_storage_path(@storage), title: @storage.name),
+      NavLink.new(path: new_storage_zone_path(@storage), title: t("pages.zones"))
+    ]
+  } %>
+<% end %>
+
+<%= render "form", zone: @zone %>

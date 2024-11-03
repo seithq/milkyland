@@ -1,0 +1,19 @@
+<%= tag.div id: dom_id(zone), class: "table-row hover:bg-gray-50" do %>
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 <%= "line-through text-red-500" unless zone.active? %>">
+    <%= link_to zone.code, storage_zone_path(@storage, zone), class: "text-indigo-600", data: { turbo_frame: "_top" } %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= zone.display_index %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= Zone.enum_to_s :kind, zone.kind %>
+  </div>
+  <div class="table-cell relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+    <div class="flex justify-end space-x-2">
+      <%= link_to t("actions.edit_record"), edit_storage_zone_path(@storage, zone), data: { turbo_frame: "_top" }, class: "edit_zone text-indigo-600 hover:text-indigo-900" %>
+      <% if zone.active? %>
+        <%= button_to t("actions.destroy_record"), storage_zone_path(@storage, zone), method: :delete, form: { data: { turbo_confirm: t("actions.confirm") }, class: "destroy_zone text-red-600 hover:text-red-500" } %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

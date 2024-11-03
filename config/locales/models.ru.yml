@@ -115,6 +115,10 @@ ru:
           write_off: "СПИСАНИЕ"
           production_write_off: "АВТО СПИСАНИЕ"
           return_back: "ВОЗВРАТ"
+      zone:
+        kinds:
+          hold: "Для хранения"
+          ship: "Для отгрузки"
     attributes:
       user:
         name: ФИО
@@ -328,3 +332,7 @@ ru:
       pallet:
         code: Код
         scanned_at: Время сканирования
+      zone:
+        kind: Тип
+        active: Активная запись
+        display_index: Номер
