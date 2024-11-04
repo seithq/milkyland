@@ -9,7 +9,6 @@ class Box < ApplicationRecord
 
   has_many :pallets, through: :locations, source: :positionable, source_type: "Pallet"
 
-  validates_uniqueness_of :code
   validates_presence_of :production_date, :expiration_date
   validates :capacity, presence: true, numericality: { only_integer: true, greater_than: 0 }
 

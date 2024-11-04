@@ -7,8 +7,6 @@ class Pallet < ApplicationRecord
 
   has_many :boxes, through: :elements, source: :storable, source_type: "Box"
 
-  validates_uniqueness_of :code
-
   broadcasts_refreshes_to ->(pallet) { pallet.pallet_request.present? ? pallet.pallet_request.generation : "" }
 
   private

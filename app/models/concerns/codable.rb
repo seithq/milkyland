@@ -6,6 +6,8 @@ module Codable
 
     before_validation :assign_code, on: :create
 
+    validates_uniqueness_of :code
+
     def assign_code
       self.code = loop do
         new_code = generate_code

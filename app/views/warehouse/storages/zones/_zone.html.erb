@@ -8,6 +8,9 @@
   <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
     <%= Zone.enum_to_s :kind, zone.kind %>
   </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= number_with_delimiter zone.lines.count %>
+  </div>
   <div class="table-cell relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
     <div class="flex justify-end space-x-2">
       <%= link_to t("actions.edit_record"), edit_storage_zone_path(@storage, zone), data: { turbo_frame: "_top" }, class: "edit_zone text-indigo-600 hover:text-indigo-900" %>

@@ -70,6 +70,8 @@ ru:
     boxes: "Коробки"
     zones: "Зоны"
     zone: "Зона %{index}"
+    lines: "Ряды"
+    line: "Ряд %{index}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -210,6 +212,8 @@ ru:
       sender_storage: "Склад отправления"
       receiver_storage: "Склад назначения"
       leftover: "Остаток"
+      lines: "Кол-во рядов"
+      racks: "Кол-во стеллажей"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -264,3 +268,4 @@ ru:
     qr: "QR"
     zones: "Зоны"
     lines: "Ряды / Линии"
+    racks: "Стеллажи"

@@ -1,7 +1,7 @@
-<%= turbo_frame_tag dom_id(@storage, :zones) do %>
+<%= turbo_frame_tag dom_id(@zone, :lines) do %>
   <div class="mb-4 sm:flex sm:items-center">
     <div class="sm:flex-none">
-      <%= link_to new_storage_zone_path(@storage), data: { turbo_frame: "_top" }, class: "new_zone btn-create" do %>
+      <%= link_to new_storage_zone_line_path(@storage, @zone), data: { turbo_frame: "_top" }, class: "new_line btn-create" do %>
         <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
         <%= t("actions.create_record") %>
       <% end %>
@@ -21,16 +21,13 @@
                   <%= t("tables.cols.number") %>
                 </div>
                 <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                  <%= t("tables.cols.kind") %>
-                </div>
-                <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                  <%= t("tables.cols.lines") %>
+                  <%= t("tables.cols.racks") %>
                 </div>
                 <div class="relative py-3.5 pl-3 pr-4 sm:pr-6"></div>
               </div>
             </div>
             <div class="table-row-group divide-y divide-gray-200 bg-white">
-              <%= render @zones %>
+              <%= render @lines %>
             </div>
           </div>
           <div class="px-2">

@@ -106,7 +106,11 @@ Rails.application.routes.draw do
       scope module: "storages" do
         resources :subjects, only: :index
         resources :waybills, only: :index
-        resources :zones
+        resources :zones do
+          scope module: "zones" do
+            resources :lines
+          end
+        end
       end
     end
     resources :waybills, only: %i[ index show ] do

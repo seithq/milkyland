@@ -1,13 +1,25 @@
 <div class="flex flex-col justify-center px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full">
-    <%= render "layouts/error_messages", resource: zone %>
-    <%= form_with model: [@storage, zone], class: "space-y-12" do |form| %>
+    <%= render "layouts/error_messages", resource: line %>
+    <%= form_with model: [@storage, @zone, line], class: "space-y-12" do |form| %>
       <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
         <div>
           <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
         </div>
         <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-          <% unless zone.new_record? %>
+          <%= fields_for @zone do |zone_form| %>
+            <div class="sm:col-span-4">
+              <%= zone_form.label :code, class: "form-label" %>
+              <%= zone_form.text_field :code, readonly: true, class: "mt-2 form-input" %>
+            </div>
+          <% end %>
+
+          <% if line.new_record? %>
+            <div class="sm:col-span-4">
+              <%= form.label :repeat, class: "form-label" %>
+              <%= form.number_field :repeat, autocomplete: "repeat", autofocues: true, required: true, class: "mt-2 form-input" %>
+            </div>
+          <% else %>
             <div class="sm:col-span-4">
               <%= form.label :code, class: "form-label" %>
               <%= form.text_field :code, readonly: true, class: "mt-2 form-input" %>
@@ -19,12 +31,9 @@
             </div>
           <% end %>
 
-          <div class="sm:col-span-4">
-            <%= form.label :kind, class: "form-label" %>
-            <%= form.select :kind, options_for_enum_select(Zone, :kind, zone.kind), { required: true, include_blank: true }, class: "mt-2 form-select" %>
-          </div>
-
-          <% unless zone.active? %>
+          <% if line.active? %>
+            <%= form.hidden_field :active %>
+          <% else %>
             <div class="sm:col-span-4 relative flex gap-x-3">
               <div class="flex h-6 items-center">
                 <%= form.check_box :active, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
@@ -39,18 +48,16 @@
       </div>
       <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
         <div>
-          <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.lines") %></h2>
+          <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.racks") %></h2>
         </div>
         <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-          <% if zone.new_record? %>
+          <% if line.new_record? %>
             <div class="sm:col-span-4">
               <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
             </div>
           <% else %>
             <div class="sm:col-span-full">
-              <%= turbo_frame_tag dom_id(@zone, :lines), src: storage_zone_lines_path(@storage, @zone) do %>
-                <%= inline_svg_tag "spinner.svg" %>
-              <% end %>
+
             </div>
           <% end %>
         </div>

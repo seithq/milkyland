@@ -333,6 +333,12 @@ ru:
         code: Код
         scanned_at: Время сканирования
       zone:
+        code: Код зоны
         kind: Тип
         active: Активная запись
         display_index: Номер
+      line:
+        code: Код линии
+        active: Активная запись
+        display_index: Номер
+        repeat: Кол-во рядов для создания

@@ -1,2 +1,4 @@
 goods_zone:
+  code: Z-001
   kind: :hold
+  display_index: A

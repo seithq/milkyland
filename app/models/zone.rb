@@ -4,8 +4,7 @@ class Zone < ApplicationRecord
   enum :kind, %w[ hold ship ].index_by(&:itself), default: :hold
 
   has_many :storages, through: :locations, source: :positionable, source_type: "Storage"
-
-  scope :ordered, -> { order(display_index: :asc) }
+  has_many :lines, through: :elements, source: :storable, source_type: "Line"
 
   private
     def generate_code

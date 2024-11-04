@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_03_143915) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_04_063918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -278,6 +278,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_03_143915) do
     t.index ["storage_id"], name: "index_leftovers_on_storage_id"
     t.index ["subject_type", "subject_id"], name: "index_leftovers_on_subject"
     t.index ["waybill_id"], name: "index_leftovers_on_waybill_id"
+  end
+
+  create_table "lines", force: :cascade do |t|
+    t.string "code"
+    t.string "display_index"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_lines_on_code", unique: true
   end
 
   create_table "locations", force: :cascade do |t|

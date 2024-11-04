@@ -84,4 +84,12 @@ class LocationTest < ActiveSupport::TestCase
     assert_equal "A", storage.zones.first.display_index
     assert_equal "B", storage.zones.last.display_index
   end
+
+  test "should attach line to zone" do
+    zone = zones(:goods_zone)
+
+    assert_difference "zone.lines.count", 2 do
+      assert Line.repeat 2, zone
+    end
+  end
 end

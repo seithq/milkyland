@@ -5,6 +5,8 @@ module Markable
     attribute :index_position, :integer, default: 0
 
     after_create :assign_display_index
+
+    scope :ordered, -> { order(display_index: :asc) }
   end
 
   private
