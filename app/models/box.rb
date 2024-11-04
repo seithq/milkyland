@@ -17,6 +17,7 @@ class Box < ApplicationRecord
   broadcasts_refreshes_to ->(box) { box.box_request.present? ? box.box_request.generation : ""  }
 
   scope :filter_by_region, ->(region_id) { where(region_id: region_id) }
+  scope :filter_by_product, ->(product_id) { where(product_id: product_id) }
 
   private
     def generate_code

@@ -117,11 +117,15 @@ class LocationTest < ActiveSupport::TestCase
   end
 
   test "should find products inside zones" do
+    product = products(:milk25)
+
+    zone = zones(:goods_zone)
+
     pallet = Pallet.new
     assert pallet.save
 
     box = Box.new(region: regions(:almaty),
-                  product: products(:milk25),
+                  product: product,
                   production_date: Date.current,
                   expiration_date: Date.tomorrow,
                   capacity: 5)
@@ -132,6 +136,13 @@ class LocationTest < ActiveSupport::TestCase
     assert pallet.locate_to tier
 
     assert_equal 0, tier.boxes.count
+    assert_equal 1, tier.boxes_in_pallets.count
     assert_equal 1, tier.pallets.count
+    assert_equal 5, tier.capacity_by(product.id)
+
+    assert_equal 0, zone.boxes.count
+    assert_equal 1, zone.boxes_in_tiers_in_pallets.count
+    assert_equal 1, zone.pallets_in_tiers.count
+    assert_equal 5, zone.capacity_by(product.id)
   end
 end

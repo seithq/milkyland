@@ -2,11 +2,11 @@
   <div class="sm:mx-auto sm:w-full">
     <%= render "layouts/error_messages", resource: storage %>
     <%= form_with model: storage, class: "space-y-12" do |form| %>
-      <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-4">
         <div>
           <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
         </div>
-        <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+        <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-3">
           <div class="sm:col-span-4">
             <%= form.label :name, class: "form-label" %>
             <%= form.text_field :name, autocomplete: "name", autofocus: true, required: true, class: "form-input" %>
@@ -18,11 +18,11 @@
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-4">
         <div>
           <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.zones") %></h2>
         </div>
-        <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+        <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-3">
           <% if storage.new_record? %>
             <div class="sm:col-span-4">
               <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
