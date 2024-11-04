@@ -347,3 +347,8 @@ ru:
         active: Активная запись
         display_index: Номер
         repeat: Кол-во стеллажей для создания
+      tier:
+        code: Код яруса
+        active: Активная запись
+        display_index: Номер
+        repeat: Кол-во ярусов для создания

@@ -5,6 +5,8 @@ class Pallet < ApplicationRecord
 
   has_one_attached :qr_image, dependent: :purge_later
 
+  has_many :tiers, through: :locations, source: :positionable, source_type: "Tier"
+  has_many :zones, through: :locations, source: :positionable, source_type: "Zone"
   has_many :boxes, through: :elements, source: :storable, source_type: "Box"
 
   broadcasts_refreshes_to ->(pallet) { pallet.pallet_request.present? ? pallet.pallet_request.generation : "" }

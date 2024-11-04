@@ -100,4 +100,38 @@ class LocationTest < ActiveSupport::TestCase
       assert Stack.repeat 2, line
     end
   end
+
+  test "should attach tier to stack" do
+    stack = stacks(:goods_zone_line_stack)
+
+    assert_difference "stack.tiers.count", 2 do
+      assert Tier.repeat 2, stack
+    end
+  end
+
+  test "should check zone for storables" do
+    zone = zones(:goods_zone)
+    assert_equal 1, zone.lines.count
+    assert_equal 1, zone.stacks.count
+    assert_equal 1, zone.tiers.count
+  end
+
+  test "should find products inside zones" do
+    pallet = Pallet.new
+    assert pallet.save
+
+    box = Box.new(region: regions(:almaty),
+                  product: products(:milk25),
+                  production_date: Date.current,
+                  expiration_date: Date.tomorrow,
+                  capacity: 5)
+    assert box.save
+    assert box.locate_to pallet
+
+    tier = tiers(:goods_zone_line_stack_tier)
+    assert pallet.locate_to tier
+
+    assert_equal 0, tier.boxes.count
+    assert_equal 1, tier.pallets.count
+  end
 end

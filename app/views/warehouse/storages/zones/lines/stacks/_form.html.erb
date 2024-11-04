@@ -17,7 +17,7 @@
           <% if stack.new_record? %>
             <div class="sm:col-span-4">
               <%= form.label :repeat, class: "form-label" %>
-              <%= form.number_field :repeat, autocomplete: "repeat", autofocues: true, required: true, class: "mt-2 form-input" %>
+              <%= form.number_field :repeat, autocomplete: "repeat", autofocus: true, required: true, class: "mt-2 form-input" %>
             </div>
           <% else %>
             <div class="sm:col-span-4">
@@ -57,7 +57,9 @@
             </div>
           <% else %>
             <div class="sm:col-span-full">
-
+              <%= turbo_frame_tag dom_id(stack, :tiers), src: storage_zone_line_stack_tiers_path(@storage, @zone, @line, @stack) do %>
+                <%= inline_svg_tag "spinner.svg" %>
+              <% end %>
             </div>
           <% end %>
         </div>

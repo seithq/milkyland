@@ -2,9 +2,10 @@ class Stack < ApplicationRecord
   include Deactivatable, Codable, Markable, Locatable, Repeatable
 
   has_many :lines, through: :locations, source: :positionable, source_type: "Line"
+  has_many :tiers, through: :elements, source: :storable, source_type: "Tier"
 
   def counter_base
-    0
+    self.tiers.count
   end
 
   private

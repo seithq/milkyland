@@ -8,6 +8,8 @@ class Box < ApplicationRecord
   has_one_attached :qr_image, dependent: :purge_later
 
   has_many :pallets, through: :locations, source: :positionable, source_type: "Pallet"
+  has_many :zones, through: :locations, source: :positionable, source_type: "Zone"
+  has_many :tiers, through: :locations, source: :positionable, source_type: "Tier"
 
   validates_presence_of :production_date, :expiration_date
   validates :capacity, presence: true, numericality: { only_integer: true, greater_than: 0 }

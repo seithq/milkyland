@@ -74,6 +74,8 @@ ru:
     line: "Ряд %{index}"
     stacks: "Стеллажи"
     stack: "Стеллаж %{index}"
+    tiers: "Ярусы"
+    tier: "Ярус %{index}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -273,3 +275,5 @@ ru:
     lines: "Ряды / Линии"
     stacks: "Стеллажи"
     tiers: "Ярусы"
+    pallets: "Паллеты"
+    boxes: "Коробки"

@@ -110,7 +110,11 @@ Rails.application.routes.draw do
           scope module: "zones" do
             resources :lines do
               scope module: "lines" do
-                resources :stacks
+                resources :stacks do
+                  scope module: "stacks" do
+                    resources :tiers
+                  end
+                end
               end
             end
           end
