@@ -1,0 +1,15 @@
+<% content_for(:title) { t("pages.stack", index: @stack.display_index) } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: storages_path, title: t("pages.storages")),
+      NavLink.new(path: edit_storage_path(@storage), title: @storage.name),
+      NavLink.new(path: edit_storage_zone_path(@storage, @zone), title: t("pages.zone", index: @zone.display_index)),
+      NavLink.new(path: edit_storage_zone_line_path(@storage, @zone, @line), title: t("pages.line", index: @line.display_index)),
+      NavLink.new(path: edit_storage_zone_line_stack_path(@storage, @zone, @line, @stack), title: t("pages.stack", index: @stack.display_index))
+    ]
+  } %>
+<% end %>
+
+<%= render "form", stack: @stack %>

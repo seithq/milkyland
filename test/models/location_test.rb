@@ -92,4 +92,12 @@ class LocationTest < ActiveSupport::TestCase
       assert Line.repeat 2, zone
     end
   end
+
+  test "should attach stack to line" do
+    line = lines(:goods_zone_line)
+
+    assert_difference "line.stacks.count", 2 do
+      assert Stack.repeat 2, line
+    end
+  end
 end

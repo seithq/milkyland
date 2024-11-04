@@ -108,7 +108,11 @@ Rails.application.routes.draw do
         resources :waybills, only: :index
         resources :zones do
           scope module: "zones" do
-            resources :lines
+            resources :lines do
+              scope module: "lines" do
+                resources :stacks
+              end
+            end
           end
         end
       end

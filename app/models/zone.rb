@@ -6,6 +6,10 @@ class Zone < ApplicationRecord
   has_many :storages, through: :locations, source: :positionable, source_type: "Storage"
   has_many :lines, through: :elements, source: :storable, source_type: "Line"
 
+  def counter_base
+    self.lines.count
+  end
+
   private
     def generate_code
       parts = [ "Z", SecureRandom.hex(8) ]

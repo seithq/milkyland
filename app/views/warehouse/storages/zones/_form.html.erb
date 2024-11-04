@@ -48,7 +48,7 @@
             </div>
           <% else %>
             <div class="sm:col-span-full">
-              <%= turbo_frame_tag dom_id(@zone, :lines), src: storage_zone_lines_path(@storage, @zone) do %>
+              <%= turbo_frame_tag dom_id(zone, :lines), src: storage_zone_lines_path(@storage, zone) do %>
                 <%= inline_svg_tag "spinner.svg" %>
               <% end %>
             </div>

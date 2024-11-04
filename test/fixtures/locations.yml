@@ -5,3 +5,7 @@ goods_zone_location:
 goods_zone_line_location:
   storable: goods_zone_line (Line)
   positionable: goods_zone (Zone)
+
+goods_zone_line_stack_location:
+  storable: goods_zone_line_stack (Stack)
+  positionable: goods_zone_line (Line)

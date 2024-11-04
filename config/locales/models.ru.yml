@@ -342,3 +342,8 @@ ru:
         active: Активная запись
         display_index: Номер
         repeat: Кол-во рядов для создания
+      stack:
+        code: Код стеллажа
+        active: Активная запись
+        display_index: Номер
+        repeat: Кол-во стеллажей для создания

@@ -72,6 +72,8 @@ ru:
     zone: "Зона %{index}"
     lines: "Ряды"
     line: "Ряд %{index}"
+    stacks: "Стеллажи"
+    stack: "Стеллаж %{index}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -213,7 +215,8 @@ ru:
       receiver_storage: "Склад назначения"
       leftover: "Остаток"
       lines: "Кол-во рядов"
-      racks: "Кол-во стеллажей"
+      stacks: "Кол-во стеллажей"
+      tiers: "Кол-во ярусов"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -268,4 +271,5 @@ ru:
     qr: "QR"
     zones: "Зоны"
     lines: "Ряды / Линии"
-    racks: "Стеллажи"
+    stacks: "Стеллажи"
+    tiers: "Ярусы"

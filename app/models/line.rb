@@ -1,21 +1,11 @@
 class Line < ApplicationRecord
-  include Deactivatable, Codable, Markable, Locatable
+  include Deactivatable, Codable, Markable, Locatable, Repeatable
 
   has_many :zones, through: :locations, source: :positionable, source_type: "Zone"
+  has_many :stacks, through: :elements, source: :storable, source_type: "Stack"
 
-  attribute :repeat, :integer, default: 1
-
-  def self.repeat(n, zone)
-    self.transaction do
-      n.to_i.times do
-        line = Line.create!(active: true, index_position: zone.lines.count)
-        line.locate_to zone
-      end
-
-      true
-    rescue ActiveRecord::Rollback
-      return false
-    end
+  def counter_base
+    self.stacks.count
   end
 
   private

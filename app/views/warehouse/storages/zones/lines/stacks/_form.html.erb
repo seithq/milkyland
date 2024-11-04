@@ -1,20 +1,20 @@
 <div class="flex flex-col justify-center px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full">
-    <%= render "layouts/error_messages", resource: line %>
-    <%= form_with model: [@storage, @zone, line], class: "space-y-12" do |form| %>
+    <%= render "layouts/error_messages", resource: stack %>
+    <%= form_with model: [@storage, @zone, @line, stack], class: "space-y-12" do |form| %>
       <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
         <div>
           <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
         </div>
         <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-          <%= fields_for @zone do |zone_form| %>
+          <%= fields_for @line do |line_form| %>
             <div class="sm:col-span-4">
-              <%= zone_form.label :code, class: "form-label" %>
-              <%= zone_form.text_field :code, readonly: true, class: "mt-2 form-input" %>
+              <%= line_form.label :code, class: "form-label" %>
+              <%= line_form.text_field :code, readonly: true, class: "mt-2 form-input" %>
             </div>
           <% end %>
 
-          <% if line.new_record? %>
+          <% if stack.new_record? %>
             <div class="sm:col-span-4">
               <%= form.label :repeat, class: "form-label" %>
               <%= form.number_field :repeat, autocomplete: "repeat", autofocues: true, required: true, class: "mt-2 form-input" %>
@@ -31,7 +31,7 @@
             </div>
           <% end %>
 
-          <% if line.active? %>
+          <% if stack.active? %>
             <%= form.hidden_field :active %>
           <% else %>
             <div class="sm:col-span-4 relative flex gap-x-3">
@@ -48,18 +48,16 @@
       </div>
       <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
         <div>
-          <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.stacks") %></h2>
+          <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.tiers") %></h2>
         </div>
         <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-          <% if line.new_record? %>
+          <% if stack.new_record? %>
             <div class="sm:col-span-4">
               <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
             </div>
           <% else %>
             <div class="sm:col-span-full">
-              <%= turbo_frame_tag dom_id(line, :stacks), src: storage_zone_line_stacks_path(@storage, @zone, line) do %>
-                <%= inline_svg_tag "spinner.svg" %>
-              <% end %>
+
             </div>
           <% end %>
         </div>
