@@ -125,6 +125,7 @@ ru:
     print_qr: "Печать QR"
     download: "Скачать"
     download_all: "Скачать все"
+    location_not_found: "Без адреса"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
@@ -216,9 +217,10 @@ ru:
       sender_storage: "Склад отправления"
       receiver_storage: "Склад назначения"
       leftover: "Остаток"
-      lines: "Кол-во рядов"
-      stacks: "Кол-во стеллажей"
-      tiers: "Кол-во ярусов"
+      lines: "Ряды"
+      stacks: "Стеллажи"
+      tiers: "Ярусы"
+      location: "Адрес"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."
@@ -277,3 +279,4 @@ ru:
     tiers: "Ярусы"
     pallets: "Паллеты"
     boxes: "Коробки"
+    location: "Адресное хранение"

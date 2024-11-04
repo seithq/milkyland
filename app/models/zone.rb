@@ -22,23 +22,17 @@ class Zone < ApplicationRecord
     self.lines.count
   end
 
-  def all_pallets
-    ids = [ pallets, pallets_in_tiers ].map { |scope| scope.pluck(:id) }.reduce(&:+)
-    Pallet.where(id: ids)
-  end
-
-  def all_boxes
-    ids = [ boxes, boxes_in_pallets, boxes_in_tiers, boxes_in_tiers_in_pallets ].map { |scope| scope.pluck(:id) }.reduce(&:+)
-    Box.where(id: ids)
-  end
-
-  def capacity_by(product_id)
-    all_boxes.filter_by_product(product_id).sum(:capacity)
-  end
-
   private
     def generate_code
       parts = [ "Z", SecureRandom.hex(8) ]
       parts.join("-").upcase
+    end
+
+    def pallet_scopes
+      [ pallets, pallets_in_tiers ]
+    end
+
+    def box_scopes
+      [ boxes, boxes_in_pallets, boxes_in_tiers, boxes_in_tiers_in_pallets ]
     end
 end

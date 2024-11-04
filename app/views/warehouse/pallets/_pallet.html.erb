@@ -2,6 +2,9 @@
   <div class="table-cell w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
     <%= link_to pallet.code, pallet_path(pallet), class: "text-indigo-600" %>
   </div>
+  <div class="table-cell px-3 py-4 text-sm font-medium text-gray-500">
+    <%= current_location(pallet).presence || t("actions.location_not_found") %>
+  </div>
   <div class="table-cell py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
     <% if pallet.qr_image.attached? %>
       <%= link_to t("actions.download"), rails_blob_path(pallet.qr_image, disposition: "attachment"), class: "text-indigo-600" %>

@@ -8,10 +8,16 @@
   <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
     <%= number_with_delimiter stack.tiers.count %>
   </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= number_with_delimiter stack.all_pallets.count %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= number_with_delimiter stack.all_boxes.count %>
+  </div>
   <div class="table-cell relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
     <div class="flex justify-end space-x-2">
       <%= link_to t("actions.edit_record"), edit_storage_zone_line_stack_path(@storage, @zone, @line, stack), data: { turbo_frame: "_top" }, class: "edit_stack text-indigo-600 hover:text-indigo-900" %>
-      <% if stack.active? %>
+      <% if stack.can_be_deactivated? && stack.active? %>
         <%= button_to t("actions.destroy_record"), storage_zone_line_stack_path(@storage, @zone, @line, stack), method: :delete, form: { data: { turbo_confirm: t("actions.confirm") }, class: "destroy_stack text-red-600 hover:text-red-500" } %>
       <% end %>
     </div>

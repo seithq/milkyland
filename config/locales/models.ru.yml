@@ -322,7 +322,7 @@ ru:
         subject_id: Номенклатура
         count: Количество
       box:
-        code: Код
+        code: Код коробки
         region_id: Регион
         product_id: Продукт
         capacity: Кол-во в коробке
@@ -330,7 +330,7 @@ ru:
       generation:
         status: Статус
       pallet:
-        code: Код
+        code: Код паллеты
         scanned_at: Время сканирования
       zone:
         code: Код зоны

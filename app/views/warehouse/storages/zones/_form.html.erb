@@ -2,11 +2,11 @@
   <div class="sm:mx-auto sm:w-full">
     <%= render "layouts/error_messages", resource: zone %>
     <%= form_with model: [@storage, zone], class: "space-y-12" do |form| %>
-      <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-4">
         <div>
           <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
         </div>
-        <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+        <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-3">
           <% unless zone.new_record? %>
             <div class="sm:col-span-4">
               <%= form.label :code, class: "form-label" %>
@@ -37,11 +37,11 @@
           <% end %>
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-4">
         <div>
           <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.lines") %></h2>
         </div>
-        <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+        <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-3">
           <% if zone.new_record? %>
             <div class="sm:col-span-4">
               <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>

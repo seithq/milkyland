@@ -2,8 +2,8 @@
   <div class="table-cell w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
     <%= link_to box.code, box_path(box), class: "text-indigo-600" %>
   </div>
-  <div class="table-cell px-3 py-4 text-sm text-gray-500">
-    <%= box.region.name %>
+  <div class="table-cell px-3 py-4 text-sm font-medium text-gray-500">
+    <%= current_location(box).presence || t("actions.location_not_found") %>
   </div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500">
     <%= box.product.name %>

@@ -14,5 +14,36 @@ module Locatable
         Location.create!(storable: self, positionable: position)
       end
     end
+
+    def all_pallets
+      ids = pallet_scopes.map { |scope| scope.pluck(:id) }.reduce(&:+)
+      Pallet.where(id: ids)
+    end
+
+    def all_boxes
+      ids = box_scopes.map { |scope| scope.pluck(:id) }.reduce(&:+)
+      Box.where(id: ids)
+    end
+
+    def capacity_by(product_id)
+      all_boxes.filter_by_product(product_id).sum(:capacity)
+    end
+
+    def can_be_deactivated?
+      all_boxes.sum(:capacity).zero?
+    end
+
+    def current_position
+      locations.first&.positionable
+    end
+
+    private
+      def pallet_scopes
+        raise "Not Implemented"
+      end
+
+      def box_scopes
+        raise "Not Implemented"
+      end
   end
 end
