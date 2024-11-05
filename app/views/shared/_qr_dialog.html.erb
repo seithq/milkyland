@@ -4,7 +4,7 @@
     <%= inline_svg_tag "qrcode.svg", class: "h-6 w-6" %>
   <% end %>
 
-  <dialog class="dialog shadow p-6 bg-white rounded-md flex flex-col space-y-2 items-center" data-dialog-target="menu">
+  <dialog class="dialog shadow p-6 bg-white rounded-md flex flex-col space-y-2 items-center -z-10" data-dialog-target="menu">
     <%= qr_code_image(qr_text) %>
     <form method="dialog">
       <%= tag.button class: "icon-btn-danger", data: { action: "dialog#open" } do %>
