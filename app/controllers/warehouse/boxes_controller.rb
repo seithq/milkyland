@@ -14,7 +14,7 @@ class Warehouse::BoxesController < ApplicationController
     end
 
     def search_methods
-      %i[ code region ]
+      %i[ code region address ]
     end
 
     def set_box

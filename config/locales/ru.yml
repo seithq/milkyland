@@ -99,6 +99,7 @@ ru:
     search_by_start_date: "Дата от"
     search_by_end_date: "Дата до"
     search_by_code: "Поиск по коду"
+    search_by_address: "Поиск по адресу"
     have_account: "Есть аккаунт?"
     remove_account: "Удалить аккаунт?"
     confirm: "Подтвердить действие?"

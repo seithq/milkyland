@@ -14,7 +14,7 @@ class Warehouse::PalletsController < ApplicationController
     end
 
     def search_methods
-      %i[ code ]
+      %i[ code address ]
     end
 
     def set_pallet

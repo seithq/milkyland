@@ -1,21 +1,26 @@
 <div class="mt-2 sm:mt-0 sm:flex-auto">
   <%= form_tag boxes_path, data: {}, method: :get do %>
-    <div class="flex rounded-md">
+    <div class="grid sm:grid-cols-4 rounded-md gap-2">
       <div class="">
         <%= select :search, :region, options_from_collection_for_select(Region.ordered, :id, :name), { include_blank: t("tables.cols.region") }, { class: "form-select" } %>
       </div>
-      <div class="ml-2 relative flex flex-grow items-stretch focus-within:z-10">
-        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-          <%= inline_svg_tag "search.svg", class: "h-5 w-5 text-gray-400" %>
-        </div>
-        <%= text_field :search, :name, placeholder: t("actions.search_by_code"), class: "block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+      <div class="">
+        <%= text_field :search, :address, placeholder: t("actions.search_by_address"), class: "block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
       </div>
-      <%= link_to boxes_path, class: "relative -ml-px inline-flex items-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
-        <%= inline_svg_tag "refresh.svg", class: "-ml-0.5 h-5 w-5 text-gray-400" %>
-      <% end %>
-      <%= button_tag type: "submit", class: "relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
-        <%= inline_svg_tag "search.svg", class: "-ml-0.5 h-5 w-5 text-gray-400" %>
-      <% end %>
+      <div class="sm:col-span-2">
+        <div class="relative flex flex-grow items-stretch focus-within:z-10">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+            <%= inline_svg_tag "search.svg", class: "h-5 w-5 text-gray-400" %>
+          </div>
+          <%= text_field :search, :name, placeholder: t("actions.search_by_code"), class: "block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+          <%= link_to boxes_path, class: "relative -ml-px inline-flex items-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+            <%= inline_svg_tag "refresh.svg", class: "-ml-0.5 h-5 w-5 text-gray-400" %>
+          <% end %>
+          <%= button_tag type: "submit", class: "relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+            <%= inline_svg_tag "search.svg", class: "-ml-0.5 h-5 w-5 text-gray-400" %>
+          <% end %>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
