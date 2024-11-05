@@ -54,6 +54,11 @@
               </div>
             </div>
           </div>
+          <div class="mx-auto max-w-7xl rounded-md">
+            <%= turbo_frame_tag dom_id(@storage, :map), src: storage_map_path(@storage) do %>
+              <%= inline_svg_tag "spinner.svg" %>
+            <% end %>
+          </div>
         </div>
       </div>
     <% end %>

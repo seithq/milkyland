@@ -1,0 +1,10 @@
+<div class="<%= "bg-green-200" unless zone.can_be_deactivated? %> relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
+  <div class="min-w-0 flex-1 space-y-2">
+    <div class="grid grid-cols-1 gap-4">
+      <% if zone.lines.any? %>
+        <%= render partial: "line", collection: zone.lines.reverse_ordered, as: :line, locals: { zone: zone } %>
+      <% end %>
+    </div>
+    <div class="text-sm font-medium text-gray-900 text-center"><%= link_to t("pages.zone", index: zone.display_index), storage_zone_path(@storage, zone), target: "_blank" %></div>
+  </div>
+</div>

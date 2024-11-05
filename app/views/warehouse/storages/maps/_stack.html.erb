@@ -1,0 +1,10 @@
+<div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
+  <div class="min-w-0 flex-1 space-y-2">
+    <% if stack.tiers.any? %>
+      <div class="grid grid-cols-1 gap-4">
+        <%= render partial: "tier", collection: stack.tiers.reverse_ordered, as: :tier, locals: { zone: zone, line: line, stack: stack } %>
+      </div>
+    <% end %>
+    <div class="text-sm font-medium text-gray-900 text-center"><%= link_to t("pages.stack", index: stack.display_index), storage_zone_line_stack_path(@storage, zone, line, stack), target: "_blank" %></div>
+  </div>
+</div>

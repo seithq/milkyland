@@ -7,6 +7,7 @@ module Markable
     after_create :assign_display_index
 
     scope :ordered, -> { order(display_index: :asc) }
+    scope :reverse_ordered, -> { order(display_index: :desc) }
   end
 
   private
