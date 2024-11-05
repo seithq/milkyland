@@ -126,8 +126,16 @@ Rails.application.routes.draw do
         resources :leftovers, only: :index
       end
     end
-    resources :boxes, only: %i[ index show ]
-    resources :pallets, only: %i[ index show ]
+    resources :boxes, only: %i[ index show ] do
+      collection do
+        get "location/:positionable_id/:positionable_type", to: "boxes#location", as: :location
+      end
+    end
+    resources :pallets, only: %i[ index show ] do
+      collection do
+        get "location/:positionable_id/:positionable_type", to: "pallets#location", as: :location
+      end
+    end
   end
 
   scope module: "settings" do

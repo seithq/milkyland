@@ -39,11 +39,11 @@ module Locatable
 
     private
       def pallet_scopes
-        raise "Not Implemented"
+        raise NotImplementedError.new "Implement in subclass"
       end
 
       def box_scopes
-        raise "Not Implemented"
+        raise NotImplementedError.new "Implement in subclass"
       end
   end
 end

@@ -1,4 +1,6 @@
 class Warehouse::PalletsController < ApplicationController
+  include PositionableScoped
+
   before_action :set_pallet, only: :show
 
   def index
@@ -19,5 +21,9 @@ class Warehouse::PalletsController < ApplicationController
 
     def set_pallet
       @pallet = base_scope.find(params.expect(:id))
+    end
+
+    def positionable_scope
+      @positionable.all_pallets.recent_first
     end
 end

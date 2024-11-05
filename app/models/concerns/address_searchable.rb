@@ -8,7 +8,7 @@ module AddressSearchable
     end
 
     def self.prefix_to_scope
-      raise "Not Implemented"
+      raise NotImplementedError.new "Implement in subclass"
     end
   end
 end

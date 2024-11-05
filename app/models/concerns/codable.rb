@@ -17,7 +17,7 @@ module Codable
 
     private
       def generate_code
-        raise "Not Implemented"
+        raise NotImplementedError.new "Implement in subclass"
       end
   end
 end
