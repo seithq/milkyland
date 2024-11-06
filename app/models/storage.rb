@@ -25,4 +25,12 @@ class Storage < ApplicationRecord
   def available_count(subject)
     leftovers.filter_by_subject(subject).sum(:count)
   end
+
+  def display_index
+    self.id
+  end
+
+  def caption_key
+    self.model_name.singular
+  end
 end

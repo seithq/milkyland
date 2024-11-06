@@ -26,6 +26,11 @@
                 <div class="flex items-end space-x-2">
                   <%= form.text_field :code, disabled: true, class: "mt-2 form-input" %>
                   <%= render "shared/qr_dialog", qr_text: @line.code %>
+                  <% if @line.qr_image.attached? %>
+                    <%= link_to rails_blob_path(@line.qr_image, disposition: "attachment"), class: "icon-btn" do %>
+                      <%= inline_svg_tag "download.svg", class: "size-6" %>
+                    <% end %>
+                  <% end %>
                 </div>
               </div>
 

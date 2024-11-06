@@ -1,5 +1,5 @@
 class Stack < ApplicationRecord
-  include Deactivatable, Codable, Markable, Locatable, Repeatable
+  include Deactivatable, Codable, Markable, Locatable, Repeatable, QrGeneratable
 
   has_many :lines, through: :locations, source: :positionable, source_type: "Line"
   has_many :tiers, through: :elements, source: :storable, source_type: "Tier"

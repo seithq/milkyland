@@ -3,8 +3,6 @@ class Pallet < ApplicationRecord
 
   belongs_to :pallet_request, optional: true
 
-  has_one_attached :qr_image, dependent: :purge_later
-
   has_many :tiers, through: :locations, source: :positionable, source_type: "Tier"
   has_many :zones, through: :locations, source: :positionable, source_type: "Zone"
   has_many :boxes, through: :elements, source: :storable, source_type: "Box"

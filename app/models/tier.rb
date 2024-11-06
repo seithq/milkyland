@@ -1,5 +1,5 @@
 class Tier < ApplicationRecord
-  include Deactivatable, Codable, Markable, Locatable, Repeatable
+  include Deactivatable, Codable, Markable, Locatable, Repeatable, QrGeneratable
 
   has_many :stacks, through: :locations, source: :positionable, source_type: "Stack"
   has_many :pallets, through: :elements, source: :storable, source_type: "Pallet"

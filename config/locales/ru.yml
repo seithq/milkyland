@@ -59,6 +59,7 @@ ru:
     pallets: "Палеты"
     warehouse: "Управление остатками"
     storages: "Склады"
+    storage: "Склад %{index}"
     waybills: "Операции"
     waybill: "Операция #%{id}"
     supply_orders: "Заказы ТМЦ"
@@ -76,6 +77,8 @@ ru:
     stack: "Стеллаж %{index}"
     tiers: "Ярусы"
     tier: "Ярус %{index}"
+    box: "Коробка"
+    pallet: "Паллета"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:

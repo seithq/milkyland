@@ -1,5 +1,5 @@
 class Line < ApplicationRecord
-  include Deactivatable, Codable, Markable, Locatable, Repeatable
+  include Deactivatable, Codable, Markable, Locatable, Repeatable, QrGeneratable
 
   has_many :zones, through: :locations, source: :positionable, source_type: "Zone"
   has_many :stacks, through: :elements, source: :storable, source_type: "Stack"

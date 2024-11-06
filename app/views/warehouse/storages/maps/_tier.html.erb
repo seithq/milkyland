@@ -1,4 +1,4 @@
-<div class="<%= "bg-green-200" unless tier.can_be_deactivated? %> relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
+<div class="<%= tier.can_be_deactivated? ? "bg-white" : "bg-green-200" %> relative flex items-center space-x-3 rounded-lg border border-gray-300 px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
   <div class="min-w-0 flex-1">
     <div class="text-sm font-medium text-gray-900 text-center"><%= link_to t("pages.tier", index: tier.display_index), storage_zone_line_stack_tier_path(@storage, zone, line, stack, tier), target: "_blank" %></div>
   </div>
