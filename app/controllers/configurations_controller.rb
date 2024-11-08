@@ -3,9 +3,7 @@ class ConfigurationsController < ApplicationController
 
   def android
     render json: {
-      settings: {
-        screenshots_enabled: true
-      },
+      settings: {},
       rules: [
         {
           patterns: [
@@ -13,22 +11,23 @@ class ConfigurationsController < ApplicationController
           ],
           properties: {
             context: "default",
-            uri: "turbo://fragment/web",
+            uri: "hotwire://fragment/web",
+            fallback_uri: "hotwire://fragment/web",
             pull_to_refresh_enabled: true
           }
         },
         {
-          patterns: %w[^$ ^/$],
+          patterns: %w[^feed$ ^feed/$],
           properties: {
-            uri: "turbo://fragment/web/home",
+            uri: "hotwire://fragment/web/home",
             presentation: "replace_root"
           }
         },
         {
-          patterns: %w[(?<!(profile|session))/new$ /edit$],
+          patterns: %w[(?<!(session))/new$ /edit$],
           properties: {
             context: "modal",
-            uri: "turbo://fragment/web/modal",
+            uri: "hotwire://fragment/web/modal/sheet",
             pull_to_refresh_enabled: false
           }
         }

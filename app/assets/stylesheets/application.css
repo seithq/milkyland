@@ -63,3 +63,16 @@
         }
     }
 }
+
+/* bridge--form component */
+[data-bridge-components~="form"]
+[data-controller~="bridge--form"]
+[type="submit"] {
+    display: none;
+}
+
+/* bridge--button component */
+[data-bridge-components~="button"]
+[data-controller~="button"] {
+    display: none;
+}

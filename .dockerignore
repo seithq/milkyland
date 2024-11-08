@@ -51,3 +51,6 @@
 .vscode/
 .idea/
 .DS_Store
+
+# Mobile App projects
+android/

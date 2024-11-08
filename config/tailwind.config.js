@@ -22,5 +22,9 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
+    ({addVariant}) => {
+      addVariant("turbo-native", "html[data-turbo-native] &"),
+          addVariant('non-turbo-native', "html:not([data-turbo-native]) &")
+    }
   ]
 }

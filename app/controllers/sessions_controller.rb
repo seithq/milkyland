@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   before_action :ensure_user_exists, only: :new
 
   def new
-    redirect_to root_url if signed_in?
+    redirect_to main_url if signed_in?
   end
 
   def create

@@ -63,7 +63,11 @@ module Authentication
     end
 
     def post_authenticating_url
-      session.delete(:return_to_after_authenticating) || root_url
+      session.delete(:return_to_after_authenticating) || main_url
+    end
+
+    def main_url
+      turbo_native_app? ? feed_url : root_url
     end
 
     def reset_authentication
