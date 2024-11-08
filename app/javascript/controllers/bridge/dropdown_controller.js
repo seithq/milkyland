@@ -19,7 +19,7 @@ export default class extends BridgeComponent {
             const element = new BridgeElement(item)
             const title = item.text
             const index = element.bridgeAttribute("index")
-            const image = element.bridgeAttribute("ios-image")
+            const image = element.bridgeAttribute("image")
             items.push({ title, image, index })
         })
 
