@@ -1,8 +1,12 @@
 <% content_for(:title) { t("pages.sign_in") } %>
 <% turbo_page_requires_reload %>
 
-<div class="flex min-h-full flex-col justify-center px-6 lg:px-8">
+<div class="flex min-h-full flex-col justify-start py-10 px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="flex justify-center">
+      <%= image_tag "logo.png", class: "h-32" %>
+    </div>
+
     <%= native_form_with url: session_path, class: "space-y-6", html: { data: { turbo_action: "replace" } } do |form| %>
       <div>
         <%= form.label :email_address, User.human_attribute_name(:email_address), class: "form-label" %>
