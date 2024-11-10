@@ -1,6 +1,75 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "014748d99b8a3f628aebccdd21da3ee2829786fff9cec6e653d89075a93dd11f",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/mobile/scans_controller.rb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Scan.find_by((params[:code] or \"\"))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Mobile::ScansController",
+        "method": "set_scan"
+      },
+      "user_input": "params[:code]",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 24,
+      "fingerprint": "1a4af7b0d9e6e313afc3ff45e74906cc295278b7e75a42378e194675ffb7c82f",
+      "check_name": "UnsafeReflection",
+      "message": "Unsafe reflection method `constantize` called on parameter value",
+      "file": "app/controllers/concerns/positionable_scoped.rb",
+      "line": 13,
+      "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
+      "code": "params.expect(:positionable_type).constantize",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PositionableScoped",
+        "method": "set_positionable"
+      },
+      "user_input": "params.expect(:positionable_type)",
+      "confidence": "High",
+      "cwe_id": [
+        470
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 24,
+      "fingerprint": "27092c157bd4ebd3a702b578d1932092afa3839cabc1df2c7c82e4fac8610737",
+      "check_name": "UnsafeReflection",
+      "message": "Unsafe reflection method `constantize` called on parameter value",
+      "file": "app/controllers/warehouse/boxes_controller.rb",
+      "line": 13,
+      "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
+      "code": "params.expect(:positionable_type).constantize",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Warehouse::BoxesController",
+        "method": "set_positionable"
+      },
+      "user_input": "params.expect(:positionable_type)",
+      "confidence": "High",
+      "cwe_id": [
+        470
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "4bb8ef1a1ccd1fe52e1fa2f996ee56e865e3c21c4b3cab6f43ef157ae35f2445",
@@ -69,6 +138,29 @@
       "note": ""
     },
     {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 24,
+      "fingerprint": "8ed58f343512270bfef51f58a318b52e474575e2ee1f28d39c8619ecf4c61ba2",
+      "check_name": "UnsafeReflection",
+      "message": "Unsafe reflection method `constantize` called on parameter value",
+      "file": "app/controllers/warehouse/pallets_controller.rb",
+      "line": 13,
+      "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
+      "code": "params.expect(:positionable_type).constantize",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Warehouse::PalletsController",
+        "method": "set_positionable"
+      },
+      "user_input": "params.expect(:positionable_type)",
+      "confidence": "High",
+      "cwe_id": [
+        470
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Dangerous Send",
       "warning_code": 23,
       "fingerprint": "9aeb5ea5c311e0e209366bca132563ef437b81890dbcdc9fea0fab5b426235dd",
@@ -88,6 +180,29 @@
       "confidence": "High",
       "cwe_id": [
         77
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "c79308a759a989a3519f01dfc1d14a26812f8fb3092c02196aeacaadf98e54dc",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/concerns/codable.rb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "where(\"LOWER(#{self.model_name.plural}.code) LIKE ?\", like(code))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Codable",
+        "method": null
+      },
+      "user_input": "self.model_name.plural",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
       ],
       "note": ""
     },
@@ -115,6 +230,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-09-22 01:15:25 +0500",
-  "brakeman_version": "6.2.1"
+  "updated": "2024-11-11 12:36:49 +0500",
+  "brakeman_version": "6.2.2"
 }

@@ -24,4 +24,8 @@ class Pallet < ApplicationRecord
       parts = [ "P", SecureRandom.hex(8) ]
       parts.join("-").upcase
     end
+
+    def box_scopes
+      [ boxes ]
+    end
 end

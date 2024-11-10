@@ -16,7 +16,16 @@
         android:icon="@drawable/ic_overflow"
         android:orderInCategory="999"
         android:visible="false"
-        app:iconTint="?colorControlNormal"
+        app:iconTint="@color/black"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+    <item
+        android:id="@+id/scanner"
+        android:icon="@drawable/ic_scanner"
+        android:orderInCategory="999"
+        android:visible="false"
+        app:iconTint="@color/black"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
 

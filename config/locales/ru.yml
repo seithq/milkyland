@@ -79,6 +79,7 @@ ru:
     tier: "Ярус %{index}"
     box: "Коробка"
     pallet: "Паллета"
+    scan_qr: "Скан QR"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -132,6 +133,9 @@ ru:
     download: "Скачать"
     download_all: "Скачать все"
     location_not_found: "Без адреса"
+    open_scanner: "Открыть камеру"
+    scan_qr_code: "Отсканируйте QR или введите код в ручную"
+    read_scan: "Поиск"
   user_statuses:
     active: "Активный"
     inactive: "Удален"

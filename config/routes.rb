@@ -181,6 +181,7 @@ Rails.application.routes.draw do
 
   scope module: "mobile" do
     resource :feed, only: :show
+    resources :scans, only: :index
   end
 
   get "/configurations/android", to: "configurations#android", as: :android_configuration

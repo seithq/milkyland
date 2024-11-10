@@ -1,6 +1,7 @@
 package kz.milkyland.qr
 
 import android.app.Application
+import android.content.Context
 import dev.hotwire.core.config.Hotwire
 import dev.hotwire.core.bridge.BridgeComponentFactory
 import dev.hotwire.core.bridge.KotlinXJsonConverter
@@ -19,10 +20,17 @@ import kz.milkyland.qr.features.web.WebBottomSheetFragment
 import kz.milkyland.qr.bridge.FormComponent
 import kz.milkyland.qr.bridge.ButtonComponent
 import kz.milkyland.qr.bridge.DropdownComponent
+import kz.milkyland.qr.bridge.ScannerComponent
+import kz.milkyland.qr.bridge.OverflowScannerComponent
 
 class MilkyLandApplication : Application() {
+    companion object {
+        lateinit  var appContext: Context
+    }
+
     override fun onCreate() {
         super.onCreate()
+        appContext = applicationContext
         configureApp()
     }
 
@@ -52,6 +60,8 @@ class MilkyLandApplication : Application() {
             BridgeComponentFactory("form", ::FormComponent),
             BridgeComponentFactory("button", ::ButtonComponent),
             BridgeComponentFactory("dropdown", ::DropdownComponent),
+            BridgeComponentFactory("scanner", ::ScannerComponent),
+            BridgeComponentFactory("overflow-scanner", ::OverflowScannerComponent)
         )
 
         // Register route decision handlers
