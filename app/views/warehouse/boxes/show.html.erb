@@ -43,6 +43,16 @@
               </div>
 
               <div class="sm:col-span-4">
+                <%= form.label :production_date, class: "form-label" %>
+                <%= form.date_field :production_date, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :expiration_date, class: "form-label" %>
+                <%= form.date_field :expiration_date, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
                 <%= form.label :scanned_at, class: "form-label" %>
                 <%= form.datetime_field :scanned_at, disabled: true, class: "mt-2 form-input" %>
               </div>

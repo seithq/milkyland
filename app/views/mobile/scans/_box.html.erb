@@ -1,0 +1,67 @@
+<div class="flex flex-col justify-center">
+  <div class="sm:mx-auto sm:w-full">
+    <%= fields_for @scan do |form| %>
+      <div>
+        <div class="space-y-4">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-4 border-b border-gray-900/10 pb-6 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :code, class: "form-label" %>
+                <%= form.text_field :code, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :region_id, class: "form-label" %>
+                <%= form.select :region_id, options_from_collection_for_select(Region.ordered, :id, :name, @scan.region_id), {}, { disabled: true, class: "mt-2 form-input" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :product_id, class: "form-label" %>
+                <%= form.select :product_id, options_from_collection_for_select(Product.all, :id, :name, @scan.product_id), {}, { disabled: true, class: "mt-2 form-input" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :capacity, class: "form-label" %>
+                <%= form.number_field :capacity, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :production_date, class: "form-label" %>
+                <%= form.date_field :production_date, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :expiration_date, class: "form-label" %>
+                <%= form.date_field :expiration_date, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :scanned_at, class: "form-label" %>
+                <%= form.datetime_field :scanned_at, disabled: true, class: "mt-2 form-input" %>
+              </div>
+            </div>
+          </div>
+          <% position = @scan.current_position %>
+          <% if position %>
+            <div class="grid grid-cols-1 gap-x-8 gap-y-4 border-b border-gray-900/10 pb-6 md:grid-cols-3">
+              <div>
+                <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.location") %></h2>
+              </div>
+              <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 md:col-span-2">
+                <%= fields_for position do |pos_form| %>
+                  <div class="sm:col-span-4">
+                    <%= pos_form.label :code, class: "form-label" %>
+                    <%= pos_form.text_field :code, disabled: true, class: "mt-2 form-input" %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

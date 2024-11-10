@@ -327,6 +327,8 @@ ru:
         product_id: Продукт
         capacity: Кол-во в коробке
         scanned_at: Время сканирования
+        production_date: Дата производства
+        expiration_date: Дата истечения срока годности
       generation:
         status: Статус
       pallet:

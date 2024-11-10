@@ -40,6 +40,25 @@
               </div>
             </div>
           </div>
+          <% position = @line.current_position %>
+          <% if position %>
+            <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-4">
+              <div>
+                <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.location") %></h2>
+              </div>
+              <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-3">
+                <%= fields_for position do |pos_form| %>
+                  <div class="sm:col-span-4">
+                    <%= pos_form.label :code, class: "form-label" %>
+                    <div class="flex items-end space-x-2">
+                      <%= pos_form.text_field :code, disabled: true, class: "mt-2 form-input" %>
+                      <%= render "shared/qr_dialog", qr_text: position.code %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
           <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-4">
             <div>
               <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.boxes") %></h2>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Catran</string>
+    <string name="app_name">MilkyLand</string>
     <string name="error_web_home">Не удалось загрузить страницу</string>
     <string name="error_web_home_description">Сервер не доступен. Попробуйте обновить страницу.</string>
     <string name="menu_progress">Загружаем ...</string>
