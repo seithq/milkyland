@@ -24,6 +24,6 @@ class Warehouse::BoxesController < ApplicationController
     end
 
     def positionable_scope
-      @positionable.all_boxes.recent_first
+      @positionable.all_boxes.fifo
     end
 end

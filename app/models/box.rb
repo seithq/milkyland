@@ -21,6 +21,8 @@ class Box < ApplicationRecord
   scope :filter_by_zone_address, ->(address) { joins(:zones).merge(Zone.filter_by_code(address)) }
   scope :filter_by_tier_address, ->(address) { joins(:tiers).merge(Tier.filter_by_code(address)) }
 
+  scope :fifo, ->() { order(expiration_date: :asc) }
+
   def self.prefix_to_scope
     {
       "Z": "filter_by_zone_address",
