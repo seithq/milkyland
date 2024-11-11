@@ -1,3 +1,5 @@
+<% content_for(:turbo_native_title) { t("pages.scan_qr") } %>
+
 <div class="p-6 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-title="<%= t("pages.scan_qr") %>">
   <button class="hidden" data-controller="bridge--overflow-scanner" data-action="bridge--scanner#show">
     <%= t("actions.open_scanner") %>

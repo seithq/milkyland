@@ -133,9 +133,16 @@ ru:
     download: "Скачать"
     download_all: "Скачать все"
     location_not_found: "Без адреса"
-    open_scanner: "Открыть камеру"
+    open_scanner: "Скан QR"
     scan_qr_code: "Отсканируйте QR или введите код в ручную"
     read_scan: "Поиск"
+    create_arrival: "Приход"
+    create_departure: "Расход"
+    create_transfer: "Перемещение"
+    create_write_off: "Списание"
+    create_location: "Адресное перемещение"
+    view_incoming: "Входящие"
+    view_outgoing: "Исходящие"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
@@ -291,3 +298,13 @@ ru:
     boxes: "Коробки"
     location: "Адресное хранение"
     count: "Количество: %{with}"
+    waybill_history: "Журнал накладных"
+  hints:
+    scan_qr: Сканируйте код и получите информацию
+    create_arrival: Новой продукции на склад
+    create_departure: Продукции со склада
+    create_transfer: Продукции между складами
+    create_write_off: Продукции со склада
+    create_location: Коробок и паллет внутри ярусов или зон
+    view_incoming: Накладные (Отправитель)
+    view_outgoing: Накладные (Получатель)

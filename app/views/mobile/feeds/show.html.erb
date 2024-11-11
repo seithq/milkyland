@@ -5,38 +5,100 @@
     <h2 class="text-base uppercase font-semibold text-gray-900"><%= t("pages.waybills") %></h2>
     <ul role="list" class="divide-y divide-gray-100 overflow-hidden bg-white shadow-sm rounded-xl">
       <li class="relative flex">
-        <div class="flex w-16 shrink-0 items-center justify-center bg-pink-600 text-sm font-medium text-white">GA</div>
+        <div class="flex w-16 shrink-0 items-center justify-center bg-green-500 text-sm font-medium text-white">
+          <%= inline_svg_tag "sort-ascending.svg", class: "size-10" %>
+        </div>
         <div class="flex flex-1 items-center justify-between truncate bg-white">
           <div class="flex-1 truncate px-4 py-2 text-sm">
-            <%= link_to "Scan QR", scans_path, class: "font-medium text-gray-900 hover:text-gray-600" %>
-            <p class="text-gray-500">16 Members</p>
+            <a href="#" class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.create_arrival") %></a>
+            <p class="text-gray-500"><%= t("hints.create_arrival") %></p>
           </div>
         </div>
       </li>
       <li class="relative flex">
-        <div class="flex w-16 shrink-0 items-center justify-center bg-purple-600 text-sm font-medium text-white">CD</div>
+        <div class="flex w-16 shrink-0 items-center justify-center bg-blue-600 text-sm font-medium text-white">
+          <%= inline_svg_tag "switch-horizontal.svg", class: "size-10" %>
+        </div>
         <div class="flex flex-1 items-center justify-between truncate bg-white">
           <div class="flex-1 truncate px-4 py-2 text-sm">
-            <a href="#" class="font-medium text-gray-900 hover:text-gray-600">Component Design</a>
-            <p class="text-gray-500">12 Members</p>
+            <a href="#" class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.create_transfer") %></a>
+            <p class="text-gray-500"><%= t("hints.create_transfer") %></p>
           </div>
         </div>
       </li>
       <li class="relative flex">
-        <div class="flex w-16 shrink-0 items-center justify-center bg-yellow-500 text-sm font-medium text-white">T</div>
+        <div class="flex w-16 shrink-0 items-center justify-center bg-yellow-500 text-sm font-medium text-white">
+          <%= inline_svg_tag "sort-descending.svg", class: "size-10" %>
+        </div>
         <div class="flex flex-1 items-center justify-between truncate bg-white">
           <div class="flex-1 truncate px-4 py-2 text-sm">
-            <a href="#" class="font-medium text-gray-900 hover:text-gray-600">Templates</a>
-            <p class="text-gray-500">16 Members</p>
+            <a href="#" class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.create_write_off") %></a>
+            <p class="text-gray-500"><%= t("hints.create_write_off") %></p>
           </div>
         </div>
       </li>
       <li class="relative flex">
-        <div class="flex w-16 shrink-0 items-center justify-center bg-green-500 text-sm font-medium text-white">RC</div>
-        <div class="flex flex-1 items-center justify-between truncate border-gray-200 bg-white">
+        <div class="flex w-16 shrink-0 items-center justify-center bg-red-500 text-sm font-medium text-white">
+          <%= inline_svg_tag "switch-vertical.svg", class: "size-10" %>
+        </div>
+        <div class="flex flex-1 items-center justify-between truncate bg-white">
           <div class="flex-1 truncate px-4 py-2 text-sm">
-            <a href="#" class="font-medium text-gray-900 hover:text-gray-600">React Components</a>
-            <p class="text-gray-500">8 Members</p>
+            <a href="#" class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.create_departure") %></a>
+            <p class="text-gray-500"><%= t("hints.create_departure") %></p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="space-y-2">
+    <h2 class="text-base uppercase font-semibold text-gray-900"><%= t("forms.waybill_history") %></h2>
+    <ul role="list" class="divide-y divide-gray-100 overflow-hidden bg-white shadow-sm rounded-xl">
+      <li class="relative flex">
+        <div class="flex w-16 shrink-0 items-center justify-center bg-lime-500 text-sm font-medium text-white">
+          <%= inline_svg_tag "inbox-in.svg", class: "size-10" %>
+        </div>
+        <div class="flex flex-1 items-center justify-between truncate bg-white">
+          <div class="flex-1 truncate px-4 py-2 text-sm">
+            <a href="#" class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.view_incoming") %></a>
+            <p class="text-gray-500"><%= t("hints.view_incoming") %></p>
+          </div>
+        </div>
+      </li>
+      <li class="relative flex">
+        <div class="flex w-16 shrink-0 items-center justify-center bg-fuchsia-600 text-sm font-medium text-white">
+          <%= inline_svg_tag "inbox.svg", class: "size-10" %>
+        </div>
+        <div class="flex flex-1 items-center justify-between truncate bg-white">
+          <div class="flex-1 truncate px-4 py-2 text-sm">
+            <a href="#" class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.view_outgoing") %></a>
+            <p class="text-gray-500"><%= t("hints.view_outgoing") %></p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="space-y-2">
+    <h2 class="text-base uppercase font-semibold text-gray-900"><%= t("forms.location") %></h2>
+    <ul role="list" class="divide-y divide-gray-100 overflow-hidden bg-white shadow-sm rounded-xl">
+      <li class="relative flex">
+        <div class="flex w-16 shrink-0 items-center justify-center bg-teal-500 text-sm font-medium text-white">
+          <%= inline_svg_tag "view-grid-add.svg", class: "size-10" %>
+        </div>
+        <div class="flex flex-1 items-center justify-between truncate bg-white">
+          <div class="flex-1 truncate px-4 py-2 text-sm">
+            <a href="#" class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.create_location") %></a>
+            <p class="text-gray-500"><%= t("hints.create_location") %></p>
+          </div>
+        </div>
+      </li>
+      <li class="relative flex">
+        <div class="flex w-16 shrink-0 items-center justify-center bg-indigo-600 text-sm font-medium text-white">
+          <%= inline_svg_tag "qrcode.svg", class: "size-10" %>
+        </div>
+        <div class="flex flex-1 items-center justify-between truncate bg-white">
+          <div class="flex-1 truncate px-4 py-2 text-sm">
+            <%= link_to t("actions.open_scanner"), scans_path, class: "font-medium text-gray-900 hover:text-gray-600 uppercase" %>
+            <p class="text-gray-500"><%= t("hints.scan_qr") %></p>
           </div>
         </div>
       </li>
