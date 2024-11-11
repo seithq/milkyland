@@ -19,39 +19,30 @@
               </div>
             </div>
           </div>
-          <% position = @scan.current_position %>
-          <% if position %>
-            <div class="grid grid-cols-1 gap-x-8 gap-y-4 border-b border-gray-900/10 pb-6 md:grid-cols-4">
-              <div>
-                <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.location") %></h2>
-              </div>
-              <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 md:col-span-3">
-                <%= fields_for position do |pos_form| %>
-                  <div class="sm:col-span-4">
-                    <%= pos_form.label :code, class: "form-label" %>
-                    <%= pos_form.text_field :code, disabled: true, class: "mt-2 form-input" %>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
+          <%= render "position", scan: @scan %>
           <div class="grid grid-cols-1 gap-x-8 gap-y-4 border-b border-gray-900/10 pb-6 md:grid-cols-4">
             <div>
               <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.boxes") %></h2>
+              <h3 class="text-sm font-medium leading-6 text-gray-500"><%= t("forms.count", with: @scan.all_boxes.count) %></h3>
             </div>
             <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 md:col-span-3">
               <div class="sm:col-span-full">
-
+                <%= turbo_frame_tag :location_boxes, src: location_boxes_path(@scan, @scan.model_name.human, scanning: true) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
               </div>
             </div>
           </div>
           <div class="grid grid-cols-1 gap-x-8 gap-y-4 border-b border-gray-900/10 pb-6 md:grid-cols-4">
             <div>
               <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.pallets") %></h2>
+              <h3 class="text-sm font-medium leading-6 text-gray-500"><%= t("forms.count", with: @scan.all_pallets.count) %></h3>
             </div>
             <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 md:col-span-3">
               <div class="sm:col-span-full">
-
+                <%= turbo_frame_tag :location_pallets, src: location_pallets_path(@scan, @scan.model_name.human, scanning: true) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
               </div>
             </div>
           </div>

@@ -18,7 +18,7 @@
               </div>
             </div>
             <div class="table-row-group divide-y divide-gray-200 bg-white">
-              <%= render partial: "location_box", collection: @elements, as: :box %>
+              <%= render partial: params.has_key?(:scanning) ? "scan_box" : "location_box", collection: @elements, as: :box %>
             </div>
           </div>
           <div class="px-2">

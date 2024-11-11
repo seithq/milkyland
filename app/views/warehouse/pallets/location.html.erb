@@ -15,7 +15,7 @@
               </div>
             </div>
             <div class="table-row-group divide-y divide-gray-200 bg-white">
-              <%= render partial: "location_pallet", collection: @elements, as: :pallet %>
+              <%= render partial: params.has_key?(:scanning) ? "scan_pallet" : "location_pallet", collection: @elements, as: :pallet %>
             </div>
           </div>
           <div class="px-2">
