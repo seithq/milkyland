@@ -12,7 +12,7 @@
 
             <div class="sm:col-span-4">
               <%= form.label :kind, class: "form-label" %>
-              <%= form.select :kind, options_for_enum_select(Waybill, :kind, waybill.kind, excluded_options: %i[ departure return_back ]), { include_blank: true }, { disabled: !waybill.editable?, required: true, data: { action: "waybill#toggleSelectors" }, class: "mt-2 form-select" } %>
+              <%= form.select :kind, options_for_enum_select(Waybill, :kind, waybill.kind, excluded_options: %i[ departure return_back production_write_off ]), { include_blank: true }, { disabled: !waybill.editable?, required: true, data: { action: "waybill#toggleSelectors" }, class: "mt-2 form-select" } %>
             </div>
 
             <div class="sm:col-span-4">
