@@ -354,3 +354,6 @@ ru:
         active: Активная запись
         display_index: Номер
         repeat: Кол-во ярусов для создания
+      warehouser:
+        user_id: Пользователь
+        active: Активная запись

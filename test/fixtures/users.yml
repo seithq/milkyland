@@ -35,3 +35,15 @@ loader:
   email_address: loader@example.com
   password_digest: <%= password_digest %>
   role: loader
+
+warehouser:
+  name: Warehouser
+  email_address: warehouser@example.com
+  password_digest: <%= password_digest %>
+  role: warehouser
+
+procurement_officer:
+  name: Procurement Officer
+  email_address: procurement_officer@example.com
+  password_digest: <%= password_digest %>
+  role: procurement_officer

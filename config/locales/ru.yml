@@ -80,6 +80,7 @@ ru:
     box: "Коробка"
     pallet: "Паллета"
     scan_qr: "Скан QR"
+    warehousers: "Работники склада"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -109,7 +110,11 @@ ru:
     have_account: "Есть аккаунт?"
     remove_account: "Удалить аккаунт?"
     confirm: "Подтвердить действие?"
-    not_saved: "Сохранение не удалось из-за %{count} ошибок:"
+    not_saved:
+      one: "Сохранение не удалось из-за %{count} ошибки"
+      few: "Сохранение не удалось из-за %{count} ошибок"
+      many: "Сохранение не удалось из-за %{count} ошибок"
+      other: "Сохранение не удалось из-за %{count} ошибки"
     record_not_found: "Запись не найдена"
     record_created: "Запись создана"
     record_updated: "Запись обновлена"
@@ -299,6 +304,7 @@ ru:
     location: "Адресное хранение"
     count: "Количество: %{with}"
     waybill_history: "Журнал накладных"
+    warehousers: "Работники склада"
   hints:
     scan_qr: Сканируйте код и получите информацию
     create_arrival: Новой продукции на склад

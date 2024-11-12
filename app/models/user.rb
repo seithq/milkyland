@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_many :out_waybills, class_name: "Waybill", foreign_key: "sender_id",   dependent: :nullify
   has_many :in_waybills,  class_name: "Waybill", foreign_key: "receiver_id", dependent: :nullify
 
+  has_many :warehousers, dependent: :destroy
+  has_many :storages, through: :warehousers
+
   validates :name, :email_address, presence: true, uniqueness: { case_sensitive: false }
 
   scope :active, -> { where(active: true) }

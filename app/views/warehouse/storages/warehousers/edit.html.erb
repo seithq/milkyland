@@ -1,0 +1,13 @@
+<% content_for(:title) { @warehouser.user.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: storages_path, title: t("pages.storages")),
+      NavLink.new(path: edit_storage_path(@storage), title: @storage.name),
+      NavLink.new(path: edit_storage_warehouser_path(@storage, @warehouser), title: @warehouser.user.name)
+    ]
+  } %>
+<% end %>
+
+<%= render "form", warehouser: @warehouser %>

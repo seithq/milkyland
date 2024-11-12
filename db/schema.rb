@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_04_135455) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_12_111429) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -759,6 +759,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_04_135455) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
+  create_table "warehousers", force: :cascade do |t|
+    t.bigint "storage_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["storage_id"], name: "index_warehousers_on_storage_id"
+    t.index ["user_id"], name: "index_warehousers_on_user_id"
+  end
+
   create_table "waybills", force: :cascade do |t|
     t.string "kind"
     t.bigint "storage_id"
@@ -866,6 +876,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_04_135455) do
   add_foreign_key "steps", "operations"
   add_foreign_key "suppliers", "users", column: "manager_id"
   add_foreign_key "supply_orders", "material_assets"
+  add_foreign_key "warehousers", "storages"
+  add_foreign_key "warehousers", "users"
   add_foreign_key "waybills", "batches"
   add_foreign_key "waybills", "storages"
   add_foreign_key "waybills", "storages", column: "new_storage_id"

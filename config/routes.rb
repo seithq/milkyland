@@ -120,6 +120,7 @@ Rails.application.routes.draw do
           end
         end
         resource :map, only: :show
+        resources :warehousers, except: :show
       end
     end
     resources :waybills, only: %i[ index show ] do
