@@ -1,6 +1,6 @@
 <% content_for(:turbo_native_title) { t("pages.scan_qr") } %>
 
-<div class="p-6 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-title="<%= t("pages.scan_qr") %>">
+<div class="p-6 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-multiple="false" data-bridge-manual="false">
   <div class="bg-white p-6 rounded-lg space-y-6">
     <%= turbo_frame_tag :scan_result do %>
       <% if @scan %>
@@ -24,7 +24,7 @@
           <%= form.text_field :code, placeholder: t("actions.search_by_code"), data: { bridge__scanner_target: "code" }, class: "pl-10 form-input-xl" %>
         </div>
         <div class="flex justify-between space-x-2">
-          <button class="mobile-btn-xl" data-controller="bridge--overflow-scanner" data-action="bridge--scanner#show">
+          <button type="button" class="mobile-btn-xl" data-controller="bridge--overflow-scanner" data-action="bridge--scanner#show">
             <%= t("actions.open_scanner") %>
           </button>
           <%= form.submit t("actions.read_scan"), class: "mobile-btn-xl" %>

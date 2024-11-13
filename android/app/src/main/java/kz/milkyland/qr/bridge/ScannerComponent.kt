@@ -1,7 +1,6 @@
 package kz.milkyland.qr.bridge
 
 import android.util.Log
-import androidx.fragment.app.Fragment
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
@@ -18,9 +17,6 @@ class ScannerComponent(
     private val delegate: BridgeDelegate<HotwireDestination>
 ) : BridgeComponent<HotwireDestination>(name, delegate) {
 
-    private val fragment: Fragment
-        get() = delegate.destination.fragment
-
     override fun onReceive(message: Message) {
         when (message.event) {
             "display" -> handleDisplayEvent(message)
@@ -30,27 +26,23 @@ class ScannerComponent(
 
     private fun handleDisplayEvent(message: Message) {
         val data = message.data<MessageData>() ?: return
-        showScanner(data.title)
+        showScanner(data.manual)
     }
 
-    private fun showScanner(title: String) {
+    private fun showScanner(manualMode: Boolean) {
         val options = GmsBarcodeScannerOptions.Builder()
             .setBarcodeFormats(Barcode.FORMAT_QR_CODE, Barcode.FORMAT_AZTEC)
-            .build()
+        if (manualMode) {
+            options.allowManualInput()
+        }
 
-        val scanner = GmsBarcodeScanning.getClient(MilkyLandApplication.appContext, options)
+        val scanner = GmsBarcodeScanning.getClient(MilkyLandApplication.appContext, options.build())
         scanner.startScan()
             .addOnSuccessListener { barcode ->
                 val rawValue: String? = barcode.rawValue
                 if (rawValue != null) {
                     onCodeScanned(rawValue)
                 }
-            }
-            .addOnCanceledListener {
-                // Task canceled
-            }
-            .addOnFailureListener { _ ->
-                // Task failed with an exception
             }
     }
 
@@ -60,7 +52,7 @@ class ScannerComponent(
 
     @Serializable
     data class MessageData(
-        @SerialName("title") val title: String
+        @SerialName("manual") val manual: Boolean
     )
 
     @Serializable
