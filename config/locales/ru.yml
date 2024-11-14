@@ -81,6 +81,8 @@ ru:
     pallet: "Паллета"
     scan_qr: "Скан QR"
     warehousers: "Работники склада"
+    arrivals: "Приход"
+    arrival: "Приход: #%{id}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -97,6 +99,7 @@ ru:
     edit_record: "Правка"
     show_record: "Просмотр"
     save_record: "Сохранить"
+    save_record_next: "Далее"
     destroy_record: "Удалить"
     select_kind: "Выберите тип"
     search_by_name: "Поиск по названию"
@@ -110,6 +113,7 @@ ru:
     have_account: "Есть аккаунт?"
     remove_account: "Удалить аккаунт?"
     confirm: "Подтвердить действие?"
+    approve: "Подтвердить"
     not_saved:
       one: "Сохранение не удалось из-за %{count} ошибки"
       few: "Сохранение не удалось из-за %{count} ошибок"
@@ -120,6 +124,7 @@ ru:
     record_updated: "Запись обновлена"
     record_deleted: "Запись удалена"
     record_deactivated: "Запись деактивирована"
+    code_notfound: "Код не найден или недопустим в данной операции"
     promo_deactivate: "Приостановить"
     promo_deactivated: "Акция приостановлена"
     cancel: "Отменить"
@@ -305,6 +310,7 @@ ru:
     count: "Количество: %{with}"
     waybill_history: "Журнал накладных"
     warehousers: "Работники склада"
+    subjects: "Товары"
   hints:
     scan_qr: Сканируйте код и получите информацию
     create_arrival: Новой продукции на склад

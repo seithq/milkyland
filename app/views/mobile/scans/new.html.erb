@@ -1,0 +1,8 @@
+<% content_for(:turbo_native_title) { t("pages.scan_qr") } %>
+
+<% if @scan %>
+  <%= render partial: "preview_#{ @scan.model_name.singular }" %>
+<% else %>
+  <%= render partial: "preview_empty" %>
+<% end %>
+

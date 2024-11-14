@@ -1,0 +1,54 @@
+<%= tag.li class: "overflow-hidden rounded-md border p-4" do %>
+  <dl data-controller="detail" data-detail-open-value="false">
+    <dt>
+      <button type="button" data-action="detail#toggle" class="flex w-full items-start justify-between text-left text-gray-900" aria-controls="<%= @scan.code %>" aria-expanded="false">
+        <span class="text-sm font-semibold leading-7"><%= @scan.code %></span>
+        <span class="ml-2 flex h-7 items-center">
+          <span class="px-2 py-1 rounded-lg text-sm font-semibold leading-7"><%= @scan.model_name.human count: 1 %></span>
+          <%= inline_svg_tag "plus-sm.svg", class: "h-6 w-6", data: { detail_target: "opener" } %>
+          <%= inline_svg_tag "minus-sm.svg", class: "h-6 w-6", data: { detail_target: "closer" } %>
+        </span>
+      </button>
+    </dt>
+    <dd class="mt-2"
+        data-detail-target="summary"
+        data-transition-enter="transition ease-out duration-100"
+        data-transition-enter-start="transform opacity-0 scale-95"
+        data-transition-enter-end="transform opacity-100 scale-100"
+        data-transition-leave="transition ease-in duration-75"
+        data-transition-leave-start="transform opacity-100 scale-100"
+        data-transition-leave-end="transform opacity-0 scale-95">
+
+      <ul role="list" class="divide-y divide-gray-200">
+        <li class="py-2 flex justify-between">
+          <span class="text-sm font-medium text-gray-700"><%= Box.human_attribute_name(:id) %></span>
+          <span class="text-sm font-semibold text-gray-900"><%= @scan.id %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-sm font-medium text-gray-700"><%= Box.human_attribute_name(:code) %></span>
+          <span class="text-sm font-semibold text-gray-900"><%= @scan.code %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-sm font-medium text-gray-700"><%= Box.human_attribute_name(:product_id) %></span>
+          <span class="text-sm font-semibold text-gray-900"><%= @scan.product.name %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-sm font-medium text-gray-700"><%= Box.human_attribute_name(:capacity) %></span>
+          <span class="text-sm font-semibold text-gray-900"><%= @scan.capacity %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-sm font-medium text-gray-700"><%= Box.human_attribute_name(:region_id) %></span>
+          <span class="text-sm font-semibold text-gray-900"><%= @scan.region.name %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-sm font-medium text-gray-700"><%= Box.human_attribute_name(:production_date) %></span>
+          <span class="text-sm font-semibold text-gray-900"><%= l @scan.production_date %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-sm font-medium text-gray-700"><%= Box.human_attribute_name(:expiration_date) %></span>
+          <span class="text-sm font-semibold text-gray-900"><%= l @scan.expiration_date %></span>
+        </li>
+      </ul>
+    </dd>
+  </dl>
+<% end %>

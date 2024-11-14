@@ -119,6 +119,7 @@ ru:
         kinds:
           hold: "Для хранения"
           ship: "Для отгрузки"
+          arrival: "Для приемки"
     attributes:
       user:
         name: ФИО
@@ -322,6 +323,7 @@ ru:
         subject_id: Номенклатура
         count: Количество
       box:
+        id: ID
         code: Код коробки
         region_id: Регион
         product_id: Продукт
@@ -357,3 +359,8 @@ ru:
       warehouser:
         user_id: Пользователь
         active: Активная запись
+    models:
+      box:
+        one: Коробка
+      pallet:
+        one: Паллета

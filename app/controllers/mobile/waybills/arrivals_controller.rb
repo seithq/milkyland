@@ -1,0 +1,53 @@
+module Mobile
+  class Waybills::ArrivalsController < MobileController
+    before_action :set_waybill, only: %i[ edit update destroy ]
+
+    def new
+      @waybill = base_scope.new(kind: :arrival, status: :draft)
+    end
+
+    def edit
+    end
+
+    def create
+      @waybill = base_scope.new(waybill_params)
+
+      if @waybill.save
+        redirect_on_create edit_waybills_arrival_url(@waybill)
+      else
+        render :new, status: :unprocessable_entity
+      end
+    end
+
+    def update
+      if @waybill.update(waybill_params)
+        redirect_on_update on_change_url
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
+    def destroy
+      @waybill.destroy!
+
+      redirect_on_destroy feed_url
+    end
+
+    private
+      def base_scope
+        Current.user.in_waybills
+      end
+
+      def set_waybill
+        @waybill = base_scope.find(params.expect(:id))
+      end
+
+      def waybill_params
+        params.expect(waybill: [ :kind, :storage_id, :new_storage_id, :sender_id, :receiver_id, :status ])
+      end
+
+      def on_change_url
+        @waybill.approved? ? feed_url : edit_waybills_arrival_url(@waybill)
+      end
+  end
+end

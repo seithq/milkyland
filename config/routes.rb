@@ -182,7 +182,10 @@ Rails.application.routes.draw do
 
   scope module: "mobile" do
     resource :feed, only: :show
-    resources :scans, only: :index
+    resources :scans, only: %i[ index new ]
+    namespace :waybills do
+      resources :arrivals, except: %i[ index show ]
+    end
   end
 
   get "/configurations/android", to: "configurations#android", as: :android_configuration

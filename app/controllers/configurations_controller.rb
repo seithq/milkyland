@@ -22,14 +22,6 @@ class ConfigurationsController < ApplicationController
             uri: "hotwire://fragment/web/home",
             presentation: "replace_root"
           }
-        },
-        {
-          patterns: %w[(?<!(session))/new$ /edit$],
-          properties: {
-            context: "modal",
-            uri: "hotwire://fragment/web/modal/sheet",
-            pull_to_refresh_enabled: false
-          }
         }
       ]
     }

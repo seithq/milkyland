@@ -1,0 +1,7 @@
+<%= turbo_stream.prepend @frame do %>
+  <% if @scan %>
+    <%= render partial: "preview_#{ @scan.model_name.singular }" %>
+  <% else %>
+    <%= render partial: "preview_empty" %>
+  <% end %>
+<% end %>

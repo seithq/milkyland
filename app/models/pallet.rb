@@ -19,6 +19,10 @@ class Pallet < ApplicationRecord
     }
   end
 
+  def capacity
+    boxes.sum(:capacity)
+  end
+
   private
     def generate_code
       parts = [ "P", SecureRandom.hex(8) ]

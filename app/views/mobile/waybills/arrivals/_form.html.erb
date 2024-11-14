@@ -1,0 +1,49 @@
+<div class="p-6 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-multiple="true" data-bridge-manual="true">
+  <div class="bg-white p-6 rounded-lg space-y-6">
+    <%= render "layouts/error_messages", resource: waybill %>
+    <%= native_form_with model: waybill, url: waybill.new_record? ? waybills_arrivals_url : waybills_arrival_url(waybill), id: "arrival_form", html: { data: { turbo_action: "replace" } } do |form| %>
+      <%= form.hidden_field :kind %>
+
+      <div class="space-y-4">
+        <div>
+          <%= form.label :new_storage_id, class: "form-label-xl" %>
+          <%= form.select :new_storage_id, options_from_collection_for_select(Current.user.storages.acceptable, :id, :name, waybill.new_storage_id), { include_blank: true }, { required: true, disabled: !waybill.new_record?, class: "mt-2 form-select-xl" } %>
+        </div>
+
+        <% unless waybill.new_record? %>
+          <div class="hidden" data-bridge--scanner-target="code"></div>
+          <div class="space-y-2">
+            <label for="codes" class="form-label-xl"><%= t("forms.subjects") %></label>
+            <ul role="list" class="space-y-3" id="codes" data-bridge--scanner-target="codes" data-bridge-frame="codes" data-bridge-preview-url="<%= new_scan_url %>" data-bridge-allowed-prefixes="B,P">
+            </ul>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="mt-2 turbo-native:hidden">
+        <% if waybill.new_record? %>
+          <%= form.hidden_field :status %>
+          <%= form.submit t("actions.save_record_next"), class: "mobile-btn-xl" %>
+        <% else %>
+          <%#= hidden_field_tag "waybill[status]", "approved" %>
+          <%= form.submit t("actions.approve"), class: "mobile-btn-xl", data: { turbo_confirm: t("actions.confirm") } %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <% unless waybill.new_record? %>
+    <div class="mt-6 sticky bottom-0">
+      <div class="bg-white p-6 rounded-lg space-y-6">
+        <div class="flex flex-col space-y-1">
+          <% if waybill.draft? %>
+            <%= button_to t("actions.destroy_record"), waybills_arrival_url(waybill), class: "mobile-btn-xl bg-red-500 text-white", method: :delete, data: { turbo_action: :replace, turbo_confirm: t("actions.confirm") } %>
+          <% end %>
+          <button type="button" class="mobile-btn-xl" data-controller="bridge--overflow-scanner" data-action="bridge--scanner#show">
+            <%= t("actions.open_scanner") %>
+          </button>
+        </div>
+      </div>
+  <% end %>
+  </div>
+</div>

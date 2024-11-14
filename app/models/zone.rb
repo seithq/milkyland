@@ -1,7 +1,7 @@
 class Zone < ApplicationRecord
   include Deactivatable, Codable, Markable, Locatable, QrGeneratable
 
-  enum :kind, %w[ hold ship ].index_by(&:itself), default: :hold
+  enum :kind, %w[ arrival hold ship ].index_by(&:itself), default: :hold
 
   has_many :storages, through: :locations, source: :positionable, source_type: "Storage"
 

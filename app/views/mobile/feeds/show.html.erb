@@ -10,7 +10,7 @@
         </div>
         <div class="flex flex-1 items-center justify-between truncate bg-white">
           <div class="flex-1 truncate px-4 py-2 text-sm">
-            <a href="#" class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.create_arrival") %></a>
+            <%= link_to t("actions.create_arrival"), new_waybills_arrival_path, class: "font-medium text-gray-900 hover:text-gray-600 uppercase" %>
             <p class="text-gray-500"><%= t("hints.create_arrival") %></p>
           </div>
         </div>
