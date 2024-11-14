@@ -1,21 +1,16 @@
 <% position = scan.current_position %>
 <% if position %>
-  <div class="grid grid-cols-1 gap-x-8 gap-y-4 border-b border-gray-900/10 pb-6 md:grid-cols-4">
-    <div>
-      <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.location") %></h2>
-    </div>
-    <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 md:col-span-3">
-      <%= fields_for position do |pos_form| %>
-        <div class="sm:col-span-4">
-          <% if position.model_name.human == "Storage" %>
-            <%= pos_form.label :name, class: "form-label" %>
-            <%= pos_form.text_field :name, disabled: true, class: "mt-2 form-input" %>
-          <% else %>
-            <%= pos_form.label :code, class: "form-label" %>
-            <%= pos_form.text_field :code, disabled: true, class: "mt-2 form-input" %>
-          <% end %>
-        </div>
+  <li class="py-2 flex justify-between">
+    <span class="text-xs font-medium text-gray-700"><%= position.class.human_attribute_name(:code) %></span>
+    <% if position.model_name.human == "Storage" %>
+      <span class="text-xs font-semibold text-gray-900"><%= position.name %></span>
+    <% else %>
+      <% if position.respond_to?(:display_index) %>
+        <span class="text-xs font-semibold text-gray-900"><%= t("pages.#{ position.model_name.singular }", index: position.display_index) %></span>
+      <% else %>
+        <span class="text-xs font-semibold text-gray-900"><%= position.id %></span>
       <% end %>
-    </div>
-  </div>
+    <% end %>
+  </li>
+  <%= render "position", scan: position %>
 <% end %>

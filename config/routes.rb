@@ -185,6 +185,7 @@ Rails.application.routes.draw do
     resources :scans, only: %i[ index new ]
     namespace :waybills do
       resources :arrivals, except: %i[ index show ]
+      resources :locations, only: %i[ new create ]
     end
   end
 

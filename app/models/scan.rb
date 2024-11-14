@@ -8,7 +8,7 @@ class Scan
     "Z": Zone
   ).freeze
 
-  def self.find_by(code, allowed_prefixes:)
+  def self.find_by(code, allowed_prefixes: PREFIX_TO_CLASS.keys)
     allowed_prefixes = PREFIX_TO_CLASS.keys if allowed_prefixes.empty?
 
     parts = code.split("-")

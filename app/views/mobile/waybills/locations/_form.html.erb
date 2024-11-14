@@ -1,0 +1,57 @@
+<div class="p-4 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-manual="true">
+
+  <%= native_form_with model: location, url: waybills_locations_path, id: "location_form", html: { data: { turbo_action: "replace" } } do |form| %>
+    <div class="space-y-6">
+      <div class="bg-white p-4 rounded-lg space-y-6">
+        <div class="space-y-2">
+          <%= form.label :positionable_code, class: "form-label-xl" %>
+
+          <div class="flex flex-col space-y-2">
+            <ul role="list" class="space-y-3"
+                id="location_positionable_code"
+                data-controller="scan-preview"
+                data-scan-preview-preview-url-value="<%= new_scan_url %>"
+                data-scan-preview-whitelist-value="Z,T,P"
+                data-scan-preview-input-name-value="location[positionable_code]">
+            </ul>
+            <button type="button" class="mobile-btn-xl"
+                    data-action="bridge--scanner#show"
+                    data-bridge--scanner-place-param="location_positionable_code"
+                    data-bridge--scanner-save-mode-param="update">
+              <%= t("actions.scan") %>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded-lg space-y-6">
+        <div class="space-y-2">
+          <%= form.label :storable_codes, class: "form-label-xl" %>
+          <div class="flex flex-col space-y-2">
+            <ul role="list" class="space-y-3"
+                id="location_storable_codes"
+                data-controller="scan-preview"
+                data-scan-preview-preview-url-value="<%= new_scan_url %>"
+                data-scan-preview-whitelist-value="B,P"
+                data-scan-preview-input-name-value="location[storable_codes][]">
+              <li>
+                <div class="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <%= inline_svg_tag "qrcode.svg", class: "mx-auto h-12 w-12 text-gray-400" %>
+                  <span class="mt-2 block text-sm font-semibold text-gray-900"><%= t("actions.scan_qr_code") %></span>
+                </div>
+              </li>
+            </ul>
+            <button type="button" class="mobile-btn-xl"
+                    data-action="bridge--scanner#show"
+                    data-bridge--scanner-place-param="location_storable_codes"
+                    data-bridge--scanner-save-mode-param="prepend">
+              <%= t("actions.scan") %>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="turbo-native:hidden">
+      <%= form.submit t("actions.save_record"), class: "mobile-btn-xl" %>
+    </div>
+  <% end %>
+</div>

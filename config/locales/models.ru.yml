@@ -306,6 +306,7 @@ ru:
         count: Количество
       storage:
         name: Название
+        code: Название склада
         kind: Тип
       supply_order:
         material_asset_id: Номенклатура ТМЦ
@@ -334,24 +335,30 @@ ru:
       generation:
         status: Статус
       pallet:
+        id: ID
         code: Код паллеты
+        capacity: Кол-во в паллете
         scanned_at: Время сканирования
       zone:
+        id: ID
         code: Код зоны
         kind: Тип
         active: Активная запись
         display_index: Номер
       line:
+        id: ID
         code: Код линии
         active: Активная запись
         display_index: Номер
         repeat: Кол-во рядов для создания
       stack:
+        id: ID
         code: Код стеллажа
         active: Активная запись
         display_index: Номер
         repeat: Кол-во стеллажей для создания
       tier:
+        id: ID
         code: Код яруса
         active: Активная запись
         display_index: Номер
@@ -359,8 +366,23 @@ ru:
       warehouser:
         user_id: Пользователь
         active: Активная запись
+      location:
+        positionable_type: Тип
+        storable_type: Тип
+        positionable_code: Адрес назначения
+        storable_codes: Адреса коробок или паллет
+        all_boxes_count: Кол-во коробок
+        all_pallets_count: Кол-во паллет
     models:
       box:
         one: Коробка
       pallet:
         one: Паллета
+      zone:
+        one: Зона
+      line:
+        one: Линия
+      stack:
+        one: Стеллаж
+      tier:
+        one: Ярус

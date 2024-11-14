@@ -124,7 +124,7 @@ ru:
     record_updated: "Запись обновлена"
     record_deleted: "Запись удалена"
     record_deactivated: "Запись деактивирована"
-    code_notfound: "Код не найден или недопустим в данной операции"
+    code_not_found: "Код не найден или недопустим в данной операции"
     promo_deactivate: "Приостановить"
     promo_deactivated: "Акция приостановлена"
     cancel: "Отменить"
@@ -153,6 +153,9 @@ ru:
     create_location: "Адресное перемещение"
     view_incoming: "Входящие"
     view_outgoing: "Исходящие"
+    scan: "Сканировать"
+    failed_location_save: "Не удалось сохранить адресное положение"
+    remove: "Скрыть"
   user_statuses:
     active: "Активный"
     inactive: "Удален"

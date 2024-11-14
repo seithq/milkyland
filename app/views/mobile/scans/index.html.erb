@@ -1,35 +1,33 @@
 <% content_for(:turbo_native_title) { t("pages.scan_qr") } %>
 
-<div class="p-6 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-multiple="false" data-bridge-manual="false">
-  <div class="bg-white p-6 rounded-lg space-y-6">
-    <%= turbo_frame_tag :scan_result do %>
-      <% if @scan %>
-        <%= render partial: @scan.model_name.singular, scan: @scan %>
-      <% else %>
-        <div class="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-          <%= inline_svg_tag "qrcode.svg", class: "mx-auto h-12 w-12 text-gray-400" %>
-          <span class="mt-2 block text-sm font-semibold text-gray-900"><%= t("actions.scan_qr_code") %></span>
-        </div>
-      <% end %>
-    <% end %>
+<div class="p-4 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-manual="true">
+  <div class="bg-white p-4 rounded-lg space-y-6">
+    <div class="flex flex-col space-y-2">
+      <ul role="list" class="space-y-3"
+          id="scan_code"
+          data-controller="scan-preview"
+          data-scan-preview-preview-url-value="<%= new_scan_url %>"
+          data-scan-preview-whitelist-value=""
+          data-scan-preview-input-name-value="scan[code]">
+        <li>
+          <div class="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <%= inline_svg_tag "qrcode.svg", class: "mx-auto h-12 w-12 text-gray-400" %>
+            <span class="mt-2 block text-sm font-semibold text-gray-900"><%= t("actions.scan_qr_code") %></span>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div class="mt-6 sticky bottom-0">
-    <div class="bg-white p-6 rounded-lg space-y-6">
-      <%= form_with url: scans_url, method: :get, class: "space-y-4", data: { turbo_frame: :scan_result } do |form| %>
-        <div class="relative flex flex-grow items-stretch">
-          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-            <%= inline_svg_tag "qrcode.svg", class: "size-6 text-gray-400" %>
-          </div>
-          <%= form.text_field :code, placeholder: t("actions.search_by_code"), data: { bridge__scanner_target: "code" }, class: "pl-10 form-input-xl" %>
-        </div>
-        <div class="flex justify-between space-x-2">
-          <button type="button" class="mobile-btn-xl" data-controller="bridge--overflow-scanner" data-action="bridge--scanner#show">
-            <%= t("actions.open_scanner") %>
-          </button>
-          <%= form.submit t("actions.read_scan"), class: "mobile-btn-xl" %>
-        </div>
-      <% end %>
+    <div class="bg-white p-4 rounded-lg space-y-6">
+      <button type="button" class="mobile-btn-xl"
+              data-controller="bridge--overflow-scanner"
+              data-action="bridge--scanner#show"
+              data-bridge--scanner-place-param="scan_code"
+              data-bridge--scanner-save-mode-param="update">
+        <%= t("actions.scan") %>
+      </button>
     </div>
   </div>
 </div>
