@@ -12,6 +12,7 @@ class Waybill < ApplicationRecord
   has_many :leftovers, dependent: :destroy
 
   enum :kind, %w[ arrival departure transfer write_off production_write_off return_back ].index_by(&:itself)
+  enum :status, %w[ draft approved ].index_by(&:itself), default: :draft
 
   validates_presence_of :storage_id, unless: ->() { arrival? }
   validates_presence_of :new_storage_id, if: ->() { arrival? || transfer? || return_back? }
@@ -28,6 +29,8 @@ class Waybill < ApplicationRecord
 
   scope :filter_by_storage, ->(storage_id) { where(storage_id: storage_id) }
   scope :filter_by_new_storage, ->(storage_id) { where(new_storage_id: storage_id) }
+
+  scope :drafts, -> { where(status: :draft) }
 
   def editable?
     self.new_record? && self.active?

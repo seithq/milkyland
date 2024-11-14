@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_12_111429) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_14_084255) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -780,6 +780,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_12_111429) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
     t.index ["batch_id"], name: "index_waybills_on_batch_id"
     t.index ["new_storage_id"], name: "index_waybills_on_new_storage_id"
     t.index ["receiver_id"], name: "index_waybills_on_receiver_id"

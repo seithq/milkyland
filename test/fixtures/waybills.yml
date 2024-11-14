@@ -1,11 +1,13 @@
 assets_arrival:
   kind: arrival
+  status: approved
   new_storage: material_assets
   sender: daniyar
   comment: Приход
 
 assets_transfer:
   kind: transfer
+  status: approved
   storage: material_assets
   new_storage: material_assets_reserve
   sender: daniyar
@@ -13,6 +15,7 @@ assets_transfer:
 
 assets_write_off:
   kind: write_off
+  status: approved
   storage: material_assets_reserve
   sender: daniyar
   comment: Списание
