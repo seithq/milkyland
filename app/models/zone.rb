@@ -35,4 +35,8 @@ class Zone < ApplicationRecord
     def box_scopes
       [ boxes, boxes_in_pallets, boxes_in_tiers, boxes_in_tiers_in_pallets ]
     end
+
+    def hierarchy_classes
+      %w[ Storage ]
+    end
 end

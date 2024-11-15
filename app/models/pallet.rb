@@ -32,4 +32,8 @@ class Pallet < ApplicationRecord
     def box_scopes
       [ boxes ]
     end
+
+    def hierarchy_classes
+      %w[ Zone Tier ]
+    end
 end

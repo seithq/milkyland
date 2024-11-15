@@ -26,4 +26,8 @@ class Line < ApplicationRecord
     def box_scopes
       [ boxes_in_tiers, boxes_in_tiers_in_pallets ]
     end
+
+    def hierarchy_classes
+      %w[ Zone ]
+    end
 end

@@ -1,13 +1,14 @@
 module Mobile
   class Waybills::LocationsController < MobileController
     rescue_from ActionController::ParameterMissing, with: :handle_missing_params
+    rescue_from ActiveRecord::RecordInvalid, with: :show_record_errors
 
     def new
       @location = Location.new
     end
 
     def create
-      @positionable, @storables = find_positionable, find_storables
+      @location, @positionable, @storables = Location.new, find_positionable, find_storables
 
       if locate_all @storables, to: @positionable
         redirect_on_create feed_url
@@ -37,8 +38,12 @@ module Mobile
       end
 
       def handle_missing_params
-        @location = Location.new
         flash.now[:alert] = t("actions.failed_location_save")
+        render :new, status: :unprocessable_entity
+      end
+
+      def show_record_errors(exception)
+        flash.now[:alert] = exception.record.errors.full_messages.to_sentence
         render :new, status: :unprocessable_entity
       end
   end

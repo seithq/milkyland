@@ -373,6 +373,8 @@ ru:
         storable_codes: Адреса коробок или паллет
         all_boxes_count: Кол-во коробок
         all_pallets_count: Кол-во паллет
+        storable_id: Объект вложения
+        positionable_id: Адрес назначение
     models:
       box:
         one: Коробка

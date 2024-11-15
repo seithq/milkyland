@@ -19,7 +19,7 @@
         data-transition-leave-start="transform opacity-100 scale-100"
         data-transition-leave-end="transform opacity-0 scale-95">
       <%= hidden_field_tag @input_name, scan.code %>
-      <div class="space-y-4">
+      <div class="space-y-2">
         <ul class="divide-y divide-gray-200">
           <li class="py-2 flex justify-between">
             <span class="text-xs font-medium text-gray-700"><%= Pallet.human_attribute_name(:id) %></span>
@@ -41,6 +41,11 @@
         <ul role="list" class="space-y-4">
           <%= render partial: "mobile/scans/box", collection: scan.boxes, as: :scan, locals: { hide_input: true } %>
         </ul>
+        <div class="flex justify-center">
+          <button type="button" data-action="empty-list-item#close" class="text-xs leading-6 font-medium text-red-600 hover:text-red-500">
+            <%= t("actions.remove") %>
+          </button>
+        </div>
       </div>
     </dd>
   </dl>

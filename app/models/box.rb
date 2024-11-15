@@ -36,4 +36,8 @@ class Box < ApplicationRecord
       parts = [ "B", SecureRandom.hex(8) ]
       parts.join("-").upcase
     end
+
+    def hierarchy_classes
+      %w[ Zone Tier Pallet ]
+    end
 end

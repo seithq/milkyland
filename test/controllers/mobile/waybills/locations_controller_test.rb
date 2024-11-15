@@ -3,48 +3,30 @@ require "test_helper"
 module Mobile
   class Waybills::LocationsControllerTest < ActionDispatch::IntegrationTest
     setup do
-      @location = locations(:one)
-    end
-
-    test "should get index" do
-      get locations_url
-      assert_response :success
+      @zone = zones(:goods_zone)
+      @pallet = Pallet.create
+      sign_in :daniyar
     end
 
     test "should get new" do
-      get new_location_url
+      get new_waybills_location_url
       assert_response :success
     end
 
     test "should create location" do
       assert_difference("Location.count") do
-        post locations_url, params: { location: {} }
+        post waybills_locations_url, params: { location: { positionable_code: @zone.code, storable_codes: [ @pallet.code ] } }
       end
 
-      assert_redirected_to location_url(Location.last)
+      assert_redirected_to feed_url
     end
 
-    test "should show location" do
-      get location_url(@location)
-      assert_response :success
-    end
-
-    test "should get edit" do
-      get edit_location_url(@location)
-      assert_response :success
-    end
-
-    test "should update location" do
-      patch location_url(@location), params: { location: {} }
-      assert_redirected_to location_url(@location)
-    end
-
-    test "should destroy location" do
-      assert_difference("Location.count", -1) do
-        delete location_url(@location)
+    test "should not create location" do
+      assert_difference("Location.count", 0) do
+        post waybills_locations_url, params: { location: { positionable_code: @pallet.code, storable_codes: [ @pallet.code ] } }
       end
 
-      assert_redirected_to locations_url
+      assert_response :unprocessable_entity
     end
   end
 end

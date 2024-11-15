@@ -19,4 +19,8 @@ class Tier < ApplicationRecord
     def box_scopes
       [ boxes, boxes_in_pallets ]
     end
+
+    def hierarchy_classes
+      %w[ Stack ]
+    end
 end

@@ -45,5 +45,9 @@ module Locatable
       def box_scopes
         raise NotImplementedError.new "Implement in subclass"
       end
+
+      def hierarchy_classes
+        raise NotImplementedError.new "Implement in subclass"
+      end
   end
 end

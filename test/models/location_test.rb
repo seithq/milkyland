@@ -145,4 +145,27 @@ class LocationTest < ActiveSupport::TestCase
     assert_equal 1, zone.pallets_in_tiers.count
     assert_equal 5, zone.capacity_by(product.id)
   end
+
+  test "should validate hierarchy level" do
+    pallet = Pallet.new
+    assert pallet.save
+
+    stack = stacks(:goods_zone_line_stack)
+
+    assert_raise ActiveRecord::RecordInvalid do
+      pallet.locate_to stack
+    end
+  end
+
+  test "should validate type integrity" do
+    pallet = Pallet.new
+    assert pallet.save
+
+    positionable_pallet = Pallet.new
+    assert positionable_pallet.save
+
+    assert_raise ActiveRecord::RecordInvalid do
+      pallet.locate_to positionable_pallet
+    end
+  end
 end
