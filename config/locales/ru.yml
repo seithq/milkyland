@@ -156,6 +156,8 @@ ru:
     scan: "Сканировать"
     failed_location_save: "Не удалось сохранить адресное положение"
     remove: "Скрыть"
+    prev_page: "Назад"
+    next_page: "Далее"
   user_statuses:
     active: "Активный"
     inactive: "Удален"

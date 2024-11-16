@@ -1,0 +1,22 @@
+<li id="<%= waybill.id %>" class="relative flex justify-between gap-x-6">
+  <div class="flex min-w-0 gap-x-4">
+    <%= icon_tag %>
+    <div class="min-w-0 flex-auto py-2">
+      <p class="text-sm/6 font-semibold text-gray-900">
+        <%= link_to waybill_url do %>
+          <span class="absolute inset-x-0 -top-px bottom-0"></span>
+          <%= title %>
+        <% end %>
+      </p>
+      <p class="mt-1 flex text-xxs text-gray-500">
+        <%= waybill.sender&.name %>
+      </p>
+    </div>
+  </div>
+  <div class="flex shrink-0 items-center gap-x-4 p-2">
+    <div class="flex flex-col items-end">
+      <p class="text-xs px-2 py-1 rounded-lg text-white <%= badge_color %>"><%= Waybill.enum_to_s(:status, waybill.status) %></p>
+      <p class="mt-1 text-xxs text-gray-500"><%= l waybill.created_at, format: :short %></p>
+    </div>
+  </div>
+</li>

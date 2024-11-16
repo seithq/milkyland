@@ -1,6 +1,9 @@
 module Mobile
   class Waybills::ArrivalsController < MobileController
-    before_action :set_waybill, only: %i[ edit update destroy ]
+    before_action :set_waybill, only: %i[ show edit update destroy ]
+
+    def show
+    end
 
     def new
       @waybill = base_scope.new(kind: :arrival, status: :draft)
@@ -35,7 +38,7 @@ module Mobile
 
     private
       def base_scope
-        Current.user.in_waybills
+        Current.user.out_waybills
       end
 
       def set_waybill

@@ -27,8 +27,8 @@ module Searchable
 
   private
 
-  def record_not_found
-    flash[:alert] = t("actions.record_not_found")
+  def record_not_found(exception)
+    flash[:alert] = exception.to_s
     redirect_back(fallback_location: root_path)
   end
 end

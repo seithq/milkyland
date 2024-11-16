@@ -158,6 +158,7 @@ GEM
       reline (>= 0.3.8)
     dotenv (3.1.4)
     drb (2.2.1)
+    dry-initializer (3.1.1)
     ed25519 (1.3.0)
     erubi (1.13.0)
     et-orbi (1.2.11)
@@ -217,6 +218,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    method_source (1.1.0)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.25.1)
@@ -385,6 +387,10 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
     uri (0.13.1)
+    view_component (3.20.0)
+      activesupport (>= 5.2.0, < 8.1)
+      concurrent-ruby (~> 1.0)
+      method_source (~> 1.0)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -419,6 +425,7 @@ DEPENDENCIES
   brakeman
   capybara
   debug
+  dry-initializer (~> 3.1)
   image_processing (~> 1.2)
   importmap-rails
   inline_svg (~> 1.9)
@@ -442,6 +449,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   useragent!
+  view_component (~> 3.20)
   web-console
   zipline (~> 2.0)
 

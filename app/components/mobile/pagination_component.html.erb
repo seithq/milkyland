@@ -1,0 +1,16 @@
+<div id="pagination" class="flex justify-center">
+  <nav class="flex items-center space-x-4">
+    <% if pagy.prev %>
+      <%= link_to pagy_url_for(pagy, pagy.prev), data: { turbo_action: "replace" }, class: "inline-flex items-center pr-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700" do %>
+        <%= inline_svg_tag "arrow-narrow-left.svg", class: "mr-3 size-5 text-gray-400" %>
+        <%= t("actions.prev_page") %>
+      <% end %>
+    <% end %>
+    <% if pagy.next %>
+      <%= link_to pagy_url_for(pagy, pagy.next), data: { turbo_action: "replace" }, class: "inline-flex items-center pl-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700" do %>
+        <%= t("actions.next_page") %>
+        <%= inline_svg_tag "arrow-narrow-right.svg", class: "ml-3 size-5 text-gray-400" %>
+      <% end %>
+    <% end %>
+  </nav>
+</div>

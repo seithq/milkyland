@@ -115,6 +115,9 @@ ru:
           write_off: "СПИСАНИЕ"
           production_write_off: "АВТО СПИСАНИЕ"
           return_back: "ВОЗВРАТ"
+        statuses:
+          draft: "Черновик"
+          approved: "Подтвержден"
       zone:
         kinds:
           hold: "Для хранения"

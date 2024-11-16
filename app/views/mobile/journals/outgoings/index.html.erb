@@ -1,0 +1,8 @@
+<% content_for(:turbo_native_title) { t("actions.view_outgoing") } %>
+
+<div class="p-4 space-y-6">
+  <ul role="list" id="collection" class="divide-y divide-gray-100 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl">
+    <%= render Mobile::WaybillComponent.with_collection(@waybills) %>
+  </ul>
+  <%= render Mobile::PaginationComponent.new pagy: @pagy %>
+</div>

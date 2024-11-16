@@ -184,8 +184,11 @@ Rails.application.routes.draw do
     resource :feed, only: :show
     resources :scans, only: %i[ index new ]
     namespace :waybills do
-      resources :arrivals, except: %i[ index show ]
+      resources :arrivals, except: :index
       resources :locations, only: %i[ new create ]
+    end
+    namespace :journals do
+      resources :outgoings, only: :index
     end
   end
 
