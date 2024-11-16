@@ -55,19 +55,26 @@
   <div class="space-y-2">
     <h2 class="text-base uppercase font-semibold text-gray-900"><%= t("forms.waybill_history") %></h2>
     <ul role="list" class="divide-y divide-gray-100 overflow-hidden bg-white shadow-sm rounded-xl">
-      <li class="relative flex">
-        <div class="flex w-16 shrink-0 items-center justify-center bg-lime-500 text-sm font-medium text-white">
-          <%= inline_svg_tag "inbox-in.svg", class: "size-10" %>
-        </div>
-        <div class="flex flex-1 items-center justify-between truncate bg-white">
-          <div class="flex-1 truncate px-4 py-2 text-sm">
-            <a href="#" class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.view_incoming") %></a>
-            <p class="text-gray-500 text-xs"><%= t("hints.view_incoming") %></p>
+      <li>
+        <%= link_to journals_incomings_path, class: "relative flex" do %>
+          <div class="flex w-16 shrink-0 items-center justify-center bg-lime-500 text-sm font-medium text-white">
+            <%= inline_svg_tag "inbox-in.svg", class: "size-10" %>
           </div>
-        </div>
+          <div class="flex flex-1 items-center justify-between truncate bg-white">
+            <div class="flex-1 truncate px-4 py-2 text-sm">
+              <div class="flex space-x-1">
+                <span class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.view_incoming") %></span>
+                <% if Current.user.in_waybills.pendings.any? %>
+                  <p class="text-gray-700"><%= t("hints.pendings", count: Current.user.in_waybills.pendings.count) %></p>
+                <% end %>
+              </div>
+              <p class="text-gray-500 text-xs"><%= t("hints.view_incoming") %></p>
+            </div>
+          </div>
+        <% end %>
       </li>
       <li>
-        <%= link_to journals_outgoings_url, class: "relative flex" do %>
+        <%= link_to journals_outgoings_path, class: "relative flex" do %>
           <div class="flex w-16 shrink-0 items-center justify-center bg-fuchsia-600 text-sm font-medium text-white">
             <%= inline_svg_tag "inbox.svg", class: "size-10" %>
           </div>

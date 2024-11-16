@@ -189,6 +189,7 @@ Rails.application.routes.draw do
     end
     namespace :journals do
       resources :outgoings, only: :index
+      resources :incomings, only: :index
     end
   end
 

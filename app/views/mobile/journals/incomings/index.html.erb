@@ -1,4 +1,4 @@
-<% content_for(:turbo_native_title) { t("actions.view_outgoing") } %>
+<% content_for(:turbo_native_title) { t("actions.view_incoming") } %>
 
 <div class="p-4">
   <% if @waybills.any? %>
@@ -7,6 +7,6 @@
     </ul>
     <%= render Mobile::PaginationComponent.new pagy: @pagy %>
   <% else %>
-    <%= render Mobile::EmptyCollectionComponent.new icon_name: "inbox.svg", text: t("actions.no_records"), path: feed_path %>
+    <%= render Mobile::EmptyCollectionComponent.new icon_name: "inbox-in.svg", text: t("actions.no_records"), path: feed_path %>
   <% end %>
 </div>
