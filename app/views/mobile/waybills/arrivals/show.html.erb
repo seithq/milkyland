@@ -1,1 +1,7 @@
 <% content_for(:turbo_native_title) { t("pages.arrival", id: @waybill.id) } %>
+
+<% if allowed_to?(:edit?, @waybill, with: ArrivalPolicy) %>
+  <div class="turbo-native:hidden">
+    <%= link_to t("actions.edit_record"), edit_waybills_arrival_path(@waybill), data: { controller: "bridge--button", bridge_image: "", bridge_side: "right" } %>
+  </div>
+<% end %>

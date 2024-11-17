@@ -13,6 +13,11 @@ module Flashable
     def redirect_on_destroy(url, text: t("actions.record_deleted"))
       redirect_with_notice url, text
     end
+
+    def render_with_error(view, resource)
+      flash.now[:alert] = resource.errors.full_messages.to_sentence
+      render view, status: :unprocessable_entity
+    end
   end
 
   private

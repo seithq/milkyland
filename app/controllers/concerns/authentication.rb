@@ -4,7 +4,7 @@ module Authentication
 
   included do
     before_action :require_authentication
-    helper_method :signed_in?
+    helper_method :signed_in?, :current_user
 
     protect_from_forgery with: :exception, unless: -> { authenticated_by.bot_key? }
   end
@@ -24,6 +24,10 @@ module Authentication
   private
     def signed_in?
       Current.session.present?
+    end
+
+    def current_user
+      Current.user
     end
 
     def require_authentication

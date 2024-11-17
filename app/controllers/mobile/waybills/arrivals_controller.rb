@@ -6,7 +6,7 @@ module Mobile
     end
 
     def new
-      @waybill = base_scope.new(kind: :arrival, status: :draft)
+      @waybill = base_scope.new(kind: :arrival)
     end
 
     def edit
@@ -18,15 +18,15 @@ module Mobile
       if @waybill.save
         redirect_on_create edit_waybills_arrival_url(@waybill)
       else
-        render :new, status: :unprocessable_entity
+        render_with_error :new, @waybill
       end
     end
 
     def update
       if @waybill.update(waybill_params)
-        redirect_on_update on_change_url
+        redirect_on_update feed_url
       else
-        render :edit, status: :unprocessable_entity
+        render_with_error :edit, @waybill
       end
     end
 
@@ -38,7 +38,7 @@ module Mobile
 
     private
       def base_scope
-        Current.user.out_waybills
+        Current.user.in_waybills
       end
 
       def set_waybill
@@ -47,10 +47,6 @@ module Mobile
 
       def waybill_params
         params.expect(waybill: [ :kind, :storage_id, :new_storage_id, :sender_id, :receiver_id, :status ])
-      end
-
-      def on_change_url
-        @waybill.approved? ? feed_url : edit_waybills_arrival_url(@waybill)
       end
   end
 end
