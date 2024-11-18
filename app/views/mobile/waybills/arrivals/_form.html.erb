@@ -20,19 +20,11 @@
 
     <% if allowed_to?(:scan?, waybill, with: ArrivalPolicy) %>
       <div class="bg-white p-4 rounded-lg">
-        <ul role="list" class="space-y-3"
-            id="waybill_storable_codes"
-            data-controller="scan-preview"
-            data-scan-preview-preview-url-value="<%= new_scan_url %>"
-            data-scan-preview-whitelist-value="B,P"
-            data-scan-preview-input-name-value="waybill[storable_codes][]">
-          <li>
-            <div class="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-              <%= inline_svg_tag "qrcode.svg", class: "mx-auto h-12 w-12 text-gray-400" %>
-              <span class="mt-2 block text-sm font-semibold text-gray-900"><%= t("actions.scan_qr_code") %></span>
-            </div>
-          </li>
-        </ul>
+        <%= turbo_frame_tag dom_id(waybill, :qr_scans), src: waybills_qr_scans_path(waybill) do %>
+          <div class="flex justify-center">
+            <%= inline_svg_tag "spinner.svg" %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
@@ -46,8 +38,8 @@
           <% end %>
           <button type="button" class="mobile-btn-xl"
                   data-action="bridge--scanner#show"
-                  data-bridge--scanner-place-param="waybill_storable_codes"
-                  data-bridge--scanner-save-mode-param="prepend">
+                  data-bridge--scanner-place-param="waybill_qr_scans"
+                  data-bridge--scanner-save-mode-param="create">
             <%= t("actions.scan") %>
           </button>
         </div>

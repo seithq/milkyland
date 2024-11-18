@@ -42,15 +42,6 @@ class Mobile::WaybillComponent < ApplicationComponent
       end
     end
 
-    def badge_color
-      case waybill.status
-      when "approved"
-        "bg-green-500"
-      else
-        "bg-gray-900/80"
-      end
-    end
-
     def waybill_url
       url_for(action: "show", controller: "mobile/waybills/#{ waybill.kind }s", id: waybill.id, only_path: true)
     end

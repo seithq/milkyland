@@ -1,10 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
-import { get } from "@rails/request.js"
+import { get, post } from "@rails/request.js"
 
 export default class extends Controller {
   static values = {
     previewUrl: String,
-    inputName: String,
+    inputName: { type: String, default: "" },
     whitelist: String,
     codes: { type: Array, default: [] }
   }
@@ -20,6 +20,15 @@ export default class extends Controller {
     params.append("frame", this.element.id)
 
     get(`${this.previewUrlValue}?${params}`, {
+      responseKind: "turbo-stream"
+    })
+  }
+
+  savePreview(code) {
+    if (code === "") return
+
+    post(this.previewUrlValue, {
+      body: JSON.stringify({ code, allowed_prefixes: this.whitelistValue }),
       responseKind: "turbo-stream"
     })
   }

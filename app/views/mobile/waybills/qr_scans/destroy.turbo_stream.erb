@@ -1,0 +1,7 @@
+<%= turbo_stream.remove dom_id(@qr_scan) %>
+
+<% if @waybill.qr_scans.count.zero? %>
+  <%= turbo_stream.prepend "waybill_qr_scans" do %>
+    <%= render "placeholder" %>
+  <% end %>
+<% end %>

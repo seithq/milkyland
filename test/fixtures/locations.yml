@@ -13,3 +13,7 @@ goods_zone_line_stack_location:
 goods_zone_line_stack_tier_location:
   storable: goods_zone_line_stack_tier (Tier)
   positionable: goods_zone_line_stack (Stack)
+
+masters_zone_location:
+  storable: masters_zone (Zone)
+  positionable: masters (Storage)

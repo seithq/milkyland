@@ -17,13 +17,12 @@ export default class extends BridgeComponent {
     this.send("display", { manual }, message => {
       const result = document.getElementById(place)
       if (result) {
-        this.application.getControllerForElementAndIdentifier(result, "scan-preview").buildPreview(message.data.code, saveMode)
+        const previewController = this.application.getControllerForElementAndIdentifier(result, "scan-preview")
+        if (saveMode === "create")
+          previewController.savePreview(message.data.code)
+        else
+          previewController.buildPreview(message.data.code, saveMode)
       }
     })
-  }
-
-  shouldPrependCode() {
-    const element = this.bridgeElement
-    return element.bridgeAttribute("multiple") === "true" && this.hasCodesTarget
   }
 }

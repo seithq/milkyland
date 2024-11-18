@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_14_084255) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_18_121218) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -502,6 +502,22 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_14_084255) do
     t.index ["name"], name: "index_promotions_on_name", unique: true
   end
 
+  create_table "qr_scans", force: :cascade do |t|
+    t.bigint "waybill_id", null: false
+    t.string "code"
+    t.string "sourceable_type", null: false
+    t.bigint "sourceable_id", null: false
+    t.bigint "box_id", null: false
+    t.integer "capacity_before"
+    t.integer "capacity_after"
+    t.datetime "scanned_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["box_id"], name: "index_qr_scans_on_box_id"
+    t.index ["sourceable_type", "sourceable_id"], name: "index_qr_scans_on_sourceable"
+    t.index ["waybill_id"], name: "index_qr_scans_on_waybill_id"
+  end
+
   create_table "regions", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -862,6 +878,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_14_084255) do
   add_foreign_key "products", "groups"
   add_foreign_key "products", "material_assets"
   add_foreign_key "products", "measurements"
+  add_foreign_key "qr_scans", "boxes"
+  add_foreign_key "qr_scans", "waybills"
   add_foreign_key "sales_points", "clients"
   add_foreign_key "sales_points", "regions"
   add_foreign_key "sessions", "users"

@@ -18,6 +18,10 @@ class Zone < ApplicationRecord
   has_many :boxes_in_tiers, through: :tiers, source: :boxes
   has_many :boxes_in_tiers_in_pallets, through: :tiers, source: :boxes_in_pallets
 
+  has_many :child_qr_scans, as: :sourceable, class_name: "QrScan", dependent: :destroy
+
+  scope :filter_by_kind, ->(kind) { where(kind: kind) }
+
   def counter_base
     self.lines.count
   end

@@ -15,7 +15,7 @@
   </div>
   <div class="flex shrink-0 items-center gap-x-4 p-2">
     <div class="flex flex-col items-end">
-      <p class="text-xs px-2 py-1 rounded-lg text-white <%= badge_color %>"><%= Waybill.enum_to_s(:status, waybill.status) %></p>
+      <%= render Mobile::StatusBadgeComponent.new waybill: waybill %>
       <p class="mt-1 text-xxs text-gray-500"><%= l waybill.created_at, format: :short %></p>
     </div>
   </div>

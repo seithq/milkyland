@@ -1,0 +1,10 @@
+<%= turbo_stream.remove "placeholder" %>
+<%= turbo_stream.prepend "waybill_qr_scans" do %>
+  <% @qr_scans.each do |qr_scan| %>
+    <% if qr_scan.errors.any? %>
+      <%= render Mobile::InvalidScanComponent.new qr_scan: qr_scan %>
+    <% else %>
+      <%= render Mobile::QrScanComponent.new qr_scan: qr_scan, is_open: true %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,75 @@
+<li id="<%= dom_id(@qr_scan) %>" class="overflow-hidden rounded-md border p-4">
+  <dl data-controller="detail" data-detail-open-value="<%= @is_open %>">
+    <dt>
+      <button type="button" data-action="detail#toggle" class="flex w-full items-center justify-between text-left text-gray-900" aria-controls="<%= dom_id(@qr_scan) %>_details" aria-expanded="false">
+        <span class="flex flex-col space-y-1 items-start">
+          <span class="text-xs font-semibold leading-6 text-green-600">
+            <%= @qr_scan.box.code %>
+          </span>
+          <% unless @qr_scan.is_box? %>
+            <span class="text-xs font-medium leading-6 text-gray-700 flex items-center space-x-1">
+              <%= inline_svg_tag "arrow-narrow-right.svg", class: "size-5" %>
+              <span><%= @qr_scan.code %></span>
+            </span>
+          <% end %>
+        </span>
+        <span class="flex h-7 items-center">
+          <%= inline_svg_tag "plus-sm.svg", class: "h-6 w-6", data: { detail_target: "opener" } %>
+          <%= inline_svg_tag "minus-sm.svg", class: "h-6 w-6", data: { detail_target: "closer" } %>
+        </span>
+      </button>
+    </dt>
+    <dd class="hidden mt-2"
+        id="<%= dom_id(@qr_scan) %>_details"
+        data-detail-target="summary"
+        data-transition-enter="transition ease-out duration-100"
+        data-transition-enter-start="transform opacity-0 scale-95"
+        data-transition-enter-end="transform opacity-100 scale-100"
+        data-transition-leave="transition ease-in duration-75"
+        data-transition-leave-start="transform opacity-100 scale-100"
+        data-transition-leave-end="transform opacity-0 scale-95">
+      <ul role="list" class="divide-y divide-gray-200">
+        <li class="py-2 flex justify-between">
+          <span class="text-xs font-medium text-gray-700"><%= Box.human_attribute_name(:id) %></span>
+          <span class="text-xs font-semibold text-gray-900"><%= @qr_scan.box.id %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-xs font-medium text-gray-700"><%= Box.human_attribute_name(:code) %></span>
+          <span class="text-xs font-semibold text-gray-900"><%= @qr_scan.box.code %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-xs font-medium text-gray-700"><%= Box.human_attribute_name(:product_id) %></span>
+          <span class="text-xs font-semibold text-gray-900"><%= @qr_scan.box.product.name %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-xs font-medium text-gray-700"><%= Box.human_attribute_name(:region_id) %></span>
+          <span class="text-xs font-semibold text-gray-900"><%= @qr_scan.box.region.name %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-xs font-medium text-gray-700"><%= Box.human_attribute_name(:production_date) %></span>
+          <span class="text-xs font-semibold text-gray-900"><%= l @qr_scan.box.production_date %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-xs font-medium text-gray-700"><%= Box.human_attribute_name(:expiration_date) %></span>
+          <span class="text-xs font-semibold text-gray-900"><%= l @qr_scan.box.expiration_date %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-xs font-medium text-gray-700"><%= Box.human_attribute_name(:capacity_before) %></span>
+          <span class="text-xs font-semibold text-gray-900"><%= @qr_scan.capacity_before %></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="text-xs font-medium text-gray-700"><%= Box.human_attribute_name(:capacity_after) %></span>
+          <span class="text-xs font-semibold text-gray-900"><%= @qr_scan.capacity_after %></span>
+        </li>
+        <%= render Mobile::ScanLocationComponent.new sourceable: @qr_scan.box %>
+        <% if helpers.allowed_to?(:destroy?, @qr_scan.waybill, with: ArrivalPolicy) %>
+          <li class="py-2 flex justify-end">
+            <%= link_to waybills_qr_scan_path(@qr_scan.waybill, @qr_scan), data: { turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "text-xs leading-6 font-medium text-red-600 hover:text-red-500" do %>
+              <%= inline_svg_tag "trash.svg", class: "size-5" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </dd>
+  </dl>
+</li>

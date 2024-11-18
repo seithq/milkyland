@@ -5,3 +5,28 @@
     <%= link_to t("actions.edit_record"), edit_waybills_arrival_path(@waybill), data: { controller: "bridge--button", bridge_image: "", bridge_side: "right" } %>
   </div>
 <% end %>
+
+<div class="p-4 min-h-full flex flex-col justify-between">
+  <div class="space-y-6">
+    <div class="bg-white p-4 rounded-lg space-y-2">
+      <%= fields_for @waybill do |form| %>
+        <div class="flex justify-start">
+          <%= render Mobile::StatusBadgeComponent.new waybill: @waybill %>
+        </div>
+
+        <div>
+          <%= form.label :new_storage_id, class: "form-label" %>
+          <%= form.select :new_storage_id, options_from_collection_for_select(Current.user.storages.acceptable, :id, :name, @waybill.new_storage_id), {}, { disabled: true, class: "form-select" } %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="bg-white p-4 rounded-lg">
+      <%= turbo_frame_tag dom_id(@waybill, :qr_scans), src: waybills_qr_scans_path(@waybill) do %>
+        <div class="flex justify-center">
+          <%= inline_svg_tag "spinner.svg" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
