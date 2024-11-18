@@ -323,15 +323,18 @@ ru:
         new_storage_id: Склад назначения
         comment: Комментарий
         active: Активная запись
+        status: Статус
       leftover:
         subject_id: Номенклатура
         count: Количество
       box:
-        id: ID
+        id: ID коробки
         code: Код коробки
         region_id: Регион
         product_id: Продукт
         capacity: Кол-во в коробке
+        capacity_before: Кол-во в коробке
+        capacity_after: Подтвержденное кол-во
         scanned_at: Время сканирования
         production_date: Дата производства
         expiration_date: Дата истечения срока годности
@@ -370,7 +373,7 @@ ru:
         user_id: Пользователь
         active: Активная запись
       location:
-        positionable_type: Тип
+        positionable_type: В составе
         storable_type: Тип
         positionable_code: Адрес назначения
         storable_codes: Адреса коробок или паллет
@@ -378,6 +381,9 @@ ru:
         all_pallets_count: Кол-во паллет
         storable_id: Объект вложения
         positionable_id: Адрес назначение
+      qr_scan:
+        reason: Причина
+        box_id: Коробка
     models:
       box:
         one: Коробка

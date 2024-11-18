@@ -4,7 +4,7 @@
     <div class="space-y-6">
       <div class="bg-white p-4 rounded-lg space-y-6">
         <div class="space-y-2">
-          <%= form.label :positionable_code, class: "form-label-xl" %>
+          <%= form.label :positionable_code, class: "form-label" %>
 
           <div class="flex flex-col space-y-2">
             <ul role="list" class="space-y-3"
@@ -25,7 +25,7 @@
       </div>
       <div class="bg-white p-4 rounded-lg space-y-6">
         <div class="space-y-2">
-          <%= form.label :storable_codes, class: "form-label-xl" %>
+          <%= form.label :storable_codes, class: "form-label" %>
           <div class="flex flex-col space-y-2">
             <ul role="list" class="space-y-3"
                 id="location_storable_codes"
@@ -33,12 +33,6 @@
                 data-scan-preview-preview-url-value="<%= new_scan_url %>"
                 data-scan-preview-whitelist-value="B,P"
                 data-scan-preview-input-name-value="location[storable_codes][]">
-              <li>
-                <div class="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                  <%= inline_svg_tag "qrcode.svg", class: "mx-auto h-12 w-12 text-gray-400" %>
-                  <span class="mt-2 block text-sm font-semibold text-gray-900"><%= t("actions.scan_qr_code") %></span>
-                </div>
-              </li>
             </ul>
             <button type="button" class="mobile-btn-xl"
                     data-action="bridge--scanner#show"

@@ -38,6 +38,7 @@ module Mobile
       end
 
       def handle_missing_params
+        @location = Location.new
         flash.now[:alert] = t("actions.failed_location_save")
         render :new, status: :unprocessable_entity
       end

@@ -24,7 +24,8 @@ module Mobile
 
     def update
       if @waybill.update(waybill_params)
-        redirect_on_update feed_url
+        ProcessArrivalCodesJob.perform_later @waybill.id if @waybill.approved?
+        redirect_on_update waybills_arrival_url(@waybill)
       else
         render_with_error :edit, @waybill
       end
@@ -33,7 +34,7 @@ module Mobile
     def destroy
       @waybill.destroy!
 
-      redirect_on_destroy feed_url
+      redirect_on_destroy journals_incomings_url
     end
 
     private
@@ -46,7 +47,7 @@ module Mobile
       end
 
       def waybill_params
-        params.expect(waybill: [ :kind, :storage_id, :new_storage_id, :sender_id, :receiver_id, :status ])
+        params.expect(waybill: [ :kind, :storage_id, :new_storage_id, :sender_id, :receiver_id, :status ]).with_defaults(kind: :arrival)
       end
   end
 end

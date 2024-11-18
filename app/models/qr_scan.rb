@@ -8,4 +8,8 @@ class QrScan < ApplicationRecord
   validates_numericality_of :capacity_before, greater_than: 0
 
   scope :not_scanned, -> { where(scanned_at: nil) }
+
+  def is_box?
+    self.sourceable_type == Box.model_name.name
+  end
 end

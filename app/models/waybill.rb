@@ -39,18 +39,18 @@ class Waybill < ApplicationRecord
     self.new_record? && self.active?
   end
 
-  def add_qr(code, scanned_at: nil)
-    sourceable = Scan.find_by code, allowed_prefixes: %w[ Z P B ]
+  def add_qr(code, scanned_at: nil, allowed_prefixes: %w[ Z P B ])
+    sourceable = Scan.find_by code, allowed_prefixes: allowed_prefixes
     return unless sourceable
 
     transaction do
       sourceable.all_boxes.map do |box|
-        self.qr_scans.create! code: sourceable.code,
-                              sourceable: sourceable,
-                              box: box,
-                              capacity_before: box.capacity,
-                              capacity_after: box.capacity,
-                              scanned_at: scanned_at
+        self.qr_scans.create code: sourceable.code,
+                             sourceable: sourceable,
+                             box: box,
+                             capacity_before: box.capacity,
+                             capacity_after: box.capacity,
+                             scanned_at: scanned_at
       end
     end
   end
