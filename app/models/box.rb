@@ -9,6 +9,9 @@ class Box < ApplicationRecord
   has_many :zones, through: :locations, source: :positionable, source_type: "Zone"
   has_many :tiers, through: :locations, source: :positionable, source_type: "Tier"
 
+  has_many :qr_scans, dependent: :destroy
+  has_many :child_qr_scans, as: :sourceable, class_name: "QrScan", dependent: :destroy
+
   validates_presence_of :production_date, :expiration_date
   validates :capacity, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
@@ -39,5 +42,9 @@ class Box < ApplicationRecord
 
     def hierarchy_classes
       %w[ Zone Tier Pallet ]
+    end
+
+    def box_scopes
+      [ Box.where(id: self.id) ]
     end
 end

@@ -2,3 +2,8 @@ goods_zone:
   code: Z-001
   kind: :hold
   display_index: A
+
+masters_zone:
+  code: Z-002
+  kind: :arrival
+  display_index: A

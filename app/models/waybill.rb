@@ -10,6 +10,7 @@ class Waybill < ApplicationRecord
   belongs_to :batch, optional: true
 
   has_many :leftovers, dependent: :destroy
+  has_many :qr_scans, dependent: :destroy
 
   enum :kind, %w[ arrival departure transfer write_off production_write_off return_back ].index_by(&:itself)
   enum :status, %w[ draft pending approved ].index_by(&:itself), default: :draft
@@ -36,6 +37,22 @@ class Waybill < ApplicationRecord
 
   def editable?
     self.new_record? && self.active?
+  end
+
+  def add_qr(code, scanned_at: nil)
+    sourceable = Scan.find_by code, allowed_prefixes: %w[ Z P B ]
+    return unless sourceable
+
+    transaction do
+      sourceable.all_boxes.map do |box|
+        self.qr_scans.create! code: sourceable.code,
+                              sourceable: sourceable,
+                              box: box,
+                              capacity_before: box.capacity,
+                              capacity_after: box.capacity,
+                              scanned_at: scanned_at
+      end
+    end
   end
 
   private

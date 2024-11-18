@@ -25,7 +25,7 @@ class Storage < ApplicationRecord
   scope :for_material_assets, ->() { filter_by_kind(:for_material_assets) }
   scope :for_goods, ->() { filter_by_kind(%i[ for_masters for_goods ]) }
 
-  scope :acceptable, ->() { for_goods.joins(:zones).where(zones: { kind: :arrival }) }
+  scope :acceptable, ->() { for_goods.joins(:zones).merge(Zone.filter_by_kind(:arrival)) }
 
   def available_count(subject)
     leftovers.filter_by_subject(subject).sum(:count)
