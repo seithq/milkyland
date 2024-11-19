@@ -13,6 +13,6 @@ class ArrivalPolicy < ApplicationPolicy
 
   private
     def owned?
-      user.admin? || (user.id == record.receiver_id)
+      user.admin? || (user.id == record.sender_id)
     end
 end

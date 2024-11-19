@@ -4,7 +4,7 @@ module Mobile
   class Waybills::ArrivalsControllerTest < ActionDispatch::IntegrationTest
     setup do
       @storage = storages(:masters)
-      @waybill = Waybill.create! kind: :arrival, new_storage: @storage, receiver: users(:daniyar)
+      @waybill = Waybill.create! kind: :arrival, new_storage: @storage, sender: users(:daniyar)
       sign_in :daniyar
     end
 
@@ -41,7 +41,7 @@ module Mobile
         delete waybills_arrival_url(@waybill)
       end
 
-      assert_redirected_to journals_incomings_url
+      assert_redirected_to journals_outgoings_url
     end
   end
 end

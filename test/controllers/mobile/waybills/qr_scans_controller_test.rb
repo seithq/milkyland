@@ -4,7 +4,7 @@ module Mobile
   class Waybills::QrScansControllerTest < ActionDispatch::IntegrationTest
     setup do
       @storage = storages(:masters)
-      @waybill = Waybill.create! kind: :arrival, new_storage: @storage, receiver: users(:daniyar)
+      @waybill = Waybill.create! kind: :arrival, new_storage: @storage, sender: users(:daniyar)
       sign_in :daniyar
     end
 

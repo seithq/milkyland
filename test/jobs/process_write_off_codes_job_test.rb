@@ -7,7 +7,7 @@ class ProcessWriteOffCodesJobTest < ActiveJob::TestCase
 
     pallet, box = Pallet.last, Box.last
 
-    waybill = Waybill.new(storage: storage, receiver: users(:daniyar), kind: :write_off, status: :draft)
+    waybill = Waybill.new(storage: storage, sender: users(:daniyar), kind: :write_off, status: :draft)
     assert waybill.save
 
     assert waybill.add_qr pallet.code, scanned_at: Time.current
@@ -28,7 +28,7 @@ class ProcessWriteOffCodesJobTest < ActiveJob::TestCase
 
     pallet, box = Pallet.last, Box.last
 
-    waybill = Waybill.new(storage: storage, receiver: users(:daniyar), kind: :write_off, status: :draft)
+    waybill = Waybill.new(storage: storage, sender: users(:daniyar), kind: :write_off, status: :draft)
     assert waybill.save
 
     assert waybill.add_qr pallet.code, scanned_at: Time.current
@@ -56,7 +56,7 @@ class ProcessWriteOffCodesJobTest < ActiveJob::TestCase
       pallet, box = Pallet.last, Box.last
       assert box.locate_to pallet
 
-      waybill = Waybill.create(new_storage: storage, receiver: users(:daniyar), kind: :arrival, status: :approved)
+      waybill = Waybill.create(new_storage: storage, sender: users(:daniyar), kind: :arrival, status: :approved)
       assert waybill.add_qr pallet.code, scanned_at: Time.current
       assert ProcessArrivalCodesJob.perform_now waybill.id
     end

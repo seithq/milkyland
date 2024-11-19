@@ -34,12 +34,12 @@ module Mobile
     def destroy
       @waybill.destroy!
 
-      redirect_on_destroy journals_incomings_url
+      redirect_on_destroy journals_outgoings_url
     end
 
     private
       def base_scope
-        Current.user.in_waybills
+        Current.user.out_waybills
       end
 
       def set_waybill

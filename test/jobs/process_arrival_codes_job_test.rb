@@ -16,7 +16,7 @@ class ProcessArrivalCodesJobTest < ActiveJob::TestCase
     pallet, box = Pallet.last, Box.last
     assert box.locate_to pallet
 
-    waybill = Waybill.new(new_storage: storages(:masters), receiver: users(:daniyar), kind: :arrival, status: :draft)
+    waybill = Waybill.new(new_storage: storages(:masters), sender: users(:daniyar), kind: :arrival, status: :draft)
     assert waybill.save
 
     assert_difference "waybill.qr_scans.count" do
