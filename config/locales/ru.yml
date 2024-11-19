@@ -83,6 +83,8 @@ ru:
     warehousers: "Работники склада"
     arrivals: "Приход"
     arrival: "Приход: #%{id}"
+    write_offs: "Списание"
+    write_off: "Списание: #%{id}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:

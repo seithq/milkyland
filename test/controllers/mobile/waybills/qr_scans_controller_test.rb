@@ -23,15 +23,21 @@ module Mobile
       assert_response :success
     end
 
-    # test "should get edit" do
-    #   get edit_qr_scan_url(@qr_scan)
-    #   assert_response :success
-    # end
-    #
-    # test "should update qr_scan" do
-    #   patch qr_scan_url(@qr_scan), params: { qr_scan: {} }
-    #   assert_redirected_to qr_scan_url(@qr_scan)
-    # end
+    test "should get edit" do
+      BoxGenerationJob.perform_now sample_generation.id
+      assert @waybill.add_qr Box.last.code, scanned_at: Time.current, allowed_prefixes: %w[ P B ]
+
+      get edit_waybills_qr_scan_url(@waybill, @waybill.qr_scans.last, format: :turbo_stream)
+      assert_response :success
+    end
+
+    test "should update qr_scan" do
+      BoxGenerationJob.perform_now sample_generation.id
+      assert @waybill.add_qr Box.last.code, scanned_at: Time.current, allowed_prefixes: %w[ P B ]
+
+      patch waybills_qr_scan_url(@waybill, @waybill.qr_scans.last, format: :turbo_stream), params: { qr_scan: { capacity_after: 4 } }
+      assert_response :success
+    end
 
     test "should destroy qr_scan" do
       BoxGenerationJob.perform_now sample_generation.id

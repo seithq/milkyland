@@ -185,11 +185,12 @@ Rails.application.routes.draw do
     resources :scans, only: %i[ index new ]
     namespace :waybills do
       resources :arrivals, except: :index
+      resources :write_offs, except: :index
       resources :locations, only: %i[ new create ]
 
-      get ":waybill_id/qr_scans", to: "qr_scans#index", as: :qr_scans
-      post ":waybill_id/qr_scans", to: "qr_scans#create"
-      delete ":waybill_id/qr_scan/:id", to: "qr_scans#destroy", as: :qr_scan
+      scope ":waybill_id" do
+        resources :qr_scans, except: %i[ new show ]
+      end
     end
     namespace :journals do
       resources :outgoings, only: :index

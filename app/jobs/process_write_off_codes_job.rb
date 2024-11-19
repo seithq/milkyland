@@ -25,8 +25,8 @@ class ProcessWriteOffCodesJob < ApplicationJob
 
       waybill.qr_scans.each do |qr_scan|
         box = qr_scan.box
-        box.update! capacity: qr_scan.capacity_after
-        box.clear_locations! if qr_scan.capacity_after == 0
+        box.update! capacity: qr_scan.capacity_delta
+        box.clear_locations! if qr_scan.capacity_delta == 0
       end
 
       true
@@ -42,7 +42,7 @@ class ProcessWriteOffCodesJob < ApplicationJob
       qr_scans.each do |qr_scan|
         product_id = qr_scan.box.product_id
         previous_capacity = list.has_key?(product_id) ? list[product_id] : 0
-        list[product_id] = previous_capacity + (qr_scan.capacity_before - qr_scan.capacity_after)
+        list[product_id] = previous_capacity + qr_scan.capacity_after
       end
       list
     end

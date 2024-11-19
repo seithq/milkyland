@@ -15,7 +15,7 @@ module Mobile
 
     test "should create arrival" do
       assert_difference("Waybill.count") do
-        post waybills_arrivals_url, params: { waybill: { new_storage_id: storages(:masters).id } }
+        post waybills_arrivals_url, params: { waybill: { new_storage_id: @storage.id } }
       end
 
       assert_redirected_to edit_waybills_arrival_url(Waybill.last)

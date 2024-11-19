@@ -32,7 +32,6 @@ class ProcessWriteOffCodesJobTest < ActiveJob::TestCase
     assert waybill.save
 
     assert waybill.add_qr pallet.code, scanned_at: Time.current
-    assert waybill.qr_scans.last.update capacity_after: 0
 
     assert waybill.update status: :approved
     capacity = box.capacity

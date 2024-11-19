@@ -5,7 +5,7 @@
       data-scan-preview-preview-url-value="<%= waybills_qr_scans_url(@waybill) %>"
       data-scan-preview-whitelist-value="<%= @allowed_prefixes %>">
     <% if @qr_scans.any? %>
-      <%= render Mobile::QrScanComponent.with_collection(@qr_scans, is_open: false) %>
+      <%= render Mobile::QrScanComponent.with_collection(@qr_scans, is_open: false, readonly: params[:readonly].present?) %>
     <% else %>
       <%= render "placeholder" %>
     <% end %>

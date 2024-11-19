@@ -1,8 +1,8 @@
-<% content_for(:turbo_native_title) { t("pages.arrival", id: @waybill.id) } %>
+<% content_for(:turbo_native_title) { t("pages.write_off", id: @waybill.id) } %>
 
-<% if allowed_to?(:edit?, @waybill, with: ArrivalPolicy) %>
+<% if allowed_to?(:edit?, @waybill, with: WriteOffPolicy) %>
   <div class="turbo-native:hidden">
-    <%= link_to t("actions.edit_record"), edit_waybills_arrival_path(@waybill), data: { controller: "bridge--button", bridge_image: "", bridge_side: "right" } %>
+    <%= link_to t("actions.edit_record"), edit_waybills_write_off_path(@waybill), data: { controller: "bridge--button", bridge_image: "", bridge_side: "right" } %>
   </div>
 <% end %>
 
@@ -15,8 +15,8 @@
         </div>
 
         <div>
-          <%= form.label :new_storage_id, class: "form-label" %>
-          <%= form.select :new_storage_id, options_from_collection_for_select(Current.user.storages.acceptable, :id, :name, @waybill.new_storage_id), {}, { disabled: true, class: "form-select" } %>
+          <%= form.label :storage_id, class: "form-label" %>
+          <%= form.select :storage_id, options_from_collection_for_select(Current.user.storages.acceptable, :id, :name, @waybill.storage_id), {}, { disabled: true, class: "form-select" } %>
         </div>
       <% end %>
     </div>
