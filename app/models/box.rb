@@ -13,7 +13,7 @@ class Box < ApplicationRecord
   has_many :child_qr_scans, as: :sourceable, class_name: "QrScan", dependent: :destroy
 
   validates_presence_of :production_date, :expiration_date
-  validates :capacity, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :capacity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   broadcasts_refreshes_to ->(box) { box.box_request.present? ? box.box_request.generation : "" }
 

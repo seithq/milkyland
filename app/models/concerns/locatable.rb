@@ -15,6 +15,12 @@ module Locatable
       end
     end
 
+    def clear_locations!
+      transaction do
+        locations.update_all(active: false)
+      end
+    end
+
     def all_pallets
       ids = pallet_scopes.map { |scope| scope.pluck(:id) }.reduce(&:+)
       Pallet.where(id: ids)

@@ -1,15 +1,15 @@
-class ProcessArrivalCodesJob < ApplicationJob
+class ProcessWriteOffCodesJob < ApplicationJob
   queue_as :default
 
   rescue_from(ActiveRecord::RecordNotFound) do |exception|
-    Rails.logger.error("ProcessArrivalCodesJob: #{exception.message}")
+    Rails.logger.error("ProcessWriteOffCodesJob: #{exception.message}")
   end
 
   def perform(waybill_id)
     waybill = Waybill.find(waybill_id)
 
     # Skip if wrong kind
-    return false unless waybill.arrival?
+    return false unless waybill.write_off?
 
     # Skip if not approved
     return false unless waybill.approved?
@@ -23,14 +23,15 @@ class ProcessArrivalCodesJob < ApplicationJob
         waybill.leftovers.create! subject_type: "Product", subject_id: id, count: count
       end
 
-      zone = waybill.new_storage.zones.filter_by_kind(:arrival).first
       waybill.qr_scans.each do |qr_scan|
-        qr_scan.sourceable.locate_to zone
+        box = qr_scan.box
+        box.update! capacity: qr_scan.capacity_after
+        box.clear_locations! if qr_scan.capacity_after == 0
       end
 
       true
     rescue ActiveRecord::RecordInvalid => exception
-      Rails.logger.error("ProcessArrivalCodesJob: #{exception.message}")
+      Rails.logger.error("ProcessWriteOffCodesJob: #{exception.message}")
       false
     end
   end
@@ -41,7 +42,7 @@ class ProcessArrivalCodesJob < ApplicationJob
       qr_scans.each do |qr_scan|
         product_id = qr_scan.box.product_id
         previous_capacity = list.has_key?(product_id) ? list[product_id] : 0
-        list[product_id] = previous_capacity + qr_scan.capacity_before
+        list[product_id] = previous_capacity + (qr_scan.capacity_before - qr_scan.capacity_after)
       end
       list
     end
