@@ -1,9 +1,9 @@
-<li id="<%= dom_id(@qr_scan) %>" class="overflow-hidden rounded-md border p-4">
+<li id="<%= dom_id(@qr_scan) %>" class="overflow-hidden rounded-md border p-4" data-controller="pulse" data-pulse-animated-value="<%= @with_animation %>" data-pulse-animation-class="animate-pulse">
   <dl data-controller="detail" data-detail-open-value="<%= @is_open %>">
     <dt>
       <button type="button" data-action="detail#toggle" class="flex w-full items-center justify-between text-left text-gray-900" aria-controls="<%= dom_id(@qr_scan) %>_details" aria-expanded="false">
         <span class="flex flex-col space-y-1 items-start">
-          <span class="text-xs font-semibold leading-6 text-green-600">
+          <span class="text-xs font-semibold leading-6 <%= code_color %>">
             <%= @qr_scan.box.code %>
           </span>
           <% unless @qr_scan.is_box? %>
@@ -81,8 +81,9 @@
         </li>
 
         <%= render Mobile::ScanLocationComponent.new sourceable: @qr_scan.box %>
-
+        <!-- BEGIN EDIT MODES -->
         <% unless @readonly %>
+          <!-- BEGIN DRAFT MODE LOGIC -->
           <% if helpers.allowed_to?(:destroy?, @qr_scan.waybill, with: policy) %>
             <% if @with_capacity_input %>
               <li class="py-2 flex justify-end">
@@ -110,7 +111,34 @@
               </li>
             <% end %>
           <% end %>
+          <!-- END DRAFT MODE LOGIC -->
+          <!-- BEGIN PENDING MODE LOGIC -->
+          <% if helpers.allowed_to?(:approve?, @qr_scan.waybill, with: policy) %>
+            <% if @with_capacity_input %>
+              <li class="py-2 flex justify-end">
+                <%= form_with model: @qr_scan,
+                              url: waybills_qr_scan_path(@qr_scan.waybill, @qr_scan, format: :turbo_stream),
+                              method: :put,
+                              data: { turbo_prefetch: false } do |form| %>
+                  <%= hidden_field_tag "qr_scan[scanned_at]", Time.current %>
+                  <%= form.hidden_field :capacity_after, min: 1, max: @qr_scan.capacity_before %>
+                  <button type="submit" class="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    <%= inline_svg_tag "check-circle.svg", class: "-ml-0.5 size-5" %>
+                    <%= t("actions.save_record") %>
+                  </button>
+                <% end %>
+              </li>
+            <% else %>
+              <li class="<%= "hidden" unless helpers.allowed_to?(:sanction?, @qr_scan.waybill, with: policy) %> py-2 flex justify-between">
+                <%= link_to edit_waybills_qr_scan_path(@qr_scan.waybill, @qr_scan, format: :turbo_stream), data: { turbo_prefetch: false }, class: "text-xs leading-6 font-medium text-indigo-600 hover:text-indigo-500" do %>
+                  <%= inline_svg_tag "pencil-alt.svg", class: "size-5" %>
+                <% end %>
+              </li>
+            <% end %>
+          <% end %>
+          <!-- END PENDING MODE LOGIC -->
         <% end %>
+        <!-- END EDIT MODES -->
       </ul>
     </dd>
   </dl>

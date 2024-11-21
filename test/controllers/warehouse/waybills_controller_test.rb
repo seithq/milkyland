@@ -2,7 +2,8 @@ require "test_helper"
 
 class Warehouse::WaybillsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @waybill = waybills(:assets_arrival)
+    @storage = storages(:masters)
+    @waybill = Waybill.create! kind: :arrival, new_storage: @storage, sender: users(:daniyar)
     sign_in :daniyar
   end
 

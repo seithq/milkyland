@@ -10,7 +10,7 @@ class Warehouse::WaybillsController < ApplicationController
 
   private
     def base_scope
-      Waybill.all.recent_first
+      Waybill.for_goods.recent_first
     end
 
     def search_methods

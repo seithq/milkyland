@@ -85,6 +85,8 @@ ru:
     arrival: "Приход: #%{id}"
     write_offs: "Списание"
     write_off: "Списание: #%{id}"
+    transfers: "Перемещение"
+    transfer: "Перемещение: #%{id}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -116,6 +118,7 @@ ru:
     remove_account: "Удалить аккаунт?"
     confirm: "Подтвердить действие?"
     approve: "Подтвердить"
+    accept: "В работу"
     not_saved:
       one: "Сохранение не удалось из-за %{count} ошибки"
       few: "Сохранение не удалось из-за %{count} ошибок"

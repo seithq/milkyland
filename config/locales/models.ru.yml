@@ -117,6 +117,7 @@ ru:
           return_back: "ВОЗВРАТ"
         statuses:
           draft: "Черновик"
+          pending: "В ожидании"
           approved: "Подтвержден"
       zone:
         kinds:
@@ -324,6 +325,9 @@ ru:
         comment: Комментарий
         active: Активная запись
         status: Статус
+        sender_id: Отправитель
+        receiver_id: Получатель
+        qr_scans: Сканирование коробок
       leftover:
         subject_id: Номенклатура
         count: Количество

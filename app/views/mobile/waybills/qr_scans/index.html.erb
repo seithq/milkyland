@@ -1,5 +1,6 @@
 <%= turbo_frame_tag dom_id(@waybill, :qr_scans) do %>
-  <ul role="list" class="space-y-3"
+  <%= render "progress" %>
+  <ul role="list" class="mt-4 space-y-3"
       id="waybill_qr_scans"
       data-controller="scan-preview"
       data-scan-preview-preview-url-value="<%= waybills_qr_scans_url(@waybill) %>"

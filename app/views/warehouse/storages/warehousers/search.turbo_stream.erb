@@ -1,0 +1,4 @@
+<%= turbo_stream.update "waybill_receiver_id" do %>
+  <option value=""></option>
+  <%= options_from_collection_for_select(@warehousers, :user_id, :user_name) %>
+<% end %>

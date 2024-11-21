@@ -103,7 +103,7 @@
                 </ul>
               </li>
             <% end %>
-            <% if Current.user.can_store? %>
+            <% if Current.user.can_store? || Current.user.can_supply? %>
               <li>
                 <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.warehouse") %></div>
                 <ul role="list" class="-mx-2 space-y-1">

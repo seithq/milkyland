@@ -13,7 +13,7 @@ class ProcessWriteOffCodesJobTest < ActiveJob::TestCase
     assert waybill.add_qr pallet.code, scanned_at: Time.current
     assert waybill.qr_scans.last.update capacity_after: 3
 
-    assert waybill.update status: :approved
+    assert waybill.update status: :approved, manual_approval: true
 
     assert_difference -> { box.reload.capacity }, -3 do
       assert_difference -> { storage.available_count(box.product) }, -3.0 do

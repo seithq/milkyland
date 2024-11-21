@@ -18,8 +18,8 @@ export default class extends BridgeComponent {
       const result = document.getElementById(place)
       if (result) {
         const previewController = this.application.getControllerForElementAndIdentifier(result, "scan-preview")
-        if (saveMode === "create")
-          previewController.savePreview(message.data.code)
+        if (saveMode === "create" || saveMode === "update")
+          previewController.savePreview(message.data.code, saveMode)
         else
           previewController.buildPreview(message.data.code, saveMode)
       }

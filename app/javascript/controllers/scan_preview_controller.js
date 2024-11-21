@@ -24,11 +24,11 @@ export default class extends Controller {
     })
   }
 
-  savePreview(code) {
+  savePreview(code, saveMode) {
     if (code === "") return
 
     post(this.previewUrlValue, {
-      body: JSON.stringify({ code, allowed_prefixes: this.whitelistValue }),
+      body: JSON.stringify({ code, allowed_prefixes: this.whitelistValue, action_name: saveMode }),
       responseKind: "turbo-stream"
     })
   }

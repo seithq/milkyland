@@ -21,6 +21,9 @@ class Waybill < ApplicationRecord
 
   validate :storage_integrity
 
+  attribute :manual_approval, :boolean, default: false
+  validate :qr_scans_integrity
+
   scope :filter_by_kind, ->(kind) { where(kind: kind) }
   scope :automatic, ->() { filter_by_kind(:production_write_off) }
 
@@ -55,8 +58,25 @@ class Waybill < ApplicationRecord
     end
   end
 
+  def progress
+    return 0.0 if qr_scans.count.zero?
+
+    (qr_scans.sum(:capacity_after).to_d / qr_scans.sum(:capacity_before).to_d) * 100.0
+  end
+
   private
     def storage_integrity
       errors.add(:new_storage_id, :inclusion) if storage_id == new_storage_id
+    end
+
+    def qr_scans_integrity
+      return unless approved?
+      return if manual_approval?
+
+      errors.add(:qr_scans, :accepted) if qr_scans.not_scanned.count > 0 || capacity_delta > 0
+    end
+
+    def capacity_delta
+      qr_scans.sum(:capacity_before) - qr_scans.sum(:capacity_after)
     end
 end

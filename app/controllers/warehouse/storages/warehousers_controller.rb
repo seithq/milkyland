@@ -40,6 +40,10 @@ module Warehouse
       redirect_on_destroy edit_storage_url(@storage), text: t("actions.record_deactivated")
     end
 
+    def search
+      @warehousers = base_scope
+    end
+
     private
       def base_scope
         @storage.warehousers.recent_first

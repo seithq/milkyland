@@ -6,6 +6,8 @@ class Mobile::StatusBadgeComponent < ApplicationComponent
       case waybill.status
       when "approved"
         "bg-green-500"
+      when "pending"
+        "bg-yellow-500"
       else
         "bg-gray-900/80"
       end

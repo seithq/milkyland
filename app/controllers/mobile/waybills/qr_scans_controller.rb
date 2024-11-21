@@ -13,9 +13,7 @@ module Mobile
     end
 
     def create
-      @qr_scans = @waybill.add_qr qr_scan_params[:code],
-                                  scanned_at: scan_time_for(@waybill),
-                                  allowed_prefixes: @allowed_prefixes.split(",")
+      @qr_scans = create_or_update_qr_scans
     end
 
     def update
@@ -36,11 +34,11 @@ module Mobile
       end
 
       def qr_scan_params
-        params.permit(:code, :allowed_prefixes)
+        params.permit(:code, :allowed_prefixes, :action_name, :waybill_id, qr_scan: [ :code ])
       end
 
       def qr_scan_edit_params
-        params.expect(qr_scan: %i[ capacity_after ])
+        params.expect(qr_scan: %i[ capacity_after scanned_at ])
       end
 
       def scan_time_for(waybill)
@@ -49,6 +47,22 @@ module Mobile
 
       def set_allowed_prefixes
         @allowed_prefixes = params[:allowed_prefixes].presence || "P,B"
+      end
+
+      def save_mode_for_scan
+        @save_mode = qr_scan_params[:action_name].presence || "create"
+      end
+
+      def create_or_update_qr_scans
+        if save_mode_for_scan == "update"
+          scanned = @waybill.qr_scans.filter_by_scanning_code(qr_scan_params[:code])
+          scanned.update_all scanned_at: Time.current
+          scanned
+        else
+          @waybill.add_qr qr_scan_params[:code],
+                          scanned_at: scan_time_for(@waybill),
+                          allowed_prefixes: @allowed_prefixes.split(",")
+        end
       end
   end
 end

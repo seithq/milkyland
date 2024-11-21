@@ -102,6 +102,10 @@ Rails.application.routes.draw do
   end
 
   scope module: "warehouse" do
+    scope module: "storages" do
+      get "warehousers/search", to: "warehousers#search", as: :warehousers_search
+    end
+
     resources :storages, except: :destroy do
       scope module: "storages" do
         resources :subjects, only: :index
@@ -186,6 +190,7 @@ Rails.application.routes.draw do
     namespace :waybills do
       resources :arrivals, except: :index
       resources :write_offs, except: :index
+      resources :transfers, except: :index
       resources :locations, only: %i[ new create ]
 
       scope ":waybill_id" do
