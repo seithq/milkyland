@@ -3,7 +3,12 @@ goods_zone:
   kind: :hold
   display_index: A
 
-masters_zone:
+goods_arrival_zone:
   code: Z-002
+  kind: :arrival
+  display_index: B
+
+masters_zone:
+  code: Z-003
   kind: :arrival
   display_index: A

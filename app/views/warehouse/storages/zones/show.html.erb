@@ -4,7 +4,7 @@
   <%= render "layouts/breadcrumb", {
     nav_links: [
       NavLink.new(path: storages_path, title: t("pages.storages")),
-      NavLink.new(path: edit_storage_path(@storage), title: @storage.name),
+      NavLink.new(path: storage_path(@storage), title: @storage.name),
       NavLink.new(path: storage_zone_path(@storage, @zone), title: t("pages.zone", index: @zone.display_index))
     ]
   } %>

@@ -16,4 +16,8 @@ class QrScan < ApplicationRecord
   def capacity_delta
     self.capacity_before - self.capacity_after
   end
+
+  def scanned?
+    scanned_at?
+  end
 end

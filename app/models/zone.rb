@@ -9,7 +9,7 @@ class Zone < ApplicationRecord
   has_many :lines, through: :elements, source: :storable, source_type: "Line"
   has_many :pallets, through: :elements, source: :storable, source_type: "Pallet"
   has_many :boxes, through: :elements, source: :storable, source_type: "Box"
-  has_many :boxes_in_pallets, through: :pallets, source: :boxes
+  has_many :boxes_in_pallets, -> { boxes_in_pallets_active }, through: :pallets, source: :boxes
 
   # Сквозные адреса
   has_many :stacks, through: :lines
