@@ -328,6 +328,7 @@ ru:
         sender_id: Отправитель
         receiver_id: Получатель
         qr_scans: Сканирование коробок
+        manual_approval: Ручное одобрение
       leftover:
         subject_id: Номенклатура
         count: Количество
@@ -386,8 +387,13 @@ ru:
         storable_id: Объект вложения
         positionable_id: Адрес назначение
       qr_scan:
+        code: QR сканируемый
+        sourceable: Вид
         reason: Причина
         box_id: Коробка
+        box_code: QR коробки
+        capacity_before: Кол-во в коробке
+        capacity_after: Подтвержденное кол-во
     models:
       box:
         one: Коробка

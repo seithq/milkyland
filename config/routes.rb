@@ -127,9 +127,10 @@ Rails.application.routes.draw do
         resources :warehousers, except: :show
       end
     end
-    resources :waybills, only: %i[ index show ] do
+    resources :waybills, only: %i[ index show edit update ] do
       scope module: "waybills" do
         resources :leftovers, only: :index
+        resources :qr_scans, only: %i[ index edit update ]
       end
     end
     resources :boxes, only: %i[ index show ] do
@@ -193,7 +194,7 @@ Rails.application.routes.draw do
       resources :transfers, except: :index
       resources :locations, only: %i[ new create ]
 
-      scope ":waybill_id" do
+      scope ":waybill_id/mobile" do
         resources :qr_scans, except: %i[ new show ]
       end
     end

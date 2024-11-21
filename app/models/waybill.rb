@@ -20,8 +20,6 @@ class Waybill < ApplicationRecord
   validates_presence_of :batch_id, if: :production_write_off?
 
   validate :storage_integrity
-
-  attribute :manual_approval, :boolean, default: false
   validate :qr_scans_integrity
 
   scope :filter_by_kind, ->(kind) { where(kind: kind) }

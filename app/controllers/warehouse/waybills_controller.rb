@@ -1,11 +1,22 @@
 class Warehouse::WaybillsController < ApplicationController
-  before_action :set_waybill, only: :show
+  before_action :set_waybill, only: %i[ show edit update ]
 
   def index
     @pagy, @waybills = pagy get_scope(params)
   end
 
   def show
+  end
+
+  def edit
+  end
+
+  def update
+    if @waybill.update(waybill_params)
+      redirect_on_update waybills_url
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
@@ -19,5 +30,9 @@ class Warehouse::WaybillsController < ApplicationController
 
     def set_waybill
       @waybill = base_scope.find(params.expect(:id))
+    end
+
+    def waybill_params
+      params.expect(waybill: [ :kind, :storage_id, :new_storage_id, :sender_id, :receiver_id, :batch_id, :comment, :active, :manual_approval ])
     end
 end

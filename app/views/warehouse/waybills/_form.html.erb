@@ -1,0 +1,70 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= render "layouts/error_messages", resource: waybill %>
+    <%= form_with model: waybill do |form| %>
+      <div class="space-y-12">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <div class="sm:col-span-4">
+              <%= form.label :kind, class: "form-label" %>
+              <%= form.select :kind, options_for_enum_select(Waybill, :kind, waybill.kind, excluded_options: %i[ return_back production_write_off ]), {}, { disabled: true, class: "mt-2 form-select" } %>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= form.label :storage_id, class: "form-label" %>
+              <%= form.select :storage_id, options_from_collection_for_select(Storage.for_goods, :id, :name, @waybill.storage_id), { include_blank: true }, { disabled: true, class: "mt-2 form-input" } %>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= form.label :sender_id, class: "form-label" %>
+              <%= form.select :sender_id, options_from_collection_for_select(User.all, :id, :name, @waybill.sender_id), { include_blank: true }, { disabled: true, class: "mt-2 form-input" } %>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= form.label :new_storage_id, class: "form-label" %>
+              <%= form.select :new_storage_id, options_from_collection_for_select(Storage.for_goods, :id, :name, @waybill.new_storage_id), { include_blank: true }, { disabled: true, class: "mt-2 form-input" } %>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= form.label :receiver_id, class: "form-label" %>
+              <%= form.select :receiver_id, options_from_collection_for_select(User.all, :id, :name, @waybill.receiver_id), { include_blank: true }, { disabled: true, class: "mt-2 form-input" } %>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= form.label :comment, class: "form-label" %>
+              <%= form.text_area :comment, autocomplete: "comment", class: "mt-2 form-input" %>
+            </div>
+
+            <div class="sm:col-span-4 flex gap-x-3">
+              <div class="flex h-6 items-center">
+                <%= form.check_box :manual_approval, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+              </div>
+              <div class="text-sm leading-6">
+                <%= form.label :manual_approval, class: "font-medium text-gray-900" %>
+                <p class="text-gray-500"><%= t("forms.manual_approval") %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.qr_scans") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <div class="sm:col-span-full">
+              <%= turbo_frame_tag dom_id(waybill, :qr_scans), src: waybill_qr_scans_path(waybill) do %>
+                <%= inline_svg_tag "spinner.svg" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 flex items-center justify-end gap-x-6">
+        <%= form.submit t("actions.save_record"), class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+      </div>
+    <% end %>
+  </div>
+</div>

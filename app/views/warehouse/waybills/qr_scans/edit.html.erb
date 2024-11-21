@@ -1,0 +1,13 @@
+<% content_for(:title) { @qr_scan.box.code } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: waybills_path, title: t("pages.waybills")),
+      NavLink.new(path: edit_waybill_path(@waybill), title: t("pages.waybill", id: @waybill.id)),
+      NavLink.new(path: edit_waybill_qr_scan_path(@waybill, @qr_scan), title: @qr_scan.box.code)
+    ]
+  } %>
+<% end %>
+
+<%= render "form", qr_scan: @qr_scan %>

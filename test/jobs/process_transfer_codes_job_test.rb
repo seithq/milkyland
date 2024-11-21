@@ -17,16 +17,16 @@ class ProcessTransferCodesJobTest < ActiveJob::TestCase
     )
     assert waybill.save
     assert waybill.add_qr pallet.code, scanned_at: nil
-    assert waybill.qr_scans.last.update capacity_after: 3
+    assert waybill.qr_scans.last.update capacity_after: 5
 
     assert_not waybill.update status: :approved
 
     assert waybill.qr_scans.last.update scanned_at: Time.current
     assert waybill.update status: :approved, manual_approval: true
 
-    assert_difference -> { box.reload.capacity }, -3 do
-      assert_difference -> { storage.available_count(box.product) }, -3.0 do
-        assert_difference -> { new_storage.available_count(box.product) }, 3.0 do
+    assert_difference -> { box.reload.capacity }, -1 do
+      assert_difference -> { storage.available_count(box.product) }, -5.0 do
+        assert_difference -> { new_storage.available_count(box.product) }, 5.0 do
           assert ProcessTransferCodesJob.perform_now waybill.id
           assert_equal zones(:goods_arrival_zone), pallet.current_position
         end

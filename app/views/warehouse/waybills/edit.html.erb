@@ -1,0 +1,12 @@
+<% content_for(:title) { t("pages.waybill", id: @waybill.id) } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: waybills_path, title: t("pages.waybills")),
+      NavLink.new(path: edit_waybill_path(@waybill), title: t("pages.waybill", id: @waybill.id))
+    ]
+  } %>
+<% end %>
+
+<%= render "form", waybill: @waybill %>

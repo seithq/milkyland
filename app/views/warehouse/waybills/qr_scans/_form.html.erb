@@ -1,0 +1,33 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= render "layouts/error_messages", resource: qr_scan %>
+    <%= form_with model: [@waybill, qr_scan], class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :code, class: "form-label" %>
+        <%= form.text_field :code, readonly: true, class: "form-input" %>
+      </div>
+
+      <div>
+        <%= form.label :sourceable, class: "form-label" %>
+        <%= text_field_tag :sourceable, qr_scan.sourceable.model_name.human, readonly: true, class: "form-input" %>
+      </div>
+
+      <div>
+        <%= form.label :box_code, class: "form-label" %>
+        <%= text_field_tag :box_code, qr_scan.box.code, readonly: true, class: "form-input" %>
+      </div>
+
+      <div>
+        <%= form.label :capacity_before, class: "form-label" %>
+        <%= form.number_field :capacity_before, readonly: true, class: "form-input" %>
+      </div>
+
+      <div>
+        <%= form.label :capacity_after, class: "form-label" %>
+        <%= form.number_field :capacity_after, autofocus: true, required: true, class: "form-input" %>
+      </div>
+
+      <%= form.submit t("actions.save_record"), class: "btn" %>
+    <% end %>
+  </div>
+</div>
