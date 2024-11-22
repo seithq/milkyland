@@ -29,7 +29,16 @@ class TransferPolicy < ApplicationPolicy
     end
 
     def privileged?
-      # TODO: add warehouser extended role
-      user.admin?
+      user.admin? ||
+        user_sanctioning_for?(record.new_storage) ||
+        user_replacing_for?(record.new_storage, record.receiver_id)
+    end
+
+    def user_sanctioning_for?(storage)
+      storage.warehousers.filter_by_duty(:sanctioning).where(user_id: user.id).count > 0
+    end
+
+    def user_replacing_for?(storage, receiver_id)
+      storage.warehousers.filter_by_duty(:replacing).where(user_id: user.id, replaceable_id: receiver_id).count > 0
     end
 end

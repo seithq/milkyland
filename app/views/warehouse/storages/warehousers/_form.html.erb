@@ -1,10 +1,20 @@
 <div class="flex flex-col justify-center px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <%= render "layouts/error_messages", resource: warehouser %>
-    <%= form_with model: [@storage, warehouser], class: "space-y-4" do |form| %>
+    <%= form_with model: [@storage, warehouser], class: "space-y-4", data: { controller: "warehouser", warehouser_duty_value: warehouser.duty } do |form| %>
       <div>
         <%= form.label :user_id, class: "form-label" %>
-        <%= form.select :user_id, options_from_collection_for_select(User.active.filter_by_role(:warehouser), :id, :name, warehouser.user_id), { include_blank: true }, { disabled: !warehouser.active?, required: true, class: "form-select" } %>
+        <%= form.select :user_id, options_from_collection_for_select(User.active.filter_by_role(%i[ admin procurement_officers warehouser ]), :id, :name, warehouser.user_id), { include_blank: true }, { disabled: !warehouser.active?, required: true, class: "form-select" } %>
+      </div>
+
+      <div>
+        <%= form.label :duty, class: "form-label" %>
+        <%= form.select :duty, options_for_enum_select(Warehouser, :duty, warehouser.duty), { include_blank: true }, { disabled: !warehouser.active?, required: true, data: { action: "warehouser#showReplaceables" }, class: "form-select" } %>
+      </div>
+
+      <div class="hidden" data-warehouser-target="selector">
+        <%= form.label :replaceable_id, class: "form-label" %>
+        <%= form.select :replaceable_id, options_from_collection_for_select(User.active.filter_by_role(%i[ admin procurement_officers warehouser ]), :id, :name, warehouser.replaceable_id), { include_blank: true }, { disabled: !warehouser.active?, required: false, class: "form-select" } %>
       </div>
 
       <% unless warehouser.new_record? || warehouser.active? %>

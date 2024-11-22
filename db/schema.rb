@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_21_211244) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_22_074831) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -781,6 +781,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_211244) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "duty"
+    t.bigint "replaceable_id"
+    t.index ["replaceable_id"], name: "index_warehousers_on_replaceable_id"
     t.index ["storage_id"], name: "index_warehousers_on_storage_id"
     t.index ["user_id"], name: "index_warehousers_on_user_id"
   end
@@ -898,6 +901,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_211244) do
   add_foreign_key "supply_orders", "material_assets"
   add_foreign_key "warehousers", "storages"
   add_foreign_key "warehousers", "users"
+  add_foreign_key "warehousers", "users", column: "replaceable_id"
   add_foreign_key "waybills", "batches"
   add_foreign_key "waybills", "storages"
   add_foreign_key "waybills", "storages", column: "new_storage_id"

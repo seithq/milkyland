@@ -24,7 +24,7 @@
 
       <div>
         <%= form.label :capacity_after, class: "form-label" %>
-        <%= form.number_field :capacity_after, autofocus: true, required: true, class: "form-input" %>
+        <%= form.number_field :capacity_after, autofocus: true, required: true, class: "form-input", min: 1, max: qr_scan.capacity_before %>
       </div>
 
       <%= form.submit t("actions.save_record"), class: "btn" %>

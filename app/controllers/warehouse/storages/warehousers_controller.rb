@@ -54,7 +54,7 @@ module Warehouse
       end
 
       def warehouser_params
-        params.expect(warehouser: %i[ user_id active ])
+        params.expect(warehouser: %i[ user_id active duty replaceable_id ])
       end
   end
 end

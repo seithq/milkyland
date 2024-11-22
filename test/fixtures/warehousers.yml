@@ -1,3 +1,4 @@
 goods_warehouser:
   storage: goods
   user: warehouser
+  duty: executing

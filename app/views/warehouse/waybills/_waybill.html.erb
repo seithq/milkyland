@@ -15,7 +15,7 @@
     <%= link_to waybill.new_storage.name, storage_path(waybill.new_storage), class: "text-indigo-600", target: "_blank" if waybill.new_storage.present? %>
   </div>
   <div class="table-cell py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-    <% if allowed_to?(:sanction?, waybill, with: TransferPolicy) %>
+    <% if waybill.transfer? && allowed_to?(:sanction?, waybill, with: TransferPolicy) %>
       <%= link_to t("actions.edit_record"), edit_waybill_path(waybill), class: "text-indigo-600 hover:text-indigo-900" %>
     <% else %>
       <%= link_to t("actions.show_record"), waybill_path(waybill), class: "text-indigo-600 hover:text-indigo-900" %>

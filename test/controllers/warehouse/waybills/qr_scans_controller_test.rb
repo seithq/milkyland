@@ -2,47 +2,29 @@ require "test_helper"
 
 class QrScansControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @qr_scan = qr_scans(:one)
+    @storage = storages(:masters)
+    @waybill = Waybill.create! kind: :arrival, new_storage: @storage, sender: users(:daniyar)
+    sign_in :daniyar
   end
 
   test "should get index" do
-    get qr_scans_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_qr_scan_url
-    assert_response :success
-  end
-
-  test "should create qr_scan" do
-    assert_difference("QrScan.count") do
-      post qr_scans_url, params: { qr_scan: {} }
-    end
-
-    assert_redirected_to qr_scan_url(QrScan.last)
-  end
-
-  test "should show qr_scan" do
-    get qr_scan_url(@qr_scan)
+    get waybill_qr_scans_url(@waybill)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_qr_scan_url(@qr_scan)
+    BoxGenerationJob.perform_now sample_generation.id
+    assert @waybill.add_qr Box.last.code, scanned_at: Time.current, allowed_prefixes: %w[ P B ]
+
+    get edit_waybill_qr_scan_url(@waybill, @waybill.qr_scans.last)
     assert_response :success
   end
 
   test "should update qr_scan" do
-    patch qr_scan_url(@qr_scan), params: { qr_scan: {} }
-    assert_redirected_to qr_scan_url(@qr_scan)
-  end
+    BoxGenerationJob.perform_now sample_generation.id
+    assert @waybill.add_qr Box.last.code, scanned_at: Time.current, allowed_prefixes: %w[ P B ]
 
-  test "should destroy qr_scan" do
-    assert_difference("QrScan.count", -1) do
-      delete qr_scan_url(@qr_scan)
-    end
-
-    assert_redirected_to qr_scans_url
+    patch waybill_qr_scan_url(@waybill, @waybill.qr_scans.last), params: { qr_scan: { capacity_after: 5 } }
+    assert_redirected_to edit_waybill_path(@waybill)
   end
 end

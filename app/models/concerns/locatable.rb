@@ -5,8 +5,8 @@ module Locatable
     has_many :all_locations, as: :storable, class_name: "Location", dependent: :destroy
     has_many :all_elements, as: :positionable, class_name: "Location", dependent: :destroy
 
-    has_many :locations, -> { Location.active }, as: :storable, dependent: :destroy
-    has_many :elements, -> { Location.active }, as: :positionable, class_name: "Location", dependent: :destroy
+    has_many :locations, -> { active }, as: :storable, dependent: :destroy
+    has_many :elements, -> { active }, as: :positionable, class_name: "Location", dependent: :destroy
 
     def locate_to(position)
       transaction do

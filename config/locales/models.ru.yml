@@ -124,6 +124,11 @@ ru:
           hold: "Для хранения"
           ship: "Для отгрузки"
           arrival: "Для приемки"
+      warehouser:
+        duties:
+          executing: "Исполняющий"
+          sanctioning: "Подтверждающий"
+          replacing: "Заменяющий"
     attributes:
       user:
         name: ФИО
@@ -377,6 +382,8 @@ ru:
       warehouser:
         user_id: Пользователь
         active: Активная запись
+        duty: Обязанность
+        replaceable_id: Заменяемый сотрудник
       location:
         positionable_type: В составе
         storable_type: Тип
