@@ -21,20 +21,13 @@ module Production::Plans::ProductionUnits::Batches::Distributions::DistributedPr
     end
 
     def download
-      zipline build_zip_for(@generation), @generation.zip_name
+      images = @generation.pallets.map { |pallet| [ pallet.qr_image, pallet.qr_image.filename, modification_time: pallet.created_at ] }
+      zipline images, @generation.zip_name
     end
 
     private
       def pallet_request_params
         params.require(:pallet_request).permit(:count)
-      end
-
-      def build_zip_for(generation)
-        if Rails.env.production?
-          generation.pallets.map { |pallet| [pallet.qr_image.url, pallet.qr_image.filename] }
-        else
-          generation.pallets.map { |pallet| [pallet.qr_image, pallet.qr_image.filename] }
-        end
       end
   end
 end

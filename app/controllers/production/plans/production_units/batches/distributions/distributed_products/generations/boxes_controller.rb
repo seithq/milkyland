@@ -7,16 +7,8 @@ module Production::Plans::ProductionUnits::Batches::Distributions::DistributedPr
     end
 
     def download
-      zipline build_zip_for(@generation), @generation.zip_name
+      images = @generation.boxes.map { |box| [ box.qr_image, box.qr_image.filename, modification_time: box.created_at ] }
+      zipline images, @generation.zip_name
     end
-
-    private
-      def build_zip_for(generation)
-        if Rails.env.production?
-          generation.boxes.map { |box| [box.qr_image.url, box.qr_image.filename] }
-        else
-          generation.boxes.map { |box| [box.qr_image, box.qr_image.filename] }
-        end
-      end
   end
 end
