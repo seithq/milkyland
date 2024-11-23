@@ -25,7 +25,7 @@ gem "tailwindcss-rails"
 gem "requestjs-rails", "~> 0.0.11"
 gem "inline_svg", "~> 1.9"
 gem "pagy", "~> 9.0"
-gem "rails-i18n", "~> 7.0"
+gem "rails-i18n", "~> 8.0"
 gem "view_component", "~> 3.20"
 gem "dry-initializer", "~> 3.1"
 gem "action_policy", "~> 0.7.1"
@@ -41,7 +41,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem "rqrcode", "~> 2.2"
 gem "useragent", github: "basecamp/useragent"
-gem "zipline", "~> 2.0"
+gem "rubyzip", "~> 2.3"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -57,5 +57,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "rubyzip", "~> 2.3"
