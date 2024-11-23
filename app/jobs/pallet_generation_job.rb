@@ -10,7 +10,7 @@ class PalletGenerationJob < ApplicationJob
 
     pallet_request.count.times do
       pallet = Pallet.create!(pallet_request_id: pallet_request.id)
-      QrGenerationJob.perform_later(pallet)
+      QrGenerationJob.perform_now(pallet)
     end
   end
 end

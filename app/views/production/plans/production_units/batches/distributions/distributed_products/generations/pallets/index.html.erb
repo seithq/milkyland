@@ -68,10 +68,23 @@
             <h1 class="text-base font-semibold leading-6 text-gray-900"><%= t("tables.cols.pallets") %></h1>
             <p class="mt-2 text-sm text-gray-700"><%= t("forms.pallets_to_print") %></p>
           </div>
-          <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+          <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none space-y-2">
             <%= link_to t("actions.create_record"), new_production_plan_unit_batch_distribution_distributed_product_generation_pallet_path(@plan, @production_unit, @batch, @distributed_product), data: { turbo: false }, class: "btn" %>
             <% if @pallets.any? %>
-              <%= button_to t("actions.download_all"), download_production_plan_unit_batch_distribution_distributed_product_generation_pallets_path(@plan, @production_unit, @batch, @distributed_product, @generation), data: { turbo: false }, class: "mt-2 btn" %>
+              <% download_path = download_production_plan_unit_batch_distribution_distributed_product_generation_pallets_path(@plan, @production_unit, @batch, @distributed_product) %>
+
+              <% if @generation.pallets_download.present? %>
+                <% if @generation.pallets_download.processing? %>
+                  <span class="btn"><%= t("actions.loading") %></span>
+                <% elsif @generation.pallets_download.completed? && @generation.pallets_download.archive.attached? %>
+                  <%= button_to t("actions.repeat_download"), download_path, data: { turbo: false }, class: "btn" %>
+                  <%= link_to t("actions.download_all"), rails_blob_path(@generation.pallets_download.archive, disposition: "attachment"), class: "btn" %>
+                <% else %>
+                  <%= button_to t("actions.prepare_download"), download_path, data: { turbo: false }, class: "btn" %>
+                <% end %>
+              <% else %>
+                <%= button_to t("actions.prepare_download"), download_path, data: { turbo: false }, class: "btn" %>
+              <% end %>
             <% end %>
           </div>
         </div>

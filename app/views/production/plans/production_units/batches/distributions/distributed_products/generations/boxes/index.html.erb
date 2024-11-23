@@ -19,8 +19,21 @@
         <p class="mt-2 text-sm text-gray-700"><%= t("forms.boxes_to_print") %></p>
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-        <% if @boxes.any? %>
-          <%= button_to t("actions.download_all"), download_production_plan_unit_batch_distribution_distributed_product_generation_boxes_path(@plan, @production_unit, @batch, @distributed_product, @generation), data: { turbo: false }, class: "btn" %>
+        <% if @generation.box_progress_completed? %>
+          <% download_path = download_production_plan_unit_batch_distribution_distributed_product_generation_boxes_path(@plan, @production_unit, @batch, @distributed_product) %>
+
+          <% if @generation.boxes_download.present? %>
+            <% if @generation.boxes_download.processing? %>
+              <span class="btn"><%= t("actions.loading") %></span>
+            <% elsif @generation.boxes_download.completed? && @generation.boxes_download.archive.attached? %>
+              <%= button_to t("actions.repeat_download"), download_path, data: { turbo: false }, class: "btn" %>
+              <%= link_to t("actions.download_all"), rails_blob_path(@generation.boxes_download.archive, disposition: "attachment"), class: "mt-2 btn" %>
+            <% else %>
+              <%= button_to t("actions.prepare_download"), download_path, data: { turbo: false }, class: "btn" %>
+            <% end %>
+          <% else %>
+            <%= button_to t("actions.prepare_download"), download_path, data: { turbo: false }, class: "btn" %>
+          <% end %>
         <% end %>
       </div>
     </div>

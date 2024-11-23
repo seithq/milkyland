@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_22_074831) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_23_142136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -221,6 +221,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_22_074831) do
     t.index ["operation_id"], name: "index_fields_on_operation_id"
     t.index ["standard_id"], name: "index_fields_on_standard_id"
     t.index ["trackable_id"], name: "index_fields_on_trackable_id"
+  end
+
+  create_table "generation_downloads", force: :cascade do |t|
+    t.bigint "generation_id", null: false
+    t.string "kind"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["generation_id"], name: "index_generation_downloads_on_generation_id"
   end
 
   create_table "generations", force: :cascade do |t|
@@ -848,6 +857,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_22_074831) do
   add_foreign_key "fields", "measurements"
   add_foreign_key "fields", "operations"
   add_foreign_key "fields", "standards"
+  add_foreign_key "generation_downloads", "generations"
   add_foreign_key "generations", "distributed_products"
   add_foreign_key "groups", "categories"
   add_foreign_key "ingredients", "groups"

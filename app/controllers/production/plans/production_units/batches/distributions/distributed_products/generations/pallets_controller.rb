@@ -1,6 +1,6 @@
 module Production::Plans::ProductionUnits::Batches::Distributions::DistributedProducts
   class Generations::PalletsController < ProductionController
-    include PlanScoped, ProductionUnitScoped, BatchScoped, DistributionScoped, DistributedProductScoped, GenerationScoped
+    include PlanScoped, ProductionUnitScoped, BatchScoped, DistributionScoped, DistributedProductScoped, GenerationScoped, Zipable
 
     def index
       @pagy, @pallets = pagy @generation.pallets
@@ -20,14 +20,29 @@ module Production::Plans::ProductionUnits::Batches::Distributions::DistributedPr
       end
     end
 
-    def download
-      images = @generation.pallets.map { |pallet| [ pallet.qr_image, pallet.qr_image.filename, modification_time: pallet.created_at ] }
-      zipline images, @generation.zip_name
-    end
-
     private
       def pallet_request_params
         params.require(:pallet_request).permit(:count)
+      end
+
+      def init_download
+        @generation.create_pallets_download kind: :pallets, status: :processing
+      end
+
+      def zip_class
+        "Pallet"
+      end
+
+      def zip_scope
+        @generation.pallets
+      end
+
+      def zip_name
+        @generation.zip_name("P")
+      end
+
+      def post_download_url
+        production_plan_unit_batch_distribution_distributed_product_generation_url(@plan, @production_unit, @batch, @distributed_product)
       end
   end
 end
