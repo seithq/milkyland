@@ -17,7 +17,7 @@
 
             <div class="sm:col-span-4">
               <%= form.label :category_id, class: "form-label" %>
-              <%= form.select :category_id, options_from_collection_for_select(Category.end_products, :id, :name, group.category_id), { include_blank: true }, { required: true, class: "mt-2 form-select" } %>
+              <%= form.select :category_id, options_from_collection_for_select(Category.products, :id, :name, group.category_id), { include_blank: true }, { required: true, class: "mt-2 form-select" } %>
             </div>
 
             <div class="sm:col-span-4">
@@ -34,6 +34,31 @@
               <%= form.label :cooking_technology, class: "mb-4 form-label" %>
               <%= form.rich_text_area :cooking_technology, class: "prose max-w-none py-1.5 rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
             </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.semi_recipe") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <% if group.new_record? %>
+              <div class="sm:col-span-4">
+                <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
+              </div>
+            <% else %>
+              <% if group.category.end_product? %>
+                <div class="sm:col-span-full">
+                  <%= turbo_frame_tag dom_id(group, :semi_ingredients) do %>
+                    <%= inline_svg_tag "spinner.svg" %>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="sm:col-span-4">
+                  <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.for_end_products") %></p>
+                </div>
+              <% end %>
+            <% end %>
           </div>
         </div>
 

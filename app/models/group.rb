@@ -18,6 +18,9 @@ class Group < ApplicationRecord
 
   scope :ordered, -> { order(name: :asc) }
 
+  scope :end_products, ->() { joins(:category).merge(Category.end_products) }
+  scope :semi_products, ->() { joins(:category).merge(Category.semi_products) }
+
   def available_trackable_fields(field)
     base_scope = self.fields.filter_by_trigger(:on_start)
     return base_scope if field.new_record?

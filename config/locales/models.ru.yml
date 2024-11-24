@@ -18,6 +18,7 @@ ru:
           material_asset: ТМЦ
           raw_product: Сырье
           packing: Упаковочная тара
+          semi_product: Полуфабрикат
       field:
         kinds:
           date: Дата
