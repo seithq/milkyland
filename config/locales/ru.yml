@@ -17,6 +17,7 @@ ru:
     categories: "Категории"
     measurements: "Единицы измерения"
     products: "Номенклатура ГП"
+    semi_products: "Номенклатура ПФ"
     material_assets: "Номенклатура ТМЦ"
     groups: "Группа ГП и ПФ"
     ingredients: "Рецептура"

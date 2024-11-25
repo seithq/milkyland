@@ -1,0 +1,12 @@
+<% content_for(:title) { @semi_product.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: semi_products_path, title: t("pages.semi_products")),
+      NavLink.new(path: edit_semi_product_path(@semi_product), title: @semi_product.name),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", semi_product: @semi_product %>

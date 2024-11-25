@@ -168,6 +168,7 @@ Rails.application.routes.draw do
         resources :box_packagings, except: :show
       end
     end
+    resources :semi_products, except: :destroy
     resources :clients, except: :destroy do
       scope module: "clients" do
         resources :sales_points, except: :show
