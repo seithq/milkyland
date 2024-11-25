@@ -31,4 +31,8 @@ class ProductionUnit < ApplicationRecord
   def ingredients
     self.group.ingredients.active
   end
+
+  def semi_ingredients
+    self.group.semi_ingredients.active
+  end
 end

@@ -1,0 +1,20 @@
+<% unit = semi_ingredient.semi_product.measurement.unit %>
+<% required_count  = semi_ingredient.ratio * @production_unit.tonnage %>
+<% produced_count  = semi_ingredient.ratio * @production_unit.produced_tonnage %>
+<% available_count = semi_ingredient.semi_product.available_count %>
+<% not_enough = required_count > available_count %>
+
+<tr>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+    <%= semi_ingredient.semi_product.name %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= t("forms.measurement", value: number_with_delimiter(required_count), unit: unit) %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= t("forms.measurement", value: number_with_delimiter(produced_count), unit: unit) %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 <%= "text-red-600 font-semibold" if not_enough %>">
+    <%= t("forms.measurement", value: number_with_delimiter(available_count), unit: unit) %>
+  </td>
+</tr>

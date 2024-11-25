@@ -8,7 +8,7 @@ class WriteOffMaterialAssetsJobTest < ActiveJob::TestCase
 
   test "should create write off material assets" do
     assert_difference "Waybill.count" do
-      assert_difference "Leftover.count", 4 do
+      assert_difference "Leftover.count", 5 do
         assert WriteOffMaterialAssetsJob.perform_now @batch.id
       end
     end

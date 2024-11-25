@@ -23,8 +23,10 @@ class Plan < ApplicationRecord
 
   validates :production_date, presence: true, comparison: { greater_than_or_equal_to: Time.zone.today }
 
+  enum :kind, %w[ standard semi ].index_by(&:itself), default: :standard
   enum :status, (%w[ in_consolidation ] + SHARED).index_by(&:itself), default: :in_consolidation
 
+  scope :filter_by_kind, ->(kind) { where kind: kind }
   scope :filter_by_status, ->(status) { where status: status }
 
   scope :ordered, -> { order(production_date: :desc) }
