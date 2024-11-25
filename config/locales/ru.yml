@@ -57,6 +57,7 @@ ru:
     batch: "Партия #%{id}"
     batches: "Партия производства"
     packing: "Фасовка"
+    cooking: "Приготовление"
     distribution: "Распределение QR"
     box_packagings: "Виды упаковки"
     generation: "Генерация QR"

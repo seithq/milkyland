@@ -30,7 +30,7 @@ module Production::Plans
 
     def update
       if @batch.update(batch_params)
-        WriteOffMaterialAssetsJob.perform_later @batch.id if @batch.step_completed?
+        post_update_hook @batch
         redirect_on_update production_plan_unit_batch_url(@plan, @production_unit, @batch)
       else
         render :edit, status: :unprocessable_entity
@@ -48,6 +48,13 @@ module Production::Plans
 
       def batch_params
         params.require(:batch).permit(:machiner_id, :tester_id, :operator_id, :loader_id, :storage_id, :status, :comment)
+      end
+
+      def post_update_hook(batch)
+        return unless batch.step_completed?
+
+        WriteOffMaterialAssetsJob.perform_later batch.id
+        ArriveSemiProductsJob.perform_later batch.id
       end
   end
 end

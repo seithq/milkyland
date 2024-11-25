@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_11_25_124820) do
+ActiveRecord::Schema[8.1].define(version: 2024_11_25_163933) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -167,6 +167,25 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_25_124820) do
     t.index ["material_asset_id"], name: "index_containers_on_material_asset_id"
     t.index ["packing_machine_id", "material_asset_id"], name: "index_containers_on_packing_machine_id_and_material_asset_id", unique: true
     t.index ["packing_machine_id"], name: "index_containers_on_packing_machine_id"
+  end
+
+  create_table "cooked_semi_products", force: :cascade do |t|
+    t.bigint "cooking_id", null: false
+    t.bigint "semi_product_id", null: false
+    t.decimal "tonnage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cooking_id"], name: "index_cooked_semi_products_on_cooking_id"
+    t.index ["semi_product_id"], name: "index_cooked_semi_products_on_semi_product_id"
+  end
+
+  create_table "cookings", force: :cascade do |t|
+    t.bigint "batch_id", null: false
+    t.integer "status"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batch_id"], name: "index_cookings_on_batch_id"
   end
 
   create_table "discounted_products", force: :cascade do |t|
@@ -872,6 +891,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_25_124820) do
   add_foreign_key "consolidations", "plans"
   add_foreign_key "containers", "material_assets"
   add_foreign_key "containers", "packing_machines"
+  add_foreign_key "cooked_semi_products", "cookings"
+  add_foreign_key "cooked_semi_products", "semi_products"
+  add_foreign_key "cookings", "batches"
   add_foreign_key "discounted_products", "products"
   add_foreign_key "discounted_products", "promotions"
   add_foreign_key "distributed_products", "distributions"

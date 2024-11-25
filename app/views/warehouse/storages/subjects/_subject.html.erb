@@ -1,6 +1,6 @@
 <%= tag.div id: dom_id(subject), class: "table-row hover:bg-gray-50" do %>
   <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-    <%= subject.article %>
+    <%= subject.model_name.name == "SemiProduct" ? t("tables.cols.semi_product") : subject.article %>
   </div>
   <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
     <%= subject.name %>

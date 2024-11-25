@@ -35,6 +35,27 @@ module ProductionTestHelper
     @generation
   end
 
+  def sample_cooked_semi_product
+    @plan = Plan.new(kind: :semi, status: :ready_to_production, production_date: 3.days.from_now)
+    assert @plan.save
+
+    @production_unit = @plan.units.new(group: groups(:bom_group), count: 1, tonnage: 10)
+    assert @production_unit.save
+    assert @production_unit.batches.create(loader: users(:loader), tester: users(:tester), machiner: users(:machiner), operator: users(:operator), storage: storages(:material_assets))
+
+    @batch = @production_unit.batches.last
+    assert @batch.update status: :in_progress
+
+    @journal = @production_unit.group.journals.last
+    @operation = @journal.operations.last
+
+    @cooking = @batch.build_cooking(status: :completed)
+    @cooking.build_semi_products
+    assert @cooking.save
+
+    @cooked_semi_product = @cooking.semi_products.last
+  end
+
   def complete_journals(batch)
     journals = batch.production_unit.group.journals
     journals.each do |journal|

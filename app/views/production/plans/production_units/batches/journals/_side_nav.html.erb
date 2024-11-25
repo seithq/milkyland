@@ -1,7 +1,11 @@
 <nav aria-label="Progress" class="w-96">
   <ol role="list" class="overflow-hidden">
     <%= render partial: "production/plans/production_units/batches/journals/journal", collection: @journals, as: :journal %>
-    <%= render "production/plans/production_units/batches/packings/packing", batch: @batch %>
-    <%= render "production/plans/production_units/batches/distributions/distribution", batch: @batch %>
+    <% if @plan.semi? %>
+      <%= render "production/plans/production_units/batches/cookings/cooking", batch: @batch %>
+    <% else %>
+      <%= render "production/plans/production_units/batches/packings/packing", batch: @batch %>
+      <%= render "production/plans/production_units/batches/distributions/distribution", batch: @batch %>
+    <% end %>
   </ol>
 </nav>

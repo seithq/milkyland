@@ -1,0 +1,13 @@
+<tr id=<%= dom_id(cooked_semi_product) %>>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+    <%= cooked_semi_product.semi_product.name %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+    <%= number_with_delimiter cooked_semi_product.tonnage %>
+  </td>
+  <% if @cooking.in_progress? %>
+    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+      <%= link_to t("actions.edit_record"), edit_production_plan_unit_batch_cooking_cooked_semi_product_path(@plan, @production_unit, @batch, cooked_semi_product), data: { turbo_frame: "_top" }, class: "text-indigo-600 hover:text-indigo-900" %>
+    </td>
+  <% end %>
+</tr>

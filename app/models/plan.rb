@@ -18,6 +18,9 @@ class Plan < ApplicationRecord
   has_many :packings, through: :batches
   has_many :packaged_products, through: :packings, source: :products
 
+  has_many :cookings, through: :batches
+  has_many :cooked_semi_products, through: :cookings, source: :semi_products
+
   has_many :distributions, through: :batches
   has_many :distributed_products, through: :distributions, source: :products
 
@@ -36,8 +39,6 @@ class Plan < ApplicationRecord
   # Для табов во вкладке производства
   scope :active,    -> { filter_by_status(%i[ ready_to_production in_production ]) }
   scope :completed, -> { filter_by_status(%i[ produced cancelled ]) }
-
-  default_scope { filter_by_kind(:standard) }
 
   def self.after(from_date)
     Plan.where(status: :in_consolidation, production_date: (from_date + 1.day)..).order(production_date: :asc).first
@@ -71,6 +72,10 @@ class Plan < ApplicationRecord
 
   def group_products(group)
     self.products.filter_by_group(group.id).uniq
+  end
+
+  def group_semi_products(group)
+    SemiProduct.filter_by_group(group.id).uniq
   end
 
   def product_sum(product)

@@ -9,6 +9,7 @@ class Storage < ApplicationRecord
   has_many :leftovers, dependent: :destroy
 
   has_many :products, through: :leftovers, source: :subject, source_type: "Product"
+  has_many :semi_products, through: :leftovers, source: :subject, source_type: "SemiProduct"
   has_many :material_assets, through: :leftovers, source: :subject, source_type: "MaterialAsset"
 
   has_many :batches, dependent: :destroy

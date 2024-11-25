@@ -1,0 +1,21 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <%= render "layouts/error_messages", resource: cooking %>
+    <%= form_with model: cooking, url: production_plan_unit_batch_cooking_path(@plan, @production_unit, @batch), class: "space-y-4" do |form| %>
+      <% if should_cancel? %>
+        <%= form.hidden_field :status, value: :cancelled %>
+      <% end %>
+
+      <div>
+        <%= form.label :comment, class: "form-label-xl" %>
+        <%= form.text_area :comment, autocomplete: "comment", required: should_cancel?, class: "mt-2 form-area-xl" %>
+      </div>
+
+      <% if should_cancel? %>
+        <%= form.submit t("actions.force_finish"), class: "w-full btn-force-stop", data: { turbo_confirm: t("actions.confirm") } %>
+      <% else %>
+        <%= form.submit t("actions.save_record"), class: "w-full btn-xl", data: { turbo_confirm: t("actions.confirm") } %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

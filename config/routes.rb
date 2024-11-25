@@ -57,6 +57,11 @@ Rails.application.routes.draw do
                     resources :packaged_products, only: %i[ index edit update ]
                   end
                 end
+                resource :cooking, except: :destroy do
+                  scope module: "cookings" do
+                    resources :cooked_semi_products, only: %i[ index edit update ]
+                  end
+                end
                 resource :distribution, except: :destroy do
                   scope module: "distributions" do
                     resources :distributed_products, only: %i[ index edit update ] do

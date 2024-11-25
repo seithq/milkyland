@@ -28,7 +28,7 @@ class Sales::PlansController < ApplicationController
 
   private
     def base_scope
-      Plan.filter_by_status(@status).ordered
+      Plan.filter_by_status(@status).filter_by_kind(:standard).ordered
     end
 
     def search_methods

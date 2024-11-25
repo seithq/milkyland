@@ -3,3 +3,9 @@ skimming:
   name: Skimming
   chain_order: 1
   active: true
+
+cooking:
+  group: bom_group
+  name: Cooking
+  chain_order: 1
+  active: true

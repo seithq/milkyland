@@ -7,6 +7,8 @@ class SemiProduct < ApplicationRecord
   has_many :leftovers, as: :subject, dependent: :destroy
   has_many :storages, through: :leftovers
 
+  has_many :cooked_semi_products, dependent: :destroy
+
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates_presence_of :expiration_in_days
 

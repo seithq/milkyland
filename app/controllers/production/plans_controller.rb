@@ -38,8 +38,7 @@ class Production::PlansController < ProductionController
 
   private
     def base_scope
-      scope = @kind == "semi" ? Plan.unscoped.filter_by_kind(:semi) : Plan.all
-      scope.send(@status).order(production_date: :asc)
+      Plan.send(@status).filter_by_kind(@kind).order(production_date: :asc)
     end
 
     def search_methods
@@ -47,7 +46,7 @@ class Production::PlansController < ProductionController
     end
 
     def set_plan
-      @plan = Plan.unscoped.find(params[:id])
+      @plan = Plan.find(params[:id])
     end
 
     def plan_params

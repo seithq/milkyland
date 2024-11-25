@@ -4,3 +4,11 @@ start_time:
   kind: time
   chain_order: 1
   active: true
+
+final_measure:
+  operation: checking
+  name: Final Measure
+  kind: measure
+  measurement: litre
+  chain_order: 1
+  active: true

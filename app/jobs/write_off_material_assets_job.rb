@@ -1,7 +1,7 @@
 class WriteOffMaterialAssetsJob < ApplicationJob
   queue_as :default
 
-  rescue_from(ActiveRecord::RecordNotFound) do |exception|
+  rescue_from(ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid) do |exception|
     Rails.logger.error("WriteOffMaterialAssetsJob: #{exception.message}")
   end
 
@@ -12,7 +12,7 @@ class WriteOffMaterialAssetsJob < ApplicationJob
     return false unless batch.step_completed?
 
     # Если уже есть списание для данной партии
-    return false if Waybill.exists?(batch_id: batch.id)
+    return false if Waybill.filter_by_kind(:production_write_off).exists?(batch_id: batch.id)
 
     batch.transaction do
       tonnage = batch.produced_tonnage

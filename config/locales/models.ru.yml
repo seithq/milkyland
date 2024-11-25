@@ -85,6 +85,12 @@ ru:
           in_plan: "В плане"
           completed: "Завершен"
           cancelled: "Отменен"
+      cooking:
+        statuses:
+          in_progress: "В процессе"
+          in_plan: "В плане"
+          completed: "Завершен"
+          cancelled: "Отменен"
       distribution:
         statuses:
           in_progress: "В процессе"
@@ -315,6 +321,8 @@ ru:
         start_time: Время начала
         end_time: Время окончания
         count: Количество
+      cooked_semi_product:
+        tonnage: Финальный тоннаж
       distribution:
         comment: Комментарий
       distributed_product:

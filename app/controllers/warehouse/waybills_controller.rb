@@ -29,7 +29,7 @@ class Warehouse::WaybillsController < ApplicationController
     end
 
     def set_waybill
-      @waybill = base_scope.find(params.expect(:id))
+      @waybill = Waybill.find(params.expect(:id))
     end
 
     def waybill_params

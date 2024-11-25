@@ -21,12 +21,12 @@
             <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
               <div class="sm:col-span-4">
                 <%= form.label :kind, class: "form-label" %>
-                <%= form.select :kind, options_for_enum_select(Waybill, :kind, @waybill.kind, excluded_options: %i[ production_write_off return_back ]), {}, { disabled: true, class: "mt-2 form-select" } %>
+                <%= form.select :kind, options_for_enum_select(Waybill, :kind, @waybill.kind, excluded_options: %i[ return_back ]), {}, { disabled: true, class: "mt-2 form-select" } %>
               </div>
 
               <div class="sm:col-span-4">
                 <%= form.label :storage_id, class: "form-label" %>
-                <%= form.select :storage_id, options_from_collection_for_select(Storage.for_goods, :id, :name, @waybill.storage_id), { include_blank: true }, { disabled: true, class: "mt-2 form-input" } %>
+                <%= form.select :storage_id, options_from_collection_for_select(Storage.all, :id, :name, @waybill.storage_id), { include_blank: true }, { disabled: true, class: "mt-2 form-input" } %>
               </div>
 
               <div class="sm:col-span-4">
@@ -36,7 +36,7 @@
 
               <div class="sm:col-span-4">
                 <%= form.label :new_storage_id, class: "form-label" %>
-                <%= form.select :new_storage_id, options_from_collection_for_select(Storage.for_goods, :id, :name, @waybill.new_storage_id), { include_blank: true }, { disabled: true, class: "mt-2 form-input" } %>
+                <%= form.select :new_storage_id, options_from_collection_for_select(Storage.all, :id, :name, @waybill.new_storage_id), { include_blank: true }, { disabled: true, class: "mt-2 form-input" } %>
               </div>
 
               <div class="sm:col-span-4">

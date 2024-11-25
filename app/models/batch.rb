@@ -16,6 +16,9 @@ class Batch < ApplicationRecord
   has_one :packing, dependent: :destroy
   has_many :packaged_products, through: :packing, source: :products
 
+  has_one :cooking, dependent: :destroy
+  has_many :cooked_semi_products, through: :cooking, source: :semi_products
+
   has_one :distribution, dependent: :destroy
   has_many :distributed_products, through: :distribution, source: :products
   has_many :generations, through: :distributed_products
@@ -42,13 +45,22 @@ class Batch < ApplicationRecord
   end
 
   def produced_count
-    packaged_products.approved.sum(:count)
+    if self.production_unit.plan.semi?
+      cooked_semi_products.approved.count
+    else
+      packaged_products.approved.sum(:count)
+    end
   end
 
   def produced_tonnage
-    scope = self.packaged_products.filter_by_group(self.group.id)
-    total = scope.sum("packaged_products.count * products.packing")
-    total > 0.0 ? scope.first.product.measurement.to_tonnage_ratio(total) : 0.0
+    if self.production_unit.plan.semi?
+      scope = self.cooked_semi_products.approved.filter_by_group(self.group.id)
+      scope.sum(:tonnage)
+    else
+      scope = self.packaged_products.filter_by_group(self.group.id)
+      total = scope.sum("packaged_products.count * products.packing")
+      total > 0.0 ? scope.first.product.measurement.to_tonnage_ratio(total) : 0.0
+    end
   end
 
   def journals

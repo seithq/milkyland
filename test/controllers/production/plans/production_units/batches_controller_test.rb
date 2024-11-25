@@ -43,7 +43,9 @@ module Production::Plans
 
     test "should update batch" do
       assert_enqueued_jobs 1, only: WriteOffMaterialAssetsJob do
-        patch production_plan_unit_batch_url(@plan, @production_unit, @batch), params: { batch: { comment: "Testing", status: :cancelled } }
+        assert_enqueued_jobs 1, only: ArriveSemiProductsJob do
+          patch production_plan_unit_batch_url(@plan, @production_unit, @batch), params: { batch: { comment: "Testing", status: :cancelled } }
+        end
       end
       assert_redirected_to production_plan_unit_batch_url(@plan, @production_unit, @batch)
     end

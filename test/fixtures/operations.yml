@@ -3,3 +3,9 @@ analysis:
   name: Analysis
   chain_order: 1
   active: true
+
+checking:
+  journal: cooking
+  name: Checking
+  chain_order: 1
+  active: true
