@@ -1,0 +1,6 @@
+bom:
+  group: bom_group
+  name: BOM
+  measurement: litre
+  expiration_in_days: 3
+  storage_conditions: 3-10 celsius

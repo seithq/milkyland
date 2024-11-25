@@ -2,3 +2,8 @@ milk25:
   name: Milk 2.5%
   metric_tonne: 1
   category: milk
+
+bom_group:
+  name: BOM
+  metric_tonne: 1
+  category: semi_product

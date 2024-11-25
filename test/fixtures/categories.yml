@@ -17,3 +17,7 @@ glass:
 сardboard:
   name: Cardboard
   kind: packing
+
+semi_product:
+  name: Semi Product
+  kind: semi_product

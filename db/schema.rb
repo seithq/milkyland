@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_23_142136) do
+ActiveRecord::Schema[8.1].define(version: 2024_11_25_095734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -557,6 +557,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_23_142136) do
     t.index ["region_id"], name: "index_sales_points_on_region_id"
   end
 
+  create_table "semi_products", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.string "name"
+    t.bigint "measurement_id", null: false
+    t.integer "expiration_in_days"
+    t.string "storage_conditions"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_semi_products_on_group_id"
+    t.index ["measurement_id"], name: "index_semi_products_on_measurement_id"
+    t.index ["name"], name: "index_semi_products_on_name", unique: true
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "token", null: false
@@ -896,6 +909,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_23_142136) do
   add_foreign_key "qr_scans", "waybills"
   add_foreign_key "sales_points", "clients"
   add_foreign_key "sales_points", "regions"
+  add_foreign_key "semi_products", "groups"
+  add_foreign_key "semi_products", "measurements"
   add_foreign_key "sessions", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
