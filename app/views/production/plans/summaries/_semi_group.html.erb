@@ -1,16 +1,15 @@
-<% @plan.group_products(group).each do |product| %>
-  <%= tag.div id: dom_id(product), class: "table-row hover:bg-gray-50" do %>
+<% @plan.units.each do |unit| %>
+  <%= tag.div id: dom_id(unit), class: "table-row hover:bg-gray-50" do %>
     <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-      <%= product.article %>
     </div>
     <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-      <%= product.name %>
+      <%= unit.group.name %>
     </div>
     <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-      <%= number_with_delimiter @plan.product_sum product %>
+      <%= number_with_delimiter unit.count %>
     </div>
     <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-      <%= number_with_delimiter @plan.product_tonnage product %>
+      <%= number_with_delimiter unit.tonnage %>
     </div>
   <% end %>
 <% end %>
@@ -22,9 +21,9 @@
     <%= t("tables.cols.group_total", group: group.name) %>
   </div>
   <div class="table-cell whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">
-    <%= number_with_delimiter @plan.group_sum group %>
+    <%= number_with_delimiter @plan.semi_group_sum %>
   </div>
   <div class="table-cell whitespace-nowrap px-3 py-4 text-sm font-semibold text-gray-500">
-    <%= number_with_delimiter @plan.group_tonnage(group) %>
+    <%= number_with_delimiter @plan.semi_group_tonnage %>
   </div>
 <% end %>

@@ -1,6 +1,6 @@
 <% tab_links = [
-  NavLink.new(path: production_plans_path(status: :active), title: t("pages.status_active"), is_active: @status == "active"),
-  NavLink.new(path: production_plans_path(status: :completed), title: t("pages.status_completed"), is_active: @status == "completed"),
+  NavLink.new(path: production_plans_path(kind: @kind, status: :active), title: t("pages.status_active"), is_active: @status == "active"),
+  NavLink.new(path: production_plans_path(kind: @kind, status: :completed), title: t("pages.status_completed"), is_active: @status == "completed"),
 ]
 %>
 

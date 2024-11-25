@@ -7,6 +7,6 @@ module PlanScoped
 
   private
     def set_plan
-      @plan = Plan.find(params[:plan_id])
+      @plan = Plan.unscoped.find(params[:plan_id])
     end
 end

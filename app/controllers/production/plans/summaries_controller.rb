@@ -10,7 +10,8 @@ module Production
 
     private
       def base_scope
-        @plan.groups.ordered.uniq
+        scope = @plan.semi? ? @plan.unit_groups : @plan.groups
+        scope.ordered.uniq
       end
 
       def card_view?

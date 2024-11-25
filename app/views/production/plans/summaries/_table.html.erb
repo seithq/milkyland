@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="table-row-group divide-y divide-gray-200 bg-white">
-            <%= render partial: "group", collection: groups, as: :group %>
+            <%= render partial: "#{ @plan.semi? ? "semi_" : "" }group", collection: groups, as: :group %>
           </div>
         </div>
       </div>

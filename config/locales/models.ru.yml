@@ -292,6 +292,8 @@ ru:
         order_id: Заказ
         active: Активная запись
       production_unit:
+        group_id: Группа
+        tonnage: Тоннаж
         comment: Комментарий
       batch:
         id: Номер партии

@@ -1,7 +1,7 @@
 class ProductionUnit < ApplicationRecord
   include Progressable
 
-  belongs_to :plan
+  belongs_to :plan, inverse_of: :units
   belongs_to :group
 
   has_many :batches, dependent: :destroy
@@ -19,10 +19,12 @@ class ProductionUnit < ApplicationRecord
   end
 
   def produced_count
+    # TODO: for semi
     packaged_products.approved.sum(:count)
   end
 
   def produced_tonnage
+    # TODO: for semi
     scope = self.packaged_products.approved.filter_by_group(self.group_id)
     total = scope.sum("packaged_products.count * products.packing")
     total > 0.0 ? scope.first.product.measurement.to_tonnage_ratio(total) : 0.0

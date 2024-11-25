@@ -10,6 +10,11 @@
 ]
 %>
 
+<% production_nav_links = [
+  NavLink.new(path: production_plans_path, title: t("pages.production_plans"), icon_name: "cube-transparent.svg"),
+  NavLink.new(path: production_plans_path(kind: :semi), title: t("pages.semi_production_plans"), icon_name: "cube-transparent.svg")
+] %>
+
 <% channels_nav_links = SalesChannel.all.each.map { |channel| NavLink.new(path: sales_channel_orders_path(channel), title: channel.name) } %>
 
 <% settings_nav_links = [
@@ -100,7 +105,9 @@
               <li>
                 <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.production") %></div>
                 <ul role="list" class="-mx-2 space-y-1">
-                  <%= nav_link production_plans_path, t("pages.production_plans"), "cube-transparent.svg" %>
+                  <% production_nav_links.each do |link| %>
+                    <%= nav_link link.path, link.title, link.icon_name %>
+                  <% end %>
                 </ul>
               </li>
             <% end %>
@@ -176,7 +183,9 @@
             <li>
               <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.production") %></div>
               <ul role="list" class="-mx-2 space-y-1">
-                <%= nav_link production_plans_path, t("pages.production_plans"), "cube-transparent.svg" %>
+                <% production_nav_links.each do |link| %>
+                  <%= nav_link link.path, link.title, link.icon_name %>
+                <% end %>
               </ul>
             </li>
           <% end %>

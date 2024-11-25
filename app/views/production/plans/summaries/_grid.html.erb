@@ -1,3 +1,3 @@
 <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-  <%= render partial: "card_group", collection: groups, as: :group %>
+  <%= render partial: "#{ @plan.semi? ? "semi_" : "" }card_group", collection: groups, as: :group %>
 </div>

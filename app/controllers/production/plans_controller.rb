@@ -1,5 +1,6 @@
 class Production::PlansController < ProductionController
   before_action :set_status
+  before_action :set_kind, only: %i[ index new ]
   before_action :set_plan, only: %i[ show edit update ]
 
   def index
@@ -7,6 +8,21 @@ class Production::PlansController < ProductionController
   end
 
   def show
+  end
+
+  def new
+    @plan = Plan.new(kind: @kind, status: :ready_to_production)
+    @plan.units.build
+  end
+
+  def create
+    @plan = Plan.new(plan_params)
+
+    if @plan.save
+      redirect_on_create production_plan_url(@plan)
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -22,7 +38,8 @@ class Production::PlansController < ProductionController
 
   private
     def base_scope
-      Plan.send(@status).order(production_date: :asc)
+      scope = @kind == "semi" ? Plan.unscoped.filter_by_kind(:semi) : Plan.all
+      scope.send(@status).order(production_date: :asc)
     end
 
     def search_methods
@@ -30,14 +47,18 @@ class Production::PlansController < ProductionController
     end
 
     def set_plan
-      @plan = Plan.find(params[:id])
+      @plan = Plan.unscoped.find(params[:id])
     end
 
     def plan_params
-      params.require(:plan).permit(:status, :comment)
+      params.require(:plan).permit(:status, :comment, :kind, :production_date, units_attributes: %i[ id plan_id group_id count tonnage ])
     end
 
     def set_status
       @status = params[:status].presence || "active"
+    end
+
+    def set_kind
+      @kind = params[:kind].presence || "standard"
     end
 end

@@ -1,15 +1,40 @@
 <div class="flex flex-col justify-center px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <%= render "layouts/error_messages", resource: plan %>
-    <%= form_with model: plan, url: production_plan_path(plan), class: "space-y-4" do |form| %>
+    <%= form_with model: plan, url: plan.new_record? ? production_plans_path : production_plan_path(plan), class: "space-y-4" do |form| %>
+      <%= form.hidden_field :kind %>
+
       <% if should_cancel? %>
         <%= form.hidden_field :status, value: :cancelled %>
+      <% else %>
+        <%= form.hidden_field :status %>
       <% end %>
 
-      <div>
-        <%= form.label :comment, class: "form-label-xl" %>
-        <%= form.text_area :comment, autocomplete: "comment", autofocus: true, required: true, class: "form-area-xl" %>
-      </div>
+      <% if plan.new_record? && plan.semi? %>
+        <div class="space-y-2">
+          <%= form.label :production_date, class: "form-label-xl" %>
+          <%= form.date_field :production_date, autocomplete: "production-date", autofocus: true, required: true, class: "form-input-xl" %>
+        </div>
+
+        <%= form.fields_for :units do |unit_form| %>
+          <%= unit_form.hidden_field :count, value: 1 %>
+
+          <div class="space-y-2">
+            <%= unit_form.label :group_id, class: "form-label-xl" %>
+            <%= unit_form.select :group_id, options_from_collection_for_select(Group.semi_products, :id, :name), { include_blank: true }, { required: true, class: "form-select-xl" } %>
+          </div>
+
+          <div class="space-y-2">
+            <%= unit_form.label :tonnage, class: "form-label-xl" %>
+            <%= unit_form.number_field :tonnage, autocomplete: "tonnage", required: true, class: "form-input-xl", step: ".1" %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="space-y-2">
+          <%= form.label :comment, class: "form-label-xl" %>
+          <%= form.text_area :comment, autocomplete: "comment", autofocus: true, required: true, class: "form-area-xl" %>
+        </div>
+      <% end %>
 
       <% if should_cancel? %>
         <%= form.submit t("actions.force_finish"), class: "w-full btn-force-stop", data: { turbo_confirm: t("actions.confirm") } %>

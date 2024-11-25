@@ -3,13 +3,21 @@
 <% content_for :breadcrumb do %>
   <%= render "layouts/breadcrumb", {
     nav_links: [
-      NavLink.new(path: production_plans_path, title: t("pages.production_plans"))
+      NavLink.new(path: production_plans_path(kind: @kind), title: t("pages.production_plans"))
     ]
   } %>
 <% end %>
 
 <div class="space-y-4">
   <%= render "tab" %>
+  <% if @kind == "semi" %>
+    <div class="flex justify-end">
+      <%= link_to new_production_plan_path(kind: @kind), data: { turbo_frame: "_top" }, class: "new_semi_plan btn-create" do %>
+        <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
+        <%= t("actions.create_semi_plan") %>
+      <% end %>
+    </div>
+  <% end %>
   <ul role="list" class="space-y-3">
     <%= render @plans %>
   </ul>

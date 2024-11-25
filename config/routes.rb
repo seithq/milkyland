@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   end
 
   namespace "production" do
-    resources :plans, except: %i[ new create destroy ] do
+    resources :plans, except: :destroy do
       scope module: "plans" do
         get :summary, to: "summaries#index"
         resources :units, controller: "production_units", except: %i[ new create destroy ] do

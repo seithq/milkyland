@@ -10,8 +10,10 @@ class Plan < ApplicationRecord
   has_many :sales_points, through: :orders
   has_many :regions, through: :sales_points
 
-  has_many :units, class_name: "ProductionUnit", foreign_key: "plan_id", dependent: :destroy
+  has_many :units, class_name: "ProductionUnit", foreign_key: "plan_id", dependent: :destroy, inverse_of: :plan
+  accepts_nested_attributes_for :units
   has_many :batches, through: :units
+  has_many :unit_groups, class_name: "Group", through: :units, source: :group
 
   has_many :packings, through: :batches
   has_many :packaged_products, through: :packings, source: :products
@@ -26,14 +28,16 @@ class Plan < ApplicationRecord
   enum :kind, %w[ standard semi ].index_by(&:itself), default: :standard
   enum :status, (%w[ in_consolidation ] + SHARED).index_by(&:itself), default: :in_consolidation
 
-  scope :filter_by_kind, ->(kind) { where kind: kind }
-  scope :filter_by_status, ->(status) { where status: status }
+  scope :filter_by_kind, ->(kind) { where(kind: kind) }
+  scope :filter_by_status, ->(status) { where(status: status) }
 
   scope :ordered, -> { order(production_date: :desc) }
 
   # Для табов во вкладке производства
   scope :active,    -> { filter_by_status(%i[ ready_to_production in_production ]) }
   scope :completed, -> { filter_by_status(%i[ produced cancelled ]) }
+
+  default_scope { filter_by_kind(:standard) }
 
   def self.after(from_date)
     Plan.where(status: :in_consolidation, production_date: (from_date + 1.day)..).order(production_date: :asc).first
@@ -51,10 +55,18 @@ class Plan < ApplicationRecord
     self.positions.filter_by_group(group.id).sum(:count)
   end
 
+  def semi_group_sum
+    self.units.sum(:count)
+  end
+
   def group_tonnage(group)
     scope = self.positions.filter_by_group(group.id)
     total = scope.sum("positions.count * products.packing")
     total > 0.0 ? scope.first.product.measurement.to_tonnage_ratio(total) : 0.0
+  end
+
+  def semi_group_tonnage
+    self.units.sum(:tonnage)
   end
 
   def group_products(group)
@@ -68,7 +80,7 @@ class Plan < ApplicationRecord
   def product_remaining_sum(product)
     total = self.positions.filter_by_product(product).sum(:count)
     packed = self.packaged_products.filter_by_product(product.id).approved.sum(:count)
-    total.zero? ? 0 : total - packed
+    total.zero? ? 0 : [ 0, total - packed ].max
   end
 
   @deprecated
