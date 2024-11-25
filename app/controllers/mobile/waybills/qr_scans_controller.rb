@@ -13,7 +13,7 @@ module Mobile
     end
 
     def create
-      @qr_scans = create_or_update_qr_scans
+      @qr_scans = create_or_replace_qr_scans
     end
 
     def update
@@ -53,8 +53,8 @@ module Mobile
         @save_mode = qr_scan_params[:action_name].presence || "create"
       end
 
-      def create_or_update_qr_scans
-        if save_mode_for_scan == "update"
+      def create_or_replace_qr_scans
+        if save_mode_for_scan == "replace"
           scanned = @waybill.qr_scans.filter_by_scanning_code(qr_scan_params[:code])
           scanned.update_all scanned_at: Time.current
           scanned
