@@ -5,8 +5,11 @@ class Group < ApplicationRecord
 
   has_many :products, dependent: :destroy
   has_many :ingredients, dependent: :destroy
-  has_many :standards, dependent: :destroy
 
+  has_many :semi_products, dependent: :destroy
+  has_many :semi_ingredients, dependent: :destroy
+
+  has_many :standards, dependent: :destroy
   has_many :journals, -> { ordered }, dependent: :destroy
   has_many :operations, -> { ordered }, through: :journals
   has_many :fields, -> { ordered }, through: :operations

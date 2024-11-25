@@ -1,26 +1,26 @@
 module Settings
-  class Groups::IngredientsController < ApplicationController
+  class Groups::SemiIngredientsController < ApplicationController
     include GroupScoped, ReadModes
 
     before_action :ensure_can_administer, only: %i[ create update destroy ]
-    before_action :set_ingredient, only: %i[ edit update destroy ]
+    before_action :set_semi_ingredient, only: %i[ edit update destroy ]
     before_action :set_read_mode, only: :index
 
     def index
-      @ingredients = base_scope
+      @semi_ingredients = base_scope
     end
 
     def new
-      @ingredient = base_scope.new
+      @semi_ingredient = base_scope.new
     end
 
     def edit
     end
 
     def create
-      @ingredient = base_scope.new(ingredient_params)
+      @semi_ingredient = base_scope.new(semi_ingredient_params)
 
-      if @ingredient.save
+      if @semi_ingredient.save
         redirect_on_create edit_group_path(@group)
       else
         render :new, status: :unprocessable_entity
@@ -28,7 +28,7 @@ module Settings
     end
 
     def update
-      if @ingredient.update(ingredient_params)
+      if @semi_ingredient.update(semi_ingredient_params)
         redirect_on_update edit_group_path(@group)
       else
         render :edit, status: :unprocessable_entity
@@ -36,26 +36,26 @@ module Settings
     end
 
     def destroy
-      @ingredient.deactivate
+      @semi_ingredient.deactivate
 
       redirect_on_destroy edit_group_path(@group)
     end
 
     private
       def base_scope
-        @group.ingredients.recent_first
+        @group.semi_ingredients.recent_first
       end
 
       def search_methods
         []
       end
 
-      def set_ingredient
-        @ingredient = base_scope.find(params[:id])
+      def set_semi_ingredient
+        @semi_ingredient = base_scope.find(params.expect(:id))
       end
 
-      def ingredient_params
-        params.require(:ingredient).permit(:material_asset_id, :ratio, :active)
+      def semi_ingredient_params
+        params.require(:semi_ingredient).permit(:semi_product_id, :ratio, :active)
       end
   end
 end

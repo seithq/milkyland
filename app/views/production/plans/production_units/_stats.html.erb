@@ -40,7 +40,7 @@
         </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-        <%= render partial: "ingredient", collection: production_unit.group.ingredients.active, as: :ingredient %>
+        <%= render partial: "ingredient", collection: production_unit.ingredients, as: :ingredient %>
         </tbody>
       </table>
     </div>

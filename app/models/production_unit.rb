@@ -27,4 +27,8 @@ class ProductionUnit < ApplicationRecord
     total = scope.sum("packaged_products.count * products.packing")
     total > 0.0 ? scope.first.product.measurement.to_tonnage_ratio(total) : 0.0
   end
+
+  def ingredients
+    self.group.ingredients.active
+  end
 end

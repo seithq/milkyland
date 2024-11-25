@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_11_25_095734) do
+ActiveRecord::Schema[8.1].define(version: 2024_11_25_101102) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -557,6 +557,17 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_25_095734) do
     t.index ["region_id"], name: "index_sales_points_on_region_id"
   end
 
+  create_table "semi_ingredients", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "semi_product_id", null: false
+    t.decimal "ratio", precision: 20, scale: 3
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_semi_ingredients_on_group_id"
+    t.index ["semi_product_id"], name: "index_semi_ingredients_on_semi_product_id"
+  end
+
   create_table "semi_products", force: :cascade do |t|
     t.bigint "group_id", null: false
     t.string "name"
@@ -909,6 +920,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_25_095734) do
   add_foreign_key "qr_scans", "waybills"
   add_foreign_key "sales_points", "clients"
   add_foreign_key "sales_points", "regions"
+  add_foreign_key "semi_ingredients", "groups"
+  add_foreign_key "semi_ingredients", "semi_products"
   add_foreign_key "semi_products", "groups"
   add_foreign_key "semi_products", "measurements"
   add_foreign_key "sessions", "users"

@@ -192,6 +192,10 @@ ru:
         material_asset_id: Сырье
         ratio: Количество
         active: Активная запись
+      semi_ingredient:
+        semi_product_id: Полуфабрикат
+        ratio: Количество
+        active: Активная запись
       journal:
         name: Название
         chain_order: Порядковый номер
@@ -221,7 +225,7 @@ ru:
         active: Активная запись
       product:
         name: Название
-        group_id: Группа ГП
+        group_id: Группа ГП и ПФ
         article: Артикул / SKU
         packing: Фасовка
         measurement_id: Единица измерения
@@ -229,6 +233,12 @@ ru:
         storage_conditions: Условия хранения
         fat_fraction: Массовая доля жира (в процентах)
         material_asset_id: Упаковочная тара
+      semi_product:
+        name: Название
+        group_id: Группа ГП и ПФ
+        measurement_id: Единица измерения
+        expiration_in_days: Срок годности (в днях)
+        storage_conditions: Условия хранения
       price:
         product_id: Номенклатура ГП
         sales_channel_id: Канал сбыта

@@ -1,0 +1,41 @@
+<%= turbo_frame_tag dom_id(@group, :semi_ingredients) do %>
+  <% unless @readonly %>
+    <div class="mb-4 sm:flex sm:items-center">
+      <div class="sm:flex-none">
+        <%= link_to new_group_semi_ingredient_path(@group), data: { turbo_frame: "_top" }, class: "new_semi_ingredient btn-create" do %>
+          <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
+          <%= t("actions.create_record") %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="flow-root">
+    <div class="-mx-2 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle px-2 sm:px-6 lg:px-8">
+        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">
+          <div class="table min-w-full divide-y divide-gray-300">
+            <div class="table-header-group bg-gray-50">
+              <div class="table-row">
+                <div class="table-cell py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                  <%= t("tables.cols.semi_product") %>
+                </div>
+                <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                  <%= t("tables.cols.ratio") %>
+                </div>
+                <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                  <%= t("tables.cols.measurement") %>
+                </div>
+                <% unless @readonly %>
+                  <div class="relative py-3.5 pl-3 pr-4 sm:pr-6"></div>
+                <% end %>
+              </div>
+            </div>
+            <div class="table-row-group divide-y divide-gray-200 bg-white">
+              <%= render @semi_ingredients %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

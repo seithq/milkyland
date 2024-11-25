@@ -6,4 +6,4 @@ milk25_sugar:
 milk25_water:
   group: milk25
   material_asset: water
-  ratio: 880
+  ratio: 380
