@@ -71,7 +71,15 @@ class Waybill < ApplicationRecord
       return unless approved?
       return if manual_approval?
 
-      errors.add(:qr_scans, :accepted) if qr_scans.not_scanned.count > 0 || capacity_delta > 0
+      errors.add(:qr_scans, :accepted) if has_not_scanned? || has_delta?
+    end
+
+    def has_not_scanned?
+      qr_scans.not_scanned.count > 0
+    end
+
+    def has_delta?
+      !write_off? && capacity_delta > 0
     end
 
     def capacity_delta
