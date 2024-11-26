@@ -1,4 +1,4 @@
-<% content_for(:turbo_native_title) { t("pages.write_off", id: @waybill.id) } %>
+<% content_for(:turbo_native_title) { t("pages.transfer", id: @waybill.id) } %>
 
 <% if allowed_to?(:edit?, @waybill, with: TransferPolicy) %>
   <div class="turbo-native:hidden">
