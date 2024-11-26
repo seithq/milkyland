@@ -6,7 +6,7 @@
     <%= Waybill.enum_to_s :kind, waybill.kind %>
   </div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500">
-    <%= l waybill.created_at.to_date %>
+    <%= l waybill.created_at, format: :fact %>
   </div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500">
     <%= link_to waybill.storage.name, storage_path(waybill.storage), class: "text-indigo-600", target: "_blank" if waybill.storage.present? %>

@@ -25,6 +25,11 @@
               </div>
 
               <div class="sm:col-span-4">
+                <%= form.label :created_at, class: "form-label" %>
+                <%= form.datetime_field :created_at, disabled: true, class: "mt-2 form-input" %>
+              </div>
+
+              <div class="sm:col-span-4">
                 <%= form.label :storage_id, class: "form-label" %>
                 <%= form.select :storage_id, options_from_collection_for_select(Storage.all, :id, :name, @waybill.storage_id), { include_blank: true }, { disabled: true, class: "mt-2 form-input" } %>
               </div>

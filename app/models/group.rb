@@ -10,9 +10,9 @@ class Group < ApplicationRecord
   has_many :semi_ingredients, dependent: :destroy
 
   has_many :standards, dependent: :destroy
-  has_many :journals, -> { ordered }, dependent: :destroy
-  has_many :operations, -> { ordered }, through: :journals
-  has_many :fields, -> { ordered }, through: :operations
+  has_many :journals, -> { active.ordered }, dependent: :destroy
+  has_many :operations, -> { active.ordered }, through: :journals
+  has_many :fields, -> { active.ordered }, through: :operations
 
   has_many :units, class_name: "ProductionUnit", foreign_key: "group_id", dependent: :destroy
 

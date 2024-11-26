@@ -355,6 +355,7 @@ ru:
         receiver_id: Получатель
         qr_scans: Сканирование коробок
         manual_approval: Ручное одобрение
+        created_at: Дата создания
       leftover:
         subject_id: Номенклатура
         count: Количество

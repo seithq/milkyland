@@ -18,7 +18,7 @@ class WriteOffMaterialAssetsJob < ApplicationJob
       tonnage = batch.produced_tonnage
 
       # Список полуабрикатов
-      leftovers = batch.group.semi_ingredients.map do |semi_ingredient|
+      leftovers = batch.group.semi_ingredients.active.map do |semi_ingredient|
         {
           subject_type: "SemiProduct",
           subject_id: semi_ingredient.semi_product_id,
@@ -27,7 +27,7 @@ class WriteOffMaterialAssetsJob < ApplicationJob
       end
 
       # Список сырья
-      leftovers << batch.group.ingredients.map do |ingredient|
+      leftovers << batch.group.ingredients.active.map do |ingredient|
         {
           subject_type: "MaterialAsset",
           subject_id: ingredient.material_asset_id,
