@@ -8,7 +8,7 @@ class Production::PlansTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit production_plans_url
-    assert_selector ".breadcrumb-link", text: I18n.t("pages.production_plans")
+    assert_selector ".breadcrumb-link", text: I18n.t("pages.standard_production_plans")
   end
 
   test "should update Plan" do

@@ -1,6 +1,6 @@
 <% if @plan.in_production? %>
   <% if production_unit.in_plan? %>
-    <%= button_to t("actions.start"), production_plan_unit_path(@plan, production_unit), method: :patch, params: { production_unit: { status: :in_progress } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
+    <%= button_to t("actions.start"), production_plan_unit_path(@plan, production_unit), method: :patch, params: { production_unit: { status: :in_progress } }, disabled: !production_unit.has_required_components?, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
   <% elsif production_unit.in_progress? %>
     <div class="relative" data-controller="dropdown">
       <button type="button" class="btn-in-production" id="unit-menu-button" aria-expanded="false" aria-haspopup="true" data-dropdown-target="button" data-action="dropdown#toggle click@window->dropdown#close">

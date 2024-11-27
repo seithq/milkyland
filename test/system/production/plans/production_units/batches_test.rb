@@ -20,6 +20,7 @@ module Production::Plans
       select users(:tester).name, from: "batch_tester_id"
       select users(:operator).name, from: "batch_operator_id"
       select users(:loader).name, from: "batch_loader_id"
+      select storages(:masters_material_assets).name, from: "batch_storage_id"
       fill_in "batch_comment", with: "Testing"
       click_on I18n.t("actions.save_record")
 

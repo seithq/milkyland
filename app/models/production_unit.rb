@@ -47,4 +47,28 @@ class ProductionUnit < ApplicationRecord
   def semi_ingredients
     self.group.semi_ingredients.active
   end
+
+  def has_required_components?
+    if self.plan.semi?
+      self.has_required_ingredients?
+    else
+      self.has_required_semi_ingredients? && self.has_required_ingredients?
+    end
+  end
+
+  def has_required_ingredients?
+    self.ingredients.each do |ingredient|
+      _, _, satisfied = ingredient.calculate_availability_for self
+      return false unless satisfied
+    end
+    true
+  end
+
+  def has_required_semi_ingredients?
+    self.semi_ingredients.each do |semi_ingredient|
+      _, _, satisfied = semi_ingredient.calculate_availability_for self
+      return false unless satisfied
+    end
+    true
+  end
 end

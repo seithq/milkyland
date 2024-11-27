@@ -19,6 +19,7 @@ ru:
           raw_product: Сырье
           packing: Упаковочная тара
           semi_product: Полуфабрикат
+          group_packing: Группировочная тара
       field:
         kinds:
           date: Дата
@@ -105,7 +106,8 @@ ru:
       storage:
         kinds:
           for_material_assets: "Склад ТМЦ"
-          for_masters: "Склад мастеров"
+          for_masters_material_assets: "Склад ТМЦ мастеров"
+          for_masters: "Склад ГП мастеров"
           for_goods: "Склад ГП"
       supply_order:
         payment_statuses:
@@ -272,7 +274,7 @@ ru:
         end_date: Дата завершения
         active: Активная запись
       participant:
-        client_id: Заказчик
+        client_id: Покупатели
         active: Активная запись
       discounted_product:
         product_id: Номенклатура ГП
@@ -280,7 +282,7 @@ ru:
       order:
         id: Номер
         kind: Тип заказа
-        client_id: Заказчик
+        client_id: Покупатели
         sales_point_id: Точка продаж
         preferred_date: Дата производства
       position:
@@ -309,7 +311,7 @@ ru:
         loader_id: Грузчик
         comment: Комментарий
         work_shift: Рабочая смена
-        storage_id: Склад списания ТМЦ
+        storage_id: Склад ТМЦ мастера
       step:
         comment: Комментарий
       metric:
@@ -329,7 +331,7 @@ ru:
         production_date: Дата производства
         count: Количество
       box_packaging:
-        material_asset_id: Вид упаковки
+        material_asset_id: Вид группировочной тары
         count: Кол-во штук внутри
         active: Активная запись
       pallet_request:

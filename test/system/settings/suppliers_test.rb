@@ -14,7 +14,7 @@ class Settings::SuppliersTest < ApplicationSystemTestCase
     visit suppliers_url
     click_on I18n.t("actions.create_record")
 
-    select users(:askhat).name, from: "supplier_manager_id"
+    select users(:procurement_officer).name, from: "supplier_manager_id"
     fill_in "supplier_name", with: "REGATA"
     fill_in "supplier_bin", with: "921026400042"
     click_on I18n.t("actions.save_record")
@@ -26,6 +26,9 @@ class Settings::SuppliersTest < ApplicationSystemTestCase
     visit suppliers_url
     click_on I18n.t("actions.edit_record"), match: :first
 
+    select users(:procurement_officer).name, from: "supplier_manager_id"
+    fill_in "supplier_name", with: "REGATA"
+    fill_in "supplier_bin", with: "921026400042"
     fill_in "supplier_contact_person", with: "Aigerim"
     fill_in "supplier_email_address", with: "regata@mail.ru"
     fill_in "supplier_phone_number", with: "+77772098007"

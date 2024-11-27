@@ -3,7 +3,7 @@
 <% content_for :breadcrumb do %>
   <%= render "layouts/breadcrumb", {
     nav_links: [
-      NavLink.new(path: production_plans_path(kind: @plan.kind), title: t("pages.production_plans")),
+      NavLink.new(path: production_plans_path(kind: @plan.kind), title: t("pages.#{ @plan.kind }_production_plans")),
       NavLink.new(path: production_plan_path(@plan), title: t("pages.production_plan", date: l(@plan.production_date))),
       NavLink.new(path: production_plan_unit_path(@plan, @production_unit), title: @production_unit.group.name),
       NavLink.new(path: production_plan_unit_batch_path(@plan, @production_unit, @batch), title: t("pages.batch", id: @batch.id)),

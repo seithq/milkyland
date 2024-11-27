@@ -9,7 +9,7 @@ module ProductionTestHelper
 
     @production_unit = @plan.units.last
     assert @production_unit.update status: :in_progress
-    assert @production_unit.batches.create(loader: users(:loader), tester: users(:tester), machiner: users(:machiner), operator: users(:operator), storage: storages(:material_assets))
+    assert @production_unit.batches.create(loader: users(:loader), tester: users(:tester), machiner: users(:machiner), operator: users(:operator), storage: storages(:masters_material_assets))
 
     @batch = @production_unit.batches.last
     assert @batch.update status: :in_progress
@@ -41,7 +41,7 @@ module ProductionTestHelper
 
     @production_unit = @plan.units.new(group: groups(:bom_group), count: 1, tonnage: 10)
     assert @production_unit.save
-    assert @production_unit.batches.create(loader: users(:loader), tester: users(:tester), machiner: users(:machiner), operator: users(:operator), storage: storages(:material_assets))
+    assert @production_unit.batches.create(loader: users(:loader), tester: users(:tester), machiner: users(:machiner), operator: users(:operator), storage: storages(:masters_material_assets))
 
     @batch = @production_unit.batches.last
     assert @batch.update status: :in_progress

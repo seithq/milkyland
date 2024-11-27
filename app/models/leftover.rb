@@ -18,6 +18,7 @@ class Leftover < ApplicationRecord
   scope :negative, ->() { where("count < 0") }
 
   scope :filter_by_subject, ->(subject) { where(subject: subject) }
+  scope :filter_by_storage, ->(storage_id) { where(storage_id: storage_id) }
 
   private
     def set_storage

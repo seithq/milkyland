@@ -4,7 +4,7 @@ class Category < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
-  enum :kind, %i[ end_product material_asset raw_product packing semi_product ], default: :material_asset
+  enum :kind, %i[ end_product material_asset raw_product packing semi_product group_packing ], default: :material_asset
   scope :filter_by_kind, ->(kind) { where(kind: kind) }
 
   scope :products, ->() { filter_by_kind(%i[ end_product semi_product ]) }
@@ -13,5 +13,6 @@ class Category < ApplicationRecord
   scope :raw_products, ->() { filter_by_kind(:raw_product) }
   scope :packings, ->() { filter_by_kind(:packing) }
   scope :semi_products, ->() { filter_by_kind(:semi_product) }
-  scope :combined_assets, ->() { filter_by_kind(%i[ material_asset raw_product packing ]) }
+  scope :group_packings, ->() { filter_by_kind(:group_packing) }
+  scope :combined_assets, ->() { filter_by_kind(%i[ material_asset raw_product packing group_packing ]) }
 end

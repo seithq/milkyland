@@ -2,8 +2,12 @@ material_assets:
   name: Склад ТМЦ
   kind: for_material_assets
 
+masters_material_assets:
+  name: Склад ТМЦ мастеров
+  kind: for_masters_material_assets
+
 masters:
-  name: Склад мастеров
+  name: Склад ГП мастеров
   kind: for_masters
 
 goods:

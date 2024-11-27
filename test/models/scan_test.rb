@@ -4,7 +4,7 @@ class ScanTest < ActiveSupport::TestCase
   test "should scan zone with kind" do
     zone = zones(:goods_zone)
     assert Scan.find_by zone.code, allowed_prefixes: %w[ Z ]
-    assert Scan.find_by zone.code, allowed_prefixes: %w[ Z:H ]
+    assert Scan.find_by zone.code, allowed_prefixes: %w[ Z:A Z:H ]
 
     assert_not Scan.find_by zone.code, allowed_prefixes: %w[ Z:A ]
     assert_not Scan.find_by zone.code, allowed_prefixes: %w[ Z:S ]

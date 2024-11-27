@@ -20,15 +20,20 @@ class Scan
     prefix = parts.first
     return unless prefix.present? && PREFIX_TO_CLASS.has_key?(prefix)
 
-    scope = nil
+    scopes = []
     allowed_prefixes.each do |allowed|
-      if PREFIX_TO_CLASS.has_key?(allowed) && code.start_with?(allowed)
-        scope = PREFIX_TO_CLASS[allowed]
-        break
+      if PREFIX_TO_CLASS.has_key?(allowed) && allowed.start_with?(prefix)
+        scopes << PREFIX_TO_CLASS[allowed]
       end
     end
 
-    return if scope.nil?
-    scope.find_by_code code
+    return if scopes.empty?
+
+    scopes.each do |scope|
+      record = scope.find_by_code code
+      return record if record
+    end
+
+    nil
   end
 end

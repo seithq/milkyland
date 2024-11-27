@@ -30,7 +30,9 @@ class MaterialAsset < ApplicationRecord
     "#{ name } (#{ measurement.unit })"
   end
 
-  def available_count
-    leftovers.sum(:count)
+  def available_count(storage_id = nil)
+    base_scope = leftovers
+    base_scope = base_scope.filter_by_storage(storage_id) unless storage_id.nil?
+    base_scope.sum(:count)
   end
 end
