@@ -20,7 +20,7 @@
              data-transition-leave-start="transform opacity-100 scale-100"
              data-transition-leave-end="transform opacity-0 scale-95"
         >
-          <%= link_to t("actions.edit_record"), edit_production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step), data: { turbo_frame: "_top" }, class: "btn-xl" %>
+          <%#= link_to t("actions.edit_record"), edit_production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step), data: { turbo_frame: "_top" }, class: "btn-xl" %>
           <%= link_to t("actions.force_finish"), edit_production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step, cancel: true), data: { turbo_frame: "_top" }, class: "btn-force-stop" %>
           <%= link_to t("actions.finish"), edit_production_plan_unit_batch_step_path(@plan, @production_unit, @batch, step, finish: true), data: { turbo_frame: "_top" }, class: "btn-stop" %>
         </div>
