@@ -20,12 +20,12 @@
 
         <div>
           <%= form.label :category_id, class: "form-label" %>
-          <%= form.select :category_id, options_from_collection_for_select(Category.combined_assets, :id, :name), {}, { disabled: true, class: "form-select" } %>
+          <%= form.select :category_id, options_from_collection_for_select(Category.combined_assets, :id, :name, @material_asset.category_id), {}, { disabled: true, class: "form-select" } %>
         </div>
 
         <div>
           <%= form.label :supplier_id, class: "form-label" %>
-          <%= form.select :supplier_id, options_from_collection_for_select(Supplier.all, :id, :name), {}, { disabled: true, class: "form-select" } %>
+          <%= form.select :supplier_id, options_from_collection_for_select(Supplier.all, :id, :name, @material_asset.supplier_id), {}, { disabled: true, class: "form-select" } %>
         </div>
 
         <div>
@@ -45,7 +45,7 @@
 
         <div>
           <%= form.label :measurement_id, class: "form-label" %>
-          <%= form.select :measurement_id, options_from_collection_for_select(Measurement.all, :id, :display_label), {}, { disabled: true, class: "form-select" } %>
+          <%= form.select :measurement_id, options_from_collection_for_select(Measurement.all, :id, :display_label, @material_asset.measurement_id), {}, { disabled: true, class: "form-select" } %>
         </div>
 
         <div>
