@@ -8,6 +8,10 @@
           <span class="font-semibold text-gray-700"><%= Batch.enum_to_s(:work_shifts, batch.work_shift) %></span>
         </div>
         <div class="flex justify-between text-md">
+          <span class="font-medium text-gray-500"><%= t("tables.cols.storage") %></span>
+          <span class="font-semibold text-gray-700"><%= batch.storage.name %></span>
+        </div>
+        <div class="flex justify-between text-md">
           <span class="font-medium text-gray-500"><%= t("tables.cols.status") %></span>
           <span class="font-semibold text-gray-700"><%= Batch.enum_to_s(:statuses, batch.status) %></span>
         </div>

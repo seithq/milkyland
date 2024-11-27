@@ -5,10 +5,7 @@
         <%= operation.name_with_index operation_counter + 1 %>
       </div>
       <div class="mt-4">
-        <%= render "table", metrics: operation.metrics.filter_by_batch(@batch.id) %>
-      </div>
-      <div class="mt-4">
-        <%= render "reason", operation: operation %>
+        <%= render "table", metrics: operation.metrics.filter_by_batch(@batch.id), operation: operation %>
       </div>
     </div>
     <div class="sm:flex sm:items-end sm:justify-end">

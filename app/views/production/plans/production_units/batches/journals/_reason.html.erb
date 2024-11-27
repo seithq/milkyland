@@ -1,11 +1,9 @@
 <% steps = operation.batch_steps(@batch) %>
-<% if steps.any? && steps.first.cancelled? %>
-  <div class="flex flex-col space-y-1">
-    <div class="text-xl leading-6 font-medium text-gray-900">
-      <%= t("forms.cancel_reason") %>
-    </div>
-    <div class="text-sm leading-6 font-medium text-gray-500">
+<% if steps.any? && steps.first.comment? %>
+  <tr>
+    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= Batch.human_attribute_name(:comment) %></td>
+    <td colspan="2" class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
       <%= steps.first.comment %>
-    </div>
-  </div>
+    </td>
+  </tr>
 <% end %>

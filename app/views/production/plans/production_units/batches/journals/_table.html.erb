@@ -12,6 +12,7 @@
           </thead>
           <tbody class="divide-y divide-gray-200">
           <%= render partial: "metric", collection: metrics, as: :metric %>
+          <%= render "reason", operation: operation %>
           </tbody>
         </table>
       </div>
