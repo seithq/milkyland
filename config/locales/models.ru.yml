@@ -409,12 +409,12 @@ ru:
       location:
         positionable_type: В составе
         storable_type: Тип
-        positionable_code: Адрес назначения
+        positionable_code: Адрес яруса или паллеты
         storable_codes: Адреса коробок или паллет
         all_boxes_count: Кол-во коробок
         all_pallets_count: Кол-во паллет
         storable_id: Объект вложения
-        positionable_id: Адрес назначение
+        positionable_id: Адрес яруса или паллеты
       qr_scan:
         code: QR сканируемый
         sourceable: Вид

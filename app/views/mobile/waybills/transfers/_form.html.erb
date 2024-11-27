@@ -33,7 +33,7 @@
     <% if allowed_to?(:scan?, waybill, with: TransferPolicy) ||
       allowed_to?(:approve?, waybill, with: TransferPolicy) %>
       <div class="bg-white p-4 rounded-lg">
-        <%= turbo_frame_tag dom_id(waybill, :qr_scans), src: waybills_qr_scans_path(waybill) do %>
+        <%= turbo_frame_tag dom_id(waybill, :qr_scans), src: waybills_qr_scans_path(waybill, allowed_prefixes: "Z:S") do %>
           <div class="flex justify-center">
             <%= inline_svg_tag "spinner.svg" %>
           </div>

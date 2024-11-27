@@ -5,7 +5,10 @@ class Scan
     "T": Tier,
     "S": Stack,
     "L": Line,
-    "Z": Zone
+    "Z": Zone,
+    "Z:A": Zone.filter_by_kind(:arrival),
+    "Z:H": Zone.filter_by_kind(:hold),
+    "Z:S": Zone.filter_by_kind(:ship)
   ).freeze
 
   def self.find_by(code, allowed_prefixes: PREFIX_TO_CLASS.keys)
@@ -15,9 +18,17 @@ class Scan
     return if parts.size < 2
 
     prefix = parts.first
-    return unless PREFIX_TO_CLASS.has_key?(prefix) && allowed_prefixes.include?(prefix)
+    return unless prefix.present? && PREFIX_TO_CLASS.has_key?(prefix)
 
-    klass = PREFIX_TO_CLASS[prefix]
-    klass.find_by_code code
+    scope = nil
+    allowed_prefixes.each do |allowed|
+      if PREFIX_TO_CLASS.has_key?(allowed) && code.start_with?(allowed)
+        scope = PREFIX_TO_CLASS[allowed]
+        break
+      end
+    end
+
+    return if scope.nil?
+    scope.find_by_code code
   end
 end

@@ -57,7 +57,7 @@ module MetricsHelper
     end
 
     def normal_tag(metric)
-      passed = metric.field.standard.passed?(metric.value.to_i)
+      passed = metric.field.standard.passed?(metric.value.to_d)
       default_tag metric.value, class_name: passed ? "text-green-600" : "text-red-600"
     end
 
