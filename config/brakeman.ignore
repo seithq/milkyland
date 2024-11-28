@@ -76,7 +76,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/production/plans/index.html.erb",
-      "line": 14,
+      "line": 22,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => get_scope(params), {})",
       "render_path": [
@@ -84,7 +84,7 @@
           "type": "controller",
           "class": "Production::PlansController",
           "method": "index",
-          "line": 7,
+          "line": 8,
           "file": "app/controllers/production/plans_controller.rb",
           "rendered": {
             "name": "production/plans/index",
@@ -161,13 +161,47 @@
       "note": ""
     },
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "92f162ab66e1215461186412e27d3fb26969bb8a68d5fd753d2807f8e4aff9f7",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/production/plans/production_units/batches/cookings/cooked_semi_products/index.html.erb",
+      "line": 18,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => get_scope(params), {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Production::Plans::ProductionUnits::Batches::Cookings::CookedSemiProductsController",
+          "method": "index",
+          "line": 9,
+          "file": "app/controllers/production/plans/production_units/batches/cookings/cooked_semi_products_controller.rb",
+          "rendered": {
+            "name": "production/plans/production_units/batches/cookings/cooked_semi_products/index",
+            "file": "app/views/production/plans/production_units/batches/cookings/cooked_semi_products/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "production/plans/production_units/batches/cookings/cooked_semi_products/index"
+      },
+      "user_input": "params",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Dangerous Send",
       "warning_code": 23,
       "fingerprint": "9aeb5ea5c311e0e209366bca132563ef437b81890dbcdc9fea0fab5b426235dd",
       "check_name": "Send",
       "message": "User controlled method execution",
       "file": "app/controllers/production/plans_controller.rb",
-      "line": 25,
+      "line": 43,
       "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
       "code": "Plan.send((params[:status] or \"active\"))",
       "render_path": null,
@@ -230,6 +264,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-11-19 02:35:25 +0500",
+  "updated": "2024-11-29 02:41:19 +0500",
   "brakeman_version": "6.2.2"
 }
