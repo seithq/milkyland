@@ -10,7 +10,7 @@ class Waybill < ApplicationRecord
   belongs_to :batch, optional: true
 
   has_many :leftovers, dependent: :destroy
-  has_many :qr_scans, dependent: :destroy
+  has_many :qr_scans, as: :groupable, dependent: :destroy
 
   enum :kind, %w[ arrival departure transfer write_off production_write_off return_back ].index_by(&:itself)
   enum :status, %w[ draft pending approved ].index_by(&:itself), default: :draft
@@ -46,12 +46,13 @@ class Waybill < ApplicationRecord
 
     transaction do
       sourceable.all_boxes.map do |box|
-        self.qr_scans.create code: sourceable.code,
-                             sourceable: sourceable,
-                             box: box,
-                             capacity_before: box.capacity,
-                             capacity_after: box.capacity,
-                             scanned_at: scanned_at
+        QrScan.create groupable: self,
+                      code: sourceable.code,
+                      sourceable: sourceable,
+                      box: box,
+                      capacity_before: box.capacity,
+                      capacity_after: box.capacity,
+                      scanned_at: scanned_at
       end
     end
   end

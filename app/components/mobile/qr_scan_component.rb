@@ -17,7 +17,7 @@ class Mobile::QrScanComponent < ApplicationComponent
     end
 
     def policy
-      case @qr_scan.waybill.kind
+      case @qr_scan.groupable.kind
       when "arrival"
         ArrivalPolicy
       when "write_off"
@@ -30,20 +30,20 @@ class Mobile::QrScanComponent < ApplicationComponent
     end
 
     def adjustable?
-      case @qr_scan.waybill.kind
+      case @qr_scan.groupable.kind
       when "arrival"
         false
       when "write_off"
         true
       when "transfer"
-        helpers.allowed_to?(:approve?, @qr_scan.waybill, with: policy)
+        helpers.allowed_to?(:approve?, @qr_scan.groupable, with: policy)
       else
         false
       end
     end
 
     def code_color
-      return "text-green-600" if @qr_scan.waybill.draft?
+      return "text-green-600" if @qr_scan.groupable.draft?
 
       (@qr_scan.scanned? && @qr_scan.full?) ? "text-green-600" : "text-yellow-600"
     end

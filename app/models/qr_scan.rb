@@ -1,9 +1,9 @@
 class QrScan < ApplicationRecord
-  belongs_to :waybill
+  belongs_to :groupable, polymorphic: true
   belongs_to :sourceable, polymorphic: true
   belongs_to :box
 
-  validates_uniqueness_of :box_id, scope: :waybill_id
+  validates_uniqueness_of :box_id, scope: %i[ groupable_id groupable_type ]
   validates_presence_of :capacity_before, :capacity_after
   validates_numericality_of :capacity_before, :capacity_after, greater_than: 0
 
