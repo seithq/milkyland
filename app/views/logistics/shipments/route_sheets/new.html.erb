@@ -1,0 +1,13 @@
+<% content_for(:title) { t("pages.route_sheets") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: shipments_path, title: t("pages.shipments")),
+      NavLink.new(path: edit_shipment_path(@shipment), title: t("pages.shipment", date: l(@shipment.shipping_date), region: @shipment.region.name)),
+      NavLink.new(path: new_shipment_route_sheet_path(@shipment), title: t("pages.route_sheets")),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", route_sheet: @route_sheet %>

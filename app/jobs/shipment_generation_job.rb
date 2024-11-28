@@ -20,7 +20,8 @@ class ShipmentGenerationJob < ApplicationJob
     plan.transaction do
       regions = plan.distributed_products.pluck(:region_id).uniq
       regions.each do |region_id|
-        plan.shipments.create! region_id: region_id, shipping_date: plan.production_date
+        shipment = plan.shipments.create! region_id: region_id, shipping_date: plan.production_date
+        shipment.route_sheets.create! generated: true
       end
     end
 

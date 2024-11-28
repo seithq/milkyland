@@ -2,6 +2,6 @@ opening:
   sales_channel: b2c
   client: systemd
   sales_point: seit
-  kind: 1
+  kind: planned
   status: in_planning
   preferred_date: <%= 7.days.from_now %>

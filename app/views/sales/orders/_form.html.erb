@@ -39,6 +39,13 @@
               <%= form.label :preferred_date, class: "form-label" %>
               <%= form.date_field :preferred_date, autocomplete: "preferred-date", required: true, class: "mt-2 form-input" %>
             </div>
+
+            <% if !order.new_record? && order.unscheduled? %>
+              <div class="sm:col-span-4">
+                <%= form.label :status, class: "form-label" %>
+                <%= form.select :status, options_for_enum_select(Order, :status, order.status, excluded_options: %i[ ready_to_production in_production produced in_delivery ]), { include_blank: true }, { required: true, class: "mt-2 form-select" } %>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-4">

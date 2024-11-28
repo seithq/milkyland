@@ -20,7 +20,7 @@ class Logistics::ShipmentsController < ApplicationController
     @shipment = Shipment.new(shipment_params)
 
     if @shipment.save
-      redirect_on_create shipments_url(status: @shipment.status)
+      redirect_on_create edit_shipment_url(@shipment)
     else
       render :new, status: :unprocessable_entity
     end

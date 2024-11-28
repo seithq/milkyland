@@ -1,0 +1,28 @@
+<%= tag.div id: dom_id(route_sheet), class: "table-row hover:bg-gray-50" do %>
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <%= route_sheet.vehicle_plate_number %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= route_sheet.driver_name %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= route_sheet.driver_phone_number %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= RouteSheet.enum_to_s(:status, route_sheet.status) %>
+  </div>
+  <% unless @readonly %>
+    <div class="table-cell relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+      <div class="flex justify-end space-x-2">
+        <% if allowed_to?(:edit?, route_sheet) %>
+          <%= link_to t("actions.edit_record"), edit_shipment_route_sheet_path(@shipment, route_sheet), data: { turbo_frame: "_top" }, class: "edit_route_sheet text-indigo-600 hover:text-indigo-900" %>
+        <% else %>
+          <%= link_to t("actions.show_record"), shipment_route_sheet_path(@shipment, route_sheet), class: "text-indigo-600 hover:text-indigo-900" %>
+        <% end %>
+        <% if allowed_to?(:destroy?, route_sheet) %>
+          <%= link_to t("actions.destroy_record"), shipment_route_sheet_path(@shipment, route_sheet), data: { turbo_frame: dom_id(@shipment, :route_sheets), turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "destroy_route_sheet text-red-600 hover:text-red-500" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

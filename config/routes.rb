@@ -193,7 +193,11 @@ Rails.application.routes.draw do
   end
 
   scope module: "logistics" do
-    resources :shipments
+    resources :shipments do
+      scope module: "shipments" do
+        resources :route_sheets
+      end
+    end
   end
 
   scope module: "mobile" do

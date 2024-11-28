@@ -56,7 +56,7 @@ class Sales::OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:client_id, :sales_point_id, :kind, :preferred_date)
+      params.require(:order).permit(:client_id, :sales_point_id, :kind, :preferred_date, :status)
     end
 
     def set_clients

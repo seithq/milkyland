@@ -1,0 +1,39 @@
+<% content_for(:title) { t("pages.route_sheet") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: shipments_path, title: t("pages.shipments")),
+      NavLink.new(path: edit_shipment_path(@shipment), title: t("pages.shipment", date: l(@shipment.shipping_date), region: @shipment.region.name)),
+      NavLink.new(path: shipment_route_sheet_path(@shipment, @route_sheet), title: t("pages.route_sheet")),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @route_sheet do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :vehicle_plate_number, class: "form-label" %>
+          <%= form.text_field :vehicle_plate_number, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :driver_name, class: "form-label" %>
+          <%= form.text_field :driver_name, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :driver_phone_number, class: "form-label" %>
+          <%= form.phone_field :driver_phone_number, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :comment, class: "form-label" %>
+          <%= form.text_area :comment, readonly: true, class: "form-input" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

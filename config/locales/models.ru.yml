@@ -147,6 +147,12 @@ ru:
           pending: "В работе"
           ready_to_collect: "Готов к сборке"
           completed: "Завершен"
+      route_sheet:
+        statuses:
+          pending: "В работе"
+          ready_to_collect: "Готов к сборке"
+          collected: "Укомплектован"
+          completed: "Завершен"
     attributes:
       user:
         name: ФИО
@@ -294,6 +300,7 @@ ru:
         client_id: Покупатели
         sales_point_id: Точка продаж
         preferred_date: Дата производства
+        status: Статус
       position:
         product_id: Номенклатура ГП
         promotion: Акция
@@ -441,6 +448,13 @@ ru:
         client_id: Покупатель
         region_id: Регион
         routes_changed_at: Дата и время изменения маршрута
+      route_sheet:
+        shipment_id: Отгрузка
+        vehicle_plate_number: Номер машины
+        driver_name: Водитель
+        driver_phone_number: Номер телефона
+        status: Статус
+        comment: Примечание
     models:
       box:
         one: Коробка

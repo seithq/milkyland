@@ -80,6 +80,8 @@ ru:
     shipments: "Отгрузки"
     new_shipment: "Новая отгрузка"
     shipment: "Отгрузка %{date} - %{region}"
+    route_sheets: "Маршрутные листы"
+    route_sheet: "Маршрутный лист"
     boxes: "Коробки"
     zones: "Зоны"
     zone: "Зона %{index}"
