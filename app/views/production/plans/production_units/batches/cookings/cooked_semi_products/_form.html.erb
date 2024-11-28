@@ -3,8 +3,8 @@
     <%= render "layouts/error_messages", resource: cooked_semi_product %>
     <%= form_with model: cooked_semi_product, url: production_plan_unit_batch_cooking_cooked_semi_product_path(@plan, @production_unit, @batch, cooked_semi_product), class: "space-y-4" do |form| %>
       <div class="space-y-2">
-        <%= form.label :tonnage, class: "form-label-xl" %>
-        <%= form.number_field :tonnage, autocomplete: "tonnage", required: true, class: "form-input-xl", step: ".1" %>
+        <%= form.label :litrage, class: "form-label-xl" %>
+        <%= form.number_field :litrage, autocomplete: "litrage", required: true, class: "form-input-xl", step: ".1" %>
       </div>
 
       <%= form.submit t("actions.save_record"), class: "w-full btn-xl" %>

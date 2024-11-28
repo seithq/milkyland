@@ -32,7 +32,7 @@ class ProductionUnit < ApplicationRecord
   def produced_tonnage
     if self.plan.semi?
       scope = self.cooked_semi_products.approved.filter_by_group(self.group_id)
-      scope.sum(:tonnage)
+      scope.sum(:litrage) / 1000.0
     else
       scope = self.packaged_products.approved.filter_by_group(self.group_id)
       total = scope.sum("packaged_products.count * products.packing")

@@ -39,7 +39,8 @@ class Production::PlansController < ProductionController
 
   private
     def base_scope
-      Plan.send(@status).filter_by_kind(@kind).order(production_date: :asc)
+      direction = @status == "active" ? :asc : :desc
+      Plan.send(@status).filter_by_kind(@kind).order(production_date: direction)
     end
 
     def search_methods

@@ -29,7 +29,7 @@ module Production::Plans::ProductionUnits::Batches
       end
 
       def cooked_semi_product_params
-        params.expect(cooked_semi_product: %i[ semi_product_id tonnage])
+        params.expect(cooked_semi_product: %i[ semi_product_id litrage ])
       end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_11_28_171132) do
+ActiveRecord::Schema[8.1].define(version: 2024_11_28_211500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -172,7 +172,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_28_171132) do
   create_table "cooked_semi_products", force: :cascade do |t|
     t.bigint "cooking_id", null: false
     t.bigint "semi_product_id", null: false
-    t.decimal "tonnage"
+    t.decimal "litrage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cooking_id"], name: "index_cooked_semi_products_on_cooking_id"

@@ -21,7 +21,7 @@ class Logistics::ShipmentsControllerTest < ActionDispatch::IntegrationTest
       post shipments_url, params: { shipment: { kind: :external, region_id: regions(:almaty).id, shipping_date: Date.current, client_id: clients(:systemd).id } }
     end
 
-    assert_redirected_to shipments_url(status: :pending)
+    assert_redirected_to edit_shipment_url(Shipment.last)
   end
 
   test "should show shipment" do

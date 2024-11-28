@@ -249,6 +249,7 @@ ru:
       orders_count: "Кол-во заявок"
       groups_count: "Кол-во групп"
       tonnage: "Тоннаж"
+      litrage: "Литраж"
       group_total: "Итого %{group}"
       region: "Регион"
       chain_order: "Порядковый номер"

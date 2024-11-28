@@ -22,7 +22,7 @@ class ArriveSemiProductsJob < ApplicationJob
         {
           subject_type: "SemiProduct",
           subject_id: cooked.semi_product_id,
-          count: cooked.tonnage
+          count: cooked.litrage
         }
       end
 

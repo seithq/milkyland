@@ -340,7 +340,7 @@ ru:
         end_time: Время окончания
         count: Количество
       cooked_semi_product:
-        tonnage: Финальный литраж
+        litrage: Финальный литраж
       distribution:
         comment: Комментарий
       distributed_product:

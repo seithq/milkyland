@@ -18,7 +18,7 @@ module Production::Plans::ProductionUnits::Batches
     end
 
     test "should update cooked_semi_product" do
-      patch production_plan_unit_batch_cooking_cooked_semi_product_url(@plan, @production_unit, @batch, @cooked_semi_product), params: { cooked_semi_product: { tonnage: @cooked_semi_product.tonnage } }
+      patch production_plan_unit_batch_cooking_cooked_semi_product_url(@plan, @production_unit, @batch, @cooked_semi_product), params: { cooked_semi_product: { litrage: @cooked_semi_product.litrage } }
       assert_redirected_to production_plan_unit_batch_cooking_url(@plan, @production_unit, @batch)
     end
   end
