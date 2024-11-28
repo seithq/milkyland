@@ -1,0 +1,61 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= render "layouts/error_messages", resource: shipment %>
+    <%= form_with model: shipment do |form| %>
+      <div class="space-y-12">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2" data-controller="shipment" data-shipment-kind-value="<%= shipment.kind %>">
+            <% if shipment.plan.present? %>
+              <div class="sm:col-span-4">
+                <%= label_tag :production_date, Plan.human_attribute_name(:production_date), class: "form-label" %>
+                <%= date_field_tag :production_date, shipment.plan.production_date, disabled: true, class: "mt-2 form-input" %>
+              </div>
+            <% end %>
+            <div class="sm:col-span-4">
+              <%= form.label :region_id, class: "form-label" %>
+              <%= form.select :region_id, options_from_collection_for_select(Region.ordered, :id, :name, shipment.region_id), { include_blank: true }, { disabled: shipment.plan.present?, class: "mt-2 form-select" } %>
+            </div>
+            <div class="sm:col-span-4">
+              <%= form.label :kind, class: "form-label" %>
+              <%= form.select :kind, options_for_enum_select(Shipment, :kind, shipment.kind), { include_blank: true }, { required: true, data: { action: "shipment#toggleSelector" }, class: "mt-2 form-select" } %>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= form.label :client_id, class: "form-label" %>
+              <%= form.select :client_id, options_from_collection_for_select(shipment.clients, :id, :name, shipment.client_id), { include_blank: true }, { data: { shipment_target: "selector" }, required: true, class: "mt-2 form-select" } %>
+            </div>
+            <div class="sm:col-span-4">
+              <%= form.label :shipping_date, class: "form-label" %>
+              <%= form.date_field :shipping_date, required: true, class: "mt-2 form-input" %>
+            </div>
+            <% unless shipment.new_record? %>
+              <div class="sm:col-span-4">
+                <%= form.label :status, class: "form-label" %>
+                <%= form.select :status, options_for_enum_select(Shipment, :status, shipment.status, excluded_options: %i[ completed ]), { include_blank: true }, { required: true, class: "mt-2 form-select" } %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-4">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.route_sheets") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-3">
+            <div class="sm:col-span-full">
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 flex items-center justify-end gap-x-6">
+        <% if allowed_to?(:destroy?, shipment) %>
+          <%= link_to t("actions.destroy_record"), shipment_path(shipment), data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "destroy_shipment rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" %>
+        <% end %>
+        <%= form.submit t("actions.save_record"), class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -2,7 +2,7 @@ module User::Role
   extend ActiveSupport::Concern
 
   included do
-    enum :role, %i[ admin manager launcher machiner tester operator loader warehouser procurement_officer ], default: :manager
+    enum :role, %i[ admin manager launcher machiner tester operator loader warehouser procurement_officer logistician ], default: :manager
 
     scope :filter_by_role, ->(role) { where(role: role) }
 
@@ -12,6 +12,7 @@ module User::Role
     scope :operators,            -> { filter_by_role(:operator) }
     scope :loaders,              -> { filter_by_role(:loader) }
     scope :warehousers,          -> { filter_by_role(:warehouser) }
+    scope :logisticians,         -> { filter_by_role(:logistician) }
     scope :procurement_officers, -> { filter_by_role(:procurement_officer) }
   end
 
@@ -33,5 +34,9 @@ module User::Role
 
   def can_supply?
     can_administer? || procurement_officer?
+  end
+
+  def can_ship?
+    can_administer? || logistician?
   end
 end

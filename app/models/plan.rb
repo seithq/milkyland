@@ -3,6 +3,7 @@ class Plan < ApplicationRecord
 
   has_many :consolidations, dependent: :destroy
   has_many :orders, -> { merge(Consolidation.active) }, through: :consolidations
+  has_many :clients, through: :orders
   has_many :positions, through: :orders
   has_many :products, through: :positions
   has_many :groups, through: :products
@@ -23,6 +24,8 @@ class Plan < ApplicationRecord
 
   has_many :distributions, through: :batches
   has_many :distributed_products, through: :distributions, source: :products
+
+  has_many :shipments, dependent: :destroy
 
   after_update :call_update_callbacks
 

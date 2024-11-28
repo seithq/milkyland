@@ -25,4 +25,11 @@ class Production::PlansControllerTest < ActionDispatch::IntegrationTest
     patch production_plan_url(@plan), params: { plan: { status: :cancelled, comment: "Testing" } }
     assert_redirected_to production_plan_url(@plan)
   end
+
+  test "should finish plans" do
+    assert_enqueued_jobs 1, only: ShipmentGenerationJob do
+      patch production_plan_url(@plan), params: { plan: { status: :produced, comment: "Testing" } }
+      assert_redirected_to production_plan_url(@plan)
+    end
+  end
 end

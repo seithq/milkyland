@@ -1,0 +1,21 @@
+<% tab_links = [
+  NavLink.new(path: shipments_path(status: :pending), title: t("pages.status_pending"), is_active: @status == "pending"),
+  NavLink.new(path: shipments_path(status: :ready_to_collect), title: t("pages.status_ready_to_collect"), is_active: @status == "ready_to_collect"),
+  NavLink.new(path: shipments_path(status: :completed), title: t("pages.status_completed"), is_active: @status == "completed")
+]
+%>
+
+<div>
+  <div class="sm:hidden">
+    <%= mobile_tab_select tab_links %>
+  </div>
+  <div class="hidden sm:block">
+    <div class="border-b border-gray-200">
+      <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+        <% tab_links.each do |link| %>
+          <%= link_to link.title, link.path, class: "tab-link #{ "tab-link-active" if link.is_active }" %>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</div>

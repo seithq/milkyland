@@ -4,6 +4,8 @@ class Region < ApplicationRecord
 
   has_many :boxes, dependent: :destroy
 
+  has_many :shipments, dependent: :destroy
+
   validates :name, :code, presence: true, uniqueness: { case_sensitive: false }
 
   scope :ordered, -> { order(code: :asc) }

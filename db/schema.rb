@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_11_28_063954) do
+ActiveRecord::Schema[8.1].define(version: 2024_11_28_075709) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -614,6 +614,21 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_28_063954) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "shipments", force: :cascade do |t|
+    t.bigint "plan_id"
+    t.bigint "region_id", null: false
+    t.bigint "client_id"
+    t.date "shipping_date"
+    t.string "kind"
+    t.string "status"
+    t.datetime "routes_changed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_shipments_on_client_id"
+    t.index ["plan_id"], name: "index_shipments_on_plan_id"
+    t.index ["region_id"], name: "index_shipments_on_region_id"
+  end
+
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.string "queue_name", null: false
@@ -949,6 +964,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_28_063954) do
   add_foreign_key "semi_products", "groups"
   add_foreign_key "semi_products", "measurements"
   add_foreign_key "sessions", "users"
+  add_foreign_key "shipments", "clients"
+  add_foreign_key "shipments", "plans"
+  add_foreign_key "shipments", "regions"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

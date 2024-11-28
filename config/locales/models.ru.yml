@@ -11,6 +11,7 @@ ru:
           operator: Оператор
           loader: Грузчик
           warehouser: Зав.склада
+          logistician: Логист
           procurement_officer: Закупщик
       category:
         kinds:
@@ -138,6 +139,14 @@ ru:
           executing: "Исполняющий"
           sanctioning: "Подтверждающий"
           replacing: "Заменяющий"
+      shipment:
+        kinds:
+          internal: "Между складами"
+          external: "Для покупателя"
+        statuses:
+          pending: "В работе"
+          ready_to_collect: "Готов к сборке"
+          completed: "Завершен"
     attributes:
       user:
         name: ФИО
@@ -425,6 +434,13 @@ ru:
         box_code: QR коробки
         capacity_before: Кол-во в коробке
         capacity_after: Подтвержденное кол-во
+      shipment:
+        shipping_date: Дата отгрузки
+        kind: Тип
+        status: Статус
+        client_id: Покупатель
+        region_id: Регион
+        routes_changed_at: Дата и время изменения маршрута
     models:
       box:
         one: Коробка

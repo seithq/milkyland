@@ -11,8 +11,8 @@ class Order < ApplicationRecord
 
   validates :preferred_date, presence: true, comparison: { greater_than_or_equal_to: Time.zone.today }
 
-  after_create :add_to_plan
-  after_update :update_plan
+  after_create :add_to_plan, if: :planned?
+  after_update :update_plan, if: :planned?
 
   after_destroy :deactivate_plans
 

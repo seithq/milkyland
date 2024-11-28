@@ -127,6 +127,14 @@
                 </ul>
               </li>
             <% end %>
+            <% if Current.user.can_ship? %>
+              <li>
+                <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.logictics") %></div>
+                <ul role="list" class="-mx-2 space-y-1">
+                  <%= nav_link shipments_path, t("pages.shipments"), "truck.svg" %>
+                </ul>
+              </li>
+            <% end %>
             <% if Current.user.can_administer? %>
               <li>
                 <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.settings") %></div>
@@ -201,7 +209,15 @@
             <li>
               <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.procurements") %></div>
               <ul role="list" class="-mx-2 space-y-1">
-                <%= nav_link supply_orders_path, t("pages.supply_orders"), "truck.svg" %>
+                <%= nav_link supply_orders_path, t("pages.supply_orders"), "view-boards.svg" %>
+              </ul>
+            </li>
+          <% end %>
+          <% if Current.user.can_ship? %>
+            <li>
+              <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.logictics") %></div>
+              <ul role="list" class="-mx-2 space-y-1">
+                <%= nav_link shipments_path, t("pages.shipments"), "truck.svg" %>
               </ul>
             </li>
           <% end %>

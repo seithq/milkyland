@@ -192,6 +192,10 @@ Rails.application.routes.draw do
     end
   end
 
+  scope module: "logistics" do
+    resources :shipments
+  end
+
   scope module: "mobile" do
     resource :feed, only: :show
     resources :scans, only: %i[ index new ]

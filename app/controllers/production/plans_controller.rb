@@ -30,6 +30,7 @@ class Production::PlansController < ProductionController
 
   def update
     if @plan.update(plan_params)
+      post_update_hook @plan
       redirect_on_update production_plan_url(@plan)
     else
       render :edit, status: :unprocessable_entity
@@ -60,4 +61,10 @@ class Production::PlansController < ProductionController
     def set_kind
       @kind = params[:kind].presence || "standard"
     end
+
+  def post_update_hook(plan)
+    return unless plan.produced?
+
+    ShipmentGenerationJob.perform_later plan.id
+  end
 end
