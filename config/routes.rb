@@ -195,7 +195,11 @@ Rails.application.routes.draw do
   scope module: "logistics" do
     resources :shipments do
       scope module: "shipments" do
-        resources :route_sheets
+        resources :route_sheets do
+          scope module: "route_sheets" do
+            resources :tracking_products
+          end
+        end
       end
     end
   end

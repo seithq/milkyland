@@ -1,8 +1,8 @@
-<%= turbo_frame_tag dom_id(@shipment, :route_sheets) do %>
-  <% unless @readonly %>
+<%= turbo_frame_tag dom_id(@route_sheet, :tracking_products) do %>
+  <% if !@readonly && allowed_to?(:new_tracking?, @route_sheet) %>
     <div class="mb-4 sm:flex sm:items-center">
       <div class="sm:flex-none">
-        <%= link_to new_shipment_route_sheet_path(@shipment), data: { turbo_frame: "_top" }, class: "new_route_sheet btn-create" do %>
+        <%= link_to new_shipment_route_sheet_tracking_product_path(@shipment, @route_sheet), data: { turbo_frame: "_top" }, class: "new_tracking_product btn-create" do %>
           <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
           <%= t("actions.create_record") %>
         <% end %>
@@ -17,22 +17,22 @@
             <div class="table-header-group bg-gray-50">
               <div class="table-row">
                 <div class="table-cell py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                  <%= RouteSheet.human_attribute_name(:vehicle_plate_number) %>
+                  <%= Product.human_attribute_name(:article) %>
                 </div>
                 <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                  <%= RouteSheet.human_attribute_name(:driver_name) %>
+                  <%= TrackingProduct.human_attribute_name(:product_id) %>
                 </div>
                 <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                  <%= RouteSheet.human_attribute_name(:driver_phone_number) %>
+                  <%= TrackingProduct.human_attribute_name(:count) %>
                 </div>
                 <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                  <%= RouteSheet.human_attribute_name(:status) %>
+                  <%= TrackingProduct.human_attribute_name(:unrestricted_count) %>
                 </div>
                 <div class="relative py-3.5 pl-3 pr-4 sm:pr-6"></div>
               </div>
             </div>
             <div class="table-row-group divide-y divide-gray-200 bg-white">
-              <%= render @route_sheets %>
+              <%= render @tracking_products %>
             </div>
           </div>
         </div>

@@ -23,7 +23,7 @@ module Logistics
       @route_sheet = base_scope.new(route_sheet_params)
 
       if @route_sheet.save
-        redirect_on_create edit_shipment_url(@shipment)
+        redirect_on_create edit_shipment_route_sheet_url(@shipment, @route_sheet)
       else
         render :new, status: :unprocessable_entity
       end

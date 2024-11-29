@@ -45,7 +45,7 @@
               </div>
               <div class="sm:col-span-4">
                 <%= form.label :status, class: "form-label" %>
-                <%= form.select :status, options_for_enum_select(Shipment, :status, @shipment.status, excluded_options: %i[ completed ]), {}, { disabled: true, class: "mt-2 form-select" } %>
+                <%= form.select :status, options_for_enum_select(Shipment, :status, @shipment.status), {}, { disabled: true, class: "mt-2 form-select" } %>
               </div>
             </div>
           </div>

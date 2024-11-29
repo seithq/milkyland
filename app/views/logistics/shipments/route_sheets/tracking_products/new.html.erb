@@ -1,4 +1,4 @@
-<% content_for(:title) { t("pages.route_sheet", id: @route_sheet.id) } %>
+<% content_for(:title) { t("pages.tracking_products") } %>
 
 <% content_for :breadcrumb do %>
   <%= render "layouts/breadcrumb", {
@@ -6,8 +6,9 @@
       NavLink.new(path: shipments_path, title: t("pages.shipments")),
       NavLink.new(path: edit_shipment_path(@shipment), title: t("pages.shipment", date: l(@shipment.shipping_date), region: @shipment.region.name)),
       NavLink.new(path: edit_shipment_route_sheet_path(@shipment, @route_sheet), title: t("pages.route_sheet", id: @route_sheet.id)),
+      NavLink.new(path: new_shipment_route_sheet_tracking_product_path(@shipment, @route_sheet), title: t("pages.tracking_products")),
     ]
   } %>
 <% end %>
 
-<%= render "form", route_sheet: @route_sheet %>
+<%= render "form", tracking_product: @tracking_product %>

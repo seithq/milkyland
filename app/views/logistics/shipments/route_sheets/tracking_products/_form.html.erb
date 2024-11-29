@@ -1,0 +1,35 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= render "layouts/error_messages", resource: tracking_product %>
+    <%= form_with model: [@shipment, @route_sheet, tracking_product], class: "space-y-4" do |form| %>
+      <% if allowed_to?(:adjust?, tracking_product) %>
+        <div>
+          <%= form.label :product_id, class: "form-label" %>
+          <%= form.select :product_id, options_from_collection_for_select(Product.ordered, :id, :name_with_article, tracking_product.product_id), { include_blank: true }, { required: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :count, class: "form-label" %>
+          <%= form.number_field :count, autocomplete: "count", required: true, class: "form-input" %>
+        </div>
+      <% else %>
+        <div>
+          <%= form.label :product_id, class: "form-label" %>
+          <%= form.select :product_id, options_from_collection_for_select(Product.ordered, :id, :name_with_article, tracking_product.product_id), {}, { disabled: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :count, class: "form-label" %>
+          <%= form.number_field :count, disabled: true, class: "form-input" %>
+        </div>
+      <% end %>
+
+      <div>
+        <%= form.label :unrestricted_count, class: "form-label" %>
+        <%= form.number_field :unrestricted_count, autocomplete: "unrestricted-count", required: false, class: "form-input", min: 0 %>
+      </div>
+
+      <%= form.submit t("actions.save_record"), class: "btn" %>
+    <% end %>
+  </div>
+</div>

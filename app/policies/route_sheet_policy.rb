@@ -7,6 +7,10 @@ class RouteSheetPolicy < ApplicationPolicy
     owned? && allowed_statuses? && ensure_not_generated?
   end
 
+  def new_tracking?
+    owned? && allowed_statuses? && ensure_not_generated?
+  end
+
   private
     def owned?
       user.can_ship?

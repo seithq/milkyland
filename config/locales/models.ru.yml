@@ -455,6 +455,10 @@ ru:
         driver_phone_number: Номер телефона
         status: Статус
         comment: Примечание
+      tracking_product:
+        product_id: Номенклатура ГП
+        count: Кол-во
+        unrestricted_count: Кол-во с ранней датой
     models:
       box:
         one: Коробка

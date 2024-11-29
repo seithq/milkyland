@@ -23,7 +23,7 @@ module Logistics
         post shipment_route_sheets_url(@shipment), params: { route_sheet: { vehicle_plate_number: "273AGH02", driver_name: "Aigerim", driver_phone_number: "+77772098007" } }
       end
 
-      assert_redirected_to edit_shipment_url(@shipment)
+      assert_redirected_to edit_shipment_route_sheet_url(@shipment, RouteSheet.last)
     end
 
     test "should show route_sheet" do

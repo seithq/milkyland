@@ -21,7 +21,11 @@ class ShipmentGenerationJob < ApplicationJob
       regions = plan.distributed_products.pluck(:region_id).uniq
       regions.each do |region_id|
         shipment = plan.shipments.create! region_id: region_id, shipping_date: plan.production_date
-        shipment.route_sheets.create! generated: true
+        route_sheet = shipment.route_sheets.create! generated: true
+        plan.distributed_products.filter_by_region(region_id).each do |dp|
+          next if dp.count.zero?
+          route_sheet.tracking_products.create! product_id: dp.packaged_product.product_id, count: dp.count, unrestricted_count: 0
+        end
       end
     end
 

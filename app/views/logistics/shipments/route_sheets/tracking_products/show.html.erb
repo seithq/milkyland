@@ -1,0 +1,35 @@
+<% content_for(:title) { t("pages.tracking_product", id: @tracking_product.id) } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: shipments_path, title: t("pages.shipments")),
+      NavLink.new(path: shipment_path(@shipment), title: t("pages.shipment", date: l(@shipment.shipping_date), region: @shipment.region.name)),
+      NavLink.new(path: shipment_route_sheet_path(@shipment, @route_sheet), title: t("pages.route_sheet", id: @route_sheet.id)),
+      NavLink.new(path: shipment_route_sheet_tracking_product_path(@shipment, @route_sheet), title: t("pages.tracking_product", id: @tracking_product.id)),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @tracking_product do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :product_id, class: "form-label" %>
+          <%= form.select :product_id, options_from_collection_for_select(Product.ordered, :id, :name_with_article, @tracking_product.product_id), {}, { disabled: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :count, class: "form-label" %>
+          <%= form.number_field :count, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :unrestricted_count, class: "form-label" %>
+          <%= form.number_field :unrestricted_count, readonly: true, class: "form-input", min: 0 %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

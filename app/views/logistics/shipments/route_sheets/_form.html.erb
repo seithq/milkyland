@@ -1,29 +1,57 @@
 <div class="flex flex-col justify-center px-6 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+  <div class="sm:mx-auto sm:w-full">
     <%= render "layouts/error_messages", resource: route_sheet %>
-    <%= form_with model: [@shipment, route_sheet], class: "space-y-4" do |form| %>
-      <div>
-        <%= form.label :vehicle_plate_number, class: "form-label" %>
-        <%= form.text_field :vehicle_plate_number, autocomplete: "vehicle-plate-number", autofocus: true, required: true, class: "form-input" %>
-      </div>
+    <%= form_with model: [@shipment, route_sheet] do |form| %>
+      <div class="space-y-12">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <div class="sm:col-span-4">
+              <%= form.label :vehicle_plate_number, class: "form-label" %>
+              <%= form.text_field :vehicle_plate_number, autocomplete: "vehicle-plate-number", autofocus: true, required: true, class: "form-input" %>
+            </div>
 
-      <div>
-        <%= form.label :driver_name, class: "form-label" %>
-        <%= form.text_field :driver_name, autocomplete: "driver-name", required: true, class: "form-input" %>
-      </div>
+            <div class="sm:col-span-4">
+              <%= form.label :driver_name, class: "form-label" %>
+              <%= form.text_field :driver_name, autocomplete: "driver-name", required: true, class: "form-input" %>
+            </div>
 
-      <div>
-        <%= form.label :driver_phone_number, class: "form-label" %>
-        <%= form.phone_field :driver_phone_number, autocomplete: "driver-phone-number", required: true, class: "form-input", pattern: '\+[0-9]+[0-9]{3}[0-9]{7}' %>
-        <p class="mt-3 text-sm leading-6 text-gray-600"><%= t("forms.phone_number_hint") %></p>
-      </div>
+            <div class="sm:col-span-4">
+              <%= form.label :driver_phone_number, class: "form-label" %>
+              <%= form.phone_field :driver_phone_number, autocomplete: "driver-phone-number", required: true, class: "form-input", pattern: '\+[0-9]+[0-9]{3}[0-9]{7}' %>
+              <p class="mt-3 text-sm leading-6 text-gray-600"><%= t("forms.phone_number_hint") %></p>
+            </div>
 
-      <div>
-        <%= form.label :comment, class: "form-label" %>
-        <%= form.text_area :comment, autocomplete: "comment", class: "form-input" %>
+            <div class="sm:col-span-4">
+              <%= form.label :comment, class: "form-label" %>
+              <%= form.text_area :comment, autocomplete: "comment", class: "form-input" %>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.tracking_products") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <% if route_sheet.new_record? %>
+              <div class="sm:col-span-4">
+                <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
+              </div>
+            <% else %>
+              <div class="sm:col-span-full">
+                <%= turbo_frame_tag dom_id(route_sheet, :tracking_products), src: shipment_route_sheet_tracking_products_path(@shipment, @route_sheet) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
       </div>
-
-      <%= form.submit t("actions.save_record"), class: "btn" %>
+      <div class="mt-6 flex items-center justify-end gap-x-6">
+        <%= form.submit t("actions.save_record"), class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+      </div>
     <% end %>
   </div>
 </div>
