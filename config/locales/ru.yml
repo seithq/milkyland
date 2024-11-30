@@ -98,11 +98,13 @@ ru:
     scan_qr: "Скан QR"
     warehousers: "Работники склада"
     arrivals: "Приход"
-    arrival: "Приход: #%{id}"
+    arrival: "Приход #%{id}"
     write_offs: "Списание"
-    write_off: "Списание: #%{id}"
+    write_off: "Списание #%{id}"
     transfers: "Перемещение"
-    transfer: "Перемещение: #%{id}"
+    transfer: "Перемещение #%{id}"
+    assemblies: "Сборка груза"
+    assembly: "Сборка груза #%{id}"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -115,6 +117,7 @@ ru:
     sign_in: "Войти"
     sign_up: "Создать аккаунт"
     sign_out: "Выйти с аккаунта"
+    create: "Создать"
     create_record: "Создать запись"
     create_semi_plan: "Создать ПФ"
     edit_record: "Правка"
@@ -176,6 +179,7 @@ ru:
     create_transfer: "Перемещение"
     create_write_off: "Списание"
     create_location: "Адресное перемещение"
+    create_assembly: "Сборка"
     view_incoming: "Входящие"
     view_outgoing: "Исходящие"
     scan: "Сканировать"
@@ -354,12 +358,13 @@ ru:
     warehousers: "Работники склада"
     subjects: "Товары"
   hints:
-    scan_qr: Сканируйте код и получите информацию
+    scan_qr: Сканируйте код и узнайте детали
     create_arrival: Новой продукции на склад
     create_departure: Продукции со склада
     create_transfer: Продукции между складами
     create_write_off: Продукции со склада
-    create_location: Коробок и паллет внутри ярусов или зон
+    create_location: Коробок и паллет внутри ярусов / зон
+    create_assembly: Груза в зону отгрузки
     view_incoming: Накладные (Вы как Получатель)
     view_outgoing: Накладные (Вы как Отправитель)
     drafts: "(Черновики: %{count})"

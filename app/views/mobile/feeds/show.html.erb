@@ -114,6 +114,19 @@
         <% end %>
       </li>
       <li>
+        <%= link_to load_assemblies_path, class: "relative flex" do %>
+          <div class="flex w-16 shrink-0 items-center justify-center bg-violet-500 text-sm font-medium text-white">
+            <%= inline_svg_tag "cube.svg", class: "size-10" %>
+          </div>
+          <div class="flex flex-1 items-center justify-between truncate bg-white">
+            <div class="flex-1 truncate px-4 py-2 text-sm">
+              <span class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.create_assembly") %></span>
+              <p class="text-gray-500 text-xs"><%= t("hints.create_assembly") %></p>
+            </div>
+          </div>
+        <% end %>
+      </li>
+      <li>
         <%= link_to scans_path, class: "relative flex" do %>
           <div class="flex w-16 shrink-0 items-center justify-center bg-indigo-600 text-sm font-medium text-white">
             <%= inline_svg_tag "qrcode.svg", class: "size-10" %>

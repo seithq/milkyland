@@ -1,9 +1,9 @@
 class Mobile::StatusBadgeComponent < ApplicationComponent
-  option :waybill
+  option :record
 
   private
     def badge_color
-      case waybill.status
+      case record.status
       when "approved"
         "bg-green-500"
       when "pending"

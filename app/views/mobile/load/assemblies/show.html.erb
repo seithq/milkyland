@@ -1,0 +1,7 @@
+<% content_for(:turbo_native_title) { t("pages.assembly", id: @assembly.id) } %>
+
+<% if allowed_to?(:edit?, @assembly) %>
+  <div class="turbo-native:hidden">
+    <%= link_to t("actions.edit_record"), edit_load_assembly_path(@assembly), data: { controller: "bridge--button", bridge_image: "", bridge_side: "right" } %>
+  </div>
+<% end %>

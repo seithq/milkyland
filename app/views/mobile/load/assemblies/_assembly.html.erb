@@ -1,0 +1,19 @@
+<li id="<%= assembly.id %>" class="relative flex justify-between gap-x-6">
+  <div class="min-w-0 flex-auto p-2">
+    <p class="text-sm/6 font-semibold text-gray-900">
+      <%= link_to load_assembly_path(assembly) do %>
+        <span class="absolute inset-x-0 -top-px bottom-0"></span>
+        <%= t("pages.assembly", id: assembly.id) %>
+      <% end %>
+    </p>
+    <p class="mt-1 flex text-xxs text-gray-500">
+      <%= assembly.user.name %>
+    </p>
+  </div>
+  <div class="flex shrink-0 items-center gap-x-4 p-2">
+    <div class="flex flex-col items-end">
+      <%= render Mobile::StatusBadgeComponent.new record: assembly %>
+      <p class="mt-1 text-xxs text-gray-500"><%= l assembly.created_at, format: :short %></p>
+    </div>
+  </div>
+</li>

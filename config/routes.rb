@@ -221,6 +221,9 @@ Rails.application.routes.draw do
       resources :outgoings, only: :index
       resources :incomings, only: :index
     end
+    namespace :load do
+      resources :assemblies
+    end
   end
 
   get "/configurations/android", to: "configurations#android", as: :android_configuration

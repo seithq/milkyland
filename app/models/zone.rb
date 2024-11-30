@@ -20,6 +20,8 @@ class Zone < ApplicationRecord
 
   has_many :child_qr_scans, as: :sourceable, class_name: "QrScan", dependent: :destroy
 
+  has_many :assemblies, dependent: :destroy
+
   scope :filter_by_kind, ->(kind) { where(kind: kind) }
 
   def counter_base

@@ -17,7 +17,7 @@
     <div class="bg-white p-4 rounded-lg space-y-2">
       <%= fields_for @waybill do |form| %>
         <div class="flex justify-start">
-          <%= render Mobile::StatusBadgeComponent.new waybill: @waybill %>
+          <%= render Mobile::StatusBadgeComponent.new record: @waybill %>
         </div>
 
         <div class="space-y-4">

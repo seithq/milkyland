@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :warehousers, dependent: :destroy
   has_many :storages, through: :warehousers
 
+  has_many :assemblies, dependent: :destroy
+
   validates :name, :email_address, presence: true, uniqueness: { case_sensitive: false }
 
   scope :active, -> { where(active: true) }

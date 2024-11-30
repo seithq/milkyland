@@ -1,0 +1,50 @@
+<div class="p-4 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-manual="true">
+  <div class="space-y-6">
+    <div class="bg-white p-4 rounded-lg">
+      <%= native_form_with model: [:load, assembly], html: { data: { turbo_action: "replace" } } do |form| %>
+        <div>
+          <%= form.label :route_sheet_id, class: "form-label" %>
+          <%= form.select :route_sheet_id, options_from_collection_for_select(RouteSheet.for_mobile, :id, :display_label, assembly.route_sheet_id), { include_blank: true }, { required: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :zone_id, class: "form-label" %>
+          <%= form.select :zone_id, options_from_collection_for_select(Zone.filter_by_kind(:ship), :id, :display_index, assembly.zone_id), { include_blank: true }, { required: true, class: "form-select" } %>
+        </div>
+
+        <div class="hidden">
+          <% if assembly.new_record? %>
+            <%= form.submit t("actions.save_record_next") %>
+          <% else %>
+            <%= hidden_field_tag "assembly[status]", "approved" %>
+            <%= form.submit t("actions.approve"), data: { turbo_confirm: t("actions.confirm") } %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if allowed_to?(:scan?, assembly) %>
+      <div class="bg-white p-4 rounded-lg">
+
+      </div>
+    <% end %>
+  </div>
+
+  <% if allowed_to?(:scan?, assembly) %>
+    <div class="mt-6 sticky bottom-0">
+      <div class="bg-white p-4 rounded-lg">
+        <div class="flex flex-col space-y-1">
+          <% if allowed_to?(:destroy?, assembly) %>
+            <%= button_to t("actions.destroy_record"), load_assembly_path(assembly), class: "mobile-btn-xl bg-red-500 text-white", method: :delete, data: { turbo_action: :replace, turbo_confirm: t("actions.confirm") } %>
+          <% end %>
+          <button type="button" class="mobile-btn-xl"
+                  data-action="bridge--scanner#show"
+                  data-bridge--scanner-place-param="assembly_qr_scans"
+                  data-bridge--scanner-save-mode-param="create">
+            <%= t("actions.scan") %>
+          </button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -153,6 +153,10 @@ ru:
           ready_to_collect: "Готов к сборке"
           collected: "Укомплектован"
           completed: "Завершен"
+      assembly:
+        statuses:
+          draft: "Черновик"
+          approved: "Подтвержден"
     attributes:
       user:
         name: ФИО
@@ -442,6 +446,7 @@ ru:
         capacity_before: Кол-во в коробке
         capacity_after: Подтвержденное кол-во
       shipment:
+        id: Номер
         shipping_date: Дата отгрузки
         kind: Тип
         status: Статус
@@ -459,6 +464,12 @@ ru:
         product_id: Номенклатура ГП
         count: Кол-во
         unrestricted_count: Кол-во с ранней датой
+      assembly:
+        id: Номер
+        route_sheet_id: Маршрутный лист
+        zone_id: Зона
+        user_id: Пользователь
+        status: Статус
     models:
       box:
         one: Коробка
