@@ -34,7 +34,7 @@ module Mobile
       end
 
       def qr_scan_params
-        params.permit(:code, :allowed_prefixes, :action_name, :groupable_id, :groupable_type, qr_scan: [ :code ])
+        params.permit(:code, :allowed_prefixes, :action_name, :waybill_id, qr_scan: [ :code ])
       end
 
       def qr_scan_edit_params

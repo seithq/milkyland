@@ -26,7 +26,7 @@ class ProcessTransferCodesJob < ApplicationJob
       zone = waybill.new_storage.zones.filter_by_kind(:arrival).first
       waybill.qr_scans.each do |qr_scan|
         qr_scan.box.update! capacity: qr_scan.capacity_after
-        qr_scan.sourceable.locate_to zone
+        qr_scan.box.locate_to zone
       end
 
       true

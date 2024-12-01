@@ -60,7 +60,12 @@ class Waybill < ApplicationRecord
   def progress
     return 0.0 if qr_scans.count.zero?
 
-    (qr_scans.sum(:capacity_after).to_d / qr_scans.sum(:capacity_before).to_d) * 100.0
+    (before_scope.sum(:capacity_after).to_d / qr_scans.sum(:capacity_before).to_d) * 100.0
+  end
+
+  def before_scope
+    return qr_scans unless pending?
+    qr_scans.scanned
   end
 
   private
