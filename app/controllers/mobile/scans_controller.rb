@@ -18,6 +18,7 @@ class Mobile::ScansController < MobileController
       @frame = params[:frame].presence || "location_storable_codes"
       @input_name = params[:input_name].presence || "location[storable_codes][]"
       @turbo_action_name = params[:action_name].presence || "prepend"
+      @input_value = params[:input_value].presence || "code"
     end
 
     def get_allowed_prefixes

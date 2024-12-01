@@ -8,7 +8,12 @@ goods_arrival_zone:
   kind: :arrival
   display_index: B
 
-masters_zone:
+goods_ship_zone:
   code: Z-003
+  kind: :ship
+  display_index: C
+
+masters_zone:
+  code: Z-004
   kind: :arrival
   display_index: A

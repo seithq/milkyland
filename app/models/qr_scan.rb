@@ -10,6 +10,7 @@ class QrScan < ApplicationRecord
   scope :scanned, -> { where.not(scanned_at: nil) }
   scope :not_scanned, -> { where(scanned_at: nil) }
   scope :filter_by_scanning_code, ->(code) { joins(:box).where("qr_scans.code = ? OR boxes.code = ?", code, code) }
+  scope :filter_by_product, ->(product_id) { joins(box: :product).where(products: { id: product_id }) }
 
   def is_box?
     self.sourceable_type == Box.model_name.name

@@ -17,6 +17,8 @@ class Mobile::QrScanComponent < ApplicationComponent
     end
 
     def policy
+      return AssemblyPolicy if @qr_scan.groupable_type == "Assembly"
+
       case @qr_scan.groupable.kind
       when "arrival"
         ArrivalPolicy
@@ -30,6 +32,8 @@ class Mobile::QrScanComponent < ApplicationComponent
     end
 
     def adjustable?
+      return false if @qr_scan.groupable_type == "Assembly"
+
       case @qr_scan.groupable.kind
       when "arrival"
         false
@@ -46,5 +50,21 @@ class Mobile::QrScanComponent < ApplicationComponent
       return "text-green-600" if @qr_scan.groupable.draft?
 
       (@qr_scan.scanned? && @qr_scan.full?) ? "text-green-600" : "text-yellow-600"
+    end
+
+    def qr_scan_edit_url
+      if @qr_scan.groupable_type == "Assembly"
+        edit_load_assembly_qr_scan_path(@qr_scan.groupable, @qr_scan, format: :turbo_stream)
+      else
+        edit_waybills_qr_scan_path(@qr_scan.groupable, @qr_scan, format: :turbo_stream)
+      end
+    end
+
+    def qr_scan_url
+      if @qr_scan.groupable_type == "Assembly"
+        load_assembly_qr_scan_path(@qr_scan.groupable, @qr_scan, format: :turbo_stream)
+      else
+        waybills_qr_scan_path(@qr_scan.groupable, @qr_scan, format: :turbo_stream)
+      end
     end
 end

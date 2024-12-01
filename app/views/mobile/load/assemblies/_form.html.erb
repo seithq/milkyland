@@ -1,15 +1,48 @@
-<div class="p-4 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-manual="true">
+<div id="<%= dom_id(assembly) %>" class="p-4 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-manual="true">
   <div class="space-y-6">
     <div class="bg-white p-4 rounded-lg">
       <%= native_form_with model: [:load, assembly], html: { data: { turbo_action: "replace" } } do |form| %>
-        <div>
-          <%= form.label :route_sheet_id, class: "form-label" %>
-          <%= form.select :route_sheet_id, options_from_collection_for_select(RouteSheet.for_mobile, :id, :display_label, assembly.route_sheet_id), { include_blank: true }, { required: true, class: "form-select" } %>
-        </div>
-
-        <div>
-          <%= form.label :zone_id, class: "form-label" %>
-          <%= form.select :zone_id, options_from_collection_for_select(Zone.filter_by_kind(:ship), :id, :display_index, assembly.zone_id), { include_blank: true }, { required: true, class: "form-select" } %>
+        <div class="space-y-4">
+          <% if assembly.new_record? %>
+            <div>
+              <%= form.label :route_sheet_id, class: "form-label" %>
+              <%= form.select :route_sheet_id, options_from_collection_for_select(RouteSheet.for_mobile, :id, :display_label, assembly.route_sheet_id), { include_blank: true }, { required: true, class: "form-select" } %>
+            </div>
+            <div>
+              <%= form.label :zone_id, class: "form-label" %>
+              <div class="flex flex-col space-y-2">
+                <ul role="list" class="space-y-3"
+                    id="assembly_zone_id"
+                    data-controller="scan-preview"
+                    data-scan-preview-preview-url-value="<%= new_scan_url %>"
+                    data-scan-preview-whitelist-value="Z:S"
+                    data-scan-preview-input-name-value="assembly[zone_id]"
+                    data-scan-preview-input-value-value="id">
+                </ul>
+                <button type="button" class="mobile-btn-xl"
+                        data-action="bridge--scanner#show"
+                        data-bridge--scanner-place-param="assembly_zone_id"
+                        data-bridge--scanner-save-mode-param="update">
+                  <%= t("actions.scan") %>
+                </button>
+              </div>
+            </div>
+          <% else %>
+            <div>
+              <%= form.label :route_sheet_id, class: "form-label" %>
+              <div class="flex flex-col space-y-2">
+                <%= render Mobile::RouteSheetComponent.new route_sheet: assembly.route_sheet, is_open: false %>
+              </div>
+            </div>
+            <div>
+              <%= form.label :zone_id, class: "form-label" %>
+              <div class="flex flex-col space-y-2">
+                <ul role="list" class="space-y-3">
+                  <%= render Mobile::ZoneScanComponent.new zone: assembly.zone, is_open: false, readonly: true %>
+                </ul>
+              </div>
+            </div>
+          <% end %>
         </div>
 
         <div class="hidden">
@@ -25,7 +58,11 @@
 
     <% if allowed_to?(:scan?, assembly) %>
       <div class="bg-white p-4 rounded-lg">
-
+        <%= turbo_frame_tag dom_id(assembly, :qr_scans), src: load_assembly_qr_scans_path(assembly, allowed_prefixes: "T,P,B") do %>
+          <div class="flex justify-center">
+            <%= inline_svg_tag "spinner.svg" %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
@@ -34,9 +71,16 @@
     <div class="mt-6 sticky bottom-0">
       <div class="bg-white p-4 rounded-lg">
         <div class="flex flex-col space-y-1">
-          <% if allowed_to?(:destroy?, assembly) %>
-            <%= button_to t("actions.destroy_record"), load_assembly_path(assembly), class: "mobile-btn-xl bg-red-500 text-white", method: :delete, data: { turbo_action: :replace, turbo_confirm: t("actions.confirm") } %>
-          <% end %>
+          <div class="flex space-x-1">
+            <% if allowed_to?(:destroy?, assembly) %>
+              <div class="w-1/2">
+                <%= button_to t("actions.destroy_record"), load_assembly_path(assembly), class: "mobile-btn-xl bg-red-500 text-white", method: :delete, data: { turbo_action: :replace, turbo_confirm: t("actions.confirm") } %>
+              </div>
+              <div class="w-1/2">
+                <a href="#" class="mobile-btn-secondary-xl"><%= t("pages.fifo") %></a>
+              </div>
+            <% end %>
+          </div>
           <button type="button" class="mobile-btn-xl"
                   data-action="bridge--scanner#show"
                   data-bridge--scanner-place-param="assembly_qr_scans"

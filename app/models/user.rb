@@ -11,6 +11,7 @@ class User < ApplicationRecord
 
   has_many :warehousers, dependent: :destroy
   has_many :storages, through: :warehousers
+  has_many :zones, through: :storages
 
   has_many :assemblies, dependent: :destroy
 

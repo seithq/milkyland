@@ -105,6 +105,7 @@ ru:
     transfer: "Перемещение #%{id}"
     assemblies: "Сборка груза"
     assembly: "Сборка груза #%{id}"
+    fifo: "Рекомендация"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_11_30_200026) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_01_150622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -556,7 +556,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_30_200026) do
     t.datetime "updated_at", null: false
     t.string "groupable_type", default: "Waybill"
     t.index ["box_id"], name: "index_qr_scans_on_box_id"
-    t.index ["groupable_id"], name: "index_qr_scans_on_groupable_id"
+    t.index ["groupable_type", "groupable_id"], name: "index_qr_scans_on_groupable"
     t.index ["sourceable_type", "sourceable_id"], name: "index_qr_scans_on_sourceable"
   end
 
@@ -995,7 +995,6 @@ ActiveRecord::Schema[8.1].define(version: 2024_11_30_200026) do
   add_foreign_key "products", "material_assets"
   add_foreign_key "products", "measurements"
   add_foreign_key "qr_scans", "boxes"
-  add_foreign_key "qr_scans", "waybills", column: "groupable_id"
   add_foreign_key "route_sheets", "shipments"
   add_foreign_key "sales_points", "clients"
   add_foreign_key "sales_points", "regions"

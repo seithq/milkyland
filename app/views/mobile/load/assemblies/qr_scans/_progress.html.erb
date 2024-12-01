@@ -1,0 +1,15 @@
+<ul id="progress" class="space-y-2">
+  <% @assembly.products_progress.each do |info| %>
+    <li>
+      <div aria-hidden="true">
+        <div class="overflow-hidden rounded-full bg-gray-200">
+          <div class="h-2 rounded-full bg-green-600" style="width: <%= info[:progress] %>%"></div>
+        </div>
+        <div class="mt-2 grid grid-cols-2 text-xs font-semibold text-gray-900">
+          <span class="text-left"><%= info[:product].name %></span>
+          <span class="text-right"><%= "#{ info[:scanned] } / #{ info[:planned] }" %></span>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

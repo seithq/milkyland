@@ -11,6 +11,11 @@ class AssemblyPolicy < ApplicationPolicy
     scan?
   end
 
+  relation_scope do |relation|
+    next relation if user.admin?
+    user.assemblies
+  end
+
   private
     def owned?
       user.admin? || (user.id == record.user_id)

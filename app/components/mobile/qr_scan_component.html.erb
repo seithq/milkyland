@@ -88,7 +88,7 @@
             <% if @with_capacity_input %>
               <li class="py-2 flex justify-end">
                 <%= form_with model: @qr_scan,
-                              url: waybills_qr_scan_path(@qr_scan.groupable, @qr_scan, format: :turbo_stream),
+                              url: qr_scan_url,
                               method: :put,
                               data: { turbo_prefetch: false } do |form| %>
                   <%= form.hidden_field :capacity_after, min: 1, max: @qr_scan.capacity_before %>
@@ -101,11 +101,11 @@
             <% else %>
               <li class="py-2 flex <%= adjustable? ? "justify-between" : "justify-end" %>">
                 <% if adjustable? %>
-                  <%= link_to edit_waybills_qr_scan_path(@qr_scan.groupable, @qr_scan, format: :turbo_stream), data: { turbo_prefetch: false }, class: "text-xs leading-6 font-medium text-indigo-600 hover:text-indigo-500" do %>
+                  <%= link_to qr_scan_edit_url, data: { turbo_prefetch: false }, class: "text-xs leading-6 font-medium text-indigo-600 hover:text-indigo-500" do %>
                     <%= inline_svg_tag "pencil-alt.svg", class: "size-5" %>
                   <% end %>
                 <% end %>
-                <%= link_to waybills_qr_scan_path(@qr_scan.groupable, @qr_scan), data: { turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "text-xs leading-6 font-medium text-red-600 hover:text-red-500" do %>
+                <%= link_to qr_scan_url, data: { turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "text-xs leading-6 font-medium text-red-600 hover:text-red-500" do %>
                   <%= inline_svg_tag "trash.svg", class: "size-5" %>
                 <% end %>
               </li>
@@ -117,7 +117,7 @@
             <% if @with_capacity_input %>
               <li class="py-2 flex justify-end">
                 <%= form_with model: @qr_scan,
-                              url: waybills_qr_scan_path(@qr_scan.groupable, @qr_scan, format: :turbo_stream),
+                              url: qr_scan_url,
                               method: :put,
                               data: { turbo_prefetch: false } do |form| %>
                   <%= hidden_field_tag "qr_scan[scanned_at]", Time.current %>
@@ -130,7 +130,7 @@
               </li>
             <% else %>
               <li class="<%= "hidden" unless helpers.allowed_to?(:sanction?, @qr_scan.groupable, with: policy) %> py-2 flex justify-between">
-                <%= link_to edit_waybills_qr_scan_path(@qr_scan.groupable, @qr_scan, format: :turbo_stream), data: { turbo_prefetch: false }, class: "text-xs leading-6 font-medium text-indigo-600 hover:text-indigo-500" do %>
+                <%= link_to qr_scan_edit_url, data: { turbo_prefetch: false }, class: "text-xs leading-6 font-medium text-indigo-600 hover:text-indigo-500" do %>
                   <%= inline_svg_tag "pencil-alt.svg", class: "size-5" %>
                 <% end %>
               </li>

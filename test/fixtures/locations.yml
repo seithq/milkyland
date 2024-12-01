@@ -6,6 +6,10 @@ goods_arrival_zone_location:
   storable: goods_arrival_zone (Zone)
   positionable: goods (Storage)
 
+goods_ship_zone_location:
+  storable: goods_ship_zone (Zone)
+  positionable: goods (Storage)
+
 goods_zone_line_location:
   storable: goods_zone_line (Line)
   positionable: goods_zone (Zone)

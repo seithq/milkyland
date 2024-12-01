@@ -5,6 +5,7 @@ export default class extends Controller {
   static values = {
     previewUrl: String,
     inputName: { type: String, default: "" },
+    inputValue: { type: String, default: "" },
     whitelist: String,
     codes: { type: Array, default: [] }
   }
@@ -17,6 +18,7 @@ export default class extends Controller {
     params.append("action_name", saveMode)
     params.append("allowed_prefixes", this.whitelistValue)
     params.append("input_name", this.inputNameValue)
+    params.append("input_value", this.inputValueValue)
     params.append("frame", this.element.id)
 
     get(`${this.previewUrlValue}?${params}`, {

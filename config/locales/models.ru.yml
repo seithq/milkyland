@@ -454,6 +454,7 @@ ru:
         region_id: Регион
         routes_changed_at: Дата и время изменения маршрута
       route_sheet:
+        id: Номер
         shipment_id: Отгрузка
         vehicle_plate_number: Номер машины
         driver_name: Водитель
@@ -469,7 +470,10 @@ ru:
         route_sheet_id: Маршрутный лист
         zone_id: Зона
         user_id: Пользователь
+        zone: Зона
+        user: Пользователь
         status: Статус
+        qr_scans: Сканирование коробок
     models:
       box:
         one: Коробка

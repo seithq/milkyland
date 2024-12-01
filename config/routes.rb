@@ -222,7 +222,11 @@ Rails.application.routes.draw do
       resources :incomings, only: :index
     end
     namespace :load do
-      resources :assemblies
+      resources :assemblies do
+        scope module: "assemblies" do
+          resources :qr_scans, except: %i[ new show ]
+        end
+      end
     end
   end
 

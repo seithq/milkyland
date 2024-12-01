@@ -1,0 +1,11 @@
+<%= turbo_stream.remove dom_id(@qr_scan) %>
+
+<%= turbo_stream.replace "progress" do %>
+  <%= render "progress" %>
+<% end %>
+
+<% if @assembly.qr_scans.count.zero? %>
+  <%= turbo_stream.prepend "assembly_qr_scans" do %>
+    <%= render "placeholder" %>
+  <% end %>
+<% end %>

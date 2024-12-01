@@ -24,6 +24,8 @@ class Zone < ApplicationRecord
 
   scope :filter_by_kind, ->(kind) { where(kind: kind) }
 
+  scope :for_mobile, ->() { filter_by_kind(:ship) }
+
   def counter_base
     self.lines.count
   end

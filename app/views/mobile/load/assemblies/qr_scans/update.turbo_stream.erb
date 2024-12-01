@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "progress" do %>
+  <%= render "progress" %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(@qr_scan) do %>
+  <%= render Mobile::QrScanComponent.new(qr_scan: @qr_scan, is_open: true, with_capacity_input: false) %>
+<% end %>
