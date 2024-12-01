@@ -5,7 +5,11 @@ module Mobile
     setup do
       @storage = storages(:masters)
       @new_storage = storages(:goods)
-      @waybill = Waybill.create! kind: :transfer, storage: @storage, new_storage: @new_storage, sender: users(:daniyar), receiver: users(:warehouser)
+      @shipment = Shipment.create kind: :internal, client: clients(:systemd), region: regions(:almaty), shipping_date: Date.current
+      @route_sheet = @shipment.route_sheets.create vehicle_plate_number: "272MNB02", driver_name: "Daniyar", driver_phone_number: "+77772514515"
+      @tracking_product = @route_sheet.tracking_products.create product: products(:milk25), count: 6
+      @assembly = Assembly.create zone: zones(:masters_zone), route_sheet: @route_sheet, user: users(:daniyar)
+      @waybill = Waybill.create! kind: :transfer, storage: @storage, new_storage: @new_storage, sender: users(:daniyar), receiver: users(:warehouser), collectable: true, route_sheet_id: @route_sheet.id
       sign_in :daniyar
     end
 
@@ -16,7 +20,7 @@ module Mobile
 
     test "should create transfer" do
       assert_difference("Waybill.count") do
-        post waybills_transfers_url, params: { waybill: { storage_id: @storage.id, new_storage_id: @new_storage.id, sender_id: users(:daniyar).id, receiver_id: users(:warehouser).id  } }
+        post waybills_transfers_url, params: { waybill: { storage_id: @storage.id, new_storage_id: @new_storage.id, sender_id: users(:daniyar).id, receiver_id: users(:warehouser).id, collectable: true, route_sheet_id: @route_sheet.id } }
       end
 
       assert_redirected_to edit_waybills_transfer_url(Waybill.last)
@@ -33,7 +37,12 @@ module Mobile
     end
 
     test "should update transfer" do
-      patch waybills_transfer_url(@waybill), params: { waybill: { status: :approved } }
+      BoxGenerationJob.perform_now sample_generation.id
+      assert @assembly.add_qr Box.last.code, scanned_at: Time.current
+      assert @assembly.update status: :approved
+      assert @waybill.add_qr Box.last.code, scanned_at: Time.current
+
+      patch waybills_transfer_url(@waybill), params: { waybill: { status: :pending } }
       assert_redirected_to waybills_transfer_url(@waybill)
     end
 

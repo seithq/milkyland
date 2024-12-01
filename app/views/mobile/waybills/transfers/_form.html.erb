@@ -17,9 +17,15 @@
             <%= form.label :receiver_id, class: "form-label" %>
             <%= form.select :receiver_id, options_from_collection_for_select(@receivers || [], :user_id, :user_name, waybill.receiver_id), { include_blank: true }, { disabled: !waybill.draft?, required: true, class: "form-select" } %>
           </div>
+
+          <div>
+            <%= form.label :route_sheet_id, class: "form-label" %>
+            <%= form.select :route_sheet_id, options_from_collection_for_select(RouteSheet.for_transfer, :id, :display_label, waybill.route_sheet_id), { include_blank: true }, { disabled: !waybill.draft?, required: true, class: "form-select" } %>
+          </div>
         </div>
 
         <div class="hidden">
+          <%= form.hidden_field :collectable, value: true %>
           <% if waybill.new_record? %>
             <%= form.submit t("actions.save_record_next") %>
           <% else %>

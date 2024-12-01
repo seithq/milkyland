@@ -8,6 +8,8 @@ class Assembly < ApplicationRecord
 
   enum :status, %w[ draft approved ].index_by(&:itself), default: :draft
 
+  scope :filter_by_status, ->(status) { where(status: status) }
+
   def add_qr(code, scanned_at: nil, allowed_prefixes: %w[ P B ])
     sourceable = Scan.find_by code, allowed_prefixes: allowed_prefixes
     return unless sourceable

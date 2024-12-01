@@ -15,7 +15,7 @@ class ProcessAssemblyCodesJob < ApplicationJob
     return false if assembly.qr_scans.count.zero?
 
     assembly.transaction do
-      assembly.route_sheet.update! status: :completed
+      assembly.route_sheet.update! status: :collected
       assembly.qr_scans.each do |qr_scan|
         qr_scan.sourceable.locate_to assembly.zone
       end

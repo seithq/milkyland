@@ -63,7 +63,7 @@ module Mobile
       end
 
       def waybill_params
-        params.expect(waybill: [ :kind, :storage_id, :new_storage_id, :sender_id, :receiver_id, :status ]).with_defaults(kind: base_kind)
+        params.expect(waybill: %i[ kind storage_id new_storage_id sender_id receiver_id status collectable route_sheet_id ]).with_defaults(kind: base_kind, collectable: false)
       end
   end
 end

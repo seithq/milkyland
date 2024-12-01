@@ -29,6 +29,10 @@ class ProcessTransferCodesJob < ApplicationJob
         qr_scan.box.locate_to zone
       end
 
+      if waybill.route_sheet.present?
+        waybill.route_sheet.update! status: :completed
+      end
+
       true
     rescue ActiveRecord::RecordInvalid => exception
       Rails.logger.error("ProcessTransferCodesJob: #{exception.message}")

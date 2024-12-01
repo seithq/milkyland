@@ -1,4 +1,4 @@
-<li id="<%= dom_id(@qr_scan) %>" class="overflow-hidden rounded-md border p-4" data-controller="pulse" data-pulse-animated-value="<%= @with_animation %>" data-pulse-animation-class="animate-pulse">
+<li id="<%= dom_id(@qr_scan) %>" class="overflow-hidden rounded-md border px-4 py-2" data-controller="pulse" data-pulse-animated-value="<%= @with_animation %>" data-pulse-animation-class="animate-pulse">
   <dl data-controller="detail" data-detail-open-value="<%= @is_open %>">
     <dt>
       <button type="button" data-action="detail#toggle" class="flex w-full items-center justify-between text-left text-gray-900" aria-controls="<%= dom_id(@qr_scan) %>_details" aria-expanded="false">
@@ -14,8 +14,8 @@
           <% end %>
         </span>
         <span class="flex h-7 items-center">
-          <%= inline_svg_tag "plus-sm.svg", class: "h-6 w-6", data: { detail_target: "opener" } %>
-          <%= inline_svg_tag "minus-sm.svg", class: "h-6 w-6", data: { detail_target: "closer" } %>
+          <%= inline_svg_tag "plus-sm.svg", class: "#{ "hidden" if @is_open } size-6", data: { detail_target: "opener" } %>
+          <%= inline_svg_tag "minus-sm.svg", class: "#{ "hidden" unless @is_open } size-6", data: { detail_target: "closer" } %>
         </span>
       </button>
     </dt>

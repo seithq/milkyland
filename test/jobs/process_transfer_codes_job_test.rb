@@ -28,7 +28,8 @@ class ProcessTransferCodesJobTest < ActiveJob::TestCase
       assert_difference -> { storage.available_count(box.product) }, -5.0 do
         assert_difference -> { new_storage.available_count(box.product) }, 5.0 do
           assert ProcessTransferCodesJob.perform_now waybill.id
-          assert_equal zones(:goods_arrival_zone), pallet.current_position
+          assert_equal zones(:masters_zone), pallet.current_position
+          assert_equal zones(:goods_arrival_zone), box.current_position
         end
       end
     end

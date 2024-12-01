@@ -8,6 +8,7 @@ class Waybill < ApplicationRecord
   belongs_to :receiver, class_name: "User", foreign_key: "receiver_id", optional: true
 
   belongs_to :batch, optional: true
+  belongs_to :route_sheet, optional: true
 
   has_many :leftovers, dependent: :destroy
   has_many :qr_scans, as: :groupable, dependent: :destroy
@@ -18,9 +19,11 @@ class Waybill < ApplicationRecord
   validates_presence_of :storage_id, unless: ->() { arrival? }
   validates_presence_of :new_storage_id, if: ->() { arrival? || transfer? || return_back? }
   validates_presence_of :batch_id, if: :production_write_off?
+  validates_presence_of :route_sheet_id, if: :collectable?
 
   validate :storage_integrity
   validate :qr_scans_integrity
+  validate :route_sheet_integrity
 
   scope :filter_by_kind, ->(kind) { where(kind: kind) }
   scope :automatic, ->() { filter_by_kind(:production_write_off) }
@@ -80,6 +83,12 @@ class Waybill < ApplicationRecord
       errors.add(:qr_scans, :accepted) if has_not_scanned? || has_delta?
     end
 
+    def route_sheet_integrity
+      return unless collectable? && pending?
+
+      errors.add(:qr_scans, :inclusion) if has_imbalance?
+    end
+
     def has_not_scanned?
       qr_scans.not_scanned.count > 0
     end
@@ -90,5 +99,24 @@ class Waybill < ApplicationRecord
 
     def capacity_delta
       qr_scans.sum(:capacity_before) - qr_scans.sum(:capacity_after)
+    end
+
+    def has_imbalance?
+      scope = route_sheet.assemblies.filter_by_status(:approved)
+      return true if scope.empty?
+
+      assembly = scope.recent_first.limit(1).first
+      assembled = assembly.qr_scans
+
+      scanned = qr_scans.where(box_id: assembled.pluck(:box_id))
+      total_count, total_capacity = qr_scans.count, qr_scans.sum(:capacity_after)
+
+      return true unless total_count == scanned.count &&
+        total_count == assembled.count
+
+      return true unless total_capacity == scanned.sum(:capacity_after) &&
+        total_capacity == assembled.sum(:capacity_after)
+
+      false
     end
 end

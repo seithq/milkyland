@@ -6,3 +6,41 @@
   </div>
 <% end %>
 
+<div class="p-4 min-h-full flex flex-col justify-between">
+  <div class="space-y-6">
+    <div class="bg-white p-4 rounded-lg space-y-2">
+      <%= fields_for @assembly do |form| %>
+        <div class="flex justify-start">
+          <%= render Mobile::StatusBadgeComponent.new record: @assembly %>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <%= form.label :route_sheet_id, class: "form-label" %>
+            <div class="flex flex-col space-y-2">
+              <%= render Mobile::RouteSheetComponent.new route_sheet: @assembly.route_sheet, is_open: false %>
+            </div>
+          </div>
+
+          <div>
+            <%= form.label :zone_id, class: "form-label" %>
+            <div class="flex flex-col space-y-2">
+              <ul role="list" class="space-y-3">
+                <%= render Mobile::ZoneScanComponent.new zone: @assembly.zone, is_open: false, readonly: true %>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+
+    <div class="bg-white p-4 rounded-lg">
+      <%= turbo_frame_tag dom_id(@assembly, :qr_scans), src: load_assembly_qr_scans_path(@assembly, readonly: true) do %>
+        <div class="flex justify-center">
+          <%= inline_svg_tag "spinner.svg" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

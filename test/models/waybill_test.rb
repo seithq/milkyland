@@ -29,4 +29,67 @@ class WaybillTest < ActiveSupport::TestCase
     waybills = Waybill.for_material_assets
     assert_equal 3, waybills.count
   end
+
+  test "should validate balance of qr scans" do
+    @waybill = prepare_transfer_waybill
+    assert @waybill.update status: :pending
+  end
+
+  test "should validate balance of qr scans if extra box added to zone" do
+    @waybill = prepare_transfer_waybill
+
+    @box = Box.create region: regions(:almaty),
+                      product: products(:milk25),
+                      capacity: 6,
+                      production_date: 3.days.from_now,
+                      expiration_date: 7.days.from_now
+    assert @box.locate_to @assembly.zone
+    assert @waybill.add_qr @box.code, scanned_at: Time.current
+
+    assert_not @waybill.update status: :pending
+  end
+
+  test "should validate balance of qr scans if extra box added to assembly" do
+    @waybill = prepare_transfer_waybill
+
+    @box = Box.create region: regions(:almaty),
+                      product: products(:milk25),
+                      capacity: 6,
+                      production_date: 3.days.from_now,
+                      expiration_date: 7.days.from_now
+    assert @assembly.add_qr @box.code, scanned_at: Time.current
+
+    assert_not @waybill.update status: :pending
+  end
+
+  test "should validate balance of qr scans if capacity has been changed" do
+    @waybill = prepare_transfer_waybill
+
+    assert @waybill.qr_scans.last.update capacity_after: 3
+    assert_not @waybill.update status: :pending
+  end
+
+  private
+    def prepare_transfer_waybill
+      @shipment = Shipment.create kind: :internal, client: clients(:systemd), region: regions(:almaty), shipping_date: Date.current
+      @route_sheet = @shipment.route_sheets.create vehicle_plate_number: "272MNB02", driver_name: "Daniyar", driver_phone_number: "+77772514515"
+      @tracking_product = @route_sheet.tracking_products.create product: products(:milk25), count: 6
+      @assembly = Assembly.create zone: zones(:masters_zone), route_sheet: @route_sheet, user: users(:daniyar)
+
+      @waybill = Waybill.new kind: :transfer,
+                             storage: storages(:masters),
+                             new_storage: storages(:goods),
+                             sender: users(:daniyar),
+                             receiver: users(:warehouser),
+                             collectable: true,
+                             route_sheet_id: @route_sheet.id
+      assert @waybill.save
+
+      assert BoxGenerationJob.perform_now sample_generation.id
+      assert @assembly.add_qr Box.last.code, scanned_at: Time.current
+      assert @assembly.update status: :approved
+      assert @waybill.add_qr Box.last.code, scanned_at: Time.current
+
+      @waybill
+    end
 end

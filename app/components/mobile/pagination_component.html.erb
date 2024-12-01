@@ -1,4 +1,4 @@
-<div id="pagination" class="flex justify-center">
+<div id="pagination" class="flex justify-center py-3">
   <nav class="flex items-center space-x-4">
     <% if pagy.prev %>
       <%= link_to pagy_url_for(pagy, pagy.prev), data: { turbo_action: "replace" }, class: "inline-flex items-center pr-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700" do %>

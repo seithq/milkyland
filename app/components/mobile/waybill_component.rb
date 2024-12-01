@@ -43,7 +43,7 @@ class Mobile::WaybillComponent < ApplicationComponent
     end
 
     def waybill_url
-      url_for(action: "show", controller: "mobile/waybills/#{ waybill.kind }s", id: waybill.id, only_path: true)
+      url_for(action: waybill.draft? ? "edit" : "show", controller: "mobile/waybills/#{ waybill.kind }s", id: waybill.id, only_path: true)
     end
 
     def title
