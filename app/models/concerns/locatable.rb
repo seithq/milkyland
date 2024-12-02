@@ -28,7 +28,7 @@ module Locatable
 
     def all_boxes
       ids = box_scopes.map { |scope| scope.pluck(:id) }.reduce(&:+)
-      Box.where(id: ids)
+      Box.where(id: ids).active
     end
 
     def capacity_by(product_id)

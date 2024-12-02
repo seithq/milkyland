@@ -26,10 +26,6 @@
                   <%= render "shared/qr_dialog", qr_text: @pallet.code %>
                 </div>
               </div>
-              <div class="sm:col-span-4">
-                <%= form.label :scanned_at, class: "form-label" %>
-                <%= form.datetime_field :scanned_at, disabled: true, class: "mt-2 form-input" %>
-              </div>
             </div>
           </div>
           <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">

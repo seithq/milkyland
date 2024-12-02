@@ -5,7 +5,7 @@ module Mobile
     setup do
       @storage = storages(:masters)
       @new_storage = storages(:goods)
-      @shipment = Shipment.create kind: :internal, client: clients(:systemd), region: regions(:almaty), shipping_date: Date.current
+      @shipment = Shipment.create kind: :internal, region: regions(:almaty), shipping_date: Date.current
       @route_sheet = @shipment.route_sheets.create vehicle_plate_number: "272MNB02", driver_name: "Daniyar", driver_phone_number: "+77772514515"
       @tracking_product = @route_sheet.tracking_products.create product: products(:milk25), count: 6
       @assembly = Assembly.create zone: zones(:masters_zone), route_sheet: @route_sheet, user: users(:daniyar)
@@ -42,7 +42,7 @@ module Mobile
       assert @assembly.update status: :approved
       assert @waybill.add_qr Box.last.code, scanned_at: Time.current
 
-      patch waybills_transfer_url(@waybill), params: { waybill: { status: :pending } }
+      patch waybills_transfer_url(@waybill), params: { waybill: { collectable: true, status: :pending } }
       assert_redirected_to waybills_transfer_url(@waybill)
     end
 

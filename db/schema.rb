@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_01_181421) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_02_074600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -121,9 +121,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_01_181421) do
     t.date "production_date"
     t.date "expiration_date"
     t.bigint "box_request_id"
-    t.datetime "scanned_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "taken_out_at"
     t.index ["box_request_id"], name: "index_boxes_on_box_request_id"
     t.index ["code"], name: "index_boxes_on_code", unique: true
     t.index ["product_id"], name: "index_boxes_on_product_id"
@@ -443,7 +443,6 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_01_181421) do
   create_table "pallets", force: :cascade do |t|
     t.string "code"
     t.bigint "pallet_request_id"
-    t.datetime "scanned_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_pallets_on_code", unique: true

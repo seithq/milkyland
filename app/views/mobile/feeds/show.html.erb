@@ -43,16 +43,18 @@
           </div>
         <% end %>
       </li>
-      <li class="relative flex">
-        <div class="flex w-16 shrink-0 items-center justify-center bg-red-500 text-sm font-medium text-white">
-          <%= inline_svg_tag "switch-vertical.svg", class: "size-10" %>
-        </div>
-        <div class="flex flex-1 items-center justify-between truncate bg-white">
-          <div class="flex-1 truncate px-4 py-2 text-sm">
-            <a href="#" class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.create_departure") %></a>
-            <p class="text-gray-500 text-xs"><%= t("hints.create_departure") %></p>
+      <li>
+        <%= link_to new_waybills_departure_path, class: "relative flex" do %>
+          <div class="flex w-16 shrink-0 items-center justify-center bg-red-500 text-sm font-medium text-white">
+            <%= inline_svg_tag "switch-vertical.svg", class: "size-10" %>
           </div>
-        </div>
+          <div class="flex flex-1 items-center justify-between truncate bg-white">
+            <div class="flex-1 truncate px-4 py-2 text-sm">
+              <span class="font-medium text-gray-900 hover:text-gray-600 uppercase"><%= t("actions.create_departure") %></span>
+              <p class="text-gray-500 text-xs"><%= t("hints.create_departure") %></p>
+            </div>
+          </div>
+        <% end %>
       </li>
     </ul>
   </div>

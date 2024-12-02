@@ -1,14 +1,8 @@
-<% content_for(:turbo_native_title) { t("pages.transfer", id: @waybill.id) } %>
+<% content_for(:turbo_native_title) { t("pages.departure", id: @waybill.id) } %>
 
-<% if allowed_to?(:edit?, @waybill, with: TransferPolicy) %>
+<% if allowed_to?(:edit?, @waybill, with: DeparturePolicy) %>
   <div class="turbo-native:hidden">
-    <%= link_to t("actions.edit_record"), edit_waybills_transfer_path(@waybill), data: { controller: "bridge--button", bridge_image: "", bridge_side: "right" } %>
-  </div>
-<% end %>
-
-<% if allowed_to?(:approve?, @waybill, with: TransferPolicy) %>
-  <div class="turbo-native:hidden">
-    <%= link_to t("actions.accept"), edit_waybills_transfer_path(@waybill), data: { controller: "bridge--button", bridge_image: "", bridge_side: "right" } %>
+    <%= link_to t("actions.edit_record"), edit_waybills_departure_path(@waybill), data: { controller: "bridge--button", bridge_image: "", bridge_side: "right" } %>
   </div>
 <% end %>
 
@@ -24,16 +18,6 @@
           <div>
             <%= form.label :storage_id, class: "form-label" %>
             <%= form.select :storage_id, options_from_collection_for_select(Current.user.storages.acceptable, :id, :name, @waybill.storage_id), {}, { disabled: true, class: "form-select" } %>
-          </div>
-
-          <div>
-            <%= form.label :new_storage_id, class: "form-label" %>
-            <%= form.select :new_storage_id, options_from_collection_for_select(Storage.acceptable, :id, :name, @waybill.new_storage_id), {}, { disabled: true, class: "form-select" } %>
-          </div>
-
-          <div>
-            <%= form.label :receiver_id, class: "form-label" %>
-            <%= form.select :receiver_id, options_from_collection_for_select(@waybill.new_storage.warehousers, :user_id, :user_name, @waybill.receiver_id), {}, { disabled: true, class: "form-select" } %>
           </div>
 
           <div>

@@ -22,6 +22,8 @@ class Mobile::QrScanComponent < ApplicationComponent
       case @qr_scan.groupable.kind
       when "arrival"
         ArrivalPolicy
+      when "departure"
+        DeparturePolicy
       when "write_off"
         WriteOffPolicy
       when "transfer"
@@ -36,6 +38,8 @@ class Mobile::QrScanComponent < ApplicationComponent
 
       case @qr_scan.groupable.kind
       when "arrival"
+        false
+      when "departure"
         false
       when "write_off"
         true

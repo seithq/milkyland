@@ -1,6 +1,6 @@
 class Scan
   PREFIX_TO_CLASS = HashWithIndifferentAccess.new(
-    "B": Box,
+    "B": Box.active,
     "P": Pallet,
     "T": Tier,
     "S": Stack,

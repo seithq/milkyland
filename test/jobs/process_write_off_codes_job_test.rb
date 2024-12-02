@@ -40,6 +40,7 @@ class ProcessWriteOffCodesJobTest < ActiveJob::TestCase
       assert_difference -> { storage.available_count(box.product) }, capacity * -1.0 do
         assert ProcessWriteOffCodesJob.perform_now waybill.id
         assert_not box.current_position
+        assert box.reload.taken_out_at
       end
     end
   end

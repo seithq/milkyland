@@ -103,6 +103,8 @@ ru:
     write_off: "Списание #%{id}"
     transfers: "Перемещение"
     transfer: "Перемещение #%{id}"
+    departures: "Расход"
+    departure: "Расход #%{id}"
     assemblies: "Сборка груза"
     assembly: "Сборка груза #%{id}"
     fifo: "Рекомендация"

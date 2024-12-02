@@ -1,43 +1,30 @@
 require "test_helper"
 
-class ProcessTransferCodesJobTest < ActiveJob::TestCase
-  test "should create qr scans for transfer" do
-    storage, new_storage = storages(:goods), storages(:masters)
+class ProcessDepartureCodesJobTest < ActiveJob::TestCase
+  test "should create qr scans for departure" do
+    storage = storages(:goods)
     prepare_arrival storage
 
     pallet, box, route_sheet = Pallet.last, Box.last, RouteSheet.last
 
     waybill = Waybill.new(
       storage: storage,
-      new_storage: new_storage,
       sender: users(:daniyar),
-      receiver: users(:warehouser),
-      kind: :transfer,
+      kind: :departure,
       status: :draft,
       route_sheet: route_sheet,
       collectable: true
     )
     assert waybill.save
-    assert waybill.add_qr zones(:goods_ship_zone).code, scanned_at: nil
-    assert waybill.qr_scans.last.update capacity_after: 5
+    assert waybill.add_qr zones(:goods_ship_zone).code, scanned_at: Time.current
+    assert waybill.update status: :approved
 
-    assert_not waybill.update status: :pending
-    assert route_sheet.tracking_products.last.update count: 5
-    assert Assembly.last.qr_scans.last.update capacity_after: 5
-    assert waybill.update status: :pending
-
-    assert waybill.qr_scans.last.update scanned_at: Time.current
-    assert waybill.update status: :approved, manual_approval: true
-
-    assert_difference -> { box.reload.capacity }, -1 do
-      assert_difference -> { storage.available_count(box.product) }, -5.0 do
-        assert_difference -> { new_storage.available_count(box.product) }, 5.0 do
-          assert ProcessTransferCodesJob.perform_now waybill.id
-          assert_equal zones(:goods_arrival_zone), pallet.current_position
-          assert_equal zones(:masters_zone), box.current_position
-          assert route_sheet.reload.completed?
-        end
-      end
+    assert_difference -> { storage.available_count(box.product) }, -1.0 * box.capacity do
+      assert ProcessDepartureCodesJob.perform_now waybill.id
+      assert_equal zones(:goods_arrival_zone), pallet.current_position
+      assert_nil box.current_position
+      assert box.reload.taken_out_at
+      assert route_sheet.reload.completed?
     end
   end
 
@@ -56,7 +43,7 @@ class ProcessTransferCodesJobTest < ActiveJob::TestCase
       assert waybill.add_qr pallet.code, scanned_at: Time.current
       assert ProcessArrivalCodesJob.perform_now waybill.id
 
-      shipment = Shipment.create kind: :internal, region: regions(:aktobe), shipping_date: Date.current
+      shipment = Shipment.create kind: :external, client: clients(:systemd), region: regions(:almaty), shipping_date: Date.current
       route_sheet = shipment.route_sheets.create vehicle_plate_number: "272MNB02", driver_name: "Daniyar", driver_phone_number: "+77772514515"
       route_sheet.tracking_products.create product: products(:milk25), count: box.capacity
       assembly = Assembly.create zone: zones(:goods_ship_zone), route_sheet: route_sheet, user: users(:daniyar)

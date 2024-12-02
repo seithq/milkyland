@@ -390,7 +390,7 @@ ru:
         capacity: Кол-во в коробке
         capacity_before: Кол-во в коробке
         capacity_after: Подтвержденное кол-во
-        scanned_at: Время сканирования
+        taken_out_at: Время выбывания из оборота
         production_date: Дата производства
         expiration_date: Дата истечения срока годности
       generation:
@@ -399,7 +399,6 @@ ru:
         id: ID
         code: Код паллеты
         capacity: Кол-во в паллете
-        scanned_at: Время сканирования
       zone:
         id: ID
         code: Код зоны

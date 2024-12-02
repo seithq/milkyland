@@ -1,0 +1,57 @@
+<div class="p-4 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-manual="true">
+  <div class="space-y-6">
+    <div class="bg-white p-4 rounded-lg">
+      <%= native_form_with model: waybill, url: mobile_waybill_form_url(waybill), html: { data: { turbo_action: "replace" } } do |form| %>
+        <div class="space-y-4" data-controller="storage" data-storage-search-url-value="<%= warehousers_search_path %>">
+          <div>
+            <%= form.label :storage_id, class: "form-label" %>
+            <%= form.select :storage_id, options_from_collection_for_select(Current.user.storages.acceptable, :id, :name, waybill.storage_id), { include_blank: true }, { disabled: !waybill.draft?, required: true, class: "form-select" } %>
+          </div>
+
+          <div>
+            <%= form.label :route_sheet_id, class: "form-label" %>
+            <%= form.select :route_sheet_id, options_from_collection_for_select(RouteSheet.for_departure, :id, :display_label, waybill.route_sheet_id), { include_blank: true }, { disabled: !waybill.draft?, required: true, class: "form-select" } %>
+          </div>
+        </div>
+
+        <div class="hidden">
+          <%= form.hidden_field :collectable, value: true %>
+          <% if waybill.new_record? %>
+            <%= form.submit t("actions.save_record_next") %>
+          <% else %>
+            <%= hidden_field_tag "waybill[status]", "approved" %>
+            <%= form.submit t("actions.approve"), data: { turbo_confirm: t("actions.confirm") } %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if allowed_to?(:scan?, waybill, with: DeparturePolicy) %>
+      <div class="bg-white p-4 rounded-lg">
+        <%= turbo_frame_tag dom_id(waybill, :qr_scans), src: waybills_qr_scans_path(waybill, allowed_prefixes: "Z:S") do %>
+          <div class="flex justify-center">
+            <%= inline_svg_tag "spinner.svg" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if allowed_to?(:scan?, waybill, with: DeparturePolicy) %>
+    <div class="mt-6 sticky bottom-0">
+      <div class="bg-white p-4 rounded-lg">
+        <div class="flex flex-col space-y-1">
+          <% if allowed_to?(:destroy?, waybill, with: DeparturePolicy) %>
+            <%= button_to t("actions.destroy_record"), waybills_write_off_url(waybill), class: "mobile-btn-xl bg-red-500 text-white", method: :delete, data: { turbo_action: :replace, turbo_confirm: t("actions.confirm") } %>
+          <% end %>
+          <button type="button" class="mobile-btn-xl"
+                  data-action="bridge--scanner#show"
+                  data-bridge--scanner-place-param="waybill_qr_scans"
+                  data-bridge--scanner-save-mode-param="create">
+            <%= t("actions.scan") %>
+          </button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

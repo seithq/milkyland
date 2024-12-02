@@ -211,6 +211,7 @@ Rails.application.routes.draw do
       resources :arrivals, except: :index
       resources :write_offs, except: :index
       resources :transfers, except: :index
+      resources :departures, except: :index
       resources :locations, only: %i[ new create ]
 
       scope ":waybill_id/mobile" do

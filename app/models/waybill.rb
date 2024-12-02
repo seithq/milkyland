@@ -84,9 +84,13 @@ class Waybill < ApplicationRecord
     end
 
     def route_sheet_integrity
-      return unless collectable? && pending?
+      return unless should_validate_collectable?
 
       errors.add(:qr_scans, :inclusion) if has_imbalance?
+    end
+
+    def should_validate_collectable?
+      collectable? && (transfer? && pending? || departure? && approved?)
     end
 
     def has_not_scanned?
