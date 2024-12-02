@@ -33,7 +33,7 @@ class ProcessTransferCodesJobTest < ActiveJob::TestCase
       assert_difference -> { storage.available_count(box.product) }, -5.0 do
         assert_difference -> { new_storage.available_count(box.product) }, 5.0 do
           assert ProcessTransferCodesJob.perform_now waybill.id
-          assert_equal zones(:goods_arrival_zone), pallet.current_position
+          assert_equal tiers(:goods_zone_line_stack_tier), pallet.current_position
           assert_equal zones(:masters_zone), box.current_position
           assert route_sheet.reload.completed?
         end
@@ -55,6 +55,7 @@ class ProcessTransferCodesJobTest < ActiveJob::TestCase
       waybill = Waybill.create(new_storage: storage, sender: users(:daniyar), kind: :arrival, status: :approved)
       assert waybill.add_qr pallet.code, scanned_at: Time.current
       assert ProcessArrivalCodesJob.perform_now waybill.id
+      assert pallet.locate_to storage.tiers.first
 
       shipment = Shipment.create kind: :internal, region: regions(:aktobe), shipping_date: Date.current
       route_sheet = shipment.route_sheets.create vehicle_plate_number: "272MNB02", driver_name: "Daniyar", driver_phone_number: "+77772514515"

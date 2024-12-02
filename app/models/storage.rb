@@ -16,6 +16,17 @@ class Storage < ApplicationRecord
 
   has_many :zones, -> { ordered }, through: :elements, source: :storable, source_type: "Zone"
 
+  has_many :holding_zones, -> { filter_by_kind(:hold).ordered }, through: :elements, source: :storable, source_type: "Zone"
+  has_many :pallets, through: :holding_zones, source: :pallets
+  has_many :boxes, through: :holding_zones, source: :boxes
+  has_many :boxes_in_pallets, through: :holding_zones, source: :boxes_in_pallets
+  has_many :lines, through: :holding_zones
+  has_many :stacks, through: :lines
+  has_many :tiers, through: :stacks
+  has_many :pallets_in_tiers, through: :tiers, source: :pallets
+  has_many :boxes_in_tiers, through: :tiers, source: :boxes
+  has_many :boxes_in_tiers_in_pallets, through: :tiers, source: :boxes_in_pallets
+
   has_many :warehousers, dependent: :destroy
 
   enum :kind, %w[ for_material_assets for_masters_material_assets for_masters for_goods ].index_by(&:itself), default: :for_goods
@@ -41,4 +52,13 @@ class Storage < ApplicationRecord
   def caption_key
     self.model_name.singular
   end
+
+  private
+    def pallet_scopes
+      [ pallets, pallets_in_tiers ]
+    end
+
+    def box_scopes
+      [ boxes, boxes_in_pallets, boxes_in_tiers, boxes_in_tiers_in_pallets ]
+    end
 end

@@ -28,17 +28,20 @@ module Locatable
 
     def all_boxes
       ids = box_scopes.map { |scope| scope.pluck(:id) }.reduce(&:+)
-      Box.where(id: ids).active
+      Box.filter_by_ids(ids).active
     end
 
-    def capacity_by(product_id, production_date: nil)
+    def capacity_by(product_id, production_date: nil, ids: [])
       base_scope = all_boxes.filter_by_product(product_id)
       base_scope = base_scope.filter_by_production_date(production_date) unless production_date.nil?
+      base_scope = base_scope.filter_by_ids(ids) if ids.any?
       base_scope.sum(:capacity)
     end
 
-    def capacity_by_dates(product_id)
-      all_boxes.filter_by_product(product_id).group(:production_date).sum(:capacity)
+    def capacity_by_dates(product_id, ids: [])
+      base_scope = all_boxes.filter_by_product(product_id)
+      base_scope = base_scope.filter_by_ids(ids) if ids.any?
+      base_scope.group(:production_date).sum(:capacity)
     end
 
     def can_be_deactivated?

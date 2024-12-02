@@ -1,5 +1,5 @@
 class Box < ApplicationRecord
-  include Codable, Scannable, Locatable, AddressSearchable
+  include Codable, Scannable, Locatable, AddressSearchable, Fifo
 
   belongs_to :region
   belongs_to :product
@@ -27,7 +27,6 @@ class Box < ApplicationRecord
   scope :filter_by_production_date, ->(production_date) { where(production_date: production_date) }
 
   scope :active, -> { where(taken_out_at: nil) }
-  scope :fifo, ->() { order(expiration_date: :asc) }
 
   def self.prefix_to_scope
     {

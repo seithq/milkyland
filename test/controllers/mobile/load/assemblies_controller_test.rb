@@ -41,6 +41,7 @@ module Mobile
 
     test "should update assembly" do
       BoxGenerationJob.perform_now sample_generation.id
+      assert Box.last.locate_to tiers(:goods_zone_line_stack_tier)
       @assembly.add_qr Box.last.code, scanned_at: Time.current
 
       patch load_assembly_url(@assembly), params: { assembly: { status: :approved } }
