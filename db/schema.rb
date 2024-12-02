@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_02_074600) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_02_222901) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -152,6 +152,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_02_074600) do
     t.bigint "manager_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "fifo_in_days", default: 0
     t.index ["bin"], name: "index_clients_on_bin", unique: true
     t.index ["manager_id"], name: "index_clients_on_manager_id"
     t.index ["name"], name: "index_clients_on_name", unique: true

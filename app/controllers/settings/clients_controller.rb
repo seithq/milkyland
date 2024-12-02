@@ -48,6 +48,6 @@ class Settings::ClientsController < ApplicationController
     end
 
     def client_params
-      params.require(:client).permit(:name, :bin, :contact_person, :job_title, :phone_number, :email_address, :entity_code, :bank_name, :bank_account, :bank_code, :manager_id, uploads: [])
+      params.require(:client).permit(:name, :bin, :contact_person, :job_title, :phone_number, :email_address, :entity_code, :bank_name, :bank_account, :bank_code, :manager_id, :fifo_in_days, uploads: [])
     end
 end

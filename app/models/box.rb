@@ -27,6 +27,7 @@ class Box < ApplicationRecord
   scope :filter_by_production_date, ->(production_date) { where(production_date: production_date) }
 
   scope :active, -> { where(taken_out_at: nil) }
+  scope :expiring_first, ->() { order(expiration_date: :asc) }
 
   def self.prefix_to_scope
     {

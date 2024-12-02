@@ -3,13 +3,14 @@ module Fifo
 
   included do
     scope :filter_by_ids, ->(ids) { where(id: ids) }
-    scope :calculated_fifo_for, ->(product_id, count, unrestricted_count, filtered_ids) do
+    scope :calculated_fifo_for, ->(product_id, count, unrestricted_count, filtered_ids, filtered_date = "") do
       query = <<-SQL
       WITH FilteredBoxes AS (
           SELECT *
           FROM boxes
           WHERE product_id = :product_id#{' '}
           AND id IN (:filtered_ids)
+          AND production_date > TO_DATE(:filtered_date, 'YYYY-MM-DD')
       ),
       FIFO_Boxes AS (
           SELECT *, SUM(capacity) OVER (PARTITION BY product_id ORDER BY production_date, id) AS cumulative_capacity
@@ -40,16 +41,17 @@ module Fifo
       ORDER BY production_date, id
       SQL
 
-      filter_by_ids find_by_sql([ query, { product_id:, count:, unrestricted_count:, filtered_ids: } ]).map(&:id)
+      filter_by_ids find_by_sql([ query, { product_id:, count:, unrestricted_count:, filtered_ids:, filtered_date: } ]).map(&:id)
     end
 
-    scope :calculated_strict_fifo_for, ->(product_id, count, unrestricted_count, filtered_ids) do
+    scope :calculated_strict_fifo_for, ->(product_id, count, unrestricted_count, filtered_ids, filtered_date = "") do
       query = <<-SQL
       WITH FilteredBoxes AS (
           SELECT *
           FROM boxes
           WHERE product_id = :product_id#{' '}
           AND id IN (:filtered_ids)
+          AND production_date > TO_DATE(:filtered_date, 'YYYY-MM-DD')
       ),
       FIFO_Boxes AS (
           SELECT *, SUM(capacity) OVER (PARTITION BY product_id ORDER BY production_date, id) AS cumulative_capacity
@@ -64,16 +66,17 @@ module Fifo
       FROM SelectedFIFO
       SQL
 
-      filter_by_ids find_by_sql([ query, { product_id:, count:, unrestricted_count:, filtered_ids: } ]).map(&:id)
+      filter_by_ids find_by_sql([ query, { product_id:, count:, unrestricted_count:, filtered_ids:, filtered_date: } ]).map(&:id)
     end
 
-    scope :calculated_bypass_fifo_for, ->(product_id, count, unrestricted_count, filtered_ids) do
+    scope :calculated_bypass_fifo_for, ->(product_id, count, unrestricted_count, filtered_ids, filtered_date = "") do
       query = <<-SQL
       WITH FilteredBoxes AS (
           SELECT *
           FROM boxes
           WHERE product_id = :product_id#{' '}
           AND id IN (:filtered_ids)
+          AND production_date > TO_DATE(:filtered_date, 'YYYY-MM-DD')
       ),
       FIFO_Boxes AS (
           SELECT *, SUM(capacity) OVER (PARTITION BY product_id ORDER BY production_date, id) AS cumulative_capacity
@@ -99,7 +102,7 @@ module Fifo
       ORDER BY production_date, id
       SQL
 
-      filter_by_ids find_by_sql([ query, { product_id:, count:, unrestricted_count:, filtered_ids: } ]).map(&:id)
+      filter_by_ids find_by_sql([ query, { product_id:, count:, unrestricted_count:, filtered_ids:, filtered_date: } ]).map(&:id)
     end
   end
 end

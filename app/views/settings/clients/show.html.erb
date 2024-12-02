@@ -55,6 +55,11 @@
                 <%= form.label :email_address, class: "form-label" %>
                 <%= form.email_field :email_address, readonly: true, class: "mt-2 form-input" %>
               </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :fifo_in_days, class: "form-label" %>
+                <%= form.number_field :fifo_in_days, readonly: true, class: "mt-2 form-input" %>
+              </div>
             </div>
           </div>
 

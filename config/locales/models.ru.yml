@@ -193,6 +193,7 @@ ru:
         bank_account: ИИК или IBAN
         bank_code: БИК или SWIFT
         manager_id: Менеджер
+        fifo_in_days: Настройка FIFO в днях
       category:
         name: Название
         kind: Тип

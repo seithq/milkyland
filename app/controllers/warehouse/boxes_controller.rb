@@ -24,6 +24,6 @@ class Warehouse::BoxesController < ApplicationController
     end
 
     def positionable_scope
-      @positionable.all_boxes.fifo
+      @positionable.all_boxes.expiring_first
     end
 end

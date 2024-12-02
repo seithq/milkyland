@@ -27,6 +27,10 @@ class Shipment < ApplicationRecord
     plan.present? ? plan.clients : Client.ordered
   end
 
+  def has_custom_fifo?
+    external? && client.fifo_in_days > 0
+  end
+
   private
     def clear_client
       self.client = nil

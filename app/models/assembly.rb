@@ -63,6 +63,10 @@ class Assembly < ApplicationRecord
     box_ids = storage.all_boxes.pluck(:id)
 
     params = [ product_id, tracking_product.count, tracking_product.unrestricted_count.presence || 0, box_ids ]
+    if route_sheet.shipment.has_custom_fifo?
+      params << route_sheet.shipment.client.fifo_in_days.days.ago
+    end
+
     method = strict ? "calculated_strict_fifo_for" : "calculated_fifo_for"
 
     Box.send(method, *params)
