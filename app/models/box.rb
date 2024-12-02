@@ -24,6 +24,8 @@ class Box < ApplicationRecord
   scope :filter_by_zone_address, ->(address) { joins(:zones).merge(Zone.filter_by_code(address)) }
   scope :filter_by_tier_address, ->(address) { joins(:tiers).merge(Tier.filter_by_code(address)) }
 
+  scope :filter_by_production_date, ->(production_date) { where(production_date: production_date) }
+
   scope :active, -> { where(taken_out_at: nil) }
   scope :fifo, ->() { order(expiration_date: :asc) }
 

@@ -1,0 +1,21 @@
+<li class="py-2" data-controller="detail" data-detail-open-value="false">
+  <%= header %>
+  <div class="flex justify-center text-xs font-semibold text-gray-900">
+    <button type="button" data-action="detail#toggle">
+      <span class="flex items-center">
+        <%= inline_svg_tag "plus-sm.svg", class: "size-5", data: { detail_target: "opener" } %>
+        <%= inline_svg_tag "minus-sm.svg", class: "hidden size-5", data: { detail_target: "closer" } %>
+      </span>
+    </button>
+  </div>
+  <ul role="list" class="hidden divide-y divide-gray-200"
+      data-detail-target="summary"
+      data-transition-enter="transition ease-out duration-100"
+      data-transition-enter-start="transform opacity-0 scale-95"
+      data-transition-enter-end="transform opacity-100 scale-100"
+      data-transition-leave="transition ease-in duration-75"
+      data-transition-leave-start="transform opacity-100 scale-100"
+      data-transition-leave-end="transform opacity-0 scale-95">
+    <%= content %>
+  </ul>
+</li>

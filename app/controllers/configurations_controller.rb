@@ -22,6 +22,14 @@ class ConfigurationsController < ApplicationController
             uri: "hotwire://fragment/web/home",
             presentation: "replace_root"
           }
+        },
+        {
+          patterns: %w[recommendation$ recommendation/$],
+          properties: {
+            context: "modal",
+            uri: "hotwire://fragment/web/modal",
+            pull_to_refresh_enabled: false
+          }
         }
       ]
     }

@@ -226,6 +226,7 @@ Rails.application.routes.draw do
       resources :assemblies do
         scope module: "assemblies" do
           resources :qr_scans, except: %i[ new show ]
+          resource :recommendation, only: :show
         end
       end
     end

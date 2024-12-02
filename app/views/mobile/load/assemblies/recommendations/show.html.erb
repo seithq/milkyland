@@ -1,0 +1,42 @@
+<% content_for(:turbo_native_title) { t("pages.fifo") } %>
+
+<div class="p-4 min-h-full flex flex-col justify-between">
+  <ul id="progress" class="space-y-4">
+    <% @assembly.products_progress.each do |info| %>
+      <li class="bg-white p-4 rounded-lg" data-controller="detail" data-detail-open-value="false">
+        <div aria-hidden="true" class="space-y-2">
+          <div class="overflow-hidden rounded-full bg-gray-200">
+            <div class="h-2 rounded-full bg-green-600" style="width: <%= info[:progress] %>%"></div>
+          </div>
+          <div class="grid grid-cols-2 text-xs font-semibold text-gray-900">
+            <span class="text-left"><%= info[:product].name %></span>
+            <span class="text-right"><%= "#{ info[:scanned] } / #{ info[:planned] }" %></span>
+          </div>
+          <div class="flex justify-center text-xs font-semibold text-gray-900 space-x-2">
+            <button type="button" data-action="detail#toggle">
+              <span class="flex items-center">
+                <%= inline_svg_tag "plus-sm.svg", class: "size-5", data: { detail_target: "opener" } %>
+                <%= inline_svg_tag "minus-sm.svg", class: "hidden size-5", data: { detail_target: "closer" } %>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div class="hidden text-xs font-semibold text-gray-900" data-detail-target="summary"
+             data-transition-enter="transition ease-out duration-100"
+             data-transition-enter-start="transform opacity-0 scale-95"
+             data-transition-enter-end="transform opacity-100 scale-100"
+             data-transition-leave="transition ease-in duration-75"
+             data-transition-leave-start="transform opacity-100 scale-100"
+             data-transition-leave-end="transform opacity-0 scale-95">
+          <ul role="list" class="divide-y divide-gray-200">
+            <%= render partial: "zone",
+                       collection: @assembly.zone.current_position.zones.filter_by_kind(:hold),
+                       as: :zone,
+                       locals: { product_id: info[:product].id }
+            %>
+          </ul>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -21,6 +21,17 @@
         "uri": "hotwire://fragment/web/home",
         "presentation": "replace_root"
       }
+    },
+    {
+      "patterns": [
+        "recommendation$",
+        "recommendation/$"
+      ],
+      "properties": {
+        "context": "modal",
+        "uri": "hotwire://fragment/web/modal",
+        "pull_to_refresh_enabled": false
+      }
     }
   ]
 }

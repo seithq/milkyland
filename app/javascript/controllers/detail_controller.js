@@ -11,8 +11,8 @@ export default class extends Controller {
       enter(this.closerTarget)
       enter(this.summaryTarget)
     } else {
-      enter(this.openerTarget)
       leave(this.closerTarget)
+      enter(this.openerTarget)
       leave(this.summaryTarget)
     }
   }

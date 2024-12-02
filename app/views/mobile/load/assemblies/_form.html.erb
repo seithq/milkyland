@@ -77,7 +77,7 @@
                 <%= button_to t("actions.destroy_record"), load_assembly_path(assembly), class: "mobile-btn-xl bg-red-500 text-white", method: :delete, data: { turbo_action: :replace, turbo_confirm: t("actions.confirm") } %>
               </div>
               <div class="w-1/2">
-                <a href="#" class="mobile-btn-secondary-xl"><%= t("pages.fifo") %></a>
+                <%= link_to t("pages.fifo"), load_assembly_recommendation_path(assembly), class: "mobile-btn-secondary-xl" %>
               </div>
             <% end %>
           </div>

@@ -1,0 +1,88 @@
+<%= render Mobile::FoldableComponent.new do |zone_component| %>
+  <% zone_component.with_header do %>
+    <div class="flex justify-between">
+      <span class="text-xs font-medium text-green-600"><%= t("pages.zone", index: zone.display_index) %></span>
+      <span class="text-xs font-semibold text-gray-900"><%= number_with_delimiter zone.capacity_by(product_id) %></span>
+    </div>
+  <% end %>
+  <% zone.capacity_by_dates(product_id).each do |date, capacity| %>
+    <% if capacity > 0 %>
+      <%= render Mobile::FoldableComponent.new do |date_component| %>
+        <% date_component.with_header do %>
+          <div class="flex justify-between">
+            <span class="text-xs font-medium text-yellow-600"><%= l date %></span>
+            <span class="text-xs font-semibold text-gray-900"><%= number_with_delimiter capacity %></span>
+          </div>
+        <% end %>
+        <% zone.lines.each do |line| %>
+          <% line_capacity = line.capacity_by(product_id, production_date: date) %>
+          <% if line_capacity > 0 %>
+            <%= render Mobile::FoldableComponent.new do |line_component| %>
+              <% line_component.with_header do %>
+                <div class="flex justify-between">
+                  <span class="text-xs font-medium text-blue-600"><%= t("pages.line", index: line.display_index) %></span>
+                  <span class="text-xs font-semibold text-gray-900"><%= number_with_delimiter line_capacity %></span>
+                </div>
+              <% end %>
+              <% line.stacks.each do |stack| %>
+                <% stack_capacity = stack.capacity_by(product_id, production_date: date) %>
+                <% if stack_capacity > 0 %>
+                  <%= render Mobile::FoldableComponent.new do |stack_component| %>
+                    <% stack_component.with_header do %>
+                      <div class="flex justify-between">
+                        <span class="text-xs font-medium text-amber-600"><%= t("pages.stack", index: stack.display_index) %></span>
+                        <span class="text-xs font-semibold text-gray-900"><%= number_with_delimiter stack_capacity %></span>
+                      </div>
+                    <% end %>
+                    <% stack.tiers.each do |tier| %>
+                      <% tier_capacity = tier.capacity_by(product_id, production_date: date) %>
+                      <% if tier_capacity > 0 %>
+                        <%= render Mobile::FoldableComponent.new do |tier_component| %>
+                          <% tier_component.with_header do %>
+                            <div class="flex justify-between">
+                              <span class="text-xs font-medium text-cyan-600"><%= t("pages.tier", index: tier.display_index) %></span>
+                              <span class="text-xs font-semibold text-gray-900"><%= number_with_delimiter tier_capacity %></span>
+                            </div>
+                          <% end %>
+                          <% tier.pallets.each do |pallet| %>
+                            <% pallet_capacity = pallet.capacity_by(product_id, production_date: date) %>
+                            <% if pallet_capacity > 0 %>
+                              <%= render Mobile::FoldableComponent.new do |pallet_component| %>
+                                <% pallet_component.with_header do %>
+                                  <div class="flex justify-between">
+                                    <span class="text-xs font-medium text-pink-600"><%= pallet.code %></span>
+                                    <span class="text-xs font-semibold text-gray-900"><%= number_with_delimiter pallet_capacity %></span>
+                                  </div>
+                                <% end %>
+                                <% pallet.boxes.filter_by_production_date(date).each do |box| %>
+                                  <% if box.capacity > 0 %>
+                                    <li class="py-2 flex justify-between">
+                                      <span class="text-xs font-medium text-indigo-600"><%= box.code %></span>
+                                      <span class="text-xs font-semibold text-gray-900"><%= number_with_delimiter box.capacity %></span>
+                                    </li>
+                                  <% end %>
+                                <% end %>
+                              <% end %>
+                            <% end %>
+                          <% end %>
+                          <% tier.boxes.filter_by_production_date(date).each do |box| %>
+                            <% if box.capacity > 0 %>
+                              <li class="py-2 flex justify-between">
+                                <span class="text-xs font-medium text-indigo-600"><%= box.code %></span>
+                                <span class="text-xs font-semibold text-gray-900"><%= number_with_delimiter box.capacity %></span>
+                              </li>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -31,8 +31,14 @@ module Locatable
       Box.where(id: ids).active
     end
 
-    def capacity_by(product_id)
-      all_boxes.filter_by_product(product_id).sum(:capacity)
+    def capacity_by(product_id, production_date: nil)
+      base_scope = all_boxes.filter_by_product(product_id)
+      base_scope = base_scope.filter_by_production_date(production_date) unless production_date.nil?
+      base_scope.sum(:capacity)
+    end
+
+    def capacity_by_dates(product_id)
+      all_boxes.filter_by_product(product_id).group(:production_date).sum(:capacity)
     end
 
     def can_be_deactivated?
