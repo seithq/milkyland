@@ -171,6 +171,7 @@ Rails.application.routes.draw do
       scope module: "products" do
         resources :prices, except: :show
         resources :box_packagings, except: :show
+        resources :single_packagings, except: :show
       end
     end
     resources :semi_products, except: :destroy

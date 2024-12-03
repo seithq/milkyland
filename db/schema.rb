@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_02_222901) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_03_174702) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -654,6 +654,17 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_02_222901) do
     t.index ["region_id"], name: "index_shipments_on_region_id"
   end
 
+  create_table "single_packagings", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "material_asset_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["material_asset_id"], name: "index_single_packagings_on_material_asset_id"
+    t.index ["product_id", "material_asset_id"], name: "index_single_packagings_on_product_id_and_material_asset_id", unique: true
+    t.index ["product_id"], name: "index_single_packagings_on_product_id"
+  end
+
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.string "queue_name", null: false
@@ -1009,6 +1020,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_02_222901) do
   add_foreign_key "shipments", "clients"
   add_foreign_key "shipments", "plans"
   add_foreign_key "shipments", "regions"
+  add_foreign_key "single_packagings", "material_assets"
+  add_foreign_key "single_packagings", "products"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

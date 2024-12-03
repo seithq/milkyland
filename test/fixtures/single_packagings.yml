@@ -1,0 +1,7 @@
+milk25_packaging:
+  product: milk25
+  material_asset: bottle
+
+milk25_big_packaging:
+  product: milk25_big
+  material_asset: mini_bottle

@@ -1,18 +1,13 @@
 <div class="flex flex-col justify-center px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <%= render "layouts/error_messages", resource: box_packaging %>
-    <%= form_with model: [@product, box_packaging], class: "space-y-4" do |form| %>
+    <%= render "layouts/error_messages", resource: single_packaging %>
+    <%= form_with model: [@product, single_packaging], class: "space-y-4" do |form| %>
       <div>
         <%= form.label :material_asset_id, class: "form-label" %>
-        <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.group_packings, :id, :name, box_packaging.material_asset_id), { include_blank: true }, { disabled: !box_packaging.active?, required: true, class: "form-select" } %>
+        <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.packings, :id, :name, single_packaging.material_asset_id), { include_blank: true }, { disabled: !single_packaging.active?, required: true, class: "form-select" } %>
       </div>
 
-      <div>
-        <%= form.label :count, class: "form-label" %>
-        <%= form.number_field :count, autocomplete: "count", disabled: !box_packaging.active?, required: true, class: "form-input" %>
-      </div>
-
-      <% unless box_packaging.new_record? || box_packaging.active? %>
+      <% unless single_packaging.new_record? || single_packaging.active? %>
         <div class="relative flex gap-x-3">
           <div class="flex h-6 items-center">
             <%= form.check_box :active, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>

@@ -5,5 +5,5 @@ bottle_milk25:
 
 bottle_milk25_big:
   product: milk25_big
-  material_asset: сardboard
+  material_asset: сardboard_big
   count: 6

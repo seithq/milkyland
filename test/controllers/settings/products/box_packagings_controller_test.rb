@@ -22,7 +22,7 @@ module Settings
     test "should create box_packaging" do
       sign_in :daniyar
       assert_difference("BoxPackaging.count") do
-        post product_box_packagings_url(@product), params: { box_packaging: { count: 3, material_asset_id: material_assets(:mini_bottle).id } }
+        post product_box_packagings_url(@product), params: { box_packaging: { count: 3, material_asset_id: material_assets(:сardboard_big).id } }
       end
 
       assert_redirected_to edit_product_url(@product)
@@ -32,7 +32,7 @@ module Settings
       sign_in :askhat
       assert_not users(:askhat).admin?
 
-      post product_box_packagings_url(@product), params: { box_packaging: { count: 3, material_asset_id: material_assets(:mini_bottle).id } }
+      post product_box_packagings_url(@product), params: { box_packaging: { count: 3, material_asset_id: material_assets(:сardboard_big).id } }
       assert_response :forbidden
     end
 
@@ -44,7 +44,7 @@ module Settings
 
     test "should update box_packaging" do
       sign_in :daniyar
-      patch product_box_packaging_url(@product, @box_packaging), params: { box_packaging: { count: 3, material_asset_id: material_assets(:mini_bottle).id } }
+      patch product_box_packaging_url(@product, @box_packaging), params: { box_packaging: { count: 3, material_asset_id: material_assets(:сardboard_big).id } }
       assert_redirected_to edit_product_url(@product)
     end
 
@@ -52,7 +52,7 @@ module Settings
       sign_in :askhat
       assert_not users(:askhat).admin?
 
-      patch product_box_packaging_url(@product, @box_packaging), params: { box_packaging: { count: 3, material_asset_id: material_assets(:mini_bottle).id } }
+      patch product_box_packaging_url(@product, @box_packaging), params: { box_packaging: { count: 3, material_asset_id: material_assets(:сardboard_big).id } }
       assert_response :forbidden
     end
 

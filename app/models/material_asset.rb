@@ -8,6 +8,7 @@ class MaterialAsset < ApplicationRecord
 
   has_many :products, dependent: :destroy
   has_many :box_packagings, dependent: :destroy
+  has_many :single_packagings, dependent: :destroy
 
   has_many :supply_orders, dependent: :destroy
 
@@ -20,6 +21,7 @@ class MaterialAsset < ApplicationRecord
   scope :combined_assets, ->() { joins(:category).merge(Category.combined_assets) }
   scope :raw_products, ->() { joins(:category).merge(Category.raw_products) }
   scope :packings, ->() { joins(:category).merge(Category.packings) }
+  scope :group_packings, ->() { joins(:category).merge(Category.group_packings) }
 
   scope :ordered, -> { order(article: :asc) }
 

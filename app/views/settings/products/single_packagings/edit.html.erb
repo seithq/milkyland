@@ -1,0 +1,13 @@
+<% content_for(:title) { @single_packaging.material_asset.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: products_path, title: t("pages.products")),
+      NavLink.new(path: edit_product_path(@product), title: @product.name),
+      NavLink.new(path: edit_product_single_packaging_path(@product, @single_packaging), title: @single_packaging.material_asset.name)
+    ]
+  } %>
+<% end %>
+
+<%= render "form", single_packaging: @single_packaging %>

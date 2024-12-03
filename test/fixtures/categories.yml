@@ -16,7 +16,7 @@ glass:
 
 сardboard:
   name: Cardboard
-  kind: packing
+  kind: group_packing
 
 semi_product:
   name: Semi Product

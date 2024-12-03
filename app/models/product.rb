@@ -5,6 +5,7 @@ class Product < ApplicationRecord
 
   has_many :prices, dependent: :destroy
   has_many :box_packagings, dependent: :destroy
+  has_many :single_packagings, dependent: :destroy
 
   has_many :discounts, class_name: "DiscountedProduct", foreign_key: "product_id", dependent: :destroy
   has_many :packages, class_name: "PackagedProduct", foreign_key: "product_id", dependent: :destroy

@@ -71,6 +71,12 @@
               </div>
 
               <div class="sm:col-span-full">
+                <%= turbo_frame_tag dom_id(@product, :single_packagings), src: product_single_packagings_path(@product, readonly: true) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
+              </div>
+
+              <div class="sm:col-span-full">
                 <%= turbo_frame_tag dom_id(@product, :box_packagings), src: product_box_packagings_path(@product, readonly: true) do %>
                   <%= inline_svg_tag "spinner.svg" %>
                 <% end %>
