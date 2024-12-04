@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_03_174702) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_04_081457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -342,6 +342,21 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_03_174702) do
     t.index ["storable_type", "storable_id"], name: "index_locations_on_storable"
   end
 
+  create_table "machineries", force: :cascade do |t|
+    t.bigint "packaged_product_id", null: false
+    t.bigint "packing_machine_id", null: false
+    t.bigint "material_asset_id", null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["material_asset_id"], name: "index_machineries_on_material_asset_id"
+    t.index ["packaged_product_id", "packing_machine_id", "material_asset_id"], name: "idx_on_packaged_product_id_packing_machine_id_mater_9c02d2f83b", unique: true
+    t.index ["packaged_product_id"], name: "index_machineries_on_packaged_product_id"
+    t.index ["packing_machine_id"], name: "index_machineries_on_packing_machine_id"
+  end
+
   create_table "material_assets", force: :cascade do |t|
     t.string "name"
     t.bigint "category_id", null: false
@@ -412,6 +427,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_03_174702) do
     t.datetime "updated_at", null: false
     t.datetime "start_time"
     t.datetime "end_time"
+    t.text "comment"
     t.index ["packing_id", "product_id"], name: "index_packaged_products_on_packing_id_and_product_id", unique: true
     t.index ["packing_id"], name: "index_packaged_products_on_packing_id"
     t.index ["product_id"], name: "index_packaged_products_on_product_id"
@@ -982,6 +998,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_03_174702) do
   add_foreign_key "leftovers", "leftovers", column: "parent_id"
   add_foreign_key "leftovers", "storages"
   add_foreign_key "leftovers", "waybills"
+  add_foreign_key "machineries", "material_assets"
+  add_foreign_key "machineries", "packaged_products"
+  add_foreign_key "machineries", "packing_machines"
   add_foreign_key "material_assets", "categories"
   add_foreign_key "material_assets", "measurements"
   add_foreign_key "material_assets", "suppliers"

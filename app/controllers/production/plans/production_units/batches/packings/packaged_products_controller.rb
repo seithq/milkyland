@@ -29,7 +29,7 @@ module Production::Plans::ProductionUnits::Batches
       end
 
       def packaged_product_params
-        params.require(:packaged_product).permit(:start_time, :end_time, :count)
+        params.require(:packaged_product).permit(:start_time, :end_time, :count, :comment)
       end
   end
 end

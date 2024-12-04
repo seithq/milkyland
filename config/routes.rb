@@ -54,7 +54,15 @@ Rails.application.routes.draw do
                 resources :steps, only: %i[ edit create update ]
                 resource :packing, except: :destroy do
                   scope module: "packings" do
-                    resources :packaged_products, only: %i[ index edit update ]
+                    resources :packaged_products, only: %i[ index edit update ] do
+                      scope module: "packaged_products" do
+                        resources :machineries, except: :show do
+                          collection do
+                            get "search", to: "machineries#search"
+                          end
+                        end
+                      end
+                    end
                   end
                 end
                 resource :cooking, except: :destroy do

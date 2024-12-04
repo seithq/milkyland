@@ -344,6 +344,8 @@ ru:
         start_time: Время начала
         end_time: Время окончания
         count: Количество
+        machineries: Фасовочное оборудование
+        comment: Комментарий
       cooked_semi_product:
         litrage: Финальный литраж
       distribution:
@@ -478,6 +480,13 @@ ru:
         user: Пользователь
         status: Статус
         qr_scans: Сканирование коробок
+      machinery:
+        packaged_product_id: Номенклатура ГП
+        packing_machine_id: Фасовочное оборудование
+        material_asset_id: Наименование тары
+        start_time: Время начала
+        end_time: Время окончания
+        count: Количество
     models:
       box:
         one: Коробка

@@ -17,7 +17,24 @@
         <%= form.number_field :count, autocomplete: "count", required: true, class: "mt-2 form-input-xl" %>
       </div>
 
-      <%= form.submit t("actions.save_record"), class: "w-full btn-xl" %>
+      <div>
+        <%= form.label :comment, class: "form-label-xl" %>
+        <%= form.text_area :comment, autocomplete: "comment", class: "mt-2 form-area-xl" %>
+      </div>
+
+      <div>
+        <%= turbo_frame_tag dom_id(packaged_product, :machineries), src: production_plan_unit_batch_packing_packaged_product_machineries_path(@plan, @production_unit, @batch, packaged_product) do %>
+          <%= inline_svg_tag "spinner.svg" %>
+        <% end %>
+      </div>
+
+      <div class="flex space-x-2">
+        <%= link_to new_production_plan_unit_batch_packing_packaged_product_machinery_path(@plan, @production_unit, @batch, packaged_product), class: "w-full btn-create-xl" do %>
+          <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
+          <%= t("actions.add_packing_machine") %>
+        <% end %>
+        <%= form.submit t("actions.save_record"), class: "w-full btn-xl" %>
+      </div>
     <% end %>
   </div>
 </div>

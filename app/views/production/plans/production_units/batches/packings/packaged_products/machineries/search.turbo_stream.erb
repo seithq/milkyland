@@ -1,0 +1,4 @@
+<%= turbo_stream.update "machinery_material_asset_id" do %>
+  <option value=""></option>
+  <%= options_from_collection_for_select(@packing_material_assets, :id, :name) %>
+<% end %>

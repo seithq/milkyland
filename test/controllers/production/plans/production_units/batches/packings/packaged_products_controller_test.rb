@@ -18,7 +18,13 @@ module Production::Plans::ProductionUnits::Batches
     end
 
     test "should update packaged_product" do
-      patch production_plan_unit_batch_packing_packaged_product_url(@plan, @production_unit, @batch, @packaged_product), params: { packaged_product: { start_time: 1.hour.ago, end_time: Time.zone.now } }
+      assert @packaged_product.machineries.create packing_machine_id: packing_machines(:bottler).id,
+                                                  material_asset_id: material_assets(:bottle).id,
+                                                  count: @packaged_product.count,
+                                                  start_time: 1.hour.ago,
+                                                  end_time: Time.current
+
+      patch production_plan_unit_batch_packing_packaged_product_url(@plan, @production_unit, @batch, @packaged_product), params: { packaged_product: { start_time: 1.hour.ago, end_time: Time.current } }
       assert_redirected_to production_plan_unit_batch_packing_url(@plan, @production_unit, @batch)
     end
   end

@@ -1,0 +1,9 @@
+<%= turbo_frame_tag dom_id(@packaged_product, :machineries) do %>
+  <% if @machineries.any? %>
+    <ul role="list" class="divide-y divide-gray-100">
+      <%= render Production::MachineryComponent.with_collection(@machineries) %>
+    </ul>
+  <% else %>
+    <%= render "empty" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,33 @@
+<div class="flex flex-col justify-center px-6 lg:px-8" data-controller="machinery" data-machinery-search-url-value="<%= search_production_plan_unit_batch_packing_packaged_product_machineries_path(@plan, @production_unit, @batch, @packaged_product) %>">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <%= render "layouts/error_messages", resource: machinery %>
+    <%= form_with model: machinery, url: machinery_url(machinery), class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :packing_machine_id, class: "form-label-xl" %>
+        <%= form.select :packing_machine_id, options_from_collection_for_select(@packaged_product.product_packing_machines, :id, :name, machinery.packing_machine_id), { include_blank: true }, { required: true, class: "mt-2 form-select-xl", data: { action: "machinery#refreshMaterialAssets" } } %>
+      </div>
+
+      <div>
+        <%= form.label :material_asset_id, class: "form-label-xl" %>
+        <%= form.select :material_asset_id, options_from_collection_for_select([], :id, :name, machinery.material_asset_id), { include_blank: true }, { required: true, class: "mt-2 form-select-xl" } %>
+      </div>
+
+      <div>
+        <%= form.label :start_time, class: "form-label-xl" %>
+        <%= form.datetime_field :start_time, autocomplete: "start-time", required: true, class: "mt-2 form-input-xl" %>
+      </div>
+
+      <div>
+        <%= form.label :end_time, class: "form-label-xl" %>
+        <%= form.datetime_field :end_time, autocomplete: "end-time", required: true, class: "mt-2 form-input-xl" %>
+      </div>
+
+      <div>
+        <%= form.label :count, class: "form-label-xl" %>
+        <%= form.number_field :count, autocomplete: "count", required: true, class: "mt-2 form-input-xl" %>
+      </div>
+
+      <%= form.submit t("actions.save_record"), class: "w-full btn-xl" %>
+    <% end %>
+  </div>
+</div>
