@@ -65,11 +65,6 @@
                 <%= form.text_field :storage_conditions, disabled: true, class: "mt-2 form-input" %>
               </div>
 
-              <div class="sm:col-span-4">
-                <%= form.label :material_asset_id, class: "form-label" %>
-                <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.packings, :id, :name, @product.material_asset_id), {}, { disabled: true, class: "mt-2 form-select" } %>
-              </div>
-
               <div class="sm:col-span-full">
                 <%= turbo_frame_tag dom_id(@product, :single_packagings), src: product_single_packagings_path(@product, readonly: true) do %>
                   <%= inline_svg_tag "spinner.svg" %>

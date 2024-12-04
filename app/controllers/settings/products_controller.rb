@@ -48,6 +48,6 @@ class Settings::ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:group_id, :name, :article, :packing, :measurement_id, :expiration_in_days, :storage_conditions, :fat_fraction, :material_asset_id)
+      params.require(:product).permit(:group_id, :name, :article, :packing, :measurement_id, :expiration_in_days, :storage_conditions, :fat_fraction)
     end
 end

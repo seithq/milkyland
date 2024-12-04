@@ -260,7 +260,6 @@ ru:
         expiration_in_days: Срок годности (в днях)
         storage_conditions: Условия хранения
         fat_fraction: Массовая доля жира (в процентах)
-        material_asset_id: Упаковка по умолчанию
       semi_product:
         name: Название
         group_id: Группа ГП и ПФ

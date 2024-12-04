@@ -7,7 +7,6 @@ milk25:
   expiration_in_days: 3
   storage_conditions: 3-10 celsius
   fat_fraction: 2.5
-  material_asset: bottle
 
 milk25_big:
   group: milk25
@@ -18,4 +17,3 @@ milk25_big:
   expiration_in_days: 3
   storage_conditions: 3-10 celsius
   fat_fraction: 2.5
-  material_asset: mini_bottle

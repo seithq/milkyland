@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_04_081457) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_04_102506) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -538,10 +538,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_04_081457) do
     t.decimal "fat_fraction", precision: 20, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "material_asset_id"
     t.index ["article"], name: "index_products_on_article", unique: true
     t.index ["group_id"], name: "index_products_on_group_id"
-    t.index ["material_asset_id"], name: "index_products_on_material_asset_id"
     t.index ["measurement_id"], name: "index_products_on_measurement_id"
     t.index ["name"], name: "index_products_on_name", unique: true
   end
@@ -1025,7 +1023,6 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_04_081457) do
   add_foreign_key "production_units", "groups"
   add_foreign_key "production_units", "plans"
   add_foreign_key "products", "groups"
-  add_foreign_key "products", "material_assets"
   add_foreign_key "products", "measurements"
   add_foreign_key "qr_scans", "boxes"
   add_foreign_key "route_sheets", "shipments"

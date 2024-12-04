@@ -54,11 +54,6 @@
               <%= form.text_field :storage_conditions, autocomplete: "storage-conditions", class: "mt-2 form-input" %>
             </div>
 
-            <div class="sm:col-span-4">
-              <%= form.label :material_asset_id, class: "form-label" %>
-              <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.packings, :id, :name, product.material_asset_id), { include_blank: true }, { required: true, class: "mt-2 form-select" } %>
-            </div>
-
             <% if product.new_record? %>
               <div class="sm:col-span-4">
                 <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>

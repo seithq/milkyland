@@ -1,7 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :group
   belongs_to :measurement
-  belongs_to :material_asset, optional: true
 
   has_many :prices, dependent: :destroy
   has_many :box_packagings, dependent: :destroy
