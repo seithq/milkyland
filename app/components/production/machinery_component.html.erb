@@ -6,7 +6,7 @@
       </div>
       <h2 class="min-w-0 text-sm/6 font-semibold text-gray-900">
         <%= link_to edit_url, class: "flex gap-x-2", data: { turbo_frame: "_top" } do %>
-          <span class="truncate"><%= @machinery.packing_machine.name %></span>
+          <span class="truncate"><%= @machinery.material_asset.name %></span>
           <span class="text-gray-400">/</span>
           <span class="whitespace-nowrap"><%= @machinery.count %></span>
           <span class="absolute inset-0"></span>
