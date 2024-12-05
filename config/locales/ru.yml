@@ -197,6 +197,9 @@ ru:
     add_packing_machine: "Оборудование"
     no_packing_machines: "Оборудование не записано"
     new_packing_machine: "Добавьте информацию о фасовочном оборудовании."
+    select_option: "Выберите значение"
+    no_results_text: "Не найдено"
+    no_choices_text: "Пусто"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
