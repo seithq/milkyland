@@ -53,6 +53,10 @@ class Storage < ApplicationRecord
     self.model_name.singular
   end
 
+  def for_assets?
+    for_material_assets? || for_masters_material_assets?
+  end
+
   private
     def pallet_scopes
       [ pallets, pallets_in_tiers ]

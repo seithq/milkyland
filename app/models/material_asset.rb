@@ -27,8 +27,12 @@ class MaterialAsset < ApplicationRecord
   scope :filter_by_name, ->(name) { where("LOWER(material_assets.name) LIKE ?", like(name)) }
   scope :filter_by_supplier, ->(supplier_id) { where(supplier_id: supplier_id) }
 
-  def display_label
-    "#{ name } (#{ measurement.unit })"
+  def display_label(storage = nil)
+    if storage.nil?
+      "#{ name } (#{ measurement.unit })"
+    else
+      "#{ name } (#{ storage.available_count(self) } #{ measurement.unit })"
+    end
   end
 
   def available_count(storage_id = nil)

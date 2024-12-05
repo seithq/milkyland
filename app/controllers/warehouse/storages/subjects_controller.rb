@@ -8,7 +8,7 @@ module Warehouse
 
     private
       def base_scope
-        (@storage.for_material_assets? ? (@storage.material_assets + @storage.semi_products) : @storage.products).uniq
+        (@storage.for_assets? ? (@storage.material_assets + @storage.semi_products) : @storage.products).uniq
       end
   end
 end

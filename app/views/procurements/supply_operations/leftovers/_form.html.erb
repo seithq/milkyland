@@ -6,7 +6,10 @@
 
       <div>
         <%= form.label :subject_id, class: "form-label" %>
-        <%= form.select :subject_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :display_label, leftover.subject_id), { include_blank: true }, { required: true, class: "form-select" } %>
+        <%= form.select :subject_id, options_from_collection_for_select(MaterialAsset.combined_assets,
+                                                                        :id,
+                                                                        proc { | asset | asset.display_label(%w[ transfer write_off ].include?(@waybill.kind) ? @waybill.storage : nil) },
+                                                                        leftover.subject_id), { include_blank: true }, { required: true, class: "form-select" } %>
       </div>
 
       <div>
