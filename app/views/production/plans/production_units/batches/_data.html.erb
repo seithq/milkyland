@@ -1,0 +1,13 @@
+<li class="relative pb-10">
+  <div class="absolute left-4 top-4 -ml-px mt-0.5 h-full w-0.5 bg-indigo-600" aria-hidden="true"></div>
+  <%= link_to info_production_plan_unit_batch_path(@plan, @production_unit, @batch), data: { turbo_frame: "_top" }, class: "group relative flex items-center" do %>
+    <span class="flex h-9 items-center">
+      <span class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 group-hover:bg-indigo-800">
+        <%= inline_svg_tag "step-complete.svg", class: "h-5 w-5 text-white" %>
+      </span>
+    </span>
+    <span class="ml-4 flex min-w-0 flex-col">
+      <span class="text-sm sm:text-xl font-medium text-gray-900"><%= t("pages.info") %></span>
+    </span>
+  <% end %>
+</li>

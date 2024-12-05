@@ -49,6 +49,8 @@ Rails.application.routes.draw do
         resources :units, controller: "production_units", except: %i[ new create destroy ] do
           scope module: "production_units" do
             resources :batches, except: :destroy do
+              get "info", to: "batches#info", on: :member
+
               scope module: "batches" do
                 resources :journals, only: :show
                 resources :steps, only: %i[ edit create update ]

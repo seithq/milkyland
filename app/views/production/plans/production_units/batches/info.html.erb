@@ -1,0 +1,127 @@
+<% content_for(:title) { t("pages.info") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: production_plans_path(kind: @plan.kind), title: t("pages.#{ @plan.kind }_production_plans")),
+      NavLink.new(path: production_plan_path(@plan), title: t("pages.production_plan", date: l(@plan.production_date))),
+      NavLink.new(path: production_plan_unit_path(@plan, @production_unit), title: @production_unit.group.name),
+      NavLink.new(path: production_plan_unit_batch_path(@plan, @production_unit, @batch), title: t("pages.batch", id: @batch.id)),
+      NavLink.new(path: info_production_plan_unit_batch_path(@plan, @production_unit, @batch), title: t("pages.info")),
+    ]
+  } %>
+<% end %>
+
+<div>
+  <%= render "details", batch: @batch %>
+
+  <% if @batch.cancelled? %>
+    <div class="mt-6 flex justify-between">
+      <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900"><%= t("forms.cancel_reason") %></h1>
+      <%= text_area_tag :comment, @batch.comment, class: "form-area w-1/3", readonly: true %>
+    </div>
+  <% end %>
+
+  <% if @batch.journals.any? %>
+    <div class="mt-6">
+      <%= turbo_frame_tag dom_id(@batch, :journals) do %>
+        <div class="flex flex-row space-x-2">
+          <%= render "production/plans/production_units/batches/journals/side_nav" %>
+
+          <div class="w-full">
+            <ul role="list" class="space-y-3">
+              <%= tag.li id: dom_id(@batch, :info), class: "rounded-md bg-white p-6 shadow border-2 border-green-600" do %>
+                <div class="grid grid-cols-1 gap-2">
+                  <div>
+                    <div class="text-xl leading-6 font-medium text-gray-900">
+                      <%= t("pages.info") %>
+                    </div>
+                    <div class="mt-4">
+                      <div class="flow-root">
+                        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                            <table class="min-w-full divide-y divide-gray-300">
+                              <thead>
+                              <tr>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"><%= t("tables.cols.data") %></th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.plan") %></th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.fact") %></th>
+                              </tr>
+                              </thead>
+                              <tbody class="divide-y divide-gray-200">
+                              <tr>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= Batch.human_attribute_name(:work_shift) %></td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                                  <%= Batch.enum_to_s(:work_shift, @batch.work_shift) %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= Batch.human_attribute_name(:storage_id) %></td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                                  <%= @batch.storage.name %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= Batch.human_attribute_name(:machiner_id) %></td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                                  <%= @batch.machiner.name %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= Batch.human_attribute_name(:tester_id) %></td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                                  <%= @batch.tester.name %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= Batch.human_attribute_name(:operator_id) %></td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                                  <%= @batch.operator.name %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= Batch.human_attribute_name(:loader_id) %></td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                                  <%= @batch.loader.name %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= Batch.human_attribute_name(:tonnage) %></td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                                  <%= number_with_delimiter @batch.planned_tonnage %>
+                                </td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                                  <%= number_with_delimiter @batch.produced_tonnage %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= Batch.human_attribute_name(:start_time) %></td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                                  <%= l @batch.planned_start_time, format: :fact %>
+                                </td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+                                  <%= l @batch.actual_start_time, format: :fact %>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

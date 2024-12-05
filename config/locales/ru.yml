@@ -60,6 +60,7 @@ ru:
     batch: "Партия #%{id}"
     batches: "Партия производства"
     packing: "Фасовка"
+    packing_by_regions: "Регионы"
     cooking: "Завершение"
     distribution: "Распределение QR"
     box_packagings: "Группировочные тары"
@@ -109,6 +110,7 @@ ru:
     assemblies: "Сборка груза"
     assembly: "Сборка груза #%{id}"
     fifo: "Рекомендация"
+    info: "Информация"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -270,6 +272,7 @@ ru:
       region: "Регион"
       chain_order: "Порядковый номер"
       field: "Параметр"
+      data: "Данные"
       plan: "План"
       fact: "Факт"
       product: "Продукт"

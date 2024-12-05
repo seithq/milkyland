@@ -71,6 +71,10 @@
         @apply flex items-center rounded-md bg-white px-6 py-3 text-sm sm:text-xl font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50;
     }
 
+    .btn-in-plan {
+        @apply flex items-center rounded-md bg-gray-200 px-6 py-3 text-sm sm:text-xl font-semibold text-gray-900 shadow-sm hover:bg-gray-300;
+    }
+
     .btn-in-production {
         @apply flex items-center rounded-md bg-blue-600 px-6 py-3 text-sm sm:text-xl font-semibold text-white shadow-sm hover:bg-blue-700;
     }

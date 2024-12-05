@@ -16,8 +16,22 @@
           <span class="font-semibold text-gray-700"><%= Batch.enum_to_s(:statuses, batch.status) %></span>
         </div>
         <div class="flex justify-between text-md">
-          <span class="font-medium text-gray-500"><%= t("tables.cols.tonnage") %></span>
-          <span class="font-semibold text-gray-700"><%= batch.produced_tonnage %></span>
+          <span class="font-medium text-gray-500"><%= Batch.human_attribute_name(:planned_start_time) %></span>
+          <span class="font-semibold text-gray-700"><%= l batch.planned_start_time, format: :fact %></span>
+        </div>
+        <% if batch.actual_start_time? %>
+          <div class="flex justify-between text-md">
+            <span class="font-medium text-gray-500"><%= Batch.human_attribute_name(:actual_start_time) %></span>
+            <span class="font-semibold text-gray-700"><%= l batch.actual_start_time, format: :fact %></span>
+          </div>
+        <% end %>
+        <div class="flex justify-between text-md">
+          <span class="font-medium text-gray-500"><%= Batch.human_attribute_name(:planned_tonnage) %></span>
+          <span class="font-semibold text-gray-700"><%= number_with_delimiter batch.planned_tonnage %></span>
+        </div>
+        <div class="flex justify-between text-md">
+          <span class="font-medium text-gray-500"><%= Batch.human_attribute_name(:produced_tonnage) %></span>
+          <span class="font-semibold text-gray-700"><%= number_with_delimiter batch.produced_tonnage %></span>
         </div>
         <div class="flex justify-between text-md">
           <span class="font-medium text-gray-500"><%= t("tables.cols.count") %></span>

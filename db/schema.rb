@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_04_102506) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_05_085407) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -83,6 +83,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_04_102506) do
     t.datetime "updated_at", null: false
     t.string "work_shift", default: "daily"
     t.bigint "storage_id", null: false
+    t.decimal "planned_tonnage", precision: 10, scale: 2
+    t.datetime "planned_start_time"
+    t.datetime "actual_start_time"
     t.index ["loader_id"], name: "index_batches_on_loader_id"
     t.index ["machiner_id"], name: "index_batches_on_machiner_id"
     t.index ["operator_id"], name: "index_batches_on_operator_id"

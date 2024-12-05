@@ -15,9 +15,12 @@
     <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900"><%= @production_unit.group.name %></h1>
     <%= render "action", production_unit: @production_unit %>
   </div>
-  <div class="mt-6" aria-hidden="true">
+  <div class="mt-6 space-y-4" aria-hidden="true">
     <div class="overflow-hidden rounded-full bg-gray-200">
       <div class="h-2 rounded-full bg-indigo-600" style="width: <%= @production_unit.progress %>%"></div>
+    </div>
+    <div class="flex justify-end text-lg font-medium text-gray-600">
+      <div class="text-indigo-600"><%= number_to_percentage @production_unit.progress %></div>
     </div>
   </div>
 

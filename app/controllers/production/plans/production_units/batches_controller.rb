@@ -2,13 +2,16 @@ module Production::Plans
   class ProductionUnits::BatchesController < ProductionController
     include PlanScoped, ProductionUnitScoped
 
-    before_action :set_batch, only: %i[ show edit update ]
+    before_action :set_batch, only: %i[ show edit update info ]
 
     def index
       @batches = base_scope
     end
 
     def show
+    end
+
+    def info
     end
 
     def new
@@ -44,10 +47,11 @@ module Production::Plans
 
       def set_batch
         @batch = base_scope.find(params[:id])
+        @journals = @batch.journals
       end
 
       def batch_params
-        params.require(:batch).permit(:machiner_id, :tester_id, :operator_id, :loader_id, :storage_id, :status, :comment)
+        params.require(:batch).permit(:machiner_id, :tester_id, :operator_id, :loader_id, :storage_id, :status, :comment, :planned_tonnage, :planned_start_time, :actual_start_time)
       end
 
       def post_update_hook(batch)

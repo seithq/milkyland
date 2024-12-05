@@ -1,5 +1,6 @@
 <nav aria-label="Progress" class="w-96">
   <ol role="list" class="overflow-hidden">
+    <%= render partial: "production/plans/production_units/batches/data", batch: @batch %>
     <%= render partial: "production/plans/production_units/batches/journals/journal", collection: @journals, as: :journal %>
     <% if @plan.semi? %>
       <%= render "production/plans/production_units/batches/cookings/cooking", batch: @batch %>

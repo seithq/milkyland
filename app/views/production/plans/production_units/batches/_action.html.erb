@@ -1,6 +1,27 @@
 <% if batch.production_unit.in_progress? %>
   <% if batch.in_plan? %>
-    <%= button_to t("actions.start"), production_plan_unit_batch_path(@plan, @production_unit, batch), method: :patch, params: { batch: { status: :in_progress } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
+    <div class="relative" data-controller="dropdown">
+      <button type="button" class="btn-in-plan" id="batch-menu-button" aria-expanded="false" aria-haspopup="true" data-dropdown-target="button" data-action="dropdown#toggle click@window->dropdown#close">
+      <span class="flex items-center space-x-2">
+        <span aria-hidden="true"><%= Batch.enum_to_s(:statuses, :in_plan) %></span>
+        <%= inline_svg_tag "chevron-down.svg", class: "h-5 w-5 text-gray-900" %>
+      </span>
+      </button>
+
+      <!-- Dropdown menu, show/hide based on menu state. -->
+      <div class="hidden absolute right-0 z-10 flex flex-col items-stretch space-y-2 mt-2.5 origin-top-right rounded-md bg-white p-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="plan-menu-button" tabindex="-1"
+           data-dropdown-target="menu"
+           data-transition-enter="transition ease-out duration-100"
+           data-transition-enter-start="transform opacity-0 scale-95"
+           data-transition-enter-end="transform opacity-100 scale-100"
+           data-transition-leave="transition ease-in duration-75"
+           data-transition-leave-start="transform opacity-100 scale-100"
+           data-transition-leave-end="transform opacity-0 scale-95"
+      >
+        <%= button_to t("actions.start"), production_plan_unit_batch_path(@plan, @production_unit, batch), method: :patch, params: { batch: { status: :in_progress, actual_start_time: Time.current } }, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
+        <%= link_to t("actions.edit_record"), edit_production_plan_unit_batch_path(@plan, @production_unit, batch), class: "btn-xl" %>
+      </div>
+    </div>
   <% elsif batch.in_progress? %>
     <div class="relative" data-controller="dropdown">
       <button type="button" class="btn-in-production" id="batch-menu-button" aria-expanded="false" aria-haspopup="true" data-dropdown-target="button" data-action="dropdown#toggle click@window->dropdown#close">

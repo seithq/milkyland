@@ -13,6 +13,7 @@ class Position < ApplicationRecord
 
   scope :filter_by_group, ->(group_id) { joins(product: :group).merge(Product.filter_by_group(group_id)) }
   scope :filter_by_product, ->(product_id) { joins(:product).where(products: { id: product_id }) }
+  scope :filter_by_order, ->(order_id) { where(order_id: order_id) }
 
   def default_value(field, default)
     self.send(field).presence || default

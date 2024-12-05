@@ -332,6 +332,12 @@ ru:
         comment: Комментарий
         work_shift: Рабочая смена
         storage_id: Склад ТМЦ мастера
+        tonnage: Тоннаж
+        start_time: Время начала
+        planned_tonnage: Тоннаж (план)
+        produced_tonnage: Тоннаж (факт)
+        planned_start_time: Время начала (план)
+        actual_start_time: Время начала (факт)
       step:
         comment: Комментарий
       metric:

@@ -21,7 +21,9 @@ module Production::Plans
 
     test "should create batch" do
       assert_difference("Batch.count") do
-        post production_plan_unit_batches_url(@plan, @production_unit), params: { batch: { loader_id: users(:loader).id,
+        post production_plan_unit_batches_url(@plan, @production_unit), params: { batch: { planned_tonnage: 1.0,
+                                                                                           planned_start_time: 1.hour.from_now,
+                                                                                           loader_id: users(:loader).id,
                                                                                            machiner_id: users(:machiner).id,
                                                                                            operator_id: users(:operator).id,
                                                                                            tester_id: users(:tester).id,

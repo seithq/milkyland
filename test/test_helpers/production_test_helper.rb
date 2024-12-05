@@ -9,7 +9,7 @@ module ProductionTestHelper
 
     @production_unit = @plan.units.last
     assert @production_unit.update status: :in_progress
-    assert @production_unit.batches.create(loader: users(:loader), tester: users(:tester), machiner: users(:machiner), operator: users(:operator), storage: storages(:masters_material_assets))
+    assert @production_unit.batches.create(planned_tonnage: 1.0, planned_start_time: 1.hour.from_now, loader: users(:loader), tester: users(:tester), machiner: users(:machiner), operator: users(:operator), storage: storages(:masters_material_assets))
 
     @batch = @production_unit.batches.last
     assert @batch.update status: :in_progress
