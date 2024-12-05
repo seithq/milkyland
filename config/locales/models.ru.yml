@@ -406,6 +406,8 @@ ru:
         expiration_date: Дата истечения срока годности
       generation:
         status: Статус
+        box_count: Коробки
+        product_count: Штуки
       pallet:
         id: ID
         code: Код паллеты

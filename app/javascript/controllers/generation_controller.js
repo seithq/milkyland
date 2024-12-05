@@ -30,13 +30,19 @@ export default class extends Controller {
 
   refreshCounter(event) {
     const localCounter = document.getElementById(event.params.id)
-    if (localCounter && event.target.value !== "") localCounter.innerHTML = (parseInt(event.params.multiplier) * parseInt(event.target.value)).toString()
+    const localInput = document.getElementById(`${ event.params.id }_input`)
+    if (localCounter  && localInput) {
+      let boxCount = 0
+      if (event.target.value !== "") boxCount = Math.ceil(parseInt(event.target.value) / parseInt(event.params.multiplier))
 
-    let sum = 0;
-    this.inputTargets.forEach((input) => {
-      const multiplier = parseInt(input.dataset.generationMultiplierParam)
-      if (input.value !== "") sum += multiplier * parseInt(input.value)
-    })
-    this.factValue = sum
+      localCounter.innerHTML = boxCount.toString()
+      localInput.value = boxCount
+
+      let sum = 0;
+      this.inputTargets.forEach((input) => {
+        if (input.value !== "") sum += parseInt(input.value)
+      })
+      this.factValue = sum
+    }
   }
 }

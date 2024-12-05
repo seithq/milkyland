@@ -24,11 +24,15 @@
         <div>
           <%= label_tag "box_packaging_name", box_packaging_label(box_packaging), class: "form-label-xl" %>
           <%= hidden_field_tag "generation[box_requests_attributes][#{index}][box_packaging_id]", box_packaging.id %>
-          <div class="mt-2 flex rounded-md shadow-sm">
+          <%= hidden_field_tag "generation[box_requests_attributes][#{index}][count]", 0, id: "#{ box_packaging.id }_input" %>
+          <div class="mt-2 grid grid-cols-3 rounded-md shadow-sm">
+            <%= label_tag :box_count, Generation.human_attribute_name(:box_count), class: "form-label" %>
+            <%= label_tag :product_count, Generation.human_attribute_name(:product_count), class: "col-span-2 form-label" %>
+
             <span id="<%= box_packaging.id %>" class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-xl"><%= 0 %></span>
-            <%= number_field_tag "generation[box_requests_attributes][#{index}][count]", 0,
+            <%= number_field_tag "product_count", 0,
                                  data: { generation_target: "input", generation_id_param: box_packaging.id, generation_multiplier_param: box_packaging.count, action: "keyup->generation#refreshCounter" },
-                                 class: "block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xl sm:leading-6"
+                                 class: "col-span-2 block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xl sm:leading-6"
             %>
           </div>
         </div>
