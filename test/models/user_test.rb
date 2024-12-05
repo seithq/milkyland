@@ -5,4 +5,9 @@ class UserTest < ActiveSupport::TestCase
     users(:daniyar).update(password: "secret" * 50)
     assert users(:daniyar).valid?
   end
+
+  test "should validate email and password for restricted" do
+    user = User.new name: "TEST", role: :loader, restricted: true
+    assert user.valid?
+  end
 end

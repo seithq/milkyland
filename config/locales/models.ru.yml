@@ -164,6 +164,7 @@ ru:
         password: Пароль
         active: Активный
         role: Роль
+        restricted: Без доступа
       region:
         name: Название
         code: Префикс для QR

@@ -15,7 +15,11 @@ class User < ApplicationRecord
 
   has_many :assemblies, dependent: :destroy
 
-  validates :name, :email_address, presence: true, uniqueness: { case_sensitive: false }
+  before_validation :set_random_credentials, if: :restricted?
+
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates_presence_of :email_address, unless: :restricted?
+  validates_uniqueness_of :email_address, case_sensitive: false, allow_blank: true
 
   scope :active, -> { where(active: true) }
   scope :ordered, -> { order(:name) }
@@ -36,5 +40,10 @@ class User < ApplicationRecord
   private
     def deactived_email_address
       email_address&.gsub(/@/, "-deactivated-#{SecureRandom.uuid}@")
+    end
+
+    def set_random_credentials
+      self.email_address = "#{SecureRandom.uuid}@milkyland.kz"
+      self.password = SecureRandom.hex(10)
     end
 end

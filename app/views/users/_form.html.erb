@@ -12,14 +12,26 @@
         <%= form.select :role, options_for_enum_select(User, :role, user.role), { include_blank: false }, class: "form-input" %>
       </div>
 
-      <div>
-        <%= form.label :email_address, class: "form-label" %>
-        <%= form.email_field :email_address, required: true, autocomplete: "email-address", class: "form-input" %>
-      </div>
+      <div class="space-y-4" data-controller="user" data-user-restricted-value="<%= user.restricted? %>">
+        <div class="relative flex gap-x-3">
+          <div class="flex h-6 items-center">
+            <%= form.check_box :restricted, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600", data: { action: "user#toggle" } %>
+          </div>
+          <div class="text-sm leading-6">
+            <%= form.label :restricted, class: "font-medium text-gray-900" %>
+            <p class="text-gray-500"><%= t("forms.restricted") %></p>
+          </div>
+        </div>
 
-      <div>
-        <%= form.label :password, class: "form-label" %>
-        <%= form.password_field :password, required: user.new_record?, autocomplete: "new-password", maxlength: 72, class: "form-input" %>
+        <div>
+          <%= form.label :email_address, class: "form-label" %>
+          <%= form.email_field :email_address, required: true, autocomplete: "email-address", class: "form-input", data: { user_target: "email" } %>
+        </div>
+
+        <div>
+          <%= form.label :password, class: "form-label" %>
+          <%= form.password_field :password, required: user.new_record?, autocomplete: "new-password", maxlength: 72, class: "form-input", data: { user_target: "password" } %>
+        </div>
       </div>
 
       <% if !user.new_record? && !user.active? %>
