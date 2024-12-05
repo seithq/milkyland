@@ -9,7 +9,7 @@
             <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.profile_extra") %></p>
           </div>
 
-          <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+          <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2" data-controller="supplier" data-supplier-foreign-value="<%= supplier.foreign? %>">
             <div class="sm:col-span-4">
               <%= form.label :manager_id, class: "form-label" %>
               <%= form.select :manager_id, options_from_collection_for_select(User.procurement_officers, :id, :name, supplier.manager_id), { include_blank: true, required: true }, { class: "mt-2 form-select" } %>
@@ -20,9 +20,24 @@
               <%= form.text_field :name, autocomplete: "name", autofocus: true, required: true, class: "mt-2 form-input" %>
             </div>
 
+            <div class="sm:col-span-4 relative flex gap-x-3">
+              <div class="flex h-6 items-center">
+                <%= form.check_box :foreign, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600", data: { action: "supplier#toggle" } %>
+              </div>
+              <div class="text-sm leading-6">
+                <%= form.label :foreign, class: "font-medium text-gray-900" %>
+                <p class="text-gray-500"><%= t("forms.foreign_company") %></p>
+              </div>
+            </div>
+
             <div class="sm:col-span-4">
               <%= form.label :bin, class: "form-label" %>
-              <%= form.text_field :bin, autocomplete: "bin", required: true, class: "mt-2 form-input", max: 12 %>
+              <%= form.text_field :bin, autocomplete: "bin", required: true, class: "mt-2 form-input", max: 12, data: { supplier_target: "bin" } %>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= form.label :identification_number, class: "form-label" %>
+              <%= form.text_field :identification_number, autocomplete: "identification-number", required: true, class: "mt-2 form-input", data: { supplier_target: "number" } %>
             </div>
 
             <div class="sm:col-span-4">

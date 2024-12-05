@@ -48,6 +48,6 @@ class Settings::SuppliersController < ApplicationController
     end
 
     def supplier_params
-      params.require(:supplier).permit(:name, :bin, :contact_person, :job_title, :phone_number, :email_address, :entity_code, :bank_name, :bank_account, :bank_code, :manager_id, uploads: [])
+      params.require(:supplier).permit(:name, :bin, :contact_person, :job_title, :phone_number, :email_address, :entity_code, :bank_name, :bank_account, :bank_code, :manager_id, :foreign, :identification_number, uploads: [])
     end
 end

@@ -1,5 +1,5 @@
 class Client < ApplicationRecord
-  include Entitable
+  include Entitable, Binable
 
   has_many :sales_points, dependent: :destroy
   has_many :participants, dependent: :destroy

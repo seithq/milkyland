@@ -181,6 +181,8 @@ ru:
         bank_account: ИИК или IBAN
         bank_code: БИК или SWIFT
         manager_id: Менеджер
+        foreign: Иностранная компания
+        identification_number: Идентификационный номер
       client:
         name: Название
         bin: БИН

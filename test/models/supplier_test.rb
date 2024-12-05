@@ -42,4 +42,9 @@ class SupplierTest < ActiveSupport::TestCase
     supplier = Supplier.new(manager: users(:askhat), name: "REGATA", bin: "921026400042", phone_number: "+77772098007")
     assert supplier.save
   end
+
+  test "should validate only identification number for foreign" do
+    supplier = Supplier.new(manager: users(:askhat), name: "Foreign Supplier", bin: "", foreign: true, identification_number: "1234567890")
+    assert supplier.valid?
+  end
 end
