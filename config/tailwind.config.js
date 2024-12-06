@@ -11,6 +11,15 @@ module.exports = {
   safelist: [
     'pagy',
     'spinner',
+    'choices__list',
+    'choices__list--dropdown',
+    'choices__placeholder',
+    'choices__input--cloned',
+    'choices__list--single',
+    'choices__item--choice',
+    'is-active',
+    'is-selected',
+    'is-highlighted',
   ],
   theme: {
     extend: {

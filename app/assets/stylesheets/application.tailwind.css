@@ -197,10 +197,6 @@
         &.is-active {
             @apply block;
         }
-
-        &.choices__placeholder {
-            @apply hidden;
-        }
     }
 
     .choices__input--cloned {
