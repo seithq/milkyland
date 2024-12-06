@@ -25,8 +25,13 @@ class Product < ApplicationRecord
 
   scope :ordered, -> { order(name: :asc) }
 
-  def price(by:)
-    base_price = prices.find_by(sales_channel_id: by)
+  def price(by:, client: nil)
+    if client
+      base_price = custom_prices.active.find_by client_id: client
+      return base_price if base_price.present?
+    end
+
+    base_price = prices.active.find_by(sales_channel_id: by)
     base_price.presence || Price.new(value: 0.0)
   end
 

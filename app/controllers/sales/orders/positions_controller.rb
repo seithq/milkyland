@@ -61,7 +61,7 @@ module Sales
       def set_product
         if params.has_key?(:product_id)
           @product = Product.find(params[:product_id])
-          @base_price = @product.price by: @sales_channel
+          @base_price = @product.price by: @sales_channel, client: @order.client_id
 
           @promotion = @order.eligible_promotions_for(@product).first
           @discounted_price = @promotion.present? ? @promotion.calculate_discount_for(@base_price) : @base_price.value

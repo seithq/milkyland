@@ -40,7 +40,7 @@ class Order < ApplicationRecord
 
   def eligible_promotions_for(product)
     promotions = Promotion.running.filter_by_eligible client_id: self.client_id, product_id: product.id
-    promotions.sort_by { |promo| promo.calculate_discount_for product.price(by: self.sales_channel_id) }
+    promotions.sort_by { |promo| promo.calculate_discount_for product.price(by: self.sales_channel_id, client: self.client_id) }
   end
 
   def current_plan

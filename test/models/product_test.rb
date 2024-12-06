@@ -28,4 +28,9 @@ class ProductTest < ActiveSupport::TestCase
     price = products(:milk25).price by: sales_channels(:b2b).id
     assert_equal prices(:milk25_b2b).value, price.value
   end
+
+  test "should get price for client" do
+    price = products(:milk25).price by: sales_channels(:b2b).id, client: clients(:systemd).id
+    assert_equal custom_prices(:milk25_systemd).value, price.value
+  end
 end
