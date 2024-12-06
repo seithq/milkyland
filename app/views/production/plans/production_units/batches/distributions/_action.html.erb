@@ -1,6 +1,6 @@
 <% if @batch.in_progress? %>
   <% if distribution.new_record? %>
-    <%= button_to t("actions.start"), production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch), method: :post, params: { distribution: { status: :in_progress } }, disabled: !(@batch.completed_journals? && @batch.packing.present? && @batch.packing.step_completed?), form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
+    <%= button_to t("actions.start"), production_plan_unit_batch_distribution_path(@plan, @production_unit, @batch), method: :post, params: { distribution: { status: :in_progress } }, disabled: !(@batch.completed_journals?(unordable: false) && @batch.packing.present? && @batch.packing.step_completed?), form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
   <% else %>
     <% if distribution.in_progress? %>
       <div class="relative" data-controller="dropdown">

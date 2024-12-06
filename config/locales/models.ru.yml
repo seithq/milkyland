@@ -231,6 +231,7 @@ ru:
         name: Название
         chain_order: Порядковый номер
         active: Активная запись
+        unordable: После фасовки / завершения
       operation:
         journal_id: Журнал операций
         name: Название

@@ -55,7 +55,7 @@ module Settings
       end
 
       def journal_params
-        params.require(:journal).permit(:name, :chain_order, :active)
+        params.require(:journal).permit(:name, :chain_order, :active, :unordable)
       end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_06_055505) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_06_073347) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -317,6 +317,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_06_055505) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "chain_order", default: 0
+    t.boolean "unordable", default: false
     t.index ["group_id", "name"], name: "index_journals_on_group_id_and_name", unique: true
     t.index ["group_id"], name: "index_journals_on_group_id"
   end

@@ -7,6 +7,7 @@ module Progressable
     scope :progressable, ->() { order(status: :asc) }
 
     scope :filter_by_status, ->(status) { where(status: status) }
+    scope :finished, ->() { filter_by_status(%i[ completed cancelled ]) }
 
     def launch
       update status: :in_progress

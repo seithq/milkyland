@@ -32,14 +32,16 @@ class Batch < ApplicationRecord
     (total_completed_steps.to_d / total_operations.to_d) * 100.0
   end
 
-  def total_completed_steps(journal_id: nil)
-    base_scope = steps.filter_by_status(%i[ completed cancelled ])
+  def total_completed_steps(journal_id: nil, unordable: nil)
+    base_scope = steps.finished
+    base_scope = base_scope.filter_by_unordable(unordable) unless unordable.nil?
     base_scope = base_scope.filter_by_journal(journal_id) unless journal_id.nil?
     base_scope.count
   end
 
-  def total_operations(journal_id: nil)
+  def total_operations(journal_id: nil, unordable: nil)
     base_scope = production_unit.group.operations
+    base_scope = base_scope.filter_by_unordable(unordable) unless unordable.nil?
     base_scope = base_scope.filter_by_journal(journal_id) unless journal_id.nil?
     base_scope.count
   end
@@ -71,7 +73,7 @@ class Batch < ApplicationRecord
     total_completed_steps(journal_id: journal.id) == total_operations(journal_id: journal.id)
   end
 
-  def completed_journals?
-    total_completed_steps == total_operations
+  def completed_journals?(unordable: nil)
+    total_completed_steps(unordable: unordable) == total_operations(unordable: unordable)
   end
 end

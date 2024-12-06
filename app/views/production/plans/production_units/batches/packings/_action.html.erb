@@ -1,6 +1,6 @@
 <% if @batch.in_progress? %>
   <% if packing.new_record? %>
-    <%= button_to t("actions.start"), production_plan_unit_batch_packing_path(@plan, @production_unit, @batch), method: :post, params: { packing: { status: :in_progress } }, disabled: !@batch.completed_journals?, form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
+    <%= button_to t("actions.start"), production_plan_unit_batch_packing_path(@plan, @production_unit, @batch), method: :post, params: { packing: { status: :in_progress } }, disabled: !@batch.completed_journals?(unordable: false), form: { data: { turbo_confirm: t("actions.confirm") } }, class: "btn-start" %>
   <% else %>
     <% if packing.in_progress? %>
       <div class="relative" data-controller="dropdown">

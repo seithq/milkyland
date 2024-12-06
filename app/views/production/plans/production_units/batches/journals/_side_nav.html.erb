@@ -1,12 +1,13 @@
 <nav aria-label="Progress" class="w-96">
   <ol role="list" class="overflow-hidden">
-    <%= render partial: "production/plans/production_units/batches/data", batch: @batch %>
-    <%= render partial: "production/plans/production_units/batches/journals/journal", collection: @journals, as: :journal %>
+    <%= render "production/plans/production_units/batches/data", batch: @batch %>
+    <%= render partial: "production/plans/production_units/batches/journals/journal", collection: @journals.before_packing_or_cooking, as: :journal %>
     <% if @plan.semi? %>
       <%= render "production/plans/production_units/batches/cookings/cooking", batch: @batch %>
     <% else %>
       <%= render "production/plans/production_units/batches/packings/packing", batch: @batch %>
       <%= render "production/plans/production_units/batches/distributions/distribution", batch: @batch %>
     <% end %>
+    <%= render partial: "production/plans/production_units/batches/journals/post_journal", collection: @journals.after_packing_or_cooking, as: :journal %>
   </ol>
 </nav>
