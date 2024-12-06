@@ -7,7 +7,7 @@ module Settings
     before_action :set_read_mode, only: :index
 
     def index
-      @prices = base_scope.recent_first
+      @prices = base_scope
     end
 
     def new
@@ -43,11 +43,7 @@ module Settings
 
     private
       def base_scope
-        @product.prices
-      end
-
-      def search_methods
-        []
+        @product.prices.recent_first
       end
 
       def set_price

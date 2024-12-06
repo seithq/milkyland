@@ -274,6 +274,11 @@ ru:
         sales_channel_id: Канал сбыта
         value: Цена
         active: Активная запись
+      custom_price:
+        product_id: Номенклатура ГП
+        client_id: Клиент
+        value: Цена
+        active: Активная запись
       sales_point:
         region_id: Регион
         name: Название точки

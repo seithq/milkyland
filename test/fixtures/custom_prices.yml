@@ -1,0 +1,4 @@
+milk25_systemd:
+  product: milk25
+  client: systemd
+  value: 800

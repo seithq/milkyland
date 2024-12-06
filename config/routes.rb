@@ -180,6 +180,7 @@ Rails.application.routes.draw do
     resources :products, except: :destroy do
       scope module: "products" do
         resources :prices, except: :show
+        resources :custom_prices, except: :show
         resources :box_packagings, except: :show
         resources :single_packagings, except: :show
       end

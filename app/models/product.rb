@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   belongs_to :measurement
 
   has_many :prices, dependent: :destroy
+  has_many :custom_prices, dependent: :destroy
   has_many :box_packagings, dependent: :destroy
   has_many :single_packagings, dependent: :destroy
 

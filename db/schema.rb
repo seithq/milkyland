@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_05_200004) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_06_055505) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -202,6 +202,18 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_05_200004) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["batch_id"], name: "index_cookings_on_batch_id"
+  end
+
+  create_table "custom_prices", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "client_id", null: false
+    t.decimal "value", precision: 20, scale: 2
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_custom_prices_on_client_id"
+    t.index ["product_id", "client_id"], name: "index_custom_prices_on_product_id_and_client_id", unique: true
+    t.index ["product_id"], name: "index_custom_prices_on_product_id"
   end
 
   create_table "discounted_products", force: :cascade do |t|
@@ -983,6 +995,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_05_200004) do
   add_foreign_key "cooked_semi_products", "cookings"
   add_foreign_key "cooked_semi_products", "semi_products"
   add_foreign_key "cookings", "batches"
+  add_foreign_key "custom_prices", "clients"
+  add_foreign_key "custom_prices", "products"
   add_foreign_key "discounted_products", "products"
   add_foreign_key "discounted_products", "promotions"
   add_foreign_key "distributed_products", "distributions"
