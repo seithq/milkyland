@@ -4,4 +4,5 @@ class PackingMachine < ApplicationRecord
   has_many :machineries, dependent: :destroy
 
   has_many :containers, dependent: :destroy
+  has_many :material_assets, through: :containers
 end

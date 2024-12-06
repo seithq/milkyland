@@ -9,7 +9,7 @@
 
       <div>
         <%= form.label :material_asset_id, class: "form-label-xl" %>
-        <%= form.select :material_asset_id, options_from_collection_for_select([], :id, :name, machinery.material_asset_id), { include_blank: true }, { required: true, class: "mt-2 form-select-xl" } %>
+        <%= form.select :material_asset_id, options_from_collection_for_select(@packing_material_assets, :id, :name, machinery.material_asset_id), { include_blank: true }, { required: true, class: "mt-2 form-select-xl" } %>
       </div>
 
       <div>
@@ -27,7 +27,12 @@
         <%= form.number_field :count, autocomplete: "count", required: true, class: "mt-2 form-input-xl" %>
       </div>
 
-      <%= form.submit t("actions.save_record"), class: "w-full btn-xl" %>
+      <div class="flex space-x-2">
+        <% unless machinery.new_record? %>
+          <%= link_to t("actions.destroy_record"), production_plan_unit_batch_packing_packaged_product_machinery_path(@plan, @production_unit, @batch, @packaged_product, machinery), data: { turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "btn-danger-xl" %>
+        <% end %>
+        <%= form.submit t("actions.save_record"), class: "w-full btn-xl" %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -3,7 +3,8 @@ module Production::Plans::ProductionUnits::Batches::Packings
     include PlanScoped, ProductionUnitScoped, BatchScoped, PackingScoped, PackagedProductScoped
 
     before_action :set_machinery, only: %i[ edit update destroy ]
-    before_action :set_packing_material_assets, only: :search
+    before_action :set_form_material_assets, only: %i[ new edit ]
+    before_action :set_search_material_assets, only: :search
 
     def index
       @machineries = base_scope
@@ -28,7 +29,7 @@ module Production::Plans::ProductionUnits::Batches::Packings
 
     def update
       if @machinery.update(machinery_params)
-        redirect_on_create edit_production_plan_unit_batch_packing_packaged_product_url(@plan, @production_unit, @batch, @packaged_product)
+        redirect_on_update edit_production_plan_unit_batch_packing_packaged_product_url(@plan, @production_unit, @batch, @packaged_product)
       else
         render :edit, status: :unprocessable_entity
       end
@@ -37,7 +38,7 @@ module Production::Plans::ProductionUnits::Batches::Packings
     def destroy
       @machinery.destroy!
 
-      redirect_on_create edit_production_plan_unit_batch_packing_packaged_product_url(@plan, @production_unit, @batch, @packaged_product)
+      redirect_on_destroy edit_production_plan_unit_batch_packing_packaged_product_url(@plan, @production_unit, @batch, @packaged_product)
     end
 
     def search
@@ -56,7 +57,11 @@ module Production::Plans::ProductionUnits::Batches::Packings
         params.expect(machinery: %i[ packing_machine_id material_asset_id start_time end_time count ])
       end
 
-      def set_packing_material_assets
+      def set_form_material_assets
+        @packing_material_assets = @machinery.nil? ? [] : @machinery.packing_machine.material_assets
+      end
+
+      def set_search_material_assets
         @packing_material_assets = []
 
         return unless params.has_key?(:packing_machine_id)
