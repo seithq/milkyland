@@ -1,0 +1,28 @@
+<% content_for(:title) { @financial_category.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: financial_categories_path, title: t("pages.financial_categories")),
+      NavLink.new(path: financial_category_path(@financial_category), title: @financial_category.name),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @financial_category do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :kind, class: "form-label" %>
+          <%= form.text_field :kind, value: FinancialCategory.enum_to_s(:kind, @financial_category.kind), readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :name, class: "form-label" %>
+          <%= form.text_field :name, readonly: true, class: "form-input" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

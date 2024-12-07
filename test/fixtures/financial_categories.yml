@@ -1,0 +1,7 @@
+income_client:
+  kind: income
+  name: Income Client
+
+expense_tax:
+  kind: expense
+  name: Expense Tax

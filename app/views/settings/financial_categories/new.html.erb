@@ -1,0 +1,11 @@
+<% content_for(:title) { t("pages.financial_categories") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: financial_categories_path, title: t("pages.financial_categories"))
+    ]
+  } %>
+<% end %>
+
+<%= render "form", financial_category: @financial_category %>

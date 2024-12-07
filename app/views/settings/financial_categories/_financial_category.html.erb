@@ -1,0 +1,14 @@
+<div class="table-row">
+  <div class="table-cell w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
+    <%= link_to financial_category.name, financial_category_path(financial_category), class: "text-indigo-600" %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500"><%= FinancialCategory.enum_to_s(:kind, financial_category.kind) %></div>
+  <div class="table-cell py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+    <div class="flex justify-end space-x-2">
+      <% if allowed_to?(:destroy?, financial_category) %>
+        <%= link_to t("actions.destroy_record"), financial_category_path(financial_category), data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "text-red-600 hover:text-red-500" %>
+      <% end %>
+      <%= link_to t("actions.edit_record"), edit_financial_category_path(financial_category), class: "text-indigo-600 hover:text-indigo-900" %>
+    </div>
+  </div>
+</div>

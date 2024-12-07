@@ -203,6 +203,7 @@ Rails.application.routes.draw do
       end
     end
     resources :activity_types
+    resources :financial_categories
   end
 
   scope module: "logistics" do

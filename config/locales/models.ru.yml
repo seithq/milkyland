@@ -24,6 +24,10 @@ ru:
           packing: Упаковочная тара
           semi_product: Полуфабрикат
           group_packing: Группировочная тара
+      financial_category:
+        kinds:
+          income: Доход
+          expense: Расход
       field:
         kinds:
           date: Дата
@@ -508,6 +512,9 @@ ru:
         count: Количество
       activity_type:
         name: Название
+      financial_category:
+        name: Название
+        kind: Тип
     models:
       box:
         one: Коробка
