@@ -202,6 +202,7 @@ Rails.application.routes.draw do
         resources :discounted_products, except: :show
       end
     end
+    resources :activity_types
   end
 
   scope module: "logistics" do

@@ -1,0 +1,11 @@
+<% content_for(:title) { t("pages.activity_types") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: activity_types_path, title: t("pages.activity_types"))
+    ]
+  } %>
+<% end %>
+
+<%= render "form", activity_type: @activity_type %>

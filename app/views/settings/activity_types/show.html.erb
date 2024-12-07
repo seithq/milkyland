@@ -1,0 +1,23 @@
+<% content_for(:title) { @activity_type.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: activity_types_path, title: t("pages.activity_types")),
+      NavLink.new(path: activity_type_path(@activity_type), title: @activity_type.name),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @activity_type do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :name, class: "form-label" %>
+          <%= form.text_field :name, readonly: true, class: "form-input" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

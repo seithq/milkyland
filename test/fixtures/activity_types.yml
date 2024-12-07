@@ -1,0 +1,8 @@
+operational:
+  name: Operational
+
+investment:
+  name: Investment
+
+financial:
+  name: Financial

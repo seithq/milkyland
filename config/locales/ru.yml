@@ -15,6 +15,7 @@ ru:
     suppliers: "Поставщики"
     clients: "Покупатели"
     categories: "Категории"
+    activity_types: "Виды деятельности"
     measurements: "Единицы измерения"
     products: "Номенклатура ГП"
     semi_products: "Номенклатура ПФ"
