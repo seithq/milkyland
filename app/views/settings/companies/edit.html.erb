@@ -1,0 +1,12 @@
+<% content_for(:title) { @company.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: companies_path, title: t("pages.companies")),
+      NavLink.new(path: edit_company_path(@company), title: @company.name),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", company: @company %>

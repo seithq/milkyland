@@ -515,6 +515,8 @@ ru:
       financial_category:
         name: Название
         kind: Тип
+      company:
+        name: Название
     models:
       box:
         one: Коробка
