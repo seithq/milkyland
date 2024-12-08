@@ -31,6 +31,7 @@ class Settings::CompaniesTest < ApplicationSystemTestCase
   end
 
   test "should destroy Company" do
+    assert companies(:milkyland).bank_accounts.destroy_all
     visit companies_url
 
     accept_alert do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_08_092103) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_08_094904) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -76,6 +76,16 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_08_092103) do
     t.index ["route_sheet_id"], name: "index_assemblies_on_route_sheet_id"
     t.index ["user_id"], name: "index_assemblies_on_user_id"
     t.index ["zone_id"], name: "index_assemblies_on_zone_id"
+  end
+
+  create_table "bank_accounts", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "name"
+    t.string "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id", "name"], name: "index_bank_accounts_on_company_id_and_name", unique: true
+    t.index ["company_id"], name: "index_bank_accounts_on_company_id"
   end
 
   create_table "batches", force: :cascade do |t|
@@ -997,6 +1007,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_08_092103) do
   add_foreign_key "assemblies", "route_sheets"
   add_foreign_key "assemblies", "users"
   add_foreign_key "assemblies", "zones"
+  add_foreign_key "bank_accounts", "companies"
   add_foreign_key "batches", "production_units"
   add_foreign_key "batches", "storages"
   add_foreign_key "batches", "users", column: "loader_id"

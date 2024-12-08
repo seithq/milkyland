@@ -517,6 +517,10 @@ ru:
         kind: Тип
       company:
         name: Название
+      bank_account:
+        name: Название
+        company_id: Компания
+        number: Номер счета
     models:
       box:
         one: Коробка

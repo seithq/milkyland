@@ -1,4 +1,4 @@
-class CompanyPolicy < ApplicationPolicy
+class BankAccountPolicy < ApplicationPolicy
   def destroy?
     owned? && has_empty_associations?
   end
@@ -9,6 +9,6 @@ class CompanyPolicy < ApplicationPolicy
     end
 
     def has_empty_associations?
-      record.bank_accounts.count.zero?
+      true
     end
 end
