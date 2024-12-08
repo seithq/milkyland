@@ -9,3 +9,5 @@ operational_expense_tax:
   activity_type: operational
   name: Taxes
   kind: expense
+  min_amount: 0.0
+  bypass_control: false

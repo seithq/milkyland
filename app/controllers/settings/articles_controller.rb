@@ -55,7 +55,7 @@ class Settings::ArticlesController < ApplicationController
     end
 
     def article_params
-      params.expect(article: %i[ financial_category_id activity_type_id name kind ])
+      params.expect(article: %i[ financial_category_id activity_type_id name kind min_amount bypass_control ])
     end
 
     def set_financial_categories

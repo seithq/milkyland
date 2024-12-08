@@ -71,6 +71,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_08_163226) do
     t.bigint "activity_type_id", null: false
     t.string "name"
     t.string "kind"
+    t.boolean "bypass_control", default: false
+    t.decimal "min_amount", precision: 10, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["activity_type_id"], name: "index_articles_on_activity_type_id"

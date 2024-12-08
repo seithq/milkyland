@@ -526,6 +526,8 @@ ru:
         kind: Тип
         financial_category_id: Категория
         activity_type_id: Вид деятельности
+        bypass_control: Отключить контроль
+        min_amount: Ограничение мин. суммы
     models:
       box:
         one: Коробка
