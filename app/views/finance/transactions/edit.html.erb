@@ -1,0 +1,12 @@
+<% content_for(:title) { t("pages.transaction", id: @transaction.id) } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: transactions_path, title: t("pages.transactions")),
+      NavLink.new(path: edit_transaction_path(@transaction), title: t("pages.transaction", id: @transaction.id))
+    ]
+  } %>
+<% end %>
+
+<%= render "form", transaction: @transaction %>

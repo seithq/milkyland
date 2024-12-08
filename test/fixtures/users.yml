@@ -47,3 +47,9 @@ procurement_officer:
   email_address: procurement_officer@example.com
   password_digest: <%= password_digest %>
   role: procurement_officer
+
+finance_operator:
+  name: Finance Operator
+  email_address: finance_operator@example.com
+  password_digest: <%= password_digest %>
+  role: finance_operator

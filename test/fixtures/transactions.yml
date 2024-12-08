@@ -1,0 +1,23 @@
+income_client:
+  kind: income
+  creator: finance_operator
+  bank_account: milkyland_account
+  article: operational_income_client
+  amount: 100000.0
+  status: approved
+  comment: Test
+  planned_date: <%= Date.current %>
+  execution_date: <%= Date.current %>
+  client: systemd
+
+expense_material_asset:
+  kind: expense
+  creator: finance_operator
+  bank_account: milkyland_account
+  article: operational_expense_material_asset
+  amount: 20000.0
+  status: pending
+  comment: Test
+  planned_date: <%= Date.current %>
+  execution_date: <%= Date.current %>
+  material_asset: sugar

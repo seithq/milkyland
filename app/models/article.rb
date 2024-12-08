@@ -4,5 +4,7 @@ class Article < ApplicationRecord
   belongs_to :financial_category
   belongs_to :activity_type
 
+  has_many :transactions, dependent: :destroy
+
   validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :financial_category_id }
 end

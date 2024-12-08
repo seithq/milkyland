@@ -5,3 +5,7 @@ income_client:
 expense_tax:
   kind: expense
   name: Expense Tax
+
+expense_production:
+  kind: expense
+  name: Expense Production

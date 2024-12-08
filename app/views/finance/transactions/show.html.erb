@@ -1,0 +1,55 @@
+<% content_for(:title) { t("pages.transaction", id: @transaction.id) } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: transactions_path, title: t("pages.transactions")),
+      NavLink.new(path: transaction_path(@transaction), title: t("pages.transaction", id: @transaction.id))
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @transaction do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :bank_account_id, class: "form-label" %>
+          <%= form.select :bank_account_id, options_from_collection_for_select(BankAccount.all, :id, :name, @transaction.bank_account_id), {}, { disabled: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :article_id, class: "form-label" %>
+          <%= form.select :article_id, options_from_collection_for_select(Article.all, :id, :name, @transaction.article_id), {}, { disabled: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :amount, class: "form-label" %>
+          <%= form.number_field :amount, readonly: true, class: "form-input" %>
+        </div>
+
+        <div>
+          <%= form.label :comment, class: "form-label" %>
+          <%= form.textarea :comment, readonly: true, rows: 3, class: "form-area" %>
+        </div>
+
+        <div>
+          <%= form.label :planned_date, class: "form-label" %>
+          <%= form.date_field :planned_date, readonly: true, class: "form-input" %>
+        </div>
+
+        <% if @transaction.income? %>
+          <div>
+            <%= form.label :client_id, class: "form-label" %>
+            <%= form.select :client_id, options_from_collection_for_select(Client.ordered, :id, :name, @transaction.client_id), {}, { disabled: true, class: "form-select" } %>
+          </div>
+        <% else %>
+          <div>
+            <%= form.label :material_asset_id, class: "form-label" %>
+            <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :name, @transaction.client_id), {}, { disabled: true, class: "form-select" } %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -11,3 +11,11 @@ operational_expense_tax:
   kind: expense
   min_amount: 0.0
   bypass_control: false
+
+operational_expense_material_asset:
+  financial_category: expense_production
+  activity_type: operational
+  name: Production
+  kind: expense
+  min_amount: 0.0
+  bypass_control: false

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_08_163226) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_08_181056) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -957,6 +957,29 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_08_163226) do
     t.index ["route_sheet_id"], name: "index_tracking_products_on_route_sheet_id"
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "creator_id", null: false
+    t.bigint "bank_account_id", null: false
+    t.bigint "article_id", null: false
+    t.bigint "client_id"
+    t.bigint "material_asset_id"
+    t.bigint "linked_transaction_id"
+    t.string "kind"
+    t.decimal "amount"
+    t.string "status"
+    t.text "comment"
+    t.date "planned_date"
+    t.date "execution_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_transactions_on_article_id"
+    t.index ["bank_account_id"], name: "index_transactions_on_bank_account_id"
+    t.index ["client_id"], name: "index_transactions_on_client_id"
+    t.index ["creator_id"], name: "index_transactions_on_creator_id"
+    t.index ["linked_transaction_id"], name: "index_transactions_on_linked_transaction_id"
+    t.index ["material_asset_id"], name: "index_transactions_on_material_asset_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email_address", null: false
@@ -1122,6 +1145,12 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_08_163226) do
   add_foreign_key "supply_orders", "material_assets"
   add_foreign_key "tracking_products", "products"
   add_foreign_key "tracking_products", "route_sheets"
+  add_foreign_key "transactions", "articles"
+  add_foreign_key "transactions", "bank_accounts"
+  add_foreign_key "transactions", "clients"
+  add_foreign_key "transactions", "material_assets"
+  add_foreign_key "transactions", "transactions", column: "linked_transaction_id"
+  add_foreign_key "transactions", "users", column: "creator_id"
   add_foreign_key "warehousers", "storages"
   add_foreign_key "warehousers", "users"
   add_foreign_key "warehousers", "users", column: "replaceable_id"

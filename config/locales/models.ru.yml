@@ -28,6 +28,19 @@ ru:
         kinds:
           income: Доход
           expense: Расход
+      article:
+        kinds:
+          income: Доход
+          expense: Расход
+      transaction:
+        kinds:
+          income: Доход
+          expense: Расход
+        statuses:
+          pending: На подтверждении
+          confirmed: Подтверждено
+          completed: Завершено
+          cancelled: Отменено
       field:
         kinds:
           date: Дата
@@ -528,6 +541,18 @@ ru:
         activity_type_id: Вид деятельности
         bypass_control: Отключить контроль
         min_amount: Ограничение мин. суммы
+      transaction:
+        id: Номер
+        kind: Тип
+        status: Статус
+        amount: Сумма
+        article_id: Статья
+        bank_account_id: Счет
+        comment: Комментарий
+        client_id: Клиент
+        material_asset_id: Номенклатура ТМЦ
+        planned_date: Дата оплаты (план)
+        execution_date: Дата оплаты (факт)
     models:
       box:
         one: Коробка

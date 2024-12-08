@@ -15,6 +15,8 @@ class User < ApplicationRecord
 
   has_many :assemblies, dependent: :destroy
 
+  has_many :transactions, class_name: "Transaction", foreign_key: "creator_id", dependent: :destroy
+
   before_validation :set_random_credentials, if: :restricted?
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }

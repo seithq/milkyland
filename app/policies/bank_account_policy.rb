@@ -9,6 +9,6 @@ class BankAccountPolicy < ApplicationPolicy
     end
 
     def has_empty_associations?
-      true
+      record.transactions.count.zero?
     end
 end

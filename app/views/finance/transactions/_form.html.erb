@@ -1,0 +1,47 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= render "layouts/error_messages", resource: transaction %>
+    <%= form_with model: transaction, class: "space-y-4" do |form| %>
+      <%= form.hidden_field :kind %>
+
+      <div>
+        <%= form.label :bank_account_id, class: "form-label" %>
+        <%= form.select :bank_account_id, options_from_collection_for_select(BankAccount.all, :id, :name, transaction.bank_account_id), { include_blank: true }, { required: true, class: "form-select" } %>
+      </div>
+
+      <div>
+        <%= form.label :article_id, class: "form-label" %>
+        <%= form.select :article_id, options_from_collection_for_select(@articles, :id, :name, transaction.article_id), { include_blank: true }, { required: true, class: "form-select" } %>
+      </div>
+
+      <div>
+        <%= form.label :amount, class: "form-label" %>
+        <%= form.number_field :amount, autocomplete: "amount", class: "form-input", step: ".1" %>
+      </div>
+
+      <div>
+        <%= form.label :comment, class: "form-label" %>
+        <%= form.textarea :comment, autocomplete: "comment", rows: 3, class: "form-area" %>
+      </div>
+
+      <div>
+        <%= form.label :planned_date, class: "form-label" %>
+        <%= form.date_field :planned_date, autocomplete: "planned-date", class: "form-input" %>
+      </div>
+
+      <% if @kind == "income" %>
+        <div>
+          <%= form.label :client_id, class: "form-label" %>
+          <%= form.select :client_id, options_from_collection_for_select(Client.ordered, :id, :name, transaction.client_id), { include_blank: true }, { required: false, class: "form-select" } %>
+        </div>
+      <% else %>
+        <div>
+          <%= form.label :material_asset_id, class: "form-label" %>
+          <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :name, transaction.material_asset_id), { include_blank: true }, { required: false, class: "form-select" } %>
+        </div>
+      <% end %>
+
+      <%= form.submit t("actions.save_record"), class: "btn" %>
+    <% end %>
+  </div>
+</div>

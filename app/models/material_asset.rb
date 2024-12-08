@@ -14,6 +14,8 @@ class MaterialAsset < ApplicationRecord
   has_many :leftovers, as: :subject, dependent: :destroy
   has_many :storages, through: :leftovers
 
+  has_many :transactions, dependent: :nullify
+
   validates :article, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true, uniqueness: { scope: :supplier, case_sensitive: false }
 
