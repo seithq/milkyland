@@ -25,10 +25,25 @@ class Transaction < ApplicationRecord
   scope :filter_by_client, ->(client_id) { where(client_id: client_id) }
   scope :filter_by_article, ->(article_id) { where(article_id: article_id) }
   scope :filter_by_creator, ->(creator_id) { where(creator_id: creator_id) }
+  scope :filter_by_bank_account, ->(bank_account_id) { where(bank_account_id: bank_account_id) }
   scope :filter_by_material_asset, ->(material_asset_id) { where(material_asset_id: material_asset_id) }
   scope :filter_by_amount_from, ->(amount) { where("amount >= ?", amount) }
   scope :filter_by_amount_to, ->(amount) { where("amount <= ?", amount) }
   scope :filter_by_planned_date, ->(planned_date) { where(planned_date: planned_date) }
+
+  def self.total_balance(bank_account_id: nil)
+    query = <<-SQL
+    CASE
+        WHEN kind = 'income' THEN amount
+        WHEN kind = 'expense' THEN -amount
+        ELSE 0
+    END 
+    SQL
+
+    scope = Transaction.completed
+    scope = scope.filter_by_bank_account(bank_account_id) unless bank_account_id.nil?
+    scope.sum(Arel.sql(query))
+  end
 
   private
     def upgrade_status_if_needed

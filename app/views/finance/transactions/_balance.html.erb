@@ -1,0 +1,33 @@
+<div class="flex space-x-16 mb-10 items-start">
+  <div class="flex-none">
+    <h1 class="text-sm font-medium text-gray-500"><%= t("tables.cols.saldo") %></h1>
+    <span class="text-lg font-semibold text-gray-900"><%= number_to_currency Transaction.total_balance %></span>
+  </div>
+  <div class="flex-auto">
+      <div class="flow-root">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full align-middle sm:px-6 lg:px-8">
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead>
+              <tr>
+                <th scope="col" class="p-3 text-left text-sm font-medium text-gray-500"><%= Transaction.human_attribute_name(:bank_account_id) %></th>
+                <th scope="col" class="p-3 text-left text-sm font-medium text-gray-500"><%= BankAccount.human_attribute_name(:company_id) %></th>
+                <th scope="col" class="p-3 text-left text-sm font-medium text-gray-500"><%= t("tables.cols.saldo") %></th>
+              </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+              <% BankAccount.all.each do |bank_account| %>
+                <tr>
+                  <td class="whitespace-nowrap p-3 text-sm font-semibold text-gray-700"><%= bank_account.name %></td>
+                  <td class="whitespace-nowrap p-3 text-sm font-medium text-gray-500"><%= bank_account.company.name %></td>
+                  <td class="whitespace-nowrap p-3 text-sm font-semibold text-gray-700"><%= number_to_currency Transaction.total_balance bank_account_id: bank_account.id %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
