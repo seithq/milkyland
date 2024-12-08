@@ -1,0 +1,33 @@
+<% content_for(:title) { @article.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: articles_path, title: t("pages.articles")),
+      NavLink.new(path: article_path(@article), title: @article.name),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @article do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :activity_type_id, class: "form-label" %>
+          <%= form.select :activity_type_id, options_from_collection_for_select(ActivityType.all, :id, :name, @article.activity_type_id), {}, { disabled: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :financial_category_id, class: "form-label" %>
+          <%= form.select :financial_category_id, options_from_collection_for_select(FinancialCategory.all, :id, :name, @article.financial_category_id), {}, { disabled: true, class: "form-select" } %>
+        </div>
+
+        <div>
+          <%= form.label :name, class: "form-label" %>
+          <%= form.text_field :name, readonly: true, class: "form-input" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

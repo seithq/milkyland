@@ -1,0 +1,11 @@
+operational_income_client:
+  financial_category: income_client
+  activity_type: operational
+  name: Income from Client
+  kind: income
+
+operational_expense_tax:
+  financial_category: expense_tax
+  activity_type: operational
+  name: Taxes
+  kind: expense

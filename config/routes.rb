@@ -206,6 +206,7 @@ Rails.application.routes.draw do
     resources :financial_categories
     resources :companies
     resources :bank_accounts
+    resources :articles
   end
 
   scope module: "logistics" do

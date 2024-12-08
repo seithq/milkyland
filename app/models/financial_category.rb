@@ -1,4 +1,7 @@
 class FinancialCategory < ApplicationRecord
-  enum :kind, %w[ income expense ].index_by(&:itself)
+  include Directional
+
   validates :name, presence: true, uniqueness: { case_sensitive: false }
+
+  has_many :articles, dependent: :destroy
 end

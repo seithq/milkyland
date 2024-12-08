@@ -19,6 +19,7 @@ ru:
     companies: "Компании"
     bank_accounts: "Счета"
     financial_categories: "Финансовые категории"
+    articles: "Статьи"
     measurements: "Единицы измерения"
     products: "Номенклатура ГП"
     semi_products: "Номенклатура ПФ"
@@ -206,6 +207,8 @@ ru:
     select_option: "Выберите значение"
     no_results_text: "Не найдено"
     no_choices_text: "Пусто"
+    create_income: "Статья дохода"
+    create_expense: "Статья расхода"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
@@ -309,6 +312,8 @@ ru:
       stacks: "Стеллажи"
       tiers: "Ярусы"
       location: "Адрес"
+      financial_category: "Категория"
+      activity_type: "Вид деятельности"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

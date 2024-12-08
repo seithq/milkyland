@@ -1,4 +1,4 @@
-class ActivityTypePolicy < ApplicationPolicy
+class ArticlePolicy < ApplicationPolicy
   def destroy?
     owned? && has_empty_associations?
   end
@@ -9,6 +9,6 @@ class ActivityTypePolicy < ApplicationPolicy
     end
 
     def has_empty_associations?
-      record.articles.count.zero?
+      true
     end
 end

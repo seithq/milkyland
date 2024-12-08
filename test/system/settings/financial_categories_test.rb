@@ -32,6 +32,7 @@ class Settings::FinancialCategoriesTest < ApplicationSystemTestCase
   end
 
   test "should destroy Financial category" do
+    assert Article.destroy_all
     visit financial_categories_url
 
     accept_alert do

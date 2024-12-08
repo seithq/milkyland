@@ -521,6 +521,11 @@ ru:
         name: Название
         company_id: Компания
         number: Номер счета
+      article:
+        name: Название
+        kind: Тип
+        financial_category_id: Категория
+        activity_type_id: Вид деятельности
     models:
       box:
         one: Коробка

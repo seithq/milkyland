@@ -31,6 +31,7 @@ class Settings::ActivityTypesTest < ApplicationSystemTestCase
   end
 
   test "should destroy Activity type" do
+    assert Article.destroy_all
     visit activity_types_url
 
     accept_alert do

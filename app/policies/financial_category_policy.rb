@@ -9,6 +9,6 @@ class FinancialCategoryPolicy < ApplicationPolicy
     end
 
     def has_empty_associations?
-      true
+      record.articles.count.zero?
     end
 end
