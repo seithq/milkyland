@@ -546,6 +546,8 @@ ru:
         kind: Тип
         status: Статус
         amount: Сумма
+        amount_from: Сумма от
+        amount_to: Сумма до
         article_id: Статья
         bank_account_id: Счет
         comment: Комментарий

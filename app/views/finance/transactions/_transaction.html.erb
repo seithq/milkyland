@@ -4,17 +4,24 @@
   </div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500"><%= render Finance::TransactionKindComponent.new transaction: transaction %></div>
   <div class="table-cell px-3 py-4 text-sm font-medium text-gray-700 text-right"><%= number_to_currency transaction.amount %></div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500"><%= transaction.bank_account.name %></div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500"><%= transaction.article.name %></div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500"><%= transaction.client&.name %></div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500"><%= transaction.material_asset&.name %></div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500"><%= render Finance::TransactionStatusComponent.new transaction: transaction %></div>
   <div class="table-cell py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
     <div class="flex justify-end space-x-2">
-      <% if allowed_to?(:destroy?, transaction) %>
-        <%= link_to t("actions.destroy_record"), transaction_path(transaction), data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "text-red-600 hover:text-red-500" %>
-      <% end %>
-      <% if allowed_to?(:update?, transaction) %>
-        <%= link_to t("actions.edit_record"), edit_transaction_path(transaction), class: "text-indigo-600 hover:text-indigo-900" %>
+      <% if @status == "all" %>
+        <% if allowed_to?(:destroy?, transaction) %>
+          <%= link_to t("actions.destroy_record"), transaction_path(transaction), data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "text-red-600 hover:text-red-500" %>
+        <% end %>
+        <% if allowed_to?(:update?, transaction) %>
+          <%= link_to t("actions.edit_record"), edit_transaction_path(transaction), class: "text-indigo-600 hover:text-indigo-900" %>
+        <% end %>
+      <% else %>
+        <% if allowed_to?(:approve?, transaction) %>
+          <%= link_to t("actions.approve"), edit_transaction_path(transaction), class: "text-indigo-600 hover:text-indigo-900" %>
+        <% end %>
       <% end %>
     </div>
   </div>

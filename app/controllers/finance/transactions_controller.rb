@@ -1,6 +1,7 @@
 class Finance::TransactionsController < ApplicationController
+  before_action :set_status, only: :index
   before_action :set_transaction, only: %i[ show edit update destroy ]
-  before_action :set_articles, only: %i[ new edit ]
+  before_action :set_articles, only: %i[ new create edit update ]
 
   def index
     @pagy, @transactions = pagy get_scope(params)
@@ -42,7 +43,9 @@ class Finance::TransactionsController < ApplicationController
 
   private
     def base_scope
-      Transaction.ordered
+      scope = Transaction.ordered
+      scope = scope.filter_by_status(@status) unless @status == "all"
+      scope
     end
 
     def search_methods
@@ -50,7 +53,7 @@ class Finance::TransactionsController < ApplicationController
     end
 
     def set_transaction
-      @transaction = base_scope.find(params.expect(:id))
+      @transaction = Transaction.find(params.expect(:id))
     end
 
     def transaction_params
@@ -60,5 +63,9 @@ class Finance::TransactionsController < ApplicationController
     def set_articles
       @kind = @transaction.nil? ? params[:kind].presence || "income" : @transaction.kind
       @articles = Article.filter_by_kind(@kind)
+    end
+
+    def set_status
+      @status = params[:status].presence || "all"
     end
 end

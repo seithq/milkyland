@@ -1,0 +1,59 @@
+<div class="mt-2 sm:mt-0 sm:flex-auto">
+  <dl data-controller="detail" data-detail-open-value="false">
+    <div class="py-2">
+      <dt>
+        <button type="button" data-action="detail#toggle" class="flex w-full items-center text-left text-gray-900 space-x-2" aria-controls="search" aria-expanded="false">
+          <span class="text-base font-semibold leading-7"><%= t("actions.filter") %></span>
+          <span class="flex h-6 items-center">
+            <%= inline_svg_tag "chevron-down.svg", class: "size-5", data: { detail_target: "opener" } %>
+            <%= inline_svg_tag "chevron-up.svg", class: "hidden size-5", data: { detail_target: "closer" } %>
+          </span>
+        </button>
+      </dt>
+      <dd class="hidden mt-6" id="search"
+          data-detail-target="summary"
+          data-transition-enter="transition ease-out duration-100"
+          data-transition-enter-start="transform opacity-0 scale-95"
+          data-transition-enter-end="transform opacity-100 scale-100"
+          data-transition-leave="transition ease-in duration-75"
+          data-transition-leave-start="transform opacity-100 scale-100"
+          data-transition-leave-end="transform opacity-0 scale-95">
+
+        <%= form_tag transactions_path, data: {}, method: :get do %>
+          <div class="grid grid-cols-2 rounded-md gap-2">
+            <div>
+              <%= select :search, :kind, options_for_enum_select(Transaction, :kind, :blank), { include_blank: t("tables.cols.kind") }, { class: "form-select" } %>
+            </div>
+            <div>
+              <%= select :search, :status, options_for_enum_select(Transaction, :status, :blank), { include_blank: t("tables.cols.status") }, { class: "form-select" } %>
+            </div>
+            <div>
+              <%= select :search, :client, options_from_collection_for_select(Client.all, :id, :name), { include_blank: t("tables.cols.client") }, { class: "form-select" } %>
+            </div>
+            <div>
+              <%= select :search, :material_asset, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :name), { include_blank: t("tables.cols.material_asset") }, { class: "form-select" } %>
+            </div>
+            <div class="col-span-2 md:col-span-1 flex space-x-2">
+              <%= number_field :search, :amount_from, placeholder: Transaction.human_attribute_name(:amount_from), class: "form-input" %>
+              <%= number_field :search, :amount_to, placeholder: Transaction.human_attribute_name(:amount_to), class: "form-input" %>
+            </div>
+            <div class="col-span-2 md:col-span-1">
+              <div class="relative flex flex-grow items-stretch focus-within:z-10">
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <%= inline_svg_tag "search.svg", class: "h-5 w-5 text-gray-400" %>
+                </div>
+                <%= date_field :search, :planned_date, class: "block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                <%= link_to transactions_path, class: "relative -ml-px inline-flex items-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+                  <%= inline_svg_tag "refresh.svg", class: "-ml-0.5 h-5 w-5 text-gray-400" %>
+                <% end %>
+                <%= button_tag type: "submit", class: "relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+                  <%= inline_svg_tag "search.svg", class: "-ml-0.5 h-5 w-5 text-gray-400" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </dd>
+    </div>
+  </dl>
+</div>

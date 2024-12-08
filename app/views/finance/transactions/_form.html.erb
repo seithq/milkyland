@@ -41,6 +41,27 @@
         </div>
       <% end %>
 
+      <% unless transaction.new_record? %>
+        <% if allowed_to?(:approve?, transaction) %>
+          <% if allowed_to?(:confirm?, transaction) %>
+            <div>
+              <%= form.label :status, class: "form-label" %>
+              <%= form.select :status, options_for_enum_select(Transaction, :status, transaction.status, excluded_options: %i[ completed cancelled ]), { include_blank: true }, { required: true, class: "form-select" } %>
+            </div>
+          <% end %>
+          <% if allowed_to?(:complete?, transaction) %>
+            <div>
+              <%= form.label :execution_date, class: "form-label" %>
+              <%= form.date_field :execution_date, autocomplete: "execution-date", class: "form-input" %>
+            </div>
+            <div>
+              <%= form.label :status, class: "form-label" %>
+              <%= form.select :status, options_for_enum_select(Transaction, :status, transaction.status, excluded_options: %i[ pending cancelled ]), { include_blank: true }, { required: true, class: "form-select" } %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+
       <%= form.submit t("actions.save_record"), class: "btn" %>
     <% end %>
   </div>

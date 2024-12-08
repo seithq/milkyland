@@ -19,15 +19,16 @@ class Transaction < ApplicationRecord
   after_save :upgrade_status_if_needed
 
   scope :ordered, -> { order(planned_date: :desc, created_at: :desc) }
+  scope :completed, -> { filter_by_status(:completed) }
 
-  scope :filter_by_status, -> (status) { where status: status }
-  scope :filter_by_client, -> (client_id) { where(client_id: client_id) }
-  scope :filter_by_article, -> (article_id) { where(article_id: article_id) }
-  scope :filter_by_creator, -> (creator_id) { where(creator_id: creator_id) }
-  scope :filter_by_material_asset, -> (material_asset_id) { where(material_asset_id: material_asset_id) }
-  scope :filter_by_amount_from, -> (amount) { where("amount >= ?", amount) }
-  scope :filter_by_amount_to, -> (amount) { where("amount <= ?", amount) }
-  scope :filter_by_planned_date, -> (planned_date) { where(planned_date: planned_date) }
+  scope :filter_by_status, ->(status) { where status: status }
+  scope :filter_by_client, ->(client_id) { where(client_id: client_id) }
+  scope :filter_by_article, ->(article_id) { where(article_id: article_id) }
+  scope :filter_by_creator, ->(creator_id) { where(creator_id: creator_id) }
+  scope :filter_by_material_asset, ->(material_asset_id) { where(material_asset_id: material_asset_id) }
+  scope :filter_by_amount_from, ->(amount) { where("amount >= ?", amount) }
+  scope :filter_by_amount_to, ->(amount) { where("amount <= ?", amount) }
+  scope :filter_by_planned_date, ->(planned_date) { where(planned_date: planned_date) }
 
   private
     def upgrade_status_if_needed

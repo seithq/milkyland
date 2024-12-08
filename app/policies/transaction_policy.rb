@@ -4,15 +4,39 @@ class TransactionPolicy < ApplicationPolicy
   end
 
   def update?
-    owned? && record.pending?
+    can_modify_pending?
+  end
+
+  def approve?
+    confirm? || complete?
+  end
+
+  def confirm?
+    can_confirm?
+  end
+
+  def complete?
+    can_complete?
   end
 
   def destroy?
-    owned? && record.pending?
+    can_modify_pending?
   end
 
   private
     def owned?
       user.admin? || record.creator_id == user.id
+    end
+
+    def can_modify_pending?
+      owned? && record.pending?
+    end
+
+    def can_confirm?
+      (user.admin? || user.finance_controller?) && record.reload.pending?
+    end
+
+    def can_complete?
+      (user.admin? || user.accountant?) && record.reload.confirmed?
     end
 end

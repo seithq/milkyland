@@ -1,7 +1,7 @@
 class Settings::ArticlesController < ApplicationController
   before_action :ensure_can_administer, only: %i[ create update destroy ]
   before_action :set_article, only: %i[ show edit update destroy ]
-  before_action :set_financial_categories, only: %i[ new edit ]
+  before_action :set_financial_categories, only: %i[ new create edit update ]
 
   def index
     @pagy, @articles = pagy get_scope(params)

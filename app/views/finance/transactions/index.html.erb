@@ -9,17 +9,17 @@
 <% end %>
 
 <div class="px-4 sm:px-6 lg:px-8">
+  <%= render "tab" %>
   <div class="sm:mt-8 sm:flex sm:items-center">
-    <div class="sm:flex-auto">
-    </div>
-    <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+    <%= render "search" %>
+    <div class="mt-4 sm:ml-4 sm:mt-0 sm:flex-none">
       <% if allowed_to?(:create?, with: TransactionPolicy) %>
         <%= link_to new_transaction_path(kind: "income"), class: "btn-create" do %>
-          <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
+          <%= inline_svg_tag "plus.svg", class: "size-5" %>
           <%= t("actions.create_income") %>
         <% end %>
         <%= link_to new_transaction_path(kind: "expense"), class: "btn-create" do %>
-          <%= inline_svg_tag "plus.svg", class: "h-5 w-5" %>
+          <%= inline_svg_tag "plus.svg", class: "size-5" %>
           <%= t("actions.create_expense") %>
         <% end %>
       <% end %>
@@ -37,6 +37,9 @@
           </div>
           <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
             <%= Transaction.human_attribute_name(:amount) %>
+          </div>
+          <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+            <%= Transaction.human_attribute_name(:bank_account_id) %>
           </div>
           <div class="table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
             <%= Transaction.human_attribute_name(:article_id) %>
