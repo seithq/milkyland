@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_08_181056) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_09_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -75,6 +75,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_08_181056) do
     t.decimal "min_amount", precision: 10, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "system", default: false
     t.index ["activity_type_id"], name: "index_articles_on_activity_type_id"
     t.index ["financial_category_id"], name: "index_articles_on_financial_category_id"
     t.index ["name", "financial_category_id"], name: "index_articles_on_name_and_financial_category_id", unique: true

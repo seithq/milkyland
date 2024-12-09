@@ -9,6 +9,6 @@ class ArticlePolicy < ApplicationPolicy
     end
 
     def has_empty_associations?
-      record.transactions.count.zero?
+      !record.system? && record.transactions.count.zero?
     end
 end

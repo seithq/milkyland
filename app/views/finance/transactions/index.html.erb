@@ -23,6 +23,10 @@
           <%= inline_svg_tag "plus.svg", class: "size-5" %>
           <%= t("actions.create_expense") %>
         <% end %>
+        <%= link_to new_account_transfer_path, class: "btn-create" do %>
+          <%= inline_svg_tag "plus.svg", class: "size-5" %>
+          <%= t("actions.create_account_transfer") %>
+        <% end %>
       <% end %>
     </div>
   </div>

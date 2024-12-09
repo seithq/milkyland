@@ -1,0 +1,22 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= form_with model: transaction, url: account_transfers_path, class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :source_account_id, class: "form-label" %>
+        <%= form.select :source_account_id, options_from_collection_for_select(BankAccount.all, :id, :name), { include_blank: true }, { required: true, class: "form-select" } %>
+      </div>
+
+      <div>
+        <%= form.label :destination_account_id, class: "form-label" %>
+        <%= form.select :destination_account_id, options_from_collection_for_select(BankAccount.all, :id, :name), { include_blank: true }, { required: true, class: "form-select" } %>
+      </div>
+
+      <div>
+        <%= form.label :amount, class: "form-label" %>
+        <%= form.number_field :amount, autocomplete: "amount", class: "form-input", step: ".1" %>
+      </div>
+
+      <%= form.submit t("actions.save_record"), class: "btn" %>
+    <% end %>
+  </div>
+</div>

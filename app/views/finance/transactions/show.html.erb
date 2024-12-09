@@ -41,12 +41,12 @@
         <% if @transaction.income? %>
           <div>
             <%= form.label :client_id, class: "form-label" %>
-            <%= form.select :client_id, options_from_collection_for_select(Client.ordered, :id, :name, @transaction.client_id), {}, { disabled: true, class: "form-select" } %>
+            <%= form.select :client_id, options_from_collection_for_select(Client.ordered, :id, :name, @transaction.client_id), { include_blank: true }, { disabled: true, class: "form-select" } %>
           </div>
         <% else %>
           <div>
             <%= form.label :material_asset_id, class: "form-label" %>
-            <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :name, @transaction.client_id), {}, { disabled: true, class: "form-select" } %>
+            <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :name, @transaction.material_asset_id), { include_blank: true }, { disabled: true, class: "form-select" } %>
           </div>
         <% end %>
       </div>

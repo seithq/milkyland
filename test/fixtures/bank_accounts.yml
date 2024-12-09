@@ -2,3 +2,8 @@ milkyland_account:
   company: milkyland
   name: Main Account
   number: KZ12345678890
+
+blank_account:
+  company: milkyland
+  name: Blank Account
+  number: KZ0987654321

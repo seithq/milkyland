@@ -541,6 +541,7 @@ ru:
         activity_type_id: Вид деятельности
         bypass_control: Отключить контроль
         min_amount: Ограничение мин. суммы
+        system: Системная статья
       transaction:
         id: Номер
         kind: Тип
@@ -555,6 +556,8 @@ ru:
         material_asset_id: Номенклатура ТМЦ
         planned_date: Дата оплаты (план)
         execution_date: Дата оплаты (факт)
+        source_account_id: Счет отправитель
+        destination_account_id: Счет получатель
     models:
       box:
         one: Коробка

@@ -37,12 +37,38 @@ class Transaction < ApplicationRecord
         WHEN kind = 'income' THEN amount
         WHEN kind = 'expense' THEN -amount
         ELSE 0
-    END 
+    END#{' '}
     SQL
 
     scope = Transaction.completed
     scope = scope.filter_by_bank_account(bank_account_id) unless bank_account_id.nil?
     scope.sum(Arel.sql(query))
+  end
+
+  def self.transfer(creator_id, source_account_id, destination_account_id, amount, source_article_id, destination_article_id)
+    transaction do
+      expense_trx = Transaction.create! kind: :expense,
+                                        bank_account_id: source_account_id,
+                                        amount: amount,
+                                        article_id: source_article_id,
+                                        planned_date: Date.current,
+                                        execution_date: Date.current,
+                                        status: :completed,
+                                        creator_id: creator_id
+
+      income_trx = Transaction.create! kind: :income,
+                                       bank_account_id: destination_account_id,
+                                       amount: amount,
+                                       article_id: destination_article_id,
+                                       planned_date: Date.current,
+                                       execution_date: Date.current,
+                                       status: :completed,
+                                       creator_id: creator_id,
+                                       linked_transaction_id: expense_trx.id
+
+      expense_trx.update! linked_transaction_id: income_trx.id
+      [ expense_trx, income_trx ]
+    end
   end
 
   private
