@@ -1,0 +1,8 @@
+<% unit = ingredient.material_asset.measurement.unit %>
+<% required_count = ingredient.ratio * @batch.planned_tonnage %>
+<tr>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= ingredient.material_asset.name %></td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+    <%= t("forms.measurement", value: number_with_delimiter(required_count), unit: unit) %>
+  </td>
+</tr>

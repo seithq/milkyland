@@ -118,6 +118,66 @@
                   </div>
                 </div>
               <% end %>
+
+              <% unless @plan.semi? %>
+                <%= tag.li id: dom_id(@batch, :semi_ingredients), class: "rounded-md bg-white p-6 shadow border-2 border-green-600" do %>
+                  <div class="grid grid-cols-1 gap-2">
+                    <div>
+                      <div class="text-xl leading-6 font-medium text-gray-900">
+                        <%= t("forms.semi_recipe") %>
+                      </div>
+                      <div class="mt-4">
+                        <div class="flow-root">
+                          <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                              <table class="min-w-full divide-y divide-gray-300">
+                                <thead>
+                                <tr>
+                                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"><%= t("tables.cols.semi_product") %></th>
+                                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.plan") %></th>
+                                </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                <%= render partial: "semi_ingredient", collection: @production_unit.semi_ingredients, as: :semi_ingredient %>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+
+              <%= tag.li id: dom_id(@batch, :ingredients), class: "rounded-md bg-white p-6 shadow border-2 border-green-600" do %>
+                <div class="grid grid-cols-1 gap-2">
+                  <div>
+                    <div class="text-xl leading-6 font-medium text-gray-900">
+                      <%= t("forms.recipe") %>
+                    </div>
+                    <div class="mt-4">
+                      <div class="flow-root">
+                        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                            <table class="min-w-full divide-y divide-gray-300">
+                              <thead>
+                              <tr>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"><%= t("tables.cols.semi_product") %></th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.plan") %></th>
+                              </tr>
+                              </thead>
+                              <tbody class="divide-y divide-gray-200">
+                              <%= render partial: "ingredient", collection: @production_unit.ingredients, as: :ingredient %>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
             </ul>
           </div>
         </div>
