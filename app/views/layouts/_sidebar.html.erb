@@ -39,7 +39,8 @@
 %>
 
 <% finance_nav_links = [
-  NavLink.new(path: transactions_path, title: t("pages.transactions"), icon_name: "cash.svg")
+  NavLink.new(path: transactions_path, title: t("pages.transactions"), icon_name: "cash.svg"),
+  NavLink.new(path: cash_flow_path, title: t("pages.cash_flow"), icon_name: "presentation-chart-line.svg"),
 ] %>
 
 <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
