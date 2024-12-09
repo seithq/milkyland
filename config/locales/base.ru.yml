@@ -19,6 +19,11 @@ ru:
         delimiter: ''
     format:
       separator: "."
+  date:
+    formats:
+      cash_flow_day: "%d.%m.%Y"
+      cash_flow_month: "%b"
+      cash_flow_year: "%Y"
   time:
     formats:
       default: "%a, %d %b %Y, %H:%M:%S %z"

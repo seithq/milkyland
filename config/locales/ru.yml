@@ -22,6 +22,7 @@ ru:
     financial_categories: "Финансовые категории"
     articles: "Статьи"
     transactions: "Журнал операций"
+    cash_flow: "Движение денег"
     pending_transactions: "Требует проверки"
     confirmed_transactions: "Требует оплаты"
     transaction: "Операция #%{id}"
@@ -220,6 +221,9 @@ ru:
     create_account_transfer: "Перевод"
     create_income_system: "Создайте системную статью для входящих переводов (доход)"
     create_expense_system: "Создайте системную статью для исходящих переводов (расход)"
+    create_report: "Создать отчет"
+    no_data: "Нет данных"
+    fill_report_data: "Укажите параметры отчета."
   user_statuses:
     active: "Активный"
     inactive: "Удален"

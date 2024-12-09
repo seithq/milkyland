@@ -549,6 +549,7 @@ ru:
         amount: Сумма
         amount_from: Сумма от
         amount_to: Сумма до
+        total_amount: Итого
         article_id: Статья
         bank_account_id: Счет
         comment: Комментарий
@@ -558,6 +559,9 @@ ru:
         execution_date: Дата оплаты (факт)
         source_account_id: Счет отправитель
         destination_account_id: Счет получатель
+        trunc_period_day: По дням
+        trunc_period_month: По месяцам
+        trunc_period_year: По годам
     models:
       box:
         one: Коробка

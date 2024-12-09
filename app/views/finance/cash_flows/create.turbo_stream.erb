@@ -1,0 +1,3 @@
+<%= turbo_stream.update :cash_flow_report do %>
+  <%= render "table", hierarchical_data: @hierarchical_data, report_periods: @report_periods %>
+<% end %>

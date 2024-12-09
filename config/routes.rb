@@ -252,6 +252,7 @@ Rails.application.routes.draw do
   scope module: "finance" do
     resources :transactions
     resources :account_transfers, only: %i[ new create ]
+    resource :cash_flow, only: %i[ show create ]
   end
 
   get "/configurations/android", to: "configurations#android", as: :android_configuration

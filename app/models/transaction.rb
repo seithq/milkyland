@@ -45,6 +45,34 @@ class Transaction < ApplicationRecord
     scope.sum(Arel.sql(query))
   end
 
+  def self.cash_flow(start_date, end_date, trunc_period = "day")
+    trunc_function = Transaction.sanitize_sql([ "DATE_TRUNC(:trunc_period, transactions.execution_date)",  trunc_period: trunc_period ])
+
+    select_query = [
+      "activity_types.name AS activity_type",
+      "transactions.kind",
+      "financial_categories.name AS financial_category",
+      "articles.name AS article",
+      "#{trunc_function} AS report_period",
+      "SUM(CASE
+           WHEN transactions.kind = 'income' THEN transactions.amount
+           WHEN transactions.kind = 'expense' THEN -transactions.amount
+       END) AS total_amount"
+    ].join(", ")
+
+    joins(article: [ :financial_category, :activity_type ])
+      .where(execution_date: start_date..end_date)
+      .select(select_query)
+      .group(
+        "activity_types.name",
+        "transactions.kind",
+        "financial_categories.name",
+        "articles.name",
+        trunc_function
+      )
+      .order("report_period")
+  end
+
   def self.transfer(creator_id, source_account_id, destination_account_id, amount, source_article_id, destination_article_id)
     transaction do
       expense_trx = Transaction.create! kind: :expense,
