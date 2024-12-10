@@ -71,6 +71,21 @@ class Waybill < ApplicationRecord
     qr_scans.scanned
   end
 
+  def products_progress
+    products_and_counts.map do |product_id, _|
+      product = Product.find(product_id)
+      scanned = qr_scans.filter_by_product(product_id).sum(:capacity_after)
+      HashWithIndifferentAccess.new(
+        product: product,
+        scanned: scanned
+      )
+    end
+  end
+
+  def products_and_counts
+    Box.where(id: qr_scans.pluck(:box_id)).group(:product_id).sum(:capacity)
+  end
+
   private
     def storage_integrity
       errors.add(:new_storage_id, :inclusion) if storage_id == new_storage_id

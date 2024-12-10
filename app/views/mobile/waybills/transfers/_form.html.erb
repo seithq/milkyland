@@ -2,7 +2,15 @@
   <div class="space-y-6">
     <div class="bg-white p-4 rounded-lg">
       <%= native_form_with model: waybill, url: mobile_waybill_form_url(waybill), html: { data: { turbo_action: "replace" } } do |form| %>
-        <div class="space-y-4" data-controller="storage" data-storage-search-url-value="<%= warehousers_search_path %>">
+        <div class="space-y-4"
+             data-controller="storage transfer"
+             data-storage-search-url-value="<%= warehousers_search_path %>"
+             data-transfer-collectable-value="<%= waybill.collectable %>"
+             data-transfer-button-enabled-class="bg-indigo-600"
+             data-transfer-button-disabled-class="bg-gray-200"
+             data-transfer-span-enabled-class="translate-x-5"
+             data-transfer-span-disabled-class="translate-x-0"
+        >
           <div>
             <%= form.label :storage_id, class: "form-label" %>
             <%= form.select :storage_id, options_from_collection_for_select(Current.user.storages.acceptable, :id, :name, waybill.storage_id), { include_blank: true }, { disabled: !waybill.draft?, required: true, class: "form-select" } %>
@@ -20,12 +28,19 @@
 
           <div>
             <%= form.label :route_sheet_id, class: "form-label" %>
-            <%= form.select :route_sheet_id, options_from_collection_for_select(RouteSheet.for_transfer, :id, :display_label, waybill.route_sheet_id), { include_blank: true }, { disabled: !waybill.draft?, required: true, class: "form-select" } %>
+            <%= form.select :route_sheet_id, options_from_collection_for_select(RouteSheet.for_transfer, :id, :display_label, waybill.route_sheet_id), { include_blank: true }, { disabled: !waybill.draft?, required: true, class: "form-select", data: { transfer_target: "sheet" } } %>
+          </div>
+
+          <div>
+            <%= label_tag "waybill_collectable", t("actions.require_route_sheet"), class: "form-label" %>
+            <%= form.hidden_field :collectable, data: { transfer_target: "collectable" } %>
+            <button type="button" data-transfer-target="button" data-action="transfer#toggleCollectable" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-gray-200 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" role="switch">
+              <span aria-hidden="true" data-transfer-target="span" class="pointer-events-none inline-block size-5 translate-x-0 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+            </button>
           </div>
         </div>
 
-        <div class="hidden">
-          <%= form.hidden_field :collectable, value: true %>
+        <div class="turbo-native:hidden">
           <% if waybill.new_record? %>
             <%= form.submit t("actions.save_record_next") %>
           <% else %>
@@ -36,10 +51,19 @@
       <% end %>
     </div>
 
-    <% if allowed_to?(:scan?, waybill, with: TransferPolicy) ||
-      allowed_to?(:approve?, waybill, with: TransferPolicy) %>
+    <% if allowed_to?(:scan?, waybill, with: TransferPolicy) %>
       <div class="bg-white p-4 rounded-lg">
-        <%= turbo_frame_tag dom_id(waybill, :qr_scans), src: waybills_qr_scans_path(waybill, allowed_prefixes: "Z:S") do %>
+        <%= turbo_frame_tag dom_id(waybill, :qr_scans), src: waybills_qr_scans_path(waybill, allowed_prefixes: waybill.collectable? ? "Z:S" : "P,B") do %>
+          <div class="flex justify-center">
+            <%= inline_svg_tag "spinner.svg" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if allowed_to?(:approve?, waybill, with: TransferPolicy) %>
+      <div class="bg-white p-4 rounded-lg">
+        <%= turbo_frame_tag dom_id(waybill, :qr_scans), src: waybills_qr_scans_path(waybill, allowed_prefixes: "P,B") do %>
           <div class="flex justify-center">
             <%= inline_svg_tag "spinner.svg" %>
           </div>

@@ -21,24 +21,3 @@
     </td>
   <% end %>
 </tr>
-<% packaged_product.machineries.each do |machinery| %>
-  <tr id=<%= dom_id(machinery) %>>
-    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-0">
-      <%= machinery.packing_machine.name %>
-    </td>
-    <td class="whitespace-nowrap px-3 py-4 font-medium text-sm text-gray-900">
-      <%= machinery.material_asset.name %>
-    </td>
-    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
-      <%= l machinery.start_time, format: :fact %>
-    </td>
-    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
-      <%= l machinery.end_time, format: :fact %>
-    </td>
-    <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
-      <%= number_with_delimiter machinery.count %>
-    </td>
-    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-    </td>
-  </tr>
-<% end %>

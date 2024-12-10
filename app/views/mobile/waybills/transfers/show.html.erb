@@ -36,12 +36,14 @@
             <%= form.select :receiver_id, options_from_collection_for_select(@waybill.new_storage.warehousers, :user_id, :user_name, @waybill.receiver_id), {}, { disabled: true, class: "form-select" } %>
           </div>
 
-          <div>
-            <%= form.label :route_sheet_id, class: "form-label" %>
-            <div class="flex flex-col space-y-2">
-              <%= render Mobile::RouteSheetComponent.new route_sheet: @waybill.route_sheet, is_open: false %>
+          <% if @waybill.route_sheet.present? %>
+            <div>
+              <%= form.label :route_sheet_id, class: "form-label" %>
+              <div class="flex flex-col space-y-2">
+                <%= render Mobile::RouteSheetComponent.new route_sheet: @waybill.route_sheet, is_open: false %>
+              </div>
             </div>
-          </div>
+          <% end %>
         </div>
 
       <% end %>

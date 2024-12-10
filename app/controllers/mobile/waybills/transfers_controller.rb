@@ -2,6 +2,11 @@ module Mobile
   class Waybills::TransfersController < BaseWaybillsController
     before_action :set_receivers, only: %i[ edit update ]
 
+    def new
+      super
+      @waybill.collectable = true
+    end
+
     private
       def base_scope
         Current.user.out_waybills
@@ -24,8 +29,8 @@ module Mobile
       end
 
       def trigger_processing_job(waybill)
-        return unless waybill.approved?
-        ProcessTransferCodesJob.perform_later waybill.id
+        ProcessPendingTransferCodesJob.perform_later waybill.id if waybill.pending?
+        ProcessTransferCodesJob.perform_later waybill.id if waybill.approved?
       end
 
       def set_receivers

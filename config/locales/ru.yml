@@ -204,6 +204,8 @@ ru:
     view_incoming: "Входящие"
     view_outgoing: "Исходящие"
     scan: "Сканировать"
+    scan_positionable: "Скан ячейки"
+    scan_storable: "Скан позиций"
     failed_location_save: "Не удалось сохранить адресное положение"
     failed_account_transfer: "Не удалось создать перевод"
     remove: "Скрыть"
@@ -224,6 +226,7 @@ ru:
     create_report: "Создать отчет"
     no_data: "Нет данных"
     fill_report_data: "Укажите параметры отчета."
+    require_route_sheet: "Предварительная сборка"
   user_statuses:
     active: "Активный"
     inactive: "Удален"
@@ -418,4 +421,4 @@ ru:
     view_incoming: Накладные (Вы как Получатель)
     view_outgoing: Накладные (Вы как Отправитель)
     drafts: "(Черновики: %{count})"
-    pendings: "(Неподтвержденные: %{count})"
+    pendings: "(В работе: %{count})"

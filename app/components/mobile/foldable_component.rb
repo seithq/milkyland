@@ -1,3 +1,4 @@
 class Mobile::FoldableComponent < ApplicationComponent
-  renders_one :header
+  option :title, required: true
+  option :count, required: true
 end

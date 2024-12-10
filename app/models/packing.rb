@@ -6,6 +6,8 @@ class Packing < ApplicationRecord
   has_many :products, class_name: "PackagedProduct", foreign_key: "packing_id", dependent: :destroy
   accepts_nested_attributes_for :products
 
+  has_many :machineries, through: :products
+
   def build_products
     plan = batch.production_unit.plan
     products.build(plan.group_products(batch.production_unit.group).map { |product| { packing: self, product: product, count: plan.product_remaining_sum(product) } })

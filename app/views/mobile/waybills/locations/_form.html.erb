@@ -1,7 +1,6 @@
 <div class="p-4 min-h-full flex flex-col justify-between" data-controller="bridge--scanner" data-bridge-manual="true">
-
   <%= native_form_with model: location, url: waybills_locations_path, id: "location_form", html: { data: { turbo_action: "replace" } } do |form| %>
-    <div class="space-y-6">
+    <div class="space-y-4">
       <div class="bg-white p-4 rounded-lg space-y-6">
         <div class="space-y-2">
           <%= form.label :positionable_code, class: "form-label" %>
@@ -14,12 +13,6 @@
                 data-scan-preview-whitelist-value="T,P"
                 data-scan-preview-input-name-value="location[positionable_code]">
             </ul>
-            <button type="button" class="mobile-btn-xl"
-                    data-action="bridge--scanner#show"
-                    data-bridge--scanner-place-param="location_positionable_code"
-                    data-bridge--scanner-save-mode-param="update">
-              <%= t("actions.scan") %>
-            </button>
           </div>
         </div>
       </div>
@@ -34,12 +27,6 @@
                 data-scan-preview-whitelist-value="B,P"
                 data-scan-preview-input-name-value="location[storable_codes][]">
             </ul>
-            <button type="button" class="mobile-btn-xl"
-                    data-action="bridge--scanner#show"
-                    data-bridge--scanner-place-param="location_storable_codes"
-                    data-bridge--scanner-save-mode-param="prepend">
-              <%= t("actions.scan") %>
-            </button>
           </div>
         </div>
       </div>
@@ -48,4 +35,23 @@
       <%= form.submit t("actions.save_record"), class: "mobile-btn-xl" %>
     </div>
   <% end %>
+
+  <div class="mt-6 sticky bottom-0">
+    <div class="bg-white p-4 rounded-lg space-y-6">
+      <div class="flex space-x-1">
+        <button type="button" class="mobile-btn-xl"
+                data-action="bridge--scanner#show"
+                data-bridge--scanner-place-param="location_positionable_code"
+                data-bridge--scanner-save-mode-param="update">
+          <%= t("actions.scan_positionable") %>
+        </button>
+        <button type="button" class="mobile-btn-xl"
+                data-action="bridge--scanner#show"
+                data-bridge--scanner-place-param="location_storable_codes"
+                data-bridge--scanner-save-mode-param="prepend">
+          <%= t("actions.scan_storable") %>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
