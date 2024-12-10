@@ -37,7 +37,7 @@
       <% else %>
         <div>
           <%= form.label :material_asset_id, class: "form-label" %>
-          <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :name, transaction.material_asset_id), { include_blank: true }, { required: false, class: "form-select" } %>
+          <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :name, transaction.material_asset_id), { include_blank: t("actions.search_by_name") }, { required: false, class: "form-select", data: { controller: "choices", choices_placeholder_value: t("actions.search_by_name"), choices_results_value: t("actions.no_results_text"), choices_choices_value: t("actions.no_choices_text") } } %>
         </div>
       <% end %>
 

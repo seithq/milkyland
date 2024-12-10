@@ -333,6 +333,7 @@ ru:
       financial_category: "Категория"
       activity_type: "Вид деятельности"
       saldo: "Сальдо"
+      day_saldo: "Общий денежный поток"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

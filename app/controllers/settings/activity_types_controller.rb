@@ -54,6 +54,6 @@ class Settings::ActivityTypesController < ApplicationController
     end
 
     def activity_type_params
-      params.expect(activity_type: %i[ name ])
+      params.expect(activity_type: %i[ name order_number ])
     end
 end

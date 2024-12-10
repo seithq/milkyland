@@ -12,7 +12,7 @@ ru:
           loader: Грузчик
           warehouser: Зав.склада
           logistician: Логист
-          procurement_officer: Закупщик
+          procurement_officer: Менеджер по закупкам
           finance_operator: Финансовый оператор
           finance_controller: Финансовый контролер
           accountant: Бухгалтер
@@ -37,7 +37,7 @@ ru:
           income: Доход
           expense: Расход
         statuses:
-          pending: На подтверждении
+          pending: На проверке
           confirmed: Подтверждено
           completed: Завершено
           cancelled: Отменено
@@ -525,6 +525,7 @@ ru:
         count: Количество
       activity_type:
         name: Название
+        order_number: Порядковый номер
       financial_category:
         name: Название
         kind: Тип

@@ -65,12 +65,13 @@ class Transaction < ApplicationRecord
       .select(select_query)
       .group(
         "activity_types.name",
+        "activity_types.order_number",
         "transactions.kind",
         "financial_categories.name",
         "articles.name",
         trunc_function
       )
-      .order("report_period")
+      .order("activity_types.order_number, report_period")
   end
 
   def self.transfer(creator_id, source_account_id, destination_account_id, amount, source_article_id, destination_article_id)
