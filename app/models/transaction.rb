@@ -47,32 +47,85 @@ class Transaction < ApplicationRecord
   end
 
   def self.cash_flow(start_date, end_date, trunc_period = "day")
-    trunc_function = Transaction.sanitize_sql([ "DATE_TRUNC(:trunc_period, transactions.execution_date)",  trunc_period: trunc_period ])
+    query = <<-SQL
+    WITH transaction_data AS (
+        SELECT
+            activity_types.name AS activity_type,
+            activity_types.order_number AS activity_order,
+            t.kind,
+            financial_categories.name AS financial_category,
+            articles.name AS article,
+            DATE_TRUNC(:trunc_period, t.execution_date) AS report_period,
+            SUM(
+                CASE#{' '}
+                    WHEN t.kind = 'income' THEN t.amount#{' '}
+                    WHEN t.kind = 'expense' THEN -t.amount#{' '}
+                END
+            ) AS total_amount
+        FROM transactions t
+        INNER JOIN articles ON t.article_id = articles.id
+        INNER JOIN financial_categories ON articles.financial_category_id = financial_categories.id
+        INNER JOIN activity_types ON articles.activity_type_id = activity_types.id
+        WHERE t.execution_date BETWEEN :start_date AND :end_date AND t.status = 'completed'
+        GROUP BY#{' '}
+            activity_types.name,
+            activity_types.order_number,#{' '}
+            t.kind,#{' '}
+            financial_categories.name,#{' '}
+            articles.name,#{' '}
+            DATE_TRUNC(:trunc_period, t.execution_date)
+    ),
+    opening_closing_balances AS (
+        SELECT#{' '}
+            td.report_period,
+            td.activity_type,
+            td.kind,
+            td.financial_category,
+            td.article,
+            (
+                SELECT#{' '}
+                    COALESCE(SUM(
+                        CASE#{' '}
+                            WHEN t.kind = 'income' THEN t.amount#{' '}
+                            WHEN t.kind = 'expense' THEN -t.amount#{' '}
+                        END
+                    ), 0.0)
+                FROM transactions t
+                WHERE t.execution_date < td.report_period
+        ) AS opening_balance,
+        (
+            SELECT#{' '}
+                COALESCE(SUM(
+                    CASE#{' '}
+                        WHEN t.kind = 'income' THEN t.amount#{' '}
+                        WHEN t.kind = 'expense' THEN -t.amount#{' '}
+                    END
+                ), 0.0)
+            FROM transactions t
+            WHERE t.execution_date <= DATE_TRUNC(:trunc_period, td.report_period) + INTERVAL :interval - INTERVAL '1 day'
+        ) AS closing_balance
+        FROM transaction_data td
+    )
+    SELECT#{' '}
+        td.activity_type,
+        td.kind,
+        td.financial_category,
+        td.article,
+        td.report_period,
+        td.total_amount,
+        ob.opening_balance,
+        ob.closing_balance
+    FROM transaction_data td
+    LEFT JOIN opening_closing_balances ob
+    ON td.report_period = ob.report_period
+    AND td.activity_type = ob.activity_type
+    AND td.kind = ob.kind
+    AND td.financial_category = ob.financial_category
+    AND td.article = ob.article
+    ORDER BY td.activity_order, td.report_period
+    SQL
 
-    select_query = [
-      "activity_types.name AS activity_type",
-      "transactions.kind",
-      "financial_categories.name AS financial_category",
-      "articles.name AS article",
-      "#{trunc_function} AS report_period",
-      "SUM(CASE
-           WHEN transactions.kind = 'income' THEN transactions.amount
-           WHEN transactions.kind = 'expense' THEN -transactions.amount
-       END) AS total_amount"
-    ].join(", ")
-
-    joins(article: [ :financial_category, :activity_type ])
-      .where(execution_date: start_date..end_date)
-      .select(select_query)
-      .group(
-        "activity_types.name",
-        "activity_types.order_number",
-        "transactions.kind",
-        "financial_categories.name",
-        "articles.name",
-        trunc_function
-      )
-      .order("activity_types.order_number, report_period")
+    find_by_sql([ query, { start_date:, end_date:, trunc_period:, interval: "1 #{ trunc_period }" } ])
   end
 
   def self.transfer(creator_id, source_account_id, destination_account_id, amount, source_article_id, destination_article_id)

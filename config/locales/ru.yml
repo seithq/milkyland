@@ -334,6 +334,8 @@ ru:
       financial_category: "Категория"
       activity_type: "Вид деятельности"
       saldo: "Сальдо"
+      opening_saldo: "Остаток на начало периода"
+      closing_saldo: "Остаток на конец периода"
       day_saldo: "Общий денежный поток"
   forms:
     profile: "Профиль"

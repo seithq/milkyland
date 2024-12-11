@@ -40,6 +40,8 @@ class Finance::CashFlowsController < ApplicationController
         article = row["article"]
         report_period = row["report_period"].to_date
         total_amount = row["total_amount"]
+        opening_balance = row["opening_balance"]
+        closing_balance = row["closing_balance"]
 
         # Уровень статьи
         hierarchical_data[activity_type] ||= { totals: {}, kinds: {} }
@@ -63,12 +65,15 @@ class Finance::CashFlowsController < ApplicationController
         hierarchical_data[activity_type][:totals][report_period] += total_amount
 
         # Итоги по всем периодам (для вычисления колонок)
-        report_periods[report_period] ||= 0
-        report_periods[report_period] += total_amount
+        report_periods[report_period] ||= {}
 
-        # hierarchical_data[:total_amount] += total_amount
+        report_periods[report_period][:total_amount] ||= 0
+        report_periods[report_period][:total_amount] += total_amount
+
+        report_periods[report_period][:opening_balance] ||= opening_balance
+        report_periods[report_period][:closing_balance] ||= closing_balance
       end
 
-      [ hierarchical_data, report_periods ]
+      [ hierarchical_data, report_periods.sort ]
     end
 end
