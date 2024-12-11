@@ -541,6 +541,7 @@ ru:
         name: Название
         company_id: Компания
         number: Номер счета
+        main: По умолчанию
       article:
         name: Название
         kind: Тип
@@ -549,6 +550,7 @@ ru:
         bypass_control: Отключить контроль
         min_amount: Ограничение мин. суммы
         system: Системная статья
+        suppliable: Для заказов ТМЦ
       transaction:
         id: Номер
         kind: Тип

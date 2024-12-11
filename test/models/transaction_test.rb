@@ -26,20 +26,6 @@ class TransactionTest < ActiveSupport::TestCase
     assert_equal :greater_than_or_equal_to, transaction.errors.where(:planned_date).first.type
   end
 
-  test "should validate value of execution date" do
-    transaction = Transaction.new kind: :expense,
-                                  creator: users(:finance_operator),
-                                  bank_account: bank_accounts(:milkyland_account),
-                                  article: articles(:operational_expense_material_asset),
-                                  material_asset: material_assets(:sugar),
-                                  amount: 100000.0,
-                                  status: :completed,
-                                  planned_date: Date.today,
-                                  execution_date: 1.day.ago
-    assert transaction.invalid?
-    assert_equal :greater_than_or_equal_to, transaction.errors.where(:execution_date).first.type
-  end
-
   test "should validate presence of execution date" do
     transaction = Transaction.new kind: :income,
                                   creator: users(:finance_operator),

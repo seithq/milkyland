@@ -17,6 +17,16 @@
         <%= form.text_field :number, autocomplete: "number", required: true, class: "form-input" %>
       </div>
 
+      <div class="relative flex gap-x-3">
+        <div class="flex h-6 items-center">
+          <%= form.check_box :main, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+        </div>
+        <div class="text-sm leading-6">
+          <%= form.label :main, class: "font-medium text-gray-900" %>
+          <p class="text-gray-500"><%= t("forms.suppliable") %></p>
+        </div>
+      </div>
+
       <%= form.submit t("actions.save_record"), class: "btn" %>
     <% end %>
   </div>

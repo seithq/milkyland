@@ -54,6 +54,6 @@ class Settings::BankAccountsController < ApplicationController
     end
 
     def bank_account_params
-      params.expect(bank_account: %i[ company_id name number ])
+      params.expect(bank_account: %i[ company_id name number main ])
     end
 end

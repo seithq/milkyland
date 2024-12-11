@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_11_095205) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_11_140951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -77,6 +77,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_11_095205) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "system", default: false
+    t.boolean "suppliable", default: false
     t.index ["activity_type_id"], name: "index_articles_on_activity_type_id"
     t.index ["financial_category_id"], name: "index_articles_on_financial_category_id"
     t.index ["name", "financial_category_id"], name: "index_articles_on_name_and_financial_category_id", unique: true
@@ -100,6 +101,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_11_095205) do
     t.string "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "main", default: false
     t.index ["company_id", "name"], name: "index_bank_accounts_on_company_id_and_name", unique: true
     t.index ["company_id"], name: "index_bank_accounts_on_company_id"
   end
@@ -976,12 +978,14 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_11_095205) do
     t.date "execution_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "supply_order_id"
     t.index ["article_id"], name: "index_transactions_on_article_id"
     t.index ["bank_account_id"], name: "index_transactions_on_bank_account_id"
     t.index ["client_id"], name: "index_transactions_on_client_id"
     t.index ["creator_id"], name: "index_transactions_on_creator_id"
     t.index ["linked_transaction_id"], name: "index_transactions_on_linked_transaction_id"
     t.index ["material_asset_id"], name: "index_transactions_on_material_asset_id"
+    t.index ["supply_order_id"], name: "index_transactions_on_supply_order_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -1166,6 +1170,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_11_095205) do
   add_foreign_key "transactions", "bank_accounts"
   add_foreign_key "transactions", "clients"
   add_foreign_key "transactions", "material_assets"
+  add_foreign_key "transactions", "supply_orders"
   add_foreign_key "transactions", "transactions", column: "linked_transaction_id"
   add_foreign_key "transactions", "users", column: "creator_id"
   add_foreign_key "vendors", "material_assets"

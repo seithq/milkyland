@@ -21,6 +21,7 @@ class Procurements::SupplyOrdersController < ApplicationController
     @supply_order = base_scope.new(supply_order_params)
 
     if @supply_order.save
+      GenerateTransactionForSupplyOrderJob.perform_later @supply_order.id, Current.user.id
       redirect_on_create supply_orders_url
     else
       render :new, status: :unprocessable_entity

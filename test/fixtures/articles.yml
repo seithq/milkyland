@@ -19,3 +19,4 @@ operational_expense_material_asset:
   kind: expense
   min_amount: 0.0
   bypass_control: false
+  suppliable: true

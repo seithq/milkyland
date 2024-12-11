@@ -2,6 +2,7 @@ milkyland_account:
   company: milkyland
   name: Main Account
   number: KZ12345678890
+  main: true
 
 blank_account:
   company: milkyland

@@ -1,5 +1,6 @@
 sugar_order:
   material_asset: sugar
+  vendor: sugar
   amount: 5000
   payment_date: <%= 1.month.from_now %>
   payment_status: pending
@@ -7,6 +8,7 @@ sugar_order:
 
 bottle_order:
   material_asset: bottle
+  vendor: bottle
   amount: 1000
   payment_date: <%= 1.month.from_now %>
   payment_status: pending

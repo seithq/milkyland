@@ -2,7 +2,7 @@ require "test_helper"
 
 class Finance::TransactionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @transaction = transactions(:income_client)
+    @transaction = transactions(:expense_material_asset)
     sign_in :daniyar
   end
 
@@ -18,7 +18,7 @@ class Finance::TransactionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create transaction" do
     assert_difference("Transaction.count") do
-      post transactions_url, params: { transaction: { amount: 10000, article_id: @transaction.article_id, bank_account_id: @transaction.bank_account_id, client_id: @transaction.client_id, kind: :income, planned_date: 1.day.from_now } }
+      post transactions_url, params: { transaction: { amount: 10000, article_id: @transaction.article_id, bank_account_id: @transaction.bank_account_id, material_asset_id: @transaction.material_asset_id, kind: :expense, planned_date: 1.day.from_now } }
     end
 
     assert_redirected_to transactions_url
@@ -35,7 +35,10 @@ class Finance::TransactionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update transaction" do
-    patch transaction_url(@transaction), params: { transaction: { comment: "Test" } }
+    assert_enqueued_jobs 1, only: UpdateSupplyOrderPaymentStatusJob do
+      patch transaction_url(@transaction), params: { transaction: { execution_date: Date.current, status: :completed } }
+    end
+
     assert_redirected_to transactions_url
   end
 

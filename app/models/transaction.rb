@@ -6,6 +6,7 @@ class Transaction < ApplicationRecord
   belongs_to :article
   belongs_to :client, optional: true
   belongs_to :material_asset, optional: true
+  belongs_to :supply_order, optional: true
 
   belongs_to :linked_transaction, class_name: "Transaction", foreign_key: "linked_transaction_id", optional: true
   has_one :reverse_transaction, class_name: "Transaction", foreign_key: "linked_transaction_id"
@@ -14,7 +15,7 @@ class Transaction < ApplicationRecord
 
   validates :amount, presence: true, numericality: { greater_than: 0.0 }
   validates :planned_date, presence: true, comparison: { greater_than_or_equal_to: Date.current }
-  validates :execution_date, presence: true, comparison: { greater_than_or_equal_to: :planned_date }, if: :completed?
+  validates :execution_date, presence: true, if: :completed?
 
   after_save :upgrade_status_if_needed
 

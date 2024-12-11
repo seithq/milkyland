@@ -29,6 +29,7 @@ class Finance::TransactionsController < ApplicationController
 
   def update
     if @transaction.update(transaction_params)
+      UpdateSupplyOrderPaymentStatusJob.perform_later @transaction.id
       redirect_on_update transactions_url
     else
       render :edit, status: :unprocessable_entity

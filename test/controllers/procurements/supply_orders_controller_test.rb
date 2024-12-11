@@ -18,7 +18,9 @@ class Procurements::SupplyOrdersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create supply_order" do
     assert_difference("SupplyOrder.count") do
-      post supply_orders_url, params: { supply_order: { amount: 1000, material_asset_id: @supply_order.material_asset_id, vendor_id: vendors(:sugar).id, payment_date: 1.week.from_now } }
+      assert_enqueued_jobs 1, only: GenerateTransactionForSupplyOrderJob do
+        post supply_orders_url, params: { supply_order: { amount: 1000, material_asset_id: @supply_order.material_asset_id, vendor_id: vendors(:sugar).id, payment_date: 1.week.from_now } }
+      end
     end
 
     assert_redirected_to supply_orders_url
