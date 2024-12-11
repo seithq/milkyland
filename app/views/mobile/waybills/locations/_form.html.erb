@@ -17,11 +17,16 @@
         </div>
       </div>
       <div class="bg-white p-4 rounded-lg space-y-6">
-        <div class="space-y-2">
-          <%= form.label :storable_codes, class: "form-label" %>
+        <div class="space-y-2" data-controller="tracker">
+          <div class="flex items-center justify-between">
+            <%= form.label :storable_codes, class: "form-label" %>
+            <span class="text-xs font-semibold text-gray-900" data-tracker-target="counter"><</span>
+          </div>
+
           <div class="flex flex-col space-y-2">
             <ul role="list" class="space-y-3"
                 id="location_storable_codes"
+                data-tracker-target="trackable"
                 data-controller="scan-preview"
                 data-scan-preview-preview-url-value="<%= new_scan_url %>"
                 data-scan-preview-whitelist-value="B,P"
