@@ -104,7 +104,11 @@ Rails.application.routes.draw do
   end
 
   scope module: "procurements" do
-    resources :supply_orders, except: :destroy
+    resources :supply_orders, except: :destroy do
+      collection do
+        get "search", to: "supply_orders#search"
+      end
+    end
     resources :supply_operations do
       scope module: "supply_operations" do
         resources :leftovers, except: :show

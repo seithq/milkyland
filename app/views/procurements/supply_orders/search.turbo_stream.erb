@@ -1,0 +1,4 @@
+<%= turbo_stream.update "supply_order_vendor_id" do %>
+  <option value=""></option>
+  <%= options_from_collection_for_select(@vendors, :id, :display_label) %>
+<% end %>

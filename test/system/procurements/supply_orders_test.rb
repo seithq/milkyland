@@ -15,6 +15,7 @@ class Procurements::SupplyOrdersTest < ApplicationSystemTestCase
     click_on I18n.t("actions.create_record")
 
     select material_assets(:сardboard).display_label, from: "supply_order_material_asset_id"
+    select vendors(:сardboard).display_label, from: "supply_order_vendor_id"
     fill_in "supply_order_amount", with: 1000
     fill_in "supply_order_payment_date", with: 1.week.from_now
     click_on I18n.t("actions.save_record")

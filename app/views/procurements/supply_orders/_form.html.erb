@@ -1,10 +1,15 @@
-<div class="flex flex-col justify-center px-6 lg:px-8">
+<div class="flex flex-col justify-center px-6 lg:px-8" data-controller="supply-order" data-supply-order-search-url-value="<%= search_supply_orders_url %>">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <%= render "layouts/error_messages", resource: supply_order %>
     <%= form_with model: supply_order, class: "space-y-4" do |form| %>
       <div>
         <%= form.label :material_asset_id, class: "form-label" %>
-        <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :display_label, supply_order.material_asset_id), { include_blank: t("actions.select_option") }, { required: true, class: "form-select", data: { controller: "choices", choices_placeholder_value: t("actions.search_by_name"), choices_results_value: t("actions.no_results_text"), choices_choices_value: t("actions.no_choices_text") } } %>
+        <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :display_label, supply_order.material_asset_id), { include_blank: t("actions.select_option") }, { required: true, class: "form-select", data: { controller: "choices", choices_placeholder_value: t("actions.search_by_name"), choices_results_value: t("actions.no_results_text"), choices_choices_value: t("actions.no_choices_text"), action: "change->supply-order#refreshVendors" } } %>
+      </div>
+
+      <div>
+        <%= form.label :vendor_id, class: "form-label" %>
+        <%= form.select :vendor_id, options_from_collection_for_select(@vendors, :id, :display_label, supply_order.vendor_id), { include_blank: true }, { required: true, class: "form-select" } %>
       </div>
 
       <div>

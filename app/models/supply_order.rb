@@ -1,5 +1,6 @@
 class SupplyOrder < ApplicationRecord
   belongs_to :material_asset
+  belongs_to :vendor, optional: true
 
   validates :amount, presence: true, numericality: { greater_than: 0.0 }
   validates :payment_date, presence: true, comparison: { greater_than_or_equal_to: Time.zone.today }

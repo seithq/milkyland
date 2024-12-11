@@ -407,6 +407,7 @@ ru:
         kind: Тип
       supply_order:
         material_asset_id: Номенклатура ТМЦ
+        vendor_id: Поставщик
         amount: Количество
         payment_date: Срок оплаты
         payment_status: Статус оплаты

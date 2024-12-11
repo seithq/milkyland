@@ -3,7 +3,7 @@ module Production::Plans::ProductionUnits::Batches::Packings
     include PlanScoped, ProductionUnitScoped, BatchScoped, PackingScoped, PackagedProductScoped
 
     before_action :set_machinery, only: %i[ edit update destroy ]
-    before_action :set_form_material_assets, only: %i[ new edit ]
+    before_action :set_form_material_assets, only: %i[ new edit create update ]
     before_action :set_search_material_assets, only: :search
 
     def index

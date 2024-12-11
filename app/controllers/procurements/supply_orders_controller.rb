@@ -1,5 +1,7 @@
 class Procurements::SupplyOrdersController < ApplicationController
   before_action :set_supply_order, only: %i[ show edit update ]
+  before_action :set_form_vendors, only: %i[ new edit create update ]
+  before_action :set_search_vendors, only: :search
 
   def index
     @pagy, @supply_orders = pagy get_scope(params)
@@ -33,6 +35,9 @@ class Procurements::SupplyOrdersController < ApplicationController
     end
   end
 
+  def search
+  end
+
   private
     def base_scope
       SupplyOrder.recent_first
@@ -47,6 +52,18 @@ class Procurements::SupplyOrdersController < ApplicationController
     end
 
     def supply_order_params
-      params.expect(supply_order: [ :material_asset_id, :amount, :payment_date, :payment_status, :delivery_status ])
+      params.expect(supply_order: [ :material_asset_id, :amount, :payment_date, :payment_status, :delivery_status, :vendor_id ])
+    end
+
+    def set_form_vendors
+      @vendors = @supply_order.nil? ? [] : @supply_order.material_asset.vendors
+    end
+
+    def set_search_vendors
+      @vendors = unless params[:material_asset_id].present?
+        []
+      else
+        Vendor.where(material_asset_id: params[:material_asset_id])
+      end
     end
 end
