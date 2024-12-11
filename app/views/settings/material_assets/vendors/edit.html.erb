@@ -1,0 +1,13 @@
+<% content_for(:title) { @vendor.supplier.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: material_assets_path, title: t("pages.material_assets")),
+      NavLink.new(path: edit_material_asset_path(@material_asset), title: @material_asset.name),
+      NavLink.new(path: edit_material_asset_vendor_path(@material_asset, @vendor), title: @vendor.supplier.name),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", vendor: @vendor %>

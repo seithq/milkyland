@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_10_195220) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_11_090206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -995,6 +995,18 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_10_195220) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
+  create_table "vendors", force: :cascade do |t|
+    t.bigint "material_asset_id", null: false
+    t.bigint "supplier_id", null: false
+    t.decimal "entry_price", precision: 20, scale: 2
+    t.integer "delivery_time_in_days"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["material_asset_id"], name: "index_vendors_on_material_asset_id"
+    t.index ["supplier_id"], name: "index_vendors_on_supplier_id"
+  end
+
   create_table "warehousers", force: :cascade do |t|
     t.bigint "storage_id", null: false
     t.bigint "user_id", null: false
@@ -1153,6 +1165,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_10_195220) do
   add_foreign_key "transactions", "material_assets"
   add_foreign_key "transactions", "transactions", column: "linked_transaction_id"
   add_foreign_key "transactions", "users", column: "creator_id"
+  add_foreign_key "vendors", "material_assets"
+  add_foreign_key "vendors", "suppliers"
   add_foreign_key "warehousers", "storages"
   add_foreign_key "warehousers", "users"
   add_foreign_key "warehousers", "users", column: "replaceable_id"

@@ -1,6 +1,6 @@
 module Procurements
   class SupplyMaterialAssets::StoragesController < ApplicationController
-    include MaterialAssetScoped
+    include SupplyMaterialAssetScoped
 
     def index
       @storages = base_scope

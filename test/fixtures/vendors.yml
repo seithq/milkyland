@@ -1,0 +1,35 @@
+sugar:
+  material_asset: sugar
+  supplier: systemd
+  entry_price: 650
+  delivery_time_in_days: 15
+
+water:
+  material_asset: water
+  supplier: systemd
+  entry_price: 10
+  delivery_time_in_days: 1
+
+bottle:
+  material_asset: bottle
+  supplier: systemd
+  entry_price: 100
+  delivery_time_in_days: 5
+
+mini_bottle:
+  material_asset: mini_bottle
+  supplier: systemd
+  entry_price: 100
+  delivery_time_in_days: 5
+
+сardboard:
+  material_asset: сardboard
+  supplier: systemd
+  entry_price: 100
+  delivery_time_in_days: 5
+
+сardboard_big:
+  material_asset: сardboard_big
+  supplier: systemd
+  entry_price: 200
+  delivery_time_in_days: 5

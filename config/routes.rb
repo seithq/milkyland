@@ -167,7 +167,11 @@ Rails.application.routes.draw do
     resources :suppliers, except: :destroy
     resources :categories, except: :destroy
     resources :measurements, except: :destroy
-    resources :material_assets, except: :destroy
+    resources :material_assets, except: :destroy do
+      scope module: "material_assets" do
+        resources :vendors, except: :show
+      end
+    end
     resources :groups, except: :destroy do
       scope module: "groups" do
         resources :ingredients, except: :show

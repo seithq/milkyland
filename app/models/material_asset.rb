@@ -16,6 +16,8 @@ class MaterialAsset < ApplicationRecord
 
   has_many :transactions, dependent: :nullify
 
+  has_many :vendors, dependent: :destroy
+
   validates :article, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true, uniqueness: { scope: :supplier, case_sensitive: false }
 

@@ -34,12 +34,12 @@ class SupplierTest < ActiveSupport::TestCase
   test "should validate format of phone number" do
     test_cases = %w[ 7772098007 77772098007 +7772098007 ]
     test_cases.each do |test_case|
-      supplier = Supplier.new(name: "REGATA", bin: "921026400042", phone_number: test_case)
+      supplier = Supplier.new(name: "ARYSTAN", bin: "190717503200", phone_number: test_case)
       assert_not supplier.save
       assert_equal :invalid, supplier.errors.where(:phone_number).first.type
     end
 
-    supplier = Supplier.new(manager: users(:askhat), name: "REGATA", bin: "921026400042", phone_number: "+77772098007")
+    supplier = Supplier.new(manager: users(:askhat), name: "ARYSTAN", bin: "190717503200", phone_number: "+77772098007")
     assert supplier.save
   end
 

@@ -20,7 +20,7 @@ class Settings::SuppliersControllerTest < ActionDispatch::IntegrationTest
   test "should create supplier" do
     sign_in :daniyar
     assert_difference("Supplier.count") do
-      post suppliers_url, params: { supplier: { bin: "921026400042", name: "REGATA", manager_id: users(:askhat).id } }
+      post suppliers_url, params: { supplier: { bin: "190717503200", name: "ARYSTAN", manager_id: users(:askhat).id } }
     end
 
     assert_redirected_to edit_supplier_url(Supplier.last)

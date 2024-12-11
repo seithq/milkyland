@@ -123,6 +123,7 @@ ru:
     assembly: "Сборка груза #%{id}"
     fifo: "Рекомендация"
     info: "Информация"
+    vendors: "Поставщики"
   alerts:
     too_many_requests_or_unauthorized: "Неверные учетные данные или превышен лимит попыток "
   actions:
@@ -342,6 +343,7 @@ ru:
     phone_number_hint: "Пример ввода: +77771234567"
     documents: "Документы"
     main_info: "Основная информация"
+    vendors: "Поставщики"
     semi_recipe: "Полуфабрикаты"
     recipe: "Рецептура"
     standards: "Нормы производства"

@@ -1,0 +1,21 @@
+<%= tag.div id: dom_id(vendor), class: "table-row hover:bg-gray-50" do %>
+  <div class="table-cell whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 <%= "line-through" unless vendor.active? %>">
+    <%= vendor.supplier.name %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= number_to_currency vendor.entry_price %>
+  </div>
+  <div class="table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= number_with_delimiter vendor.delivery_time_in_days %>
+  </div>
+  <% unless @readonly %>
+    <div class="table-cell relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+      <div class="flex justify-end space-x-2">
+        <%= link_to t("actions.edit_record"), edit_material_asset_vendor_path(@material_asset, vendor), data: { turbo_frame: "_top" }, class: "edit_vendor text-indigo-600 hover:text-indigo-900" %>
+        <% if vendor.active? %>
+          <%= link_to t("actions.destroy_record"), material_asset_vendor_path(@material_asset, vendor), data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "destroy_vendor text-red-600 hover:text-red-500" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
