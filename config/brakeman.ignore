@@ -1,6 +1,29 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "114fb10e6a531b5e708ed20d5453c9e96245ab8eca3f5ebd6e066cf3321960ab",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/users_controller.rb",
+      "line": 52,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user).permit(:name, :email_address, :password, :role, :active, :restricted)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "UsersController",
+        "method": "user_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Remote Code Execution",
       "warning_code": 24,
       "fingerprint": "1a4af7b0d9e6e313afc3ff45e74906cc295278b7e75a42378e194675ffb7c82f",
@@ -110,7 +133,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/production/plans/production_units/batches/packings/packaged_products/index.html.erb",
-      "line": 20,
+      "line": 21,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => get_scope(params), {})",
       "render_path": [
@@ -239,31 +262,8 @@
         89
       ],
       "note": ""
-    },
-    {
-      "warning_type": "Mass Assignment",
-      "warning_code": 105,
-      "fingerprint": "eec6e6c8b275b580e6259cad2e8bef5e207e1a8770043960f60ca66a40bd6cbb",
-      "check_name": "PermitAttributes",
-      "message": "Potentially dangerous key allowed for mass assignment",
-      "file": "app/controllers/users_controller.rb",
-      "line": 52,
-      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:user).permit(:name, :email_address, :password, :role, :active)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "UsersController",
-        "method": "user_params"
-      },
-      "user_input": ":role",
-      "confidence": "Medium",
-      "cwe_id": [
-        915
-      ],
-      "note": ""
     }
   ],
-  "updated": "2024-11-29 02:41:19 +0500",
+  "updated": "2024-12-11 19:47:18 +0500",
   "brakeman_version": "6.2.2"
 }
