@@ -1,0 +1,14 @@
+<% unit = machinery.material_asset.measurement.unit %>
+<% container = machinery.packing_machine.containers.find_by(material_asset_id: machinery.material_asset_id) %>
+<% planned_count = machinery.packaged_product.count %>
+<% planned_count += (planned_count.to_d * container.losses_percentage.to_d) / 100.0 if container %>
+
+<tr>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= machinery.material_asset.name %></td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+    <%= t("forms.measurement", value: number_with_delimiter(planned_count), unit: unit) %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+    <%= t("forms.measurement", value: number_with_delimiter(machinery.count), unit: unit) %>
+  </td>
+</tr>

@@ -2,7 +2,7 @@ module Production::Plans
   class ProductionUnits::BatchesController < ProductionController
     include PlanScoped, ProductionUnitScoped
 
-    before_action :set_batch, only: %i[ show edit update info ]
+    before_action :set_batch, only: %i[ show edit update info summary ]
 
     def index
       @batches = base_scope
@@ -12,6 +12,9 @@ module Production::Plans
     end
 
     def info
+    end
+
+    def summary
     end
 
     def new

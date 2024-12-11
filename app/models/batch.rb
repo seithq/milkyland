@@ -15,6 +15,7 @@ class Batch < ApplicationRecord
 
   has_one :packing, dependent: :destroy
   has_many :packaged_products, through: :packing, source: :products
+  has_many :machineries, through: :packaged_products
 
   has_one :cooking, dependent: :destroy
   has_many :cooked_semi_products, through: :cooking, source: :semi_products

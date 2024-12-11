@@ -1,8 +1,16 @@
+<%# locals: (semi_ingredient:, with_fact: false) -%>
+
 <% unit = semi_ingredient.semi_product.measurement.unit %>
 <% required_count = semi_ingredient.ratio * @batch.planned_tonnage %>
+<% used_count = semi_ingredient.ratio * @batch.produced_tonnage %>
 <tr>
   <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= semi_ingredient.semi_product.name %></td>
   <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
     <%= t("forms.measurement", value: number_with_delimiter(required_count), unit: unit) %>
   </td>
+  <% if with_fact %>
+    <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+      <%= t("forms.measurement", value: number_with_delimiter(used_count), unit: unit) %>
+    </td>
+  <% end %>
 </tr>

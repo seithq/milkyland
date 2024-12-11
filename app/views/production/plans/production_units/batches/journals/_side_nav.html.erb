@@ -9,5 +9,6 @@
       <%= render "production/plans/production_units/batches/distributions/distribution", batch: @batch %>
     <% end %>
     <%= render partial: "production/plans/production_units/batches/journals/post_journal", collection: @journals.after_packing_or_cooking, as: :journal %>
+    <%= render "production/plans/production_units/batches/write_off", batch: @batch %>
   </ol>
 </nav>

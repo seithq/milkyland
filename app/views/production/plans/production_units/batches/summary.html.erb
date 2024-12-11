@@ -1,0 +1,160 @@
+<% content_for(:title) { t("pages.write_offs") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: production_plans_path(kind: @plan.kind), title: t("pages.#{ @plan.kind }_production_plans")),
+      NavLink.new(path: production_plan_path(@plan), title: t("pages.production_plan", date: l(@plan.production_date))),
+      NavLink.new(path: production_plan_unit_path(@plan, @production_unit), title: @production_unit.group.name),
+      NavLink.new(path: production_plan_unit_batch_path(@plan, @production_unit, @batch), title: t("pages.batch", id: @batch.id)),
+      NavLink.new(path: summary_production_plan_unit_batch_path(@plan, @production_unit, @batch), title: t("pages.write_offs")),
+    ]
+  } %>
+<% end %>
+
+<div>
+  <%= render "details", batch: @batch %>
+
+  <% if @batch.cancelled? %>
+    <div class="mt-6 flex justify-between">
+      <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900"><%= t("forms.cancel_reason") %></h1>
+      <%= text_area_tag :comment, @batch.comment, class: "form-area w-1/3", readonly: true %>
+    </div>
+  <% end %>
+
+  <% if @batch.journals.any? %>
+    <div class="mt-6">
+      <%= turbo_frame_tag dom_id(@batch, :journals) do %>
+        <div class="flex flex-row space-x-2">
+          <%= render "production/plans/production_units/batches/journals/side_nav" %>
+
+          <div class="w-full">
+            <ul role="list" class="space-y-3">
+              <% unless @plan.semi? %>
+                <%= tag.li id: dom_id(@batch, :semi_ingredients), class: "rounded-md bg-white p-6 shadow border-2 border-green-600" do %>
+                  <div class="grid grid-cols-1 gap-2">
+                    <div>
+                      <div class="text-xl leading-6 font-medium text-gray-900">
+                        <%= t("forms.semi_recipe") %>
+                      </div>
+                      <div class="mt-4">
+                        <div class="flow-root">
+                          <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                              <table class="min-w-full divide-y divide-gray-300">
+                                <thead>
+                                <tr>
+                                  <th scope="col" class="sm:w-2/4 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"><%= t("tables.cols.semi_product") %></th>
+                                  <th scope="col" class="sm:w-1/4 px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.plan") %></th>
+                                  <th scope="col" class="sm:w-1/4 px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.fact") %></th>
+                                </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                <%= render partial: "semi_ingredient", collection: @production_unit.semi_ingredients, as: :semi_ingredient, locals: { with_fact: true } %>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+
+              <%= tag.li id: dom_id(@batch, :ingredients), class: "rounded-md bg-white p-6 shadow border-2 border-green-600" do %>
+                <div class="grid grid-cols-1 gap-2">
+                  <div>
+                    <div class="text-xl leading-6 font-medium text-gray-900">
+                      <%= t("forms.recipe") %>
+                    </div>
+                    <div class="mt-4">
+                      <div class="flow-root">
+                        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                            <table class="min-w-full divide-y divide-gray-300">
+                              <thead>
+                              <tr>
+                                <th scope="col" class="sm:w-2/4 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"><%= t("tables.cols.semi_product") %></th>
+                                <th scope="col" class="sm:w-1/4 px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.plan") %></th>
+                                <th scope="col" class="sm:w-1/4 px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.fact") %></th>
+                              </tr>
+                              </thead>
+                              <tbody class="divide-y divide-gray-200">
+                              <%= render partial: "ingredient", collection: @production_unit.ingredients, as: :ingredient, locals: { with_fact: true } %>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+
+              <%= tag.li id: dom_id(@batch, :machineries), class: "rounded-md bg-white p-6 shadow border-2 border-green-600" do %>
+                <div class="grid grid-cols-1 gap-2">
+                  <div>
+                    <div class="text-xl leading-6 font-medium text-gray-900">
+                      <%= SinglePackaging.human_attribute_name(:material_asset_id) %>
+                    </div>
+                    <div class="mt-4">
+                      <div class="flow-root">
+                        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                            <table class="min-w-full divide-y divide-gray-300">
+                              <thead>
+                              <tr>
+                                <th scope="col" class="sm:w-2/4 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"><%= t("tables.cols.container") %></th>
+                                <th scope="col" class="sm:w-1/4 px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.plan") %></th>
+                                <th scope="col" class="sm:w-1/4 px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.fact") %></th>
+                              </tr>
+                              </thead>
+                              <tbody class="divide-y divide-gray-200">
+                              <%= render partial: "machinery", collection: @batch.machineries, as: :machinery %>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+
+              <%= tag.li id: dom_id(@batch, :box_requests), class: "rounded-md bg-white p-6 shadow border-2 border-green-600" do %>
+                <div class="grid grid-cols-1 gap-2">
+                  <div>
+                    <div class="text-xl leading-6 font-medium text-gray-900">
+                      <%= t("pages.box_packagings") %>
+                    </div>
+                    <div class="mt-4">
+                      <div class="flow-root">
+                        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                            <table class="min-w-full divide-y divide-gray-300">
+                              <thead>
+                              <tr>
+                                <th scope="col" class="sm:w-2/4 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"><%= BoxPackaging.human_attribute_name(:material_asset_id) %></th>
+                                <th scope="col" class="sm:w-1/4 px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.plan") %></th>
+                                <th scope="col" class="sm:w-1/4 px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t("tables.cols.fact") %></th>
+                              </tr>
+                              </thead>
+                              <tbody class="divide-y divide-gray-200">
+                              <%= render partial: "box_request", collection: @batch.box_requests, as: :box_request %>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

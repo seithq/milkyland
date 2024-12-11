@@ -36,18 +36,16 @@ class WriteOffMaterialAssetsJob < ApplicationJob
       end
 
       # Добавляем тару или упаковку
-      leftovers += batch.packaged_products.map do |packaged|
-        packaged.machineries.map do |machinery|
-          {
-            subject_type: "MaterialAsset",
-            subject_id: machinery.material_asset_id,
-            count: machinery.count
-          }
-        end
+      leftovers << batch.machineries.map do |machinery|
+        {
+          subject_type: "MaterialAsset",
+          subject_id: machinery.material_asset_id,
+          count: machinery.count
+        }
       end
 
       # Добавляем коробки
-      leftovers << batch.box_requests.map do |box_request|
+      leftovers << batch.box_requests.positive.map do |box_request|
         {
           subject_type: "MaterialAsset",
           subject_id: box_request.box_packaging.material_asset_id,

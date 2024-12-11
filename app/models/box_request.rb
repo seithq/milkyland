@@ -7,4 +7,5 @@ class BoxRequest < ApplicationRecord
   validates :count, presence: true, numericality: { only_integer: true }
 
   scope :ordered, -> { joins(:box_packaging).order("box_packagings.count DESC") }
+  scope :positive, -> { where("box_requests.count > 0") }
 end

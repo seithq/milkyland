@@ -1,0 +1,10 @@
+<% unless box_request.count.zero? %>
+  <% unit = box_request.box_packaging.material_asset.measurement.unit %>
+  <tr>
+    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= box_request.box_packaging.material_asset.name %></td>
+    <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">-</td>
+    <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-700">
+      <%= t("forms.measurement", value: number_with_delimiter(box_request.count), unit: unit) %>
+    </td>
+  </tr>
+<% end %>

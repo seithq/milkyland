@@ -50,6 +50,7 @@ Rails.application.routes.draw do
           scope module: "production_units" do
             resources :batches, except: :destroy do
               get "info", to: "batches#info", on: :member
+              get "summary", to: "batches#summary", on: :member
 
               scope module: "batches" do
                 resources :journals, only: :show
