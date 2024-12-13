@@ -2,6 +2,7 @@ class Supplier < ApplicationRecord
   include Entitable
 
   has_many :vendors, dependent: :destroy
+  has_many :transactions, as: :contragent, dependent: :nullify
 
   validates_presence_of :identification_number, if: :foreign?
   validates_presence_of :bin, unless: :foreign?

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_13_103540) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_13_152052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -963,7 +963,6 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_13_103540) do
     t.bigint "creator_id", null: false
     t.bigint "bank_account_id", null: false
     t.bigint "article_id", null: false
-    t.bigint "client_id"
     t.bigint "material_asset_id"
     t.bigint "linked_transaction_id"
     t.string "kind"
@@ -979,7 +978,6 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_13_103540) do
     t.bigint "contragent_id"
     t.index ["article_id"], name: "index_transactions_on_article_id"
     t.index ["bank_account_id"], name: "index_transactions_on_bank_account_id"
-    t.index ["client_id"], name: "index_transactions_on_client_id"
     t.index ["contragent_type", "contragent_id"], name: "index_transactions_on_contragent"
     t.index ["creator_id"], name: "index_transactions_on_creator_id"
     t.index ["linked_transaction_id"], name: "index_transactions_on_linked_transaction_id"
@@ -1166,7 +1164,6 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_13_103540) do
   add_foreign_key "tracking_products", "route_sheets"
   add_foreign_key "transactions", "articles"
   add_foreign_key "transactions", "bank_accounts"
-  add_foreign_key "transactions", "clients"
   add_foreign_key "transactions", "material_assets"
   add_foreign_key "transactions", "supply_orders"
   add_foreign_key "transactions", "transactions", column: "linked_transaction_id"
