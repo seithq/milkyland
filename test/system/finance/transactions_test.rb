@@ -16,7 +16,7 @@ class Finance::TransactionsTest < ApplicationSystemTestCase
 
     select bank_accounts(:milkyland_account).name, from: "transaction_bank_account_id"
     select articles(:operational_income_client).name, from: "transaction_article_id"
-    select clients(:systemd).name, from: "transaction_client_id"
+    select clients(:systemd).name, from: "transaction_contragent_id"
     fill_in "transaction_amount", with: 20000.0
     fill_in "transaction_planned_date", with: Date.current
     fill_in "transaction_comment", with: "Test"

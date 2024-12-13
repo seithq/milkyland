@@ -7,7 +7,5 @@ class Client < ApplicationRecord
   has_many :shipments, dependent: :destroy
   has_many :custom_prices, dependent: :destroy
 
-  has_many :transactions, dependent: :nullify
-
-  scope :ordered, -> { order(name: :asc) }
+  has_many :transactions, as: :contragent, dependent: :nullify
 end

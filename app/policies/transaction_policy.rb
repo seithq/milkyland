@@ -23,6 +23,14 @@ class TransactionPolicy < ApplicationPolicy
     can_modify_pending?
   end
 
+  def view_confirm?
+    user.admin? || user.finance_controller?
+  end
+
+  def view_complete?
+    user.admin? || user.accountant?
+  end
+
   private
     def owned?
       user.admin? || record.creator_id == user.id

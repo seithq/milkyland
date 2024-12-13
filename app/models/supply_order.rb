@@ -10,4 +10,10 @@ class SupplyOrder < ApplicationRecord
 
   scope :filter_by_payment_status,  ->(payment_status)  { where(payment_status: payment_status) }
   scope :filter_by_delivery_status, ->(delivery_status) { where(delivery_status: delivery_status) }
+
+  def total_amount
+    return 0.0 unless vendor.present?
+
+    amount.to_d * vendor.entry_price.to_d
+  end
 end

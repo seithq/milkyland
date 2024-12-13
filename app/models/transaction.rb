@@ -4,12 +4,12 @@ class Transaction < ApplicationRecord
   belongs_to :creator, class_name: "User", foreign_key: "creator_id"
   belongs_to :bank_account
   belongs_to :article
-  belongs_to :client, optional: true
+  belongs_to :contragent, polymorphic: true, optional: true
   belongs_to :material_asset, optional: true
   belongs_to :supply_order, optional: true
 
   belongs_to :linked_transaction, class_name: "Transaction", foreign_key: "linked_transaction_id", optional: true
-  has_one :reverse_transaction, class_name: "Transaction", foreign_key: "linked_transaction_id"
+  has_one :reverse_transaction, class_name: "Transaction", foreign_key: "linked_transaction_id", dependent: :nullify
 
   enum :status, %w[ pending confirmed completed cancelled ].index_by(&:itself), default: :pending
 
@@ -23,7 +23,8 @@ class Transaction < ApplicationRecord
   scope :completed, -> { filter_by_status(:completed) }
 
   scope :filter_by_status, ->(status) { where status: status }
-  scope :filter_by_client, ->(client_id) { where(client_id: client_id) }
+  scope :filter_by_client, ->(client_id) { where(contragent_type: "Client", contragent_id: client_id) }
+  scope :filter_by_supplier, ->(supplier_id) { where(contragent_type: "Supplier", contragent_id: supplier_id) }
   scope :filter_by_article, ->(article_id) { where(article_id: article_id) }
   scope :filter_by_creator, ->(creator_id) { where(creator_id: creator_id) }
   scope :filter_by_bank_account, ->(bank_account_id) { where(bank_account_id: bank_account_id) }

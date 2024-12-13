@@ -259,7 +259,11 @@ Rails.application.routes.draw do
   end
 
   scope module: "finance" do
-    resources :transactions
+    resources :transactions do
+      collection do
+        get "search", to: "transactions#search"
+      end
+    end
     resources :account_transfers, only: %i[ new create ]
     resource :cash_flow, only: %i[ show create ]
   end

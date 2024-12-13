@@ -8,11 +8,14 @@
   <div class="table-cell px-3 py-4 text-sm text-gray-500">
     <%= supply_order.material_asset.name %>
   </div>
-  <div class="table-cell px-3 py-4 text-sm text-gray-900 font-medium">
-    <%= number_with_delimiter supply_order.amount %>
-  </div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500">
     <%= supply_order.material_asset.measurement.unit %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-900 font-medium text-right">
+    <%= number_with_delimiter supply_order.amount %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500 font-medium text-right">
+    <%= number_to_currency supply_order.total_amount %>
   </div>
   <div class="table-cell px-3 py-4 text-sm text-gray-500">
     <%= time_tag supply_order.payment_date %>

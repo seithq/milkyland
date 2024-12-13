@@ -1,0 +1,4 @@
+<%= turbo_stream.update "transaction_contragent_id" do %>
+  <option value=""></option>
+  <%= options_from_collection_for_select(@vendors, :supplier_id, :display_label) %>
+<% end %>

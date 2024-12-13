@@ -559,7 +559,7 @@ ru:
         article_id: Статья
         bank_account_id: Счет
         comment: Комментарий
-        client_id: Клиент
+        contragent_id: Контрагент
         material_asset_id: Номенклатура ТМЦ
         planned_date: Дата оплаты (план)
         execution_date: Дата оплаты (факт)

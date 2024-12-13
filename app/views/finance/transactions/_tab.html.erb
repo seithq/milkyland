@@ -1,9 +1,15 @@
 <% tab_links = [
-  NavLink.new(path: transactions_path, title: t("pages.transactions"), is_active: @status == "all"),
-  NavLink.new(path: transactions_path(status: :pending), title: t("pages.pending_transactions"), is_active: @status == "pending"),
-  NavLink.new(path: transactions_path(status: :confirmed), title: t("pages.confirmed_transactions"), is_active: @status == "confirmed")
+  NavLink.new(path: transactions_path, title: t("pages.transactions"), is_active: @status == "all")
 ]
 %>
+
+<% if allowed_to?(:view_confirm?, with: TransactionPolicy) %>
+  <% tab_links << NavLink.new(path: transactions_path(status: :pending), title: t("pages.pending_transactions"), is_active: @status == "pending") %>
+<% end %>
+
+<% if allowed_to?(:view_complete?, with: TransactionPolicy) %>
+  <% tab_links << NavLink.new(path: transactions_path(status: :confirmed), title: t("pages.confirmed_transactions"), is_active: @status == "confirmed") %>
+<% end %>
 
 <div>
   <div class="sm:hidden">

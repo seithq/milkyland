@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-center px-6 lg:px-8">
+<div class="flex flex-col justify-center px-6 lg:px-8" data-controller="supply-order" data-supply-order-search-url-value="<%= search_transactions_path %>">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <%= render "layouts/error_messages", resource: transaction %>
     <%= form_with model: transaction, class: "space-y-4" do |form| %>
@@ -31,13 +31,19 @@
 
       <% if @kind == "income" %>
         <div>
-          <%= form.label :client_id, class: "form-label" %>
-          <%= form.select :client_id, options_from_collection_for_select(Client.ordered, :id, :name, transaction.client_id), { include_blank: true }, { required: false, class: "form-select" } %>
+          <%= form.hidden_field :contragent_type, value: "Client" %>
+          <%= form.label :contragent_id, class: "form-label" %>
+          <%= form.select :contragent_id, options_from_collection_for_select(Client.ordered, :id, :name, transaction.contragent_id), { include_blank: true }, { required: false, class: "form-select" } %>
         </div>
       <% else %>
         <div>
           <%= form.label :material_asset_id, class: "form-label" %>
-          <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :name, transaction.material_asset_id), { include_blank: t("actions.search_by_name") }, { required: false, class: "form-select", data: { controller: "choices", choices_placeholder_value: t("actions.search_by_name"), choices_results_value: t("actions.no_results_text"), choices_choices_value: t("actions.no_choices_text") } } %>
+          <%= form.select :material_asset_id, options_from_collection_for_select(MaterialAsset.combined_assets, :id, :name, transaction.material_asset_id), { include_blank: t("actions.search_by_name") }, { required: false, class: "form-select", data: { controller: "choices", choices_placeholder_value: t("actions.search_by_name"), choices_results_value: t("actions.no_results_text"), choices_choices_value: t("actions.no_choices_text"), action: "change->supply-order#refreshVendors" } } %>
+        </div>
+        <div>
+          <%= form.hidden_field :contragent_type, value: "Supplier" %>
+          <%= form.label :contragent_id, class: "form-label" %>
+          <%= form.select :contragent_id, options_from_collection_for_select(@vendors, :supplier_id, :display_label, transaction.contragent_id), { include_blank: true }, { required: false, class: "form-select" } %>
         </div>
       <% end %>
 

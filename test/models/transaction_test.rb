@@ -6,7 +6,7 @@ class TransactionTest < ActiveSupport::TestCase
                                   creator: users(:finance_operator),
                                   bank_account: bank_accounts(:milkyland_account),
                                   article: articles(:operational_income_client),
-                                  client: clients(:systemd),
+                                  contragent: clients(:systemd),
                                   amount: 100000.0,
                                   status: :completed
     assert transaction.invalid?
@@ -18,7 +18,7 @@ class TransactionTest < ActiveSupport::TestCase
                                   creator: users(:finance_operator),
                                   bank_account: bank_accounts(:milkyland_account),
                                   article: articles(:operational_income_client),
-                                  client: clients(:systemd),
+                                  contragent: clients(:systemd),
                                   amount: 100000.0,
                                   status: :completed,
                                   planned_date: 1.day.ago
@@ -31,7 +31,7 @@ class TransactionTest < ActiveSupport::TestCase
                                   creator: users(:finance_operator),
                                   bank_account: bank_accounts(:milkyland_account),
                                   article: articles(:operational_income_client),
-                                  client: clients(:systemd),
+                                  contragent: clients(:systemd),
                                   amount: 100000.0,
                                   status: :completed,
                                   planned_date: Date.current
@@ -44,7 +44,7 @@ class TransactionTest < ActiveSupport::TestCase
                                   creator: users(:finance_operator),
                                   bank_account: bank_accounts(:milkyland_account),
                                   article: articles(:operational_income_client),
-                                  client: clients(:systemd),
+                                  contragent: clients(:systemd),
                                   amount: 100000.0,
                                   status: :pending,
                                   planned_date: Date.current

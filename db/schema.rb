@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_13_085442) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_13_103540) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -975,9 +975,12 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_13_085442) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "supply_order_id"
+    t.string "contragent_type"
+    t.bigint "contragent_id"
     t.index ["article_id"], name: "index_transactions_on_article_id"
     t.index ["bank_account_id"], name: "index_transactions_on_bank_account_id"
     t.index ["client_id"], name: "index_transactions_on_client_id"
+    t.index ["contragent_type", "contragent_id"], name: "index_transactions_on_contragent"
     t.index ["creator_id"], name: "index_transactions_on_creator_id"
     t.index ["linked_transaction_id"], name: "index_transactions_on_linked_transaction_id"
     t.index ["material_asset_id"], name: "index_transactions_on_material_asset_id"

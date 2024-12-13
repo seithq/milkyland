@@ -2,6 +2,8 @@ class Finance::TransactionsController < ApplicationController
   before_action :set_status, only: :index
   before_action :set_transaction, only: %i[ show edit update destroy ]
   before_action :set_articles, only: %i[ new create edit update ]
+  before_action :set_form_vendors, only: %i[ new edit create update show ]
+  before_action :set_search_vendors, only: :search
 
   def index
     @pagy, @transactions = pagy get_scope(params)
@@ -42,6 +44,9 @@ class Finance::TransactionsController < ApplicationController
     redirect_on_destroy transactions_url, text: t("actions.record_cancelled")
   end
 
+  def search
+  end
+
   private
     def base_scope
       scope = Transaction.ordered
@@ -50,7 +55,7 @@ class Finance::TransactionsController < ApplicationController
     end
 
     def search_methods
-      %i[ kind status client article material_asset amount_from amount_to planned_date_start planned_date_end creator ]
+      %i[ kind status client supplier article material_asset amount_from amount_to planned_date_start planned_date_end creator ]
     end
 
     def set_transaction
@@ -58,7 +63,7 @@ class Finance::TransactionsController < ApplicationController
     end
 
     def transaction_params
-      params.expect(transaction: %i[ bank_account_id article_id kind amount status comment planned_date execution_date client_id material_asset_id ])
+      params.expect(transaction: %i[ bank_account_id article_id kind amount status comment planned_date execution_date contragent_id contragent_type material_asset_id ])
     end
 
     def set_articles
@@ -68,5 +73,17 @@ class Finance::TransactionsController < ApplicationController
 
     def set_status
       @status = params[:status].presence || "all"
+    end
+
+    def set_form_vendors
+      @vendors = @transaction.nil? ? [] : @transaction.material_asset.vendors
+    end
+
+    def set_search_vendors
+      @vendors = unless params[:material_asset_id].present?
+                   []
+      else
+                   Vendor.where(material_asset_id: params[:material_asset_id])
+      end
     end
 end

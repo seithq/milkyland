@@ -8,7 +8,7 @@ income_client:
   comment: Test
   planned_date: <%= Date.current %>
   execution_date: <%= Date.current %>
-  client: systemd
+  contragent: systemd (Client)
 
 expense_material_asset:
   kind: expense
@@ -21,3 +21,4 @@ expense_material_asset:
   planned_date: <%= Date.current %>
   execution_date: <%= Date.current %>
   material_asset: sugar
+  contragent: systemd (Supplier)

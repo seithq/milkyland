@@ -1,6 +1,6 @@
 class Procurements::SupplyOrdersController < ApplicationController
   before_action :set_supply_order, only: %i[ show edit update ]
-  before_action :set_form_vendors, only: %i[ new edit create update ]
+  before_action :set_form_vendors, only: %i[ new edit create update show ]
   before_action :set_search_vendors, only: :search
 
   def index

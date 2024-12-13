@@ -18,7 +18,14 @@ class Finance::TransactionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create transaction" do
     assert_difference("Transaction.count") do
-      post transactions_url, params: { transaction: { amount: 10000, article_id: @transaction.article_id, bank_account_id: @transaction.bank_account_id, material_asset_id: @transaction.material_asset_id, kind: :expense, planned_date: 1.day.from_now } }
+      post transactions_url, params: { transaction: { kind: :expense,
+                                                      amount: 10000,
+                                                      article_id: @transaction.article_id,
+                                                      bank_account_id: @transaction.bank_account_id,
+                                                      material_asset_id: @transaction.material_asset_id,
+                                                      contragent_type: @transaction.contragent_type,
+                                                      contragent_id: @transaction.contragent_id,
+                                                      planned_date: 1.day.from_now } }
     end
 
     assert_redirected_to transactions_url
