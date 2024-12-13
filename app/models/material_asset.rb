@@ -1,6 +1,5 @@
 class MaterialAsset < ApplicationRecord
   belongs_to :category
-  belongs_to :supplier
   belongs_to :measurement
 
   has_many :ingredients, dependent: :destroy
@@ -19,7 +18,7 @@ class MaterialAsset < ApplicationRecord
   has_many :vendors, dependent: :destroy
 
   validates :article, presence: true, uniqueness: { case_sensitive: false }
-  validates :name, presence: true, uniqueness: { scope: :supplier, case_sensitive: false }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   scope :combined_assets, ->() { joins(:category).merge(Category.combined_assets) }
   scope :raw_products, ->() { joins(:category).merge(Category.raw_products) }
@@ -29,7 +28,6 @@ class MaterialAsset < ApplicationRecord
   scope :ordered, -> { order(article: :asc) }
 
   scope :filter_by_name, ->(name) { where("LOWER(material_assets.name) LIKE ?", like(name)) }
-  scope :filter_by_supplier, ->(supplier_id) { where(supplier_id: supplier_id) }
 
   def display_label(storage = nil)
     if storage.nil?

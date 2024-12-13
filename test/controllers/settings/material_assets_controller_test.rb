@@ -23,12 +23,9 @@ class Settings::MaterialAssetsControllerTest < ActionDispatch::IntegrationTest
       post material_assets_url, params: {
         material_asset: { name: "XPL-20",
                           article: "1234567",
-                          delivery_time_in_days: 15,
-                          entry_price: 1000.00,
                           packing: 1000,
                           category_id: @material_asset.category_id,
-                          measurement_id: @material_asset.measurement_id,
-                          supplier_id: @material_asset.supplier_id
+                          measurement_id: @material_asset.measurement_id
         }
       }
     end
@@ -50,7 +47,7 @@ class Settings::MaterialAssetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update material_asset" do
     sign_in :daniyar
-    patch material_asset_url(@material_asset), params: { material_asset: { name: "XPL-30", entry_price: 2000.00 } }
+    patch material_asset_url(@material_asset), params: { material_asset: { name: "XPL-30" } }
     assert_redirected_to material_assets_url
   end
 end

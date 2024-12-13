@@ -48,6 +48,6 @@ class Settings::MaterialAssetsController < ApplicationController
     end
 
     def material_asset_params
-      params.require(:material_asset).permit(:name, :category_id, :supplier_id, :article, :entry_price, :packing, :measurement_id, :delivery_time_in_days)
+      params.require(:material_asset).permit(:name, :category_id, :article, :packing, :measurement_id)
     end
 end

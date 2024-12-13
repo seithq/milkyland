@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_11_140951) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_13_085442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -426,19 +426,15 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_11_140951) do
   create_table "material_assets", force: :cascade do |t|
     t.string "name"
     t.bigint "category_id", null: false
-    t.bigint "supplier_id", null: false
     t.string "article"
-    t.decimal "entry_price", precision: 20, scale: 2
     t.decimal "packing", precision: 10, scale: 3
     t.bigint "measurement_id", null: false
-    t.integer "delivery_time_in_days"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["article"], name: "index_material_assets_on_article", unique: true
     t.index ["category_id"], name: "index_material_assets_on_category_id"
     t.index ["measurement_id"], name: "index_material_assets_on_measurement_id"
-    t.index ["name", "supplier_id"], name: "index_material_assets_on_name_and_supplier_id", unique: true
-    t.index ["supplier_id"], name: "index_material_assets_on_supplier_id"
+    t.index ["name"], name: "index_material_assets_on_name", unique: true
   end
 
   create_table "measurements", force: :cascade do |t|
@@ -1114,7 +1110,6 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_11_140951) do
   add_foreign_key "machineries", "packing_machines"
   add_foreign_key "material_assets", "categories"
   add_foreign_key "material_assets", "measurements"
-  add_foreign_key "material_assets", "suppliers"
   add_foreign_key "metrics", "fields"
   add_foreign_key "metrics", "steps"
   add_foreign_key "operations", "journals"

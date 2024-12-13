@@ -21,7 +21,7 @@ ru:
     bank_accounts: "Счета"
     financial_categories: "Финансовые категории"
     articles: "Статьи"
-    transactions: "Журнал операций"
+    transactions: "Реестр платежей"
     cash_flow: "Движение денег"
     pending_transactions: "Требует проверки"
     confirmed_transactions: "Требует оплаты"

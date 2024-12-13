@@ -1,59 +1,41 @@
 sugar:
   name: Sugar
   category: raw
-  supplier: systemd
   article: 777
-  entry_price: 650
   packing: 1000
   measurement: kilogram
-  delivery_time_in_days: 15
 
 water:
   name: Water
   category: raw
-  supplier: systemd
   article: 111
-  entry_price: 10
   packing: 1
   measurement: litre
-  delivery_time_in_days: 1
 
 bottle:
   name: Bottle
   category: glass
-  supplier: systemd
   article: 222
-  entry_price: 100
   packing: 6
   measurement: piece
-  delivery_time_in_days: 5
 
 mini_bottle:
   name: Mini Bottle
   category: glass
-  supplier: systemd
   article: 333
-  entry_price: 100
   packing: 6
   measurement: piece
-  delivery_time_in_days: 5
 
 сardboard:
   name: Сardboard
   category: сardboard
-  supplier: systemd
   article: 444
-  entry_price: 100
   packing: 1
   measurement: piece
-  delivery_time_in_days: 5
 
 сardboard_big:
   name: Big Сardboard
   category: сardboard
-  supplier: systemd
   article: 555
-  entry_price: 200
   packing: 1
   measurement: piece
-  delivery_time_in_days: 5

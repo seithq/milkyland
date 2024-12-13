@@ -227,12 +227,9 @@ ru:
       material_asset:
         name: Название
         category_id: Категория
-        supplier_id: Поставщик
         article: Артикул
-        entry_price: Входящая цена
         packing: Фасовка
         measurement_id: Единица измерения
-        delivery_time_in_days: Срок поставки (в днях)
       vendor:
         supplier_id: Поставщик
         entry_price: Входящая цена

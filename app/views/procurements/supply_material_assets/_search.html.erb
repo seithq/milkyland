@@ -1,10 +1,7 @@
 <div class="mt-2 sm:mt-0 sm:flex-auto">
   <%= form_tag supply_material_assets_path, data: {}, method: :get do %>
     <div class="grid grid-cols-2 rounded-md gap-2">
-      <div>
-        <%= select :search, :supplier, options_from_collection_for_select(Supplier.all, :id, :name), { include_blank: t("tables.cols.supplier") }, { class: "form-select" } %>
-      </div>
-      <div>
+      <div class="col-span-2">
         <div class="relative flex flex-grow items-stretch focus-within:z-10">
           <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <%= inline_svg_tag "search.svg", class: "h-5 w-5 text-gray-400" %>

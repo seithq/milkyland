@@ -30,18 +30,8 @@
               </div>
 
               <div class="sm:col-span-4">
-                <%= form.label :supplier_id, class: "form-label" %>
-                <%= form.select :supplier_id, options_from_collection_for_select(Supplier.all, :id, :name, @material_asset.supplier_id), {}, { disabled: true, class: "form-select" } %>
-              </div>
-
-              <div class="sm:col-span-4">
                 <%= form.label :article, class: "form-label" %>
                 <%= form.text_field :article, readonly: true, class: "form-input" %>
-              </div>
-
-              <div class="sm:col-span-4">
-                <%= form.label :entry_price, class: "form-label" %>
-                <%= form.number_field :entry_price, readonly: true, class: "form-input" %>
               </div>
 
               <div class="sm:col-span-4">
@@ -52,11 +42,6 @@
               <div class="sm:col-span-4">
                 <%= form.label :measurement_id, class: "form-label" %>
                 <%= form.select :measurement_id, options_from_collection_for_select(Measurement.all, :id, :display_label, @material_asset.measurement_id), {}, { disabled: true, class: "form-select" } %>
-              </div>
-
-              <div class="sm:col-span-4">
-                <%= form.label :delivery_time_in_days, class: "form-label" %>
-                <%= form.number_field :delivery_time_in_days, readonly: true, class: "form-input" %>
               </div>
             </div>
           </div>

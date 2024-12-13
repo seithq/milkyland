@@ -1,7 +1,6 @@
 class Supplier < ApplicationRecord
   include Entitable
 
-  has_many :material_assets, dependent: :destroy
   has_many :vendors, dependent: :destroy
 
   validates_presence_of :identification_number, if: :foreign?
