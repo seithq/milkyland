@@ -50,7 +50,7 @@ class Finance::TransactionsController < ApplicationController
     end
 
     def search_methods
-      %i[ kind status client article material_asset amount_from amount_to planned_date creator ]
+      %i[ kind status client article material_asset amount_from amount_to planned_date_start planned_date_end creator ]
     end
 
     def set_transaction

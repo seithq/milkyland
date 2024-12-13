@@ -191,8 +191,12 @@
         @apply w-8 h-8 text-gray-200 animate-spin fill-indigo-600;
     }
 
+    .choices {
+        @apply relative;
+    }
+
     .choices__list.choices__list--dropdown {
-        @apply hidden mt-1 p-0 rounded-t-md;
+        @apply hidden absolute left-0 mt-1 p-0 rounded-t-md;
 
         &.is-active {
             @apply block;

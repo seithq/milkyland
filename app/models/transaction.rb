@@ -31,6 +31,8 @@ class Transaction < ApplicationRecord
   scope :filter_by_amount_from, ->(amount) { where("amount >= ?", amount) }
   scope :filter_by_amount_to, ->(amount) { where("amount <= ?", amount) }
   scope :filter_by_planned_date, ->(planned_date) { where(planned_date: planned_date) }
+  scope :filter_by_planned_date_start, ->(planned_date) { where(planned_date: planned_date..) }
+  scope :filter_by_planned_date_end, ->(planned_date) { where(planned_date: ..planned_date) }
 
   def self.total_balance(bank_account_id: nil)
     query = <<-SQL
