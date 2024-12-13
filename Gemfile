@@ -32,7 +32,7 @@ gem "action_policy", "~> 0.7.1"
 
 # Storage
 gem "image_processing", "~> 1.2"
-gem "aws-sdk-s3", "~> 1.156"
+gem "aws-sdk-s3", "~> 1.176"
 
 # Other
 gem "jbuilder"
