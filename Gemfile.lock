@@ -106,7 +106,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    action_policy (0.7.2)
+    action_policy (0.7.3)
       ruby-next-core (>= 1.0)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
@@ -414,7 +414,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  action_policy (~> 0.7.1)
+  action_policy (~> 0.7.3)
   aws-sdk-s3 (~> 1.156)
   bcrypt (~> 3.1.7)
   bootsnap

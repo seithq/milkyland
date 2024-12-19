@@ -28,7 +28,7 @@ gem "pagy", "~> 9.0"
 gem "rails-i18n", "~> 8.0"
 gem "view_component", "~> 3.20"
 gem "dry-initializer", "~> 3.1"
-gem "action_policy", "~> 0.7.1"
+gem "action_policy", "~> 0.7.3"
 
 # Storage
 gem "image_processing", "~> 1.2"
