@@ -26,7 +26,7 @@ gem "requestjs-rails", "~> 0.0.11"
 gem "inline_svg", "~> 1.9"
 gem "pagy", "~> 9.0"
 gem "rails-i18n", "~> 8.0"
-gem "view_component", "~> 3.20"
+gem "view_component", "~> 3.21"
 gem "dry-initializer", "~> 3.1"
 gem "action_policy", "~> 0.7.1"
 
