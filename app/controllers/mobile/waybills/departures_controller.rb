@@ -1,5 +1,10 @@
 module Mobile
   class Waybills::DeparturesController < BaseWaybillsController
+    def new
+      super
+      @waybill.collectable = true
+    end
+
     private
       def base_scope
         Current.user.out_waybills

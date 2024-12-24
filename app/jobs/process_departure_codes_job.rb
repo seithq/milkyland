@@ -24,12 +24,20 @@ class ProcessDepartureCodesJob < ApplicationJob
       end
 
       waybill.qr_scans.each do |qr_scan|
-        qr_scan.box.update! capacity: qr_scan.capacity_after, taken_out_at: Time.current
-        qr_scan.box.clear_locations!
+        box = qr_scan.box
+        box.update! capacity: qr_scan.capacity_delta
+        if qr_scan.capacity_delta == 0
+          box.update! taken_out_at: Time.current
+          box.clear_locations!
+        end
       end
 
       if waybill.route_sheet.present?
         waybill.route_sheet.update! status: :completed
+      end
+
+      if waybill.order.present?
+        waybill.order.update! status: :completed
       end
 
       true

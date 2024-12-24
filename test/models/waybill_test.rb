@@ -35,6 +35,12 @@ class WaybillTest < ActiveSupport::TestCase
     assert @waybill.update status: :pending
   end
 
+  test "should validate presence of order" do
+    waybill = Waybill.new kind: :departure, storage: storages(:goods), collectable: false
+    assert waybill.invalid?
+    assert :blank, waybill.errors.where(:order_id).first.type
+  end
+
   test "should validate balance of qr scans if extra box added to zone" do
     @waybill = prepare_transfer_waybill
 

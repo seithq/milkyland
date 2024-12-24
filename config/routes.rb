@@ -242,6 +242,7 @@ Rails.application.routes.draw do
 
       scope ":waybill_id/mobile" do
         resources :qr_scans, except: %i[ new show ]
+        resource :recommendation, only: :show
       end
     end
     namespace :journals do

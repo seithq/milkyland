@@ -38,7 +38,7 @@ module Fifo
 
       SELECT id, code, region_id, product_id, capacity, production_date, expiration_date, box_request_id, created_at, updated_at, taken_out_at
       FROM SelectedUnrestricted
-      ORDER BY production_date, id
+      ORDER BY production_date, id, capacity
       SQL
 
       filter_by_ids find_by_sql([ query, { product_id:, count:, unrestricted_count:, filtered_ids:, filtered_date: } ]).map(&:id)
@@ -64,6 +64,7 @@ module Fifo
       )
       SELECT id, code, region_id, product_id, capacity, production_date, expiration_date, box_request_id, created_at, updated_at, taken_out_at
       FROM SelectedFIFO
+      ORDER BY production_date, id, capacity
       SQL
 
       filter_by_ids find_by_sql([ query, { product_id:, count:, unrestricted_count:, filtered_ids:, filtered_date: } ]).map(&:id)
@@ -99,7 +100,7 @@ module Fifo
       )
       SELECT id, code, region_id, product_id, capacity, production_date, expiration_date, box_request_id, created_at, updated_at, taken_out_at
       FROM SelectedUnrestricted
-      ORDER BY production_date, id
+      ORDER BY production_date, id, capacity
       SQL
 
       filter_by_ids find_by_sql([ query, { product_id:, count:, unrestricted_count:, filtered_ids:, filtered_date: } ]).map(&:id)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_13_152052) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_24_140921) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -1038,8 +1038,10 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_13_152052) do
     t.boolean "manual_approval", default: false
     t.bigint "route_sheet_id"
     t.boolean "collectable", default: false
+    t.bigint "order_id"
     t.index ["batch_id"], name: "index_waybills_on_batch_id"
     t.index ["new_storage_id"], name: "index_waybills_on_new_storage_id"
+    t.index ["order_id"], name: "index_waybills_on_order_id"
     t.index ["receiver_id"], name: "index_waybills_on_receiver_id"
     t.index ["route_sheet_id"], name: "index_waybills_on_route_sheet_id"
     t.index ["sender_id"], name: "index_waybills_on_sender_id"
@@ -1174,6 +1176,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_13_152052) do
   add_foreign_key "warehousers", "users"
   add_foreign_key "warehousers", "users", column: "replaceable_id"
   add_foreign_key "waybills", "batches"
+  add_foreign_key "waybills", "orders"
   add_foreign_key "waybills", "route_sheets"
   add_foreign_key "waybills", "storages"
   add_foreign_key "waybills", "storages", column: "new_storage_id"

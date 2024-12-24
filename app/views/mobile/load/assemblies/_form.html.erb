@@ -58,7 +58,7 @@
 
     <% if allowed_to?(:scan?, assembly) %>
       <div class="bg-white p-4 rounded-lg">
-        <%= turbo_frame_tag dom_id(assembly, :qr_scans), src: load_assembly_qr_scans_path(assembly, allowed_prefixes: "T,P,B") do %>
+        <%= turbo_frame_tag dom_id(assembly, :qr_scans), src: load_assembly_qr_scans_path(assembly, allowed_prefixes: "P,B") do %>
           <div class="flex justify-center">
             <%= inline_svg_tag "spinner.svg" %>
           </div>

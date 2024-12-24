@@ -27,7 +27,7 @@ module Mobile
         trigger_processing_job(@waybill)
         redirect_on_update waybill_show_url(@waybill)
       else
-        render_with_error :edit, @waybill
+        redirect_with_error waybill_edit_url(@waybill), @waybill
       end
     end
 
@@ -63,7 +63,7 @@ module Mobile
       end
 
       def waybill_params
-        params.expect(waybill: %i[ kind storage_id new_storage_id sender_id receiver_id status collectable route_sheet_id ]).with_defaults(kind: base_kind)
+        params.expect(waybill: %i[ kind storage_id new_storage_id sender_id receiver_id status collectable route_sheet_id order_id ]).with_defaults(kind: base_kind)
       end
   end
 end

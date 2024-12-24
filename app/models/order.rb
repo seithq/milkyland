@@ -22,6 +22,8 @@ class Order < ApplicationRecord
 
   scope :active, ->() { where.not(status: %i[ completed cancelled ]) }
 
+  scope :for_departure, ->() { where(kind: :planned, status: :produced).or(where(kind: :unscheduled, status: :in_planning)).order(:id) }
+
   def cancel
     update! status: :cancelled
   end
@@ -46,6 +48,10 @@ class Order < ApplicationRecord
   def current_plan
     plans = Plan.where(id: self.consolidations.ordered.active.pluck(:plan_id))
     plans.first if plans.any?
+  end
+
+  def display_label
+    "#{ id } - #{ client.name }"
   end
 
   private

@@ -20,12 +20,21 @@
             <%= form.select :storage_id, options_from_collection_for_select(Current.user.storages.acceptable, :id, :name, @waybill.storage_id), {}, { disabled: true, class: "form-select" } %>
           </div>
 
-          <div>
-            <%= form.label :route_sheet_id, class: "form-label" %>
-            <div class="flex flex-col space-y-2">
-              <%= render Mobile::RouteSheetComponent.new route_sheet: @waybill.route_sheet, is_open: false %>
+          <% if @waybill.route_sheet.present? %>
+            <div>
+              <%= form.label :route_sheet_id, class: "form-label" %>
+              <div class="flex flex-col space-y-2">
+                <%= render Mobile::RouteSheetComponent.new route_sheet: @waybill.route_sheet, is_open: false %>
+              </div>
             </div>
-          </div>
+          <% end %>
+
+          <% if @waybill.order.present? %>
+            <div>
+              <%= form.label :order_id, class: "form-label" %>
+              <%= form.select :order_id, options_from_collection_for_select(Order.all, :id, :display_label, @waybill.order_id), {}, { disabled: true, class: "form-select" } %>
+            </div>
+          <% end %>
         </div>
 
       <% end %>

@@ -422,6 +422,7 @@ ru:
         manual_approval: Ручное одобрение
         created_at: Дата создания
         route_sheet_id: Маршрутный лист
+        order_id: Заказ
       leftover:
         subject_id: Номенклатура
         count: Количество

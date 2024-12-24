@@ -40,7 +40,7 @@ class Mobile::QrScanComponent < ApplicationComponent
       when "arrival"
         false
       when "departure"
-        false
+        true
       when "write_off"
         true
       when "transfer"

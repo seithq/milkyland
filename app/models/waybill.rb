@@ -9,6 +9,7 @@ class Waybill < ApplicationRecord
 
   belongs_to :batch, optional: true
   belongs_to :route_sheet, optional: true
+  belongs_to :order, optional: true
 
   has_many :leftovers, dependent: :destroy
   has_many :qr_scans, as: :groupable, dependent: :destroy
@@ -20,10 +21,12 @@ class Waybill < ApplicationRecord
   validates_presence_of :new_storage_id, if: ->() { arrival? || transfer? || return_back? }
   validates_presence_of :batch_id, if: :production_write_off?
   validates_presence_of :route_sheet_id, if: :collectable?
+  validates_presence_of :order_id, if: ->(waybill) { !waybill.collectable? && waybill.departure? }
 
   validate :storage_integrity
   validate :qr_scans_integrity
   validate :route_sheet_integrity
+  validate :order_integrity
 
   scope :filter_by_kind, ->(kind) { where(kind: kind) }
   scope :automatic, ->() { filter_by_kind(:production_write_off) }
@@ -72,18 +75,42 @@ class Waybill < ApplicationRecord
   end
 
   def products_progress
-    products_and_counts.map do |product_id, _|
+    products_and_counts.map do |product_id, total_count|
       product = Product.find(product_id)
       scanned = qr_scans.filter_by_product(product_id).sum(:capacity_after)
       HashWithIndifferentAccess.new(
         product: product,
-        scanned: scanned
+        scanned: scanned,
+        planned: total_count,
+        progress: (scanned.to_d / total_count.to_d) * 100.0
       )
     end
   end
 
   def products_and_counts
-    Box.where(id: qr_scans.pluck(:box_id)).group(:product_id).sum(:capacity)
+    case true
+    when route_sheet.present?
+      route_sheet.tracking_products.group(:product_id).sum(:count)
+    when order.present?
+      order.positions.group(:product_id).sum(:count)
+    else
+      Box.where(id: qr_scans.pluck(:box_id)).group(:product_id).sum(:capacity)
+    end
+  end
+
+  def calculate_fifo_boxes(product_id, strict: false)
+    return [] unless order
+
+    positions = order.positions.filter_by_product(product_id)
+    return [] if positions.count.zero?
+
+    position = positions.first
+    box_ids = storage.all_boxes.pluck(:id)
+
+    params = [ product_id, position.count, 0, box_ids ]
+    method = strict ? "calculated_strict_fifo_for" : "calculated_fifo_for"
+
+    Box.send(method, *params)
   end
 
   private
@@ -95,17 +122,31 @@ class Waybill < ApplicationRecord
       return unless approved?
       return if manual_approval?
 
-      errors.add(:qr_scans, :accepted) if has_not_scanned? || has_delta?
+      if has_not_scanned? || has_delta?
+        errors.add(:qr_scans, :accepted)
+      else
+        errors.add(:qr_scans, :inclusion) if order.present? && has_missing_fifo?
+      end
     end
 
     def route_sheet_integrity
       return unless should_validate_collectable?
 
-      errors.add(:qr_scans, :inclusion) if has_imbalance?
+      errors.add(:qr_scans, :inclusion) if has_route_sheet_imbalance?
+    end
+
+    def order_integrity
+      return unless should_validate_order?
+
+      errors.add(:qr_scans, :inclusion) if has_order_imbalance?
     end
 
     def should_validate_collectable?
       collectable? && (transfer? && pending? || departure? && approved?)
+    end
+
+    def should_validate_order?
+      !new_record? && !collectable? && order.present?
     end
 
     def has_not_scanned?
@@ -113,14 +154,14 @@ class Waybill < ApplicationRecord
     end
 
     def has_delta?
-      !write_off? && capacity_delta > 0
+      !(write_off? || departure?) && capacity_delta > 0
     end
 
     def capacity_delta
       qr_scans.sum(:capacity_before) - qr_scans.sum(:capacity_after)
     end
 
-    def has_imbalance?
+    def has_route_sheet_imbalance?
       scope = route_sheet.assemblies.filter_by_status(:approved)
       return true if scope.empty?
 
@@ -135,6 +176,31 @@ class Waybill < ApplicationRecord
 
       return true unless total_capacity == scanned.sum(:capacity_after) &&
         total_capacity == assembled.sum(:capacity_after)
+
+      false
+    end
+
+    def has_order_imbalance?
+      order.positions.each do |position|
+        product_capacity = qr_scans
+                             .scanned
+                             .joins(:box)
+                             .where(boxes: { product_id: position.product_id })
+                             .sum(:capacity_after)
+
+        return true unless position.count == product_capacity
+      end
+
+      false
+    end
+
+    def has_missing_fifo?
+      products_and_counts.map do |product_id, _|
+        required_boxes = calculate_fifo_boxes product_id, strict: true
+        scanned = qr_scans.filter_by_box(required_boxes.pluck(:id))
+
+        return true if scanned.count != required_boxes.count
+      end
 
       false
     end
