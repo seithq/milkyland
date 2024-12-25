@@ -3,7 +3,7 @@ require "test_helper"
 module Logistics::Shipments
   class RouteSheets::TrackingProductsControllerTest < ActionDispatch::IntegrationTest
     setup do
-      @shipment = Shipment.create kind: :internal, client: clients(:systemd), region: regions(:almaty), shipping_date: Date.current
+      @shipment = Shipment.create kind: :internal, region: regions(:almaty), shipping_date: Date.current
       @route_sheet = @shipment.route_sheets.create vehicle_plate_number: "272MNB02", driver_name: "Daniyar", driver_phone_number: "+77772514515"
       @tracking_product = @route_sheet.tracking_products.create product: products(:milk25), count: 100
       sign_in :daniyar

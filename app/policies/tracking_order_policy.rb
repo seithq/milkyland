@@ -1,4 +1,4 @@
-class TrackingProductPolicy < ApplicationPolicy
+class TrackingOrderPolicy < ApplicationPolicy
   def edit?
     owned? && allowed_statuses?
   end
@@ -9,7 +9,7 @@ class TrackingProductPolicy < ApplicationPolicy
   end
 
   def destroy?
-    owned? && allowed_statuses? && ensure_not_generated? && !client_departure?
+    owned? && allowed_statuses? && ensure_not_generated?
   end
 
   private
@@ -25,9 +25,5 @@ class TrackingProductPolicy < ApplicationPolicy
       return true unless record.route_sheet.shipment.plan.present?
 
       !record.route_sheet.generated?
-    end
-
-    def client_departure?
-      record.route_sheet.shipment.client.present?
     end
 end

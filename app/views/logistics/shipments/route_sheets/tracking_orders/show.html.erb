@@ -1,0 +1,25 @@
+<% content_for(:title) { t("pages.tracking_order", id: @tracking_order.id) } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: shipments_path, title: t("pages.shipments")),
+      NavLink.new(path: shipment_path(@shipment), title: t("pages.shipment", date: l(@shipment.shipping_date), region: @shipment.region.name)),
+      NavLink.new(path: shipment_route_sheet_path(@shipment, @route_sheet), title: t("pages.route_sheet", id: @route_sheet.id)),
+      NavLink.new(path: shipment_route_sheet_tracking_order_path(@shipment, @route_sheet), title: t("pages.tracking_order", id: @tracking_order.id)),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= fields_for @tracking_order do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :order, class: "form-label" %>
+          <%= form.select :order, options_from_collection_for_select(Order.for_departure, :id, :display_label, @tracking_order.order_id), {}, { disabled: true, class: "form-select" } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

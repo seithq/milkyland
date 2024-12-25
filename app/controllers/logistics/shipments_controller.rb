@@ -28,7 +28,7 @@ class Logistics::ShipmentsController < ApplicationController
 
   def update
     if @shipment.update(shipment_params)
-      redirect_on_update shipments_url(status: @shipment.status)
+      redirect_on_update edit_shipment_url(@shipment)
     else
       render :edit, status: :unprocessable_entity
     end

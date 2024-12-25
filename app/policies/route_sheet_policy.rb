@@ -8,7 +8,11 @@ class RouteSheetPolicy < ApplicationPolicy
   end
 
   def new_tracking?
-    owned? && allowed_statuses? && ensure_not_generated?
+    owned? && allowed_statuses? && ensure_not_generated? && !client_departure?
+  end
+
+  def new_order?
+    owned? && allowed_statuses? && client_departure?
   end
 
   private
@@ -24,5 +28,9 @@ class RouteSheetPolicy < ApplicationPolicy
       return true unless record.shipment.plan.present?
 
       !record.generated?
+    end
+
+    def client_departure?
+      record.shipment.client.present?
     end
 end

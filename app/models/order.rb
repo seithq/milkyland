@@ -6,6 +6,8 @@ class Order < ApplicationRecord
   has_many :positions, dependent: :destroy
   has_many :consolidations, dependent: :destroy
 
+  has_many :tracking_orders, dependent: :destroy
+
   enum :kind, %i[ planned unscheduled ], default: :planned
   enum :status, (%w[ in_planning in_delivery completed ] + Plan::SHARED).index_by(&:itself), default: :in_planning
 
@@ -17,6 +19,7 @@ class Order < ApplicationRecord
   after_destroy :deactivate_plans
 
   scope :filter_by_status, ->(status) { where status: status }
+  scope :filter_by_client, ->(client_id) { where client_id: client_id }
   scope :filter_by_region, ->(region_id) { joins(:sales_point).where(sales_points: { region_id: region_id }) }
   scope :filter_by_id_or_client_or_sales_point, ->(query) { joins(:client).joins(:sales_point).where("LOWER(orders.id::text) LIKE ? OR LOWER(clients.name) LIKE ? OR LOWER(sales_points.name) LIKE ?", like(query), like(query), like(query)) }
 

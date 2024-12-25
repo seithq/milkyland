@@ -34,6 +34,7 @@ class ProcessDepartureCodesJob < ApplicationJob
 
       if waybill.route_sheet.present?
         waybill.route_sheet.update! status: :completed
+        waybill.route_sheet.orders.update_all status: :completed
       end
 
       if waybill.order.present?

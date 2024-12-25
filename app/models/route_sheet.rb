@@ -2,7 +2,10 @@ class RouteSheet < ApplicationRecord
   belongs_to :shipment, touch: :routes_changed_at
 
   has_many :tracking_products, dependent: :destroy
-  has_many :products, through: :tracking_products
+
+  has_many :tracking_orders, dependent: :destroy
+  has_many :orders, through: :tracking_orders
+  has_many :positions, through: :orders
 
   has_many :assemblies, dependent: :destroy
 

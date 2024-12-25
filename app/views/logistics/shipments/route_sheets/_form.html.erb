@@ -32,6 +32,24 @@
         </div>
         <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
           <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.tracking_orders") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <% if route_sheet.new_record? %>
+              <div class="sm:col-span-4">
+                <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
+              </div>
+            <% else %>
+              <div class="sm:col-span-full">
+                <%= turbo_frame_tag dom_id(route_sheet, :tracking_orders), src: shipment_route_sheet_tracking_orders_path(@shipment, @route_sheet) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
             <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.tracking_products") %></h2>
           </div>
           <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">

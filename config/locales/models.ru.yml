@@ -511,6 +511,8 @@ ru:
         product_id: Номенклатура ГП
         count: Кол-во
         unrestricted_count: Кол-во с ранней датой
+      tracking_order:
+        order_id: Заказ
       assembly:
         id: Номер
         route_sheet_id: Маршрутный лист

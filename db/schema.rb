@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_24_140921) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_25_140609) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -948,6 +948,15 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_24_140921) do
     t.index ["code"], name: "index_tiers_on_code", unique: true
   end
 
+  create_table "tracking_orders", force: :cascade do |t|
+    t.bigint "route_sheet_id", null: false
+    t.bigint "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_tracking_orders_on_order_id"
+    t.index ["route_sheet_id"], name: "index_tracking_orders_on_route_sheet_id"
+  end
+
   create_table "tracking_products", force: :cascade do |t|
     t.bigint "route_sheet_id", null: false
     t.bigint "product_id", null: false
@@ -1162,6 +1171,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_24_140921) do
   add_foreign_key "suppliers", "users", column: "manager_id"
   add_foreign_key "supply_orders", "material_assets"
   add_foreign_key "supply_orders", "vendors"
+  add_foreign_key "tracking_orders", "orders"
+  add_foreign_key "tracking_orders", "route_sheets"
   add_foreign_key "tracking_products", "products"
   add_foreign_key "tracking_products", "route_sheets"
   add_foreign_key "transactions", "articles"

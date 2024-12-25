@@ -45,7 +45,7 @@ module Logistics::Shipments
 
     private
       def base_scope
-        @route_sheet.tracking_products
+        @route_sheet.tracking_products.recent_first
       end
 
       def set_tracking_product

@@ -36,7 +36,7 @@ class Logistics::ShipmentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update shipment" do
     patch shipment_url(@shipment), params: { shipment: { status: :ready_to_collect } }
-    assert_redirected_to shipments_url(status: :ready_to_collect)
+    assert_redirected_to edit_shipment_url(@shipment)
   end
 
   test "should destroy shipment" do

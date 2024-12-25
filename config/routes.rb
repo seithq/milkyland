@@ -224,6 +224,7 @@ Rails.application.routes.draw do
         resources :route_sheets do
           scope module: "route_sheets" do
             resources :tracking_products
+            resources :tracking_orders
           end
         end
       end
