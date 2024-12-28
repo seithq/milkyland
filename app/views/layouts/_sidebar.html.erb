@@ -15,7 +15,7 @@
   NavLink.new(path: production_plans_path(kind: :semi), title: t("pages.semi_production_plans"), icon_name: "cube-transparent.svg")
 ] %>
 
-<% channels_nav_links = SalesChannel.all.each.map { |channel| NavLink.new(path: sales_channel_orders_path(channel), title: channel.name) } %>
+<% channels_nav_links = SalesChannel.all.each.map { |channel| NavLink.new(path: sales_channel_orders_path(channel), title: channel.name, icon_name: "hashtag.svg") } %>
 
 <% settings_nav_links = [
   NavLink.new(path: users_path, title: t("pages.users"), icon_name: "users.svg"),
@@ -103,7 +103,7 @@
                 <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.sales_by_channels") %></div>
                 <ul role="list" class="-mx-2 mt-2 space-y-1">
                   <% channels_nav_links.each do |link| %>
-                    <%= nav_link link.path, link.title, "" %>
+                    <%= nav_link link.path, link.title, link.icon_name %>
                   <% end %>
                 </ul>
               </li>
@@ -201,7 +201,7 @@
               <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.sales_by_channels") %></div>
               <ul role="list" class="-mx-2 mt-2 space-y-1">
                 <% channels_nav_links.each do |link| %>
-                  <%= nav_link link.path, link.title, "" %>
+                  <%= nav_link link.path, link.title, link.icon_name %>
                 <% end %>
               </ul>
             </li>
