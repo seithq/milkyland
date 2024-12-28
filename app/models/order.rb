@@ -8,6 +8,9 @@ class Order < ApplicationRecord
 
   has_many :tracking_orders, dependent: :destroy
 
+  has_many :waybills, dependent: :nullify
+  has_many :returns, dependent: :destroy
+
   enum :kind, %i[ planned unscheduled ], default: :planned
   enum :status, (%w[ in_planning in_delivery completed ] + Plan::SHARED).index_by(&:itself), default: :in_planning
 
@@ -26,6 +29,8 @@ class Order < ApplicationRecord
   scope :active, ->() { where.not(status: %i[ completed cancelled ]) }
 
   scope :for_departure, ->() { where(kind: :planned, status: :produced).or(where(kind: :unscheduled, status: :in_planning)).order(:id) }
+
+  scope :returnable, ->() { where(id: Waybill.returnable.pluck(:order_id) + TrackingOrder.pluck(:order_id)).recent_first }
 
   def cancel
     update! status: :cancelled

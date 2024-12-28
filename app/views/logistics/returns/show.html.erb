@@ -1,0 +1,52 @@
+<% content_for(:title) { t("pages.return", id: @return.id) } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: returns_path, title: t("pages.returns")),
+      NavLink.new(path: return_path(@return), title: t("pages.return", id: @return.id)),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <div>
+      <%= fields_for @return do |form| %>
+        <div class="space-y-12">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :order_id, class: "form-label" %>
+                <%= form.select :order_id, options_from_collection_for_select(Order.returnable, :id, :display_label, @return.order_id), {}, { disabled: true, class: "form-select" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :storage_id, class: "form-label" %>
+                <%= form.select :storage_id, options_from_collection_for_select(Storage.for_goods, :id, :name, @return.storage_id), {}, { disabled: true, class: "form-select" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :comment, class: "form-label" %>
+                <%= form.textarea :comment, autocomplete: "comment", rows: 3, readonly: true, class: "form-area" %>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.products") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-full">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

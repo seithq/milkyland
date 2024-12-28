@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_25_140609) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_28_210226) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -645,6 +645,19 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_25_140609) do
     t.index ["name"], name: "index_regions_on_name", unique: true
   end
 
+  create_table "returns", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "order_id", null: false
+    t.bigint "storage_id", null: false
+    t.string "status"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_returns_on_order_id"
+    t.index ["storage_id"], name: "index_returns_on_storage_id"
+    t.index ["user_id"], name: "index_returns_on_user_id"
+  end
+
   create_table "route_sheets", force: :cascade do |t|
     t.bigint "shipment_id", null: false
     t.string "vehicle_plate_number"
@@ -1145,6 +1158,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_25_140609) do
   add_foreign_key "products", "groups"
   add_foreign_key "products", "measurements"
   add_foreign_key "qr_scans", "boxes"
+  add_foreign_key "returns", "orders"
+  add_foreign_key "returns", "storages"
+  add_foreign_key "returns", "users"
   add_foreign_key "route_sheets", "shipments"
   add_foreign_key "sales_points", "clients"
   add_foreign_key "sales_points", "regions"

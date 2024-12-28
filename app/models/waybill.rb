@@ -42,6 +42,8 @@ class Waybill < ApplicationRecord
   scope :drafts, -> { where(status: :draft) }
   scope :pendings, -> { where(status: :pending) }
 
+  scope :returnable, -> { where(kind: :departure, status: :approved).where.not(order_id: nil) }
+
   def editable?
     self.new_record? && self.active?
   end

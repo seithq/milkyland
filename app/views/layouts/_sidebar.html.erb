@@ -38,6 +38,11 @@
 ]
 %>
 
+<% logistics_nav_links = [
+  NavLink.new(path: shipments_path, title: t("pages.shipments"), icon_name: "truck.svg"),
+  NavLink.new(path: returns_path, title: t("pages.returns"), icon_name: "reply.svg"),
+] %>
+
 <% finance_nav_links = [
   NavLink.new(path: transactions_path, title: t("pages.transactions"), icon_name: "cash.svg"),
   NavLink.new(path: cash_flow_path, title: t("pages.cash_flow"), icon_name: "presentation-chart-line.svg"),
@@ -137,11 +142,13 @@
                 </ul>
               </li>
             <% end %>
-            <% if Current.user.can_ship? %>
+            <% if allowed_to?(:index?, with: ReturnPolicy) %>
               <li>
                 <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.logictics") %></div>
                 <ul role="list" class="-mx-2 space-y-1">
-                  <%= nav_link shipments_path, t("pages.shipments"), "truck.svg" %>
+                  <% logistics_nav_links.each do |link| %>
+                    <%= nav_link link.path, link.title, link.icon_name %>
+                  <% end %>
                 </ul>
               </li>
             <% end %>
@@ -233,11 +240,13 @@
               </ul>
             </li>
           <% end %>
-          <% if Current.user.can_ship? %>
+          <% if allowed_to?(:index?, with: ReturnPolicy) %>
             <li>
               <div class="text-xs font-semibold leading-6 text-gray-400"><%= t("pages.logictics") %></div>
               <ul role="list" class="-mx-2 space-y-1">
-                <%= nav_link shipments_path, t("pages.shipments"), "truck.svg" %>
+                <% logistics_nav_links.each do |link| %>
+                  <%= nav_link link.path, link.title, link.icon_name %>
+                <% end %>
               </ul>
             </li>
           <% end %>

@@ -177,6 +177,10 @@ ru:
         statuses:
           draft: "Черновик"
           approved: "Подтвержден"
+      return:
+        statuses:
+          draft: "Черновик"
+          approved: "Подтвержден"
     attributes:
       user:
         name: ФИО
@@ -571,6 +575,14 @@ ru:
         trunc_period_day: По дням
         trunc_period_month: По месяцам
         trunc_period_year: По годам
+      return:
+        id: Номер
+        user_id: Пользователь
+        order_id: Заказ
+        storage_id: Склад
+        created_at: Дата и время создания
+        status: Статус
+        comment: Комментарий
     models:
       box:
         one: Коробка

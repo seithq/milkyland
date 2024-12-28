@@ -1,0 +1,11 @@
+<% content_for(:title) { t("pages.returns") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: returns_path, title: t("pages.returns")),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", record: @return %>

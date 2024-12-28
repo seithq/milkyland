@@ -1,0 +1,52 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= render "layouts/error_messages", resource: record %>
+    <%= form_with model: record do |form| %>
+      <div class="space-y-12">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <div class="sm:col-span-4">
+              <%= form.label :order_id, class: "form-label" %>
+              <%= form.select :order_id, options_from_collection_for_select(Order.returnable, :id, :display_label, record.order_id), { include_blank: true }, { required: true, class: "form-select" } %>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= form.label :storage_id, class: "form-label" %>
+              <%= form.select :storage_id, options_from_collection_for_select(Storage.for_goods, :id, :name, record.storage_id), { include_blank: true }, { required: true, class: "form-select" } %>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= form.label :comment, class: "form-label" %>
+              <%= form.textarea :comment, autocomplete: "comment", rows: 3, class: "form-area" %>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+          <div>
+            <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.products") %></h2>
+          </div>
+          <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+            <% if record.new_record? %>
+              <div class="sm:col-span-4">
+                <p class="mt-1 text-sm leading-6 text-gray-600"><%= t("forms.save_parent_record") %></p>
+              </div>
+            <% else %>
+              <div class="sm:col-span-full">
+
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 flex items-center justify-end gap-x-2">
+        <% if allowed_to?(:destroy?, record) %>
+          <%= link_to t("actions.destroy_record"), return_path(record), data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "destroy_return rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" %>
+        <% end %>
+        <%= form.submit t("actions.save_record"), class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+      </div>
+    <% end %>
+  </div>
+</div>

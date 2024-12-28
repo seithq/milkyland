@@ -229,6 +229,7 @@ Rails.application.routes.draw do
         end
       end
     end
+    resources :returns
   end
 
   scope module: "mobile" do

@@ -29,6 +29,8 @@ class Storage < ApplicationRecord
 
   has_many :warehousers, dependent: :destroy
 
+  has_many :returns, dependent: :destroy
+
   enum :kind, %w[ for_material_assets for_masters_material_assets for_masters for_goods ].index_by(&:itself), default: :for_goods
 
   scope :filter_by_name, ->(name) { where("LOWER(name) LIKE ?", like(name)) }
