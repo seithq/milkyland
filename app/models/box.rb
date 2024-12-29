@@ -4,6 +4,7 @@ class Box < ApplicationRecord
   belongs_to :region
   belongs_to :product
   belongs_to :box_request, optional: true
+  belongs_to :returned_product, optional: true
 
   has_many :pallets, through: :locations, source: :positionable, source_type: "Pallet"
   has_many :zones, through: :locations, source: :positionable, source_type: "Zone"

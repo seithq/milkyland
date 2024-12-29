@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_29_184941) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_29_215659) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -162,10 +162,12 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_29_184941) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "taken_out_at"
+    t.bigint "returned_product_id"
     t.index ["box_request_id"], name: "index_boxes_on_box_request_id"
     t.index ["code"], name: "index_boxes_on_code", unique: true
     t.index ["product_id"], name: "index_boxes_on_product_id"
     t.index ["region_id"], name: "index_boxes_on_region_id"
+    t.index ["returned_product_id"], name: "index_boxes_on_returned_product_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -1111,6 +1113,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_29_184941) do
   add_foreign_key "boxes", "box_requests"
   add_foreign_key "boxes", "products"
   add_foreign_key "boxes", "regions"
+  add_foreign_key "boxes", "returned_products"
   add_foreign_key "clients", "users", column: "manager_id"
   add_foreign_key "consolidations", "orders"
   add_foreign_key "consolidations", "plans"

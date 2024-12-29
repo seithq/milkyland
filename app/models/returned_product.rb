@@ -2,6 +2,8 @@ class ReturnedProduct < ApplicationRecord
   belongs_to :return
   belongs_to :product
 
+  has_many :boxes, dependent: :nullify
+
   validates :count, presence: true, numericality: { greater_than: 0 }
   validates_uniqueness_of :product_id, scope: :return_id
   validate :product_integrity
