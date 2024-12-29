@@ -27,6 +27,11 @@ class ReturnPolicy < ApplicationPolicy
     owned? && record.draft? && !record.new_record?
   end
 
+  relation_scope do |relation|
+    next relation if user.admin?
+    Return.filter_by_storage user.storages.acceptable
+  end
+
   private
     def owned?
       user.admin? || (user.id == record.user_id)

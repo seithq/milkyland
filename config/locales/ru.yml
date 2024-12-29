@@ -180,6 +180,7 @@ ru:
     record_deleted: "Запись удалена"
     record_deactivated: "Запись деактивирована"
     record_cancelled: "Запись отменена"
+    record_approved: "Запись подтверждена"
     code_not_found: "Код не найден или недопустим в данной операции"
     promo_deactivate: "Приостановить"
     promo_deactivated: "Акция приостановлена"
@@ -211,6 +212,7 @@ ru:
     create_write_off: "Списание"
     create_location: "Адресное перемещение"
     create_assembly: "Сборка"
+    approve_return: "Возврат"
     view_incoming: "Входящие"
     view_outgoing: "Исходящие"
     scan: "Сканировать"
@@ -437,6 +439,7 @@ ru:
     create_write_off: Продукции со склада
     create_location: Коробок и паллет внутри ярусов / зон
     create_assembly: Груза в зону отгрузки
+    approve_return: Продукции от покупателя
     view_incoming: Накладные (Вы как Получатель)
     view_outgoing: Накладные (Вы как Отправитель)
     drafts: "(Черновики: %{count})"

@@ -1,0 +1,21 @@
+<% content_for(:turbo_native_title) { t("pages.return", id: @return.id) } %>
+
+<% if allowed_to?(:edit?, @return, with: ReturnPolicy) %>
+  <div class="turbo-native:hidden">
+    <%= link_to t("actions.accept"), edit_tasks_return_path(@return), data: { controller: "bridge--button", bridge_image: "", bridge_side: "right" } %>
+  </div>
+<% end %>
+
+<div class="p-4 min-h-full flex flex-col justify-between">
+  <div class="space-y-6">
+    <div class="bg-white p-4 rounded-lg space-y-2">
+      <div class="flex justify-start">
+        <%= render Mobile::StatusBadgeComponent.new record: @return %>
+      </div>
+      <%= render Mobile::ReturnComponent.new record: @return, is_open: false %>
+      <% @return.returned_products.each do |rp| %>
+        <%= render Mobile::ReturnedProductComponent.new record: rp, is_open: true %>
+      <% end %>
+    </div>
+  </div>
+</div>

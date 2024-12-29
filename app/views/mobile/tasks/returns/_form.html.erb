@@ -1,0 +1,18 @@
+<div class="p-4 min-h-full flex flex-col justify-between">
+  <div class="space-y-6">
+    <div class="bg-white p-4 rounded-lg space-y-2">
+      <%= native_form_with model: record, url: tasks_return_path(record), html: { data: { turbo_action: "replace" } } do |form| %>
+        <div class="space-y-2">
+          <%= render Mobile::ReturnComponent.new record: record, is_open: false %>
+          <% record.returned_products.each do |rp| %>
+            <%= render Mobile::ReturnedProductComponent.new record: rp, is_open: true %>
+          <% end %>
+        </div>
+        <div class="turbo-native:hidden">
+          <%= form.hidden_field :status, value: :approved %>
+          <%= form.submit t("actions.approve"), data: { turbo_confirm: t("actions.confirm") } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

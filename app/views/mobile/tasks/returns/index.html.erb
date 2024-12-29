@@ -1,0 +1,11 @@
+<% content_for(:turbo_native_title) { t("pages.returns") } %>
+
+<div class="p-4">
+  <% if @returns.any? %>
+    <ul role="list" id="collection" class="divide-y divide-gray-100 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl">
+      <%= render partial: "return", collection: @returns, as: :record %>
+    </ul>
+  <% else %>
+    <%= render Mobile::EmptyCollectionComponent.new icon_name: "inbox-in.svg", text: t("actions.no_records"), path: feed_path %>
+  <% end %>
+</div>

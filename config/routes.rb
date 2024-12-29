@@ -263,6 +263,9 @@ Rails.application.routes.draw do
         end
       end
     end
+    namespace :tasks do
+      resources :returns, except: %i[ new create destroy ]
+    end
   end
 
   scope module: "finance" do

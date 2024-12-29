@@ -336,8 +336,8 @@ ru:
       order:
         id: Номер
         kind: Тип заказа
-        client_id: Покупатели
-        sales_point_id: Точка продаж
+        client_id: Покупатель
+        sales_point_id: Точка продажи
         preferred_date: Дата производства
         status: Статус
       position:
@@ -584,6 +584,7 @@ ru:
         status: Статус
         comment: Комментарий
       returned_product:
+        id: Номер
         product_id: Номенклатура ГП
         count: Количество
     models:
