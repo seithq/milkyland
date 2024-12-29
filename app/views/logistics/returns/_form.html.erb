@@ -35,7 +35,9 @@
               </div>
             <% else %>
               <div class="sm:col-span-full">
-
+                <%= turbo_frame_tag dom_id(record, :returned_products), src: return_returned_products_path(record) do %>
+                  <%= inline_svg_tag "spinner.svg" %>
+                <% end %>
               </div>
             <% end %>
           </div>

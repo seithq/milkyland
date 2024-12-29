@@ -229,7 +229,11 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :returns
+    resources :returns do
+      scope module: "returns" do
+        resources :returned_products, except: :show
+      end
+    end
   end
 
   scope module: "mobile" do

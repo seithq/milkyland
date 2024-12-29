@@ -583,6 +583,9 @@ ru:
         created_at: Дата и время создания
         status: Статус
         comment: Комментарий
+      returned_product:
+        product_id: Номенклатура ГП
+        count: Количество
     models:
       box:
         one: Коробка

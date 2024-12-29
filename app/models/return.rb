@@ -3,6 +3,8 @@ class Return < ApplicationRecord
   belongs_to :order
   belongs_to :storage
 
+  has_many :returned_products, dependent: :destroy
+
   enum :status, %w[ draft approved ].index_by(&:itself), default: :draft
 
   scope :filter_by_user, ->(user_id) { where user_id: user_id }

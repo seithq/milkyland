@@ -54,7 +54,7 @@ class Logistics::ReturnsController < ApplicationController
     end
 
     def set_return
-      @return = base_scope.find(params.expect(:id))
+      @return = Return.find(params.expect(:id))
       authorize! @return
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_28_210226) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_29_184941) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -645,6 +645,16 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_28_210226) do
     t.index ["name"], name: "index_regions_on_name", unique: true
   end
 
+  create_table "returned_products", force: :cascade do |t|
+    t.bigint "return_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_returned_products_on_product_id"
+    t.index ["return_id"], name: "index_returned_products_on_return_id"
+  end
+
   create_table "returns", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "order_id", null: false
@@ -1158,6 +1168,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_28_210226) do
   add_foreign_key "products", "groups"
   add_foreign_key "products", "measurements"
   add_foreign_key "qr_scans", "boxes"
+  add_foreign_key "returned_products", "products"
+  add_foreign_key "returned_products", "returns"
   add_foreign_key "returns", "orders"
   add_foreign_key "returns", "storages"
   add_foreign_key "returns", "users"

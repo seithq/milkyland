@@ -96,6 +96,7 @@ ru:
     shipments: "Отгрузки"
     returns: "Возвраты"
     return: "Возврат #%{id}"
+    returned_products: "Возвратные товары"
     new_shipment: "Новая отгрузка"
     shipment: "Отгрузка %{date} - %{region}"
     route_sheets: "Маршрутные листы"

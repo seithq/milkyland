@@ -1,0 +1,13 @@
+<% content_for(:title) { @returned_product.product.name } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: returns_path, title: t("pages.returns")),
+      NavLink.new(path: edit_return_path(@return), title: t("pages.return", id: @return.id)),
+      NavLink.new(path: edit_return_returned_product_path(@return, @returned_product), title: @returned_product.product.name),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", returned_product: @returned_product %>
