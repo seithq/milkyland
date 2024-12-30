@@ -6,7 +6,7 @@ module Mobile
 
     private
       def base_scope
-        @waybills = Current.user.in_waybills.for_goods.recent_first
+        @waybills = Current.user.in_waybills.without_return_back.for_goods.recent_first
       end
   end
 end

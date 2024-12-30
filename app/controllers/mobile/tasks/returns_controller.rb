@@ -14,6 +14,7 @@ module Mobile
 
     def update
       if @return.update(return_params)
+        ProcessReturnJob.perform_later @return.id
         redirect_on_update tasks_returns_url, text: t("actions.record_approved")
       else
         render :edit, status: :unprocessable_entity
@@ -30,7 +31,7 @@ module Mobile
       end
 
       def return_params
-        params.expect(return: [ :status ])
+        params.expect(return: [ :accepting_user_id, :status ])
       end
   end
 end

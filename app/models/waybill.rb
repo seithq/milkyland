@@ -17,7 +17,7 @@ class Waybill < ApplicationRecord
   enum :kind, %w[ arrival departure transfer write_off production_write_off return_back ].index_by(&:itself)
   enum :status, %w[ draft pending approved ].index_by(&:itself), default: :draft
 
-  validates_presence_of :storage_id, unless: ->() { arrival? }
+  validates_presence_of :storage_id, unless: ->() { arrival? || return_back? }
   validates_presence_of :new_storage_id, if: ->() { arrival? || transfer? || return_back? }
   validates_presence_of :batch_id, if: :production_write_off?
   validates_presence_of :route_sheet_id, if: :collectable?
@@ -43,6 +43,7 @@ class Waybill < ApplicationRecord
   scope :pendings, -> { where(status: :pending) }
 
   scope :returnable, -> { where(kind: :departure, status: :approved).where.not(order_id: nil) }
+  scope :without_return_back, -> { where.not kind: :return_back }
 
   def editable?
     self.new_record? && self.active?

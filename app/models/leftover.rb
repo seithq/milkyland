@@ -27,7 +27,7 @@ class Leftover < ApplicationRecord
     end
 
     def create_child_leftover
-      return unless %w[ transfer return_back ].include?(waybill.kind)
+      return unless %w[ transfer ].include?(waybill.kind)
 
       waybill.leftovers.create!(parent_id: self.id,
                                 storage_id: waybill.storage_id,

@@ -2,6 +2,7 @@ class Return < ApplicationRecord
   belongs_to :user
   belongs_to :order
   belongs_to :storage
+  belongs_to :accepting_user, class_name: "User", foreign_key: "accepting_user_id", optional: true
 
   has_many :returned_products, dependent: :destroy
 

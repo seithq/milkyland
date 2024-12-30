@@ -126,6 +126,8 @@ ru:
     transfer: "Перемещение #%{id}"
     departures: "Расход"
     departure: "Расход #%{id}"
+    return_backs: "Возвраты"
+    return_back: "Возврат #%{id}"
     assemblies: "Сборка груза"
     assembly: "Сборка груза #%{id}"
     fifo: "Рекомендация"

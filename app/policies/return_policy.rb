@@ -29,7 +29,7 @@ class ReturnPolicy < ApplicationPolicy
 
   relation_scope do |relation|
     next relation if user.admin?
-    Return.filter_by_storage user.storages.acceptable
+    Return.filter_by_storage user.storages.for_goods.acceptable
   end
 
   private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_29_215659) do
+ActiveRecord::Schema[8.1].define(version: 2024_12_29_221132) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -665,6 +665,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_29_215659) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "accepting_user_id"
+    t.index ["accepting_user_id"], name: "index_returns_on_accepting_user_id"
     t.index ["order_id"], name: "index_returns_on_order_id"
     t.index ["storage_id"], name: "index_returns_on_storage_id"
     t.index ["user_id"], name: "index_returns_on_user_id"
@@ -1176,6 +1178,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_29_215659) do
   add_foreign_key "returns", "orders"
   add_foreign_key "returns", "storages"
   add_foreign_key "returns", "users"
+  add_foreign_key "returns", "users", column: "accepting_user_id"
   add_foreign_key "route_sheets", "shipments"
   add_foreign_key "sales_points", "clients"
   add_foreign_key "sales_points", "regions"
