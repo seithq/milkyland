@@ -19,6 +19,8 @@ class Product < ApplicationRecord
 
   has_many :returned_products, dependent: :destroy
 
+  has_many :estimations, dependent: :destroy
+
   validates :name, :article, presence: true, uniqueness: { case_sensitive: false }
   validates_presence_of :packing, :expiration_in_days, :fat_fraction
   validates_numericality_of :fat_fraction, in: 0.0..100.0

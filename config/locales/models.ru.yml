@@ -587,6 +587,11 @@ ru:
         id: Номер
         product_id: Номенклатура ГП
         count: Количество
+      sales_plan:
+        id: Номер
+        region_id: Регион
+        product_id: Номенклатура ГП
+        month: Месяц
     models:
       box:
         one: Коробка

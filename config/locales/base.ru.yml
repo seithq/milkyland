@@ -24,9 +24,25 @@ ru:
       cash_flow_day: "%d.%m.%Y"
       cash_flow_month: "%b"
       cash_flow_year: "%Y"
+      month: "%b %Y"
   time:
     formats:
       default: "%a, %d %b %Y, %H:%M:%S %z"
       long: "%d %B %Y, %H:%M"
       short: "%d %b, %H:%M"
       fact: "%d.%m.%Y, %H:%M"
+  select:
+    month_names:
+      -
+      - Январь
+      - Февраль
+      - Март
+      - Апрель
+      - Май
+      - Июнь
+      - Июль
+      - Август
+      - Сентябрь
+      - Октябрь
+      - Ноябрь
+      - Декабрь

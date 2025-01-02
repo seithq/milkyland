@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_12_29_221132) do
+ActiveRecord::Schema[8.1].define(version: 2025_01_02_191704) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -291,6 +291,18 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_29_221132) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["batch_id"], name: "index_distributions_on_batch_id"
+  end
+
+  create_table "estimations", force: :cascade do |t|
+    t.bigint "sales_plan_id", null: false
+    t.bigint "sales_channel_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "planned_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_estimations_on_product_id"
+    t.index ["sales_channel_id"], name: "index_estimations_on_sales_channel_id"
+    t.index ["sales_plan_id"], name: "index_estimations_on_sales_plan_id"
   end
 
   create_table "fields", force: :cascade do |t|
@@ -690,6 +702,14 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_29_221132) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_sales_channels_on_name", unique: true
+  end
+
+  create_table "sales_plans", force: :cascade do |t|
+    t.bigint "region_id", null: false
+    t.date "month"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_sales_plans_on_region_id"
   end
 
   create_table "sales_points", force: :cascade do |t|
@@ -1132,6 +1152,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_29_221132) do
   add_foreign_key "distributed_products", "packaged_products"
   add_foreign_key "distributed_products", "regions"
   add_foreign_key "distributions", "batches"
+  add_foreign_key "estimations", "products"
+  add_foreign_key "estimations", "sales_channels"
+  add_foreign_key "estimations", "sales_plans"
   add_foreign_key "fields", "fields", column: "trackable_id"
   add_foreign_key "fields", "measurements"
   add_foreign_key "fields", "operations"
@@ -1180,6 +1203,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_12_29_221132) do
   add_foreign_key "returns", "users"
   add_foreign_key "returns", "users", column: "accepting_user_id"
   add_foreign_key "route_sheets", "shipments"
+  add_foreign_key "sales_plans", "regions"
   add_foreign_key "sales_points", "clients"
   add_foreign_key "sales_points", "regions"
   add_foreign_key "semi_ingredients", "groups"

@@ -64,6 +64,7 @@ ru:
     order_number: "Заказ #%{id}"
     positions: "Товарные позиции"
     plans: "Консолидированные заявки"
+    sales_plans: "Планы продаж"
     plan: "Заявка %{date}"
     production: "Производство"
     production_plan: "%{date}"

@@ -1,0 +1,12 @@
+<% content_for(:title) { "#{ @sales_plan.region.name } - #{ l(@sales_plan.month, format: :month) }" } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: sales_plans_path, title: t("pages.sales_plans")),
+      NavLink.new(path: edit_sales_plan_path(@sales_plan), title: "#{ @sales_plan.region.name } - #{ l(@sales_plan.month, format: :month) }"),
+    ]
+  } %>
+<% end %>
+
+<%= render "form", sales_plan: @sales_plan %>
