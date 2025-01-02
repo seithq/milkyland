@@ -1,0 +1,79 @@
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= render "layouts/error_messages", resource: sales_plan %>
+    <%= form_with model: sales_plan do |form| %>
+      <div class="space-y-12">
+        <% if sales_plan.new_record? %>
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+            <div>
+              <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t("forms.main_info") %></h2>
+            </div>
+            <div class="grid max-w-3xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+              <div class="sm:col-span-4">
+                <%= form.label :region_id, class: "form-label" %>
+                <%= form.select :region_id, options_from_collection_for_select(Region.ordered, :id, :name, sales_plan.region_id), { include_blank: true }, { required: true, class: "form-select" } %>
+              </div>
+
+              <div class="sm:col-span-4">
+                <%= form.label :month, class: "form-label" %>
+                <%= form.date_select :month, { start_year: 2024, use_month_names: t("select.month_names"), discard_day: true, discard_year: true }, { required: true, class: "form-select" } %>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12">
+            <div class="px-4 sm:px-6 lg:px-8">
+              <div class="flow-root">
+                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                    <div class="overflow-hidden shadow ring-1 ring-black/5 sm:rounded-lg">
+                      <table class="min-w-full divide-y divide-gray-300">
+                        <thead class="bg-gray-50">
+                        <tr>
+                          <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%= SalesPlan.human_attribute_name(:product_id) %></th>
+                          <% @channels.each do |channel| %>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= channel.name %></th>
+                          <% end %>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                          <% @groups.each do |group| %>
+                            <tr class="border-t border-gray-200">
+                              <th colspan="<%= @channels.size + 1 %>" scope="colgroup" class="bg-gray-100 py-2 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%= group.name %></th>
+                            </tr>
+                            <% group.products.each do |product| %>
+                            <tr>
+                              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= product.name %></td>
+                              <% @channels.each do |channel| %>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                  <% estimation = @sales_plan.find_estimation(channel.id, product.id) %>
+                                  <%= hidden_field_tag "sales_plan[estimations][][sales_channel_id]", channel.id %>
+                                  <%= hidden_field_tag "sales_plan[estimations][][product_id]", product.id %>
+                                  <%= form.number_field :planned_count,
+                                                        name: "sales_plan[estimations][][planned_count]",
+                                                        class: "form-input w-32",
+                                                        value: estimation&.planned_count || 0 %>
+                                </td>
+                              <% end %>
+                            </tr>
+                            <% end %>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="mt-6 flex items-center justify-end gap-x-2">
+        <% if allowed_to?(:destroy?, sales_plan) %>
+          <%= link_to t("actions.destroy_record"), sales_plan_path(sales_plan), data: { turbo_frame: "_top", turbo_method: :delete, turbo_confirm: t("actions.confirm") }, class: "destroy_sales_plan rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" %>
+        <% end %>
+        <%= form.submit t("actions.save_record"), class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+      </div>
+    <% end %>
+  </div>
+</div>

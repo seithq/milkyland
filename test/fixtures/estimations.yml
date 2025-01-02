@@ -1,0 +1,5 @@
+sales_opening_milk25:
+  sales_plan: sales_opening
+  sales_channel: b2c
+  product: milk25
+  planned_count: 3

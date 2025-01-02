@@ -1,0 +1,15 @@
+<div class="mt-2 sm:mt-0 sm:flex-auto">
+  <%= form_tag sales_plans_path, data: {}, method: :get do %>
+    <div class="grid grid-cols-8 rounded-md gap-2">
+      <div class="col-span-full lg:col-span-4 lg:col-span-6 xl:col-span-4 relative flex flex-grow items-stretch focus-within:z-10">
+        <%= select :search, :region, options_from_collection_for_select(Region.all, :id, :name), { include_blank: t("tables.cols.region") }, { class: "form-select rounded-none rounded-l-md" } %>
+        <%= link_to sales_plans_path, class: "relative -ml-px inline-flex items-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+          <%= inline_svg_tag "refresh.svg", class: "-ml-0.5 h-5 w-5 text-gray-400" %>
+        <% end %>
+        <%= button_tag type: "submit", class: "relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50" do %>
+          <%= inline_svg_tag "search.svg", class: "-ml-0.5 h-5 w-5 text-gray-400" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

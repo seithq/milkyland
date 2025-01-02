@@ -1,0 +1,15 @@
+<div class="table-row">
+  <div class="table-cell w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
+    <%= sales_plan.region.name %>
+  </div>
+  <div class="table-cell px-3 py-4 text-sm text-gray-500">
+    <%= l sales_plan.month, format: :month %>
+  </div>
+  <div class="table-cell py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+    <% if allowed_to?(:update?, sales_plan) %>
+      <%= link_to t("actions.edit_record"), edit_sales_plan_path(sales_plan), class: "text-indigo-600 hover:text-indigo-900" %>
+    <% else %>
+      <%= link_to t("actions.show_record"), sales_plan_path(sales_plan), class: "text-indigo-600 hover:text-indigo-900" %>
+    <% end %>
+  </div>
+</div>

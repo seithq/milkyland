@@ -3,6 +3,7 @@ class SalesChannel < ApplicationRecord
 
   has_many :prices, dependent: :destroy
   has_many :orders, dependent: :destroy
+  has_many :estimations, dependent: :destroy
 
   scope :ordered, -> { order(name: :asc) }
 end

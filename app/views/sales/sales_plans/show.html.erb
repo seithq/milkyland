@@ -1,0 +1,59 @@
+<% content_for(:title) { "#{ @sales_plan.region.name } - #{ l(@sales_plan.month, format: :month) }" } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: sales_plans_path, title: t("pages.sales_plans")),
+      NavLink.new(path: sales_plan_path(@sales_plan), title: "#{ @sales_plan.region.name } - #{ l(@sales_plan.month, format: :month) }"),
+    ]
+  } %>
+<% end %>
+
+<div class="flex flex-col justify-center px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full">
+    <%= fields_for @sales_plan do |form| %>
+      <div class="space-y-12">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12">
+          <div class="px-4 sm:px-6 lg:px-8">
+            <div class="flow-root">
+              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <div class="overflow-hidden shadow ring-1 ring-black/5 sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-300">
+                      <thead class="bg-gray-50">
+                      <tr>
+                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%= SalesPlan.human_attribute_name(:product_id) %></th>
+                        <% @channels.each do |channel| %>
+                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= channel.name %></th>
+                        <% end %>
+                      </tr>
+                      </thead>
+                      <tbody class="divide-y divide-gray-200 bg-white">
+                      <% @groups.each do |group| %>
+                        <tr class="border-t border-gray-200">
+                          <th colspan="<%= @channels.size + 1 %>" scope="colgroup" class="bg-gray-100 py-2 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%= group.name %></th>
+                        </tr>
+                        <% group.products.each do |product| %>
+                          <tr>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= product.name %></td>
+                            <% @channels.each do |channel| %>
+                              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                <% estimation = @sales_plan.find_estimation(channel.id, product.id) %>
+                                <%= number_with_delimiter estimation&.planned_count || 0 %>
+                              </td>
+                            <% end %>
+                          </tr>
+                        <% end %>
+                      <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
