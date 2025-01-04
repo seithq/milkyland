@@ -280,6 +280,10 @@ Rails.application.routes.draw do
     resource :cash_flow, only: %i[ show create ]
   end
 
+  namespace :reports do
+    resource :sales_channel, only: %i[ show create ]
+  end
+
   get "/configurations/android", to: "configurations#android", as: :android_configuration
   get "up", to: "rails/health#show", as: :rails_health_check
   get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker

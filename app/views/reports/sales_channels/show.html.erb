@@ -1,0 +1,57 @@
+<% content_for(:title) { t("pages.summary_reports") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: reports_sales_channel_path, title: t("pages.summary_reports")),
+    ]
+  } %>
+<% end %>
+
+<div class="px-4 sm:px-6 lg:px-8">
+  <%= render "tab" %>
+  <div class="sm:mt-8 sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <%= form_with scope: :report, url: reports_sales_channel_path, id: "report-form", data: { turbo_frame: :summary_report } do |form| %>
+        <div class="grid grid-cols-4 gap-2">
+          <div class="col-span-full sm:col-span-2 flex items-center space-x-6 space-y-0">
+            <div class="flex items-center">
+              <%= form.radio_button :trunc_period, "month", checked: true, class: "relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden" %>
+              <%= label_tag "report_trunc_period_month", t("actions.filter_by_month"), class: "ml-3 block text-sm/6 font-medium text-gray-900" %>
+            </div>
+            <div class="flex items-center">
+              <%= form.radio_button :trunc_period, "year", class: "relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden" %>
+              <%= label_tag "report_trunc_period_year", t("actions.filter_by_year"), class: "ml-3 block text-sm/6 font-medium text-gray-900" %>
+            </div>
+          </div>
+
+          <div class="col-span-full md:col-span-1 flex gap-2">
+            <%= form.date_select :range_period, { start_year: 2024, use_month_names: t("select.month_names"), discard_day: true }, { class: "form-select" } %>
+          </div>
+
+          <div class="col-span-full md:col-span-1 flex gap-2">
+            <%= form.select :group_id, options_from_collection_for_select(Group.end_products.ordered, :id, :name), { include_blank: t("tables.cols.group") }, { class: "form-select" } %>
+            <%= form.select :product_id, options_from_collection_for_select(Product.ordered, :id, :name), { include_blank: t("tables.cols.product") }, { class: "form-select" } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="mt-4 sm:ml-4 sm:mt-0 sm:flex-none">
+      <button type="submit" class="btn-create" form="report-form">
+        <%= inline_svg_tag "chart-square-bar.svg", class: "size-5" %>
+        <%= t("actions.create_report") %>
+      </button>
+    </div>
+  </div>
+  <div class="-mx-4 mt-4 sm:mt-8 sm:-mx-0">
+    <%= turbo_frame_tag :summary_report do %>
+      <div class="flex justify-center">
+        <div class="text-center py-10">
+          <%= inline_svg_tag "chart-square-bar.svg", class: "mx-auto size-12 text-gray-400" %>
+          <h3 class="mt-2 text-sm font-semibold text-gray-900"><%= t("actions.no_data") %></h3>
+          <p class="mt-1 text-sm text-gray-500"><%= t("actions.fill_report_data") %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

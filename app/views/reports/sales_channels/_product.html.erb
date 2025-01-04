@@ -1,0 +1,47 @@
+<tr class="divide-x divide-gray-200" data-id="<%= product.group_id %>">
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-medium text-gray-700"><%= product.name %></td>
+  <% @channels.each do |channel| %>
+    <!--CHANNEL-->
+    <!--PLAN-->
+    <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+      <%= number_with_delimiter @data[:products][product.id][:channels][channel.id][:plan_count] %>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+      <%= number_to_currency @data[:products][product.id][:channels][channel.id][:plan_price] %>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+      <%= number_with_delimiter @data[:products][product.id][:channels][channel.id][:plan_tonnage] %>
+    </td>
+    <!--FACT-->
+    <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+      <%= number_with_delimiter @data[:products][product.id][:channels][channel.id][:fact_count] %>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+      <%= number_to_currency @data[:products][product.id][:channels][channel.id][:fact_price] %>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+      <%= number_with_delimiter @data[:products][product.id][:channels][channel.id][:fact_tonnage] %>
+    </td>
+  <% end %>
+  <!--SUMMARY-->
+  <!--PLAN-->
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter @data[:products][product.id][:summary][:plan_count] %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_to_currency @data[:products][product.id][:summary][:plan_price] %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter @data[:products][product.id][:summary][:plan_tonnage] %>
+  </td>
+  <!--FACT-->
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter @data[:products][product.id][:summary][:fact_count] %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_to_currency @data[:products][product.id][:summary][:fact_price] %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter @data[:products][product.id][:summary][:fact_tonnage] %>
+  </td>
+</tr>

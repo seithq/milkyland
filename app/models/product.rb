@@ -39,6 +39,11 @@ class Product < ApplicationRecord
     base_price.presence || Price.new(value: 0.0)
   end
 
+  def tonnage(count)
+    total = count * self.packing
+    total > 0.0 ? measurement.to_tonnage_ratio(total) : 0.0
+  end
+
   def name_with_article
     "#{ article } - #{ name }"
   end

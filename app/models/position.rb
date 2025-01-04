@@ -13,7 +13,10 @@ class Position < ApplicationRecord
 
   scope :filter_by_group, ->(group_id) { joins(product: :group).merge(Product.filter_by_group(group_id)) }
   scope :filter_by_product, ->(product_id) { joins(:product).where(products: { id: product_id }) }
+  scope :filter_by_sales_channel, ->(sales_channel_id) { joins(:order).where(orders: { sales_channel_id: sales_channel_id }) }
   scope :filter_by_order, ->(order_id) { where(order_id: order_id) }
+
+  scope :filter_by_preferred_date, ->(start_date, end_date) { joins(:order).where("orders.preferred_date >= ? AND orders.preferred_date <= ?", start_date, end_date) }
 
   def default_value(field, default)
     self.send(field).presence || default
