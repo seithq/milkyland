@@ -27,6 +27,13 @@
     <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
       <%= number_with_delimiter @data[:groups][group.id][:channels][channel.id][:fact_tonnage] %>
     </td>
+    <!--DELTA-->
+    <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+      <%= number_with_delimiter @data[:groups][group.id][:channels][channel.id][:deviation_absolute] %>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+      <%= number_to_percentage @data[:groups][group.id][:channels][channel.id][:deviation_percent] %>
+    </td>
   <% end %>
   <!--SUMMARY-->
   <!--PLAN-->
@@ -48,6 +55,13 @@
   </td>
   <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
     <%= number_with_delimiter @data[:groups][group.id][:summary][:fact_tonnage] %>
+  </td>
+  <!--DELTA-->
+  <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+    <%= number_with_delimiter @data[:groups][group.id][:summary][:deviation_absolute] %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+    <%= number_to_percentage @data[:groups][group.id][:summary][:deviation_percent] %>
   </td>
 </tr>
 <%= render partial: "product", collection: @products.filter_by_group(group.id), as: :product %>

@@ -14,27 +14,6 @@ class Reports::SalesChannelsController < ApplicationController
   end
 
   private
-    def prepare_data(channels, products, estimations, positions)
-      data = { groups: {}, products: {} }
-
-      products.each do |product|
-        product_data = initialize_product_data(data, product)
-        group_data   = initialize_group_data(data, product)
-
-        product_estimations = estimations.filter_by_product(product.id)
-        product_positions   = positions.filter_by_product(product.id)
-
-        channels.each do |channel|
-          channel_data = prepare_channel_data(product, product_estimations, product_positions, channel)
-
-          merge_channel_data(product_data, group_data, channel.id, channel_data)
-          update_summary_data(product_data[:summary], group_data[:summary], channel_data)
-        end
-      end
-
-      data
-    end
-
     def products_scope
       base_scope = Product.ordered.includes(:group)
       if report_params[:group_id].present?
@@ -73,6 +52,30 @@ class Reports::SalesChannelsController < ApplicationController
       params.expect(report: %i[ trunc_period range_period product_id product_id ])
     end
 
+    def prepare_data(channels, products, estimations, positions)
+      data = { groups: {}, products: {} }
+
+      products.each do |product|
+        product_data = initialize_product_data(data, product)
+        group_data   = initialize_group_data(data, product)
+
+        product_estimations = estimations.filter_by_product(product.id)
+        product_positions   = positions.filter_by_product(product.id)
+
+        channels.each do |channel|
+          channel_data = prepare_channel_data(product, product_estimations, product_positions, channel)
+
+          merge_channel_data(product_data, group_data, channel.id, channel_data)
+          update_summary_data(product_data[:summary], group_data[:summary], channel_data)
+        end
+
+        calculate_deviations product_data[:summary]
+      end
+
+      calculate_group_deviations data[:groups]
+      data
+    end
+
     def initialize_product_data(data, product)
       data[:products][product.id] ||= { summary: {}, channels: {} }
     end
@@ -91,13 +94,18 @@ class Reports::SalesChannelsController < ApplicationController
       fact_price = fact_scope.sum(:total_sum)
       fact_tonnage = product.tonnage(fact_count)
 
+      deviation_absolute = fact_count - plan_count
+      deviation_percent  = calculate_percentage deviation_absolute, plan_count
+
       {
         plan_count: plan_count,
         plan_price: plan_price,
         plan_tonnage: plan_tonnage,
         fact_count: fact_count,
         fact_price: fact_price,
-        fact_tonnage: fact_tonnage
+        fact_tonnage: fact_tonnage,
+        deviation_absolute: deviation_absolute,
+        deviation_percent: deviation_percent
       }
     end
 
@@ -125,5 +133,28 @@ class Reports::SalesChannelsController < ApplicationController
       group_channel.merge(channel_data) do |_, old_val, new_val|
         old_val + new_val
       end
+    end
+
+    def calculate_deviations(summary)
+      plan_count = summary[:plan_count]
+      deviation_absolute = summary[:fact_count] - plan_count
+      deviation_percent = calculate_percentage(deviation_absolute, plan_count)
+
+      summary[:deviation_absolute] = deviation_absolute
+      summary[:deviation_percent] = deviation_percent
+    end
+
+    def calculate_group_deviations(groups)
+      groups.each do |_, group_data|
+        calculate_deviations(group_data[:summary])
+
+        group_data[:channels].each do |_, channel_summary|
+          calculate_deviations(channel_summary)
+        end
+      end
+    end
+
+    def calculate_percentage(deviation, plan_count)
+      plan_count.zero? ? 0.0 : (deviation.to_d / plan_count.to_d) * 100.0
     end
 end
