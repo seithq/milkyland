@@ -1,3 +1,15 @@
 <%= turbo_stream.update :summary_report do %>
   <%= render "table" %>
 <% end %>
+
+<%= turbo_stream.append "report-toolbar" do %>
+  <%= link_to reports_sales_channel_path, class: "btn-create" do %>
+    <%= inline_svg_tag "refresh.svg", class: "size-5" %>
+  <% end %>
+  <%= button_to reports_export_path,
+                class: "btn-create",
+                form: { data: { turbo: false, controller: "export-table", export_table_id_value: "report-table", export_table_input_value: "report[data]" } },
+                params: { report: { name: t("pages.report_sales_channels"), data: "" } } do %>
+    <%= inline_svg_tag "download.svg", class: "size-5" %>
+  <% end %>
+<% end %>

@@ -281,6 +281,7 @@ Rails.application.routes.draw do
   end
 
   namespace :reports do
+    resource :export, only: :create
     resource :sales_channel, only: %i[ show create ]
   end
 

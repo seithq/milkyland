@@ -42,6 +42,7 @@ gem "bootsnap", require: false
 gem "rqrcode", "~> 2.2"
 gem "useragent", github: "basecamp/useragent"
 gem "rubyzip", "~> 2.3"
+gem "caxlsx", "~> 4.2"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
