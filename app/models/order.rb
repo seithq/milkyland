@@ -23,6 +23,9 @@ class Order < ApplicationRecord
 
   scope :filter_by_status, ->(status) { where status: status }
   scope :filter_by_client, ->(client_id) { where client_id: client_id }
+  scope :filter_by_sales_channel, ->(sales_channel_id) { where sales_channel_id: sales_channel_id }
+  scope :filter_by_preferred_date, ->(preferred_date) { where preferred_date: preferred_date }
+  scope :filter_by_preferred_date_in_between, ->(start_date, end_date) { where preferred_date: start_date..end_date }
   scope :filter_by_region, ->(region_id) { joins(:sales_point).where(sales_points: { region_id: region_id }) }
   scope :filter_by_id_or_client_or_sales_point, ->(query) { joins(:client).joins(:sales_point).where("LOWER(orders.id::text) LIKE ? OR LOWER(clients.name) LIKE ? OR LOWER(sales_points.name) LIKE ?", like(query), like(query), like(query)) }
 
@@ -31,6 +34,26 @@ class Order < ApplicationRecord
   scope :for_departure, ->() { where(kind: :planned, status: :produced).or(where(kind: :unscheduled, status: :in_planning)).order(:id) }
 
   scope :returnable, ->() { where(id: Waybill.returnable.pluck(:order_id) + TrackingOrder.pluck(:order_id)).recent_first }
+
+  scope :report_for_sales_channels_and_clients, ->() do
+    joins(:sales_channel, :client, positions: { product: :measurement })
+      .select(
+        "sales_channels.name AS sales_channel",
+        "clients.name AS client",
+        "products.article AS article",
+        "SUM(positions.count) AS total_count",
+        "SUM(positions.total_sum) AS total_sum",
+        "SUM(
+            CASE
+                WHEN measurements.tonne_ratio IS NOT NULL AND measurements.tonne_ratio > 0 THEN
+                    (positions.count * products.packing) / measurements.tonne_ratio
+                ELSE
+                    0.0
+                END
+       ) AS total_tonnage"
+      )
+      .group("sales_channels.name", "clients.name", "products.article")
+  end
 
   def cancel
     update! status: :cancelled
