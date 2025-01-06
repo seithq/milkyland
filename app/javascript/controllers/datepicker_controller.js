@@ -1,0 +1,43 @@
+import { Controller } from "@hotwired/stimulus"
+import flatpickr from "flatpickr"
+import { Russian } from "flatpickr-ru"
+
+export default class extends Controller {
+  static targets = [ "details" ]
+  static values  = {
+    type: String,
+    disable: Array,
+    mode: { type: String, default: "single" },
+    dateFormat: { type: String, default: "m.d.Y" },
+    dateTimeFormat: { type: String, default: "m.d.Y H:i" }
+  }
+
+  connect() {
+    if (this.typeValue == "time") {
+      this.flatpickr = flatpickr(this.element, this.#timeOptions)
+    } else if (this.typeValue == "datetime") {
+      this.flatpickr = flatpickr(this.element, this.#dateTimeOptions)
+    } else {
+      this.flatpickr = flatpickr(this.element, this.#basicOptions)
+    }
+  }
+
+  disconnect() {
+    this.flatpickr.destroy()
+  }
+
+  get #timeOptions() {
+    return { dateFormat: "H:i", enableTime: true, noCalendar: true }
+  }
+
+  get #dateTimeOptions() {
+    return { ...this.#baseOptions, altFormat: this.dateTimeFormatValue, dateFormat: "m.d.Y H:i", enableTime: true }
+  }
+
+  get #basicOptions() {
+    return { ...this.#baseOptions, altFormat: this.dateFormatValue, dateFormat: "m.d.Y" }
+  }
+  get #baseOptions() {
+    return { locale: Russian, altInput: true, disable: this.disableValue, mode: this.modeValue }
+  }
+}

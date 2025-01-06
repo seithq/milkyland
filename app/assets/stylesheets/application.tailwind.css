@@ -226,4 +226,153 @@
             @apply bg-indigo-600 text-white outline-none;
         }
     }
+
+    .flatpickr-calendar {
+        background: white;
+        border: 1px solid oklch(0.92 0.004 286.32);
+        border-radius: 0.375rem;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        font-size: 0.875rem;
+        inline-size: 285px;
+        padding: 0.75rem;
+
+        :is(.dayContainer, .flatpickr-days) {
+            inline-size: 100%;
+            min-inline-size: 100%;
+            max-inline-size: 100%;
+        }
+        .flatpickr-months {
+            > * {
+                position: static;
+            }
+            .flatpickr-month {
+                color: black;
+            }
+            svg {
+                fill: oklch(0.705 0.015 286.067);
+            }
+            .flatpickr-prev-month:hover svg {
+                fill: black;
+            }
+            .flatpickr-next-month:hover svg {
+                fill: black;
+            }
+        }
+        .flatpickr-monthDropdown-months {
+            appearance: none;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.5;
+            padding: 0;
+            text-align: center;
+            &:hover {
+                background: oklch(0.967 0.001 286.375);
+            }
+        }
+        .numInputWrapper {
+            input {
+                border-radius: 0.375rem;
+                color: black;
+                font-size: 0.875rem;
+                font-weight: 500;
+                line-height: 1.5;
+                padding: 0;
+                text-align: center;
+            }
+            span {
+                border-color: oklch(0.92 0.004 286.32);
+            }
+            span:hover {
+                background: transparent;
+            }
+            span.arrowUp::after {
+                border-bottom-color: black;
+            }
+            span.arrowDown::after {
+                border-top-color: black;
+            }
+            &:hover {
+                background: transparent;
+            }
+        }
+        .flatpickr-weekday {
+            color: oklch(0.552 0.016 285.938);
+            font-weight: 400;
+        }
+        .flatpickr-time {
+            .hasTime & {
+                border-top-color: oklch(0.92 0.004 286.32);
+            }
+            .hasTime.noCalendar & {
+                border: 0;
+            }
+            .numInput {
+                background: transparent;
+                color: black;
+            }
+            .flatpickr-time-separator {
+                color: black;
+            }
+            .flatpickr-am-pm {
+                background: transparent;
+                color: black;
+            }
+        }
+        .flatpickr-day {
+            --day-size: 2.25rem;
+            border-radius: 0.375rem;
+            border-color: transparent !important;
+            box-shadow: none !important;
+            color: black;
+            height: var(--day-size);
+            line-height: var(--day-size);
+            margin-block-start: 1px;
+            max-width: var(--day-size);
+            &:is(.inRange) {
+                border-radius: 0;
+            }
+            &:is(.today, .inRange, :hover, :focus) {
+                background: oklch(0.967 0.001 286.375);
+                color: black;
+            }
+            &:is(
+      .flatpickr-disabled,
+      .flatpickr-disabled:hover,
+      .prevMonthDay,
+      .nextMonthDay,
+      .notAllowed,
+      .notAllowed.prevMonthDay,
+      .notAllowed.nextMonthDay
+    ) {
+                color: oklch(0.552 0.016 285.938);
+            }
+            &:is(
+      .selected,
+      .startRange,
+      .endRange,
+      .selected.inRange,
+      .startRange.inRange,
+      .endRange.inRange,
+      .selected:focus,
+      .startRange:focus,
+      .endRange:focus,
+      .selected:hover,
+      .startRange:hover,
+      .endRange:hover,
+      .selected.prevMonthDay,
+      .startRange.prevMonthDay,
+      .endRange.prevMonthDay,
+      .selected.nextMonthDay,
+      .startRange.nextMonthDay,
+      .endRange.nextMonthDay
+    ) {
+                background: oklch(0.21 0.006 285.885);
+                color: white;
+            }
+        }
+        &::before, &::after {
+            display: none;
+        }
+    }
 }

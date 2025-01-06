@@ -39,8 +39,11 @@ class Order < ApplicationRecord
     joins(:sales_channel, :client, positions: { product: :measurement })
       .select(
         "sales_channels.name AS sales_channel",
+        "sales_channels.id AS sales_channel_id",
         "clients.name AS client",
-        "products.article AS article",
+        "clients.id AS client_id",
+        "products.name AS product",
+        "products.id AS product_id",
         "SUM(positions.count) AS total_count",
         "SUM(positions.total_sum) AS total_sum",
         "SUM(
@@ -52,7 +55,7 @@ class Order < ApplicationRecord
                 END
        ) AS total_tonnage"
       )
-      .group("sales_channels.name", "clients.name", "products.article")
+      .group("sales_channels.id", "clients.id", "products.id")
   end
 
   def cancel

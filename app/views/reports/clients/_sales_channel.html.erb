@@ -1,0 +1,22 @@
+<tr class="divide-x divide-gray-200" data-controller="cascade" data-cascade-open-value="true" data-cascade-id-value="<%= dom_id(sales_channel) %>" data-cascade-rotation-class="rotate-180">
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-xs uppercase font-bold text-gray-500">
+    <button type="button" data-action="cascade#toggle" class="flex w-full items-center justify-start space-x-1">
+      <span class="leading-6"><%= sales_channel.name %></span>
+      <span class="flex h-6 items-center"><%= inline_svg_tag "chevron-down.svg", class: "size-4", data: { cascade_target: "opener" } %></span>
+    </button>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500">
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+    <%= number_with_delimiter clients.sum { |_,orders| orders.sum(&:total_count) } %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+    <%= number_to_currency clients.sum { |_,orders| orders.sum(&:total_sum) } %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+    <%= number_with_delimiter clients.sum { |_,orders| orders.sum(&:total_tonnage) } %>
+  </td>
+</tr>
+<% clients.each do |client, orders| %>
+  <%= render "client", sales_channel: sales_channel, client: client, orders: orders %>
+<% end %>

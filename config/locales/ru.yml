@@ -26,6 +26,7 @@ ru:
     cash_flow: "Движение денег"
     summary_reports: "Сводные отчеты"
     report_sales_channels: "План-факт по каналам"
+    report_clients: "Факт продаж по покупателям"
     pending_transactions: "Требует проверки"
     confirmed_transactions: "Требует оплаты"
     transaction: "Операция #%{id}"
@@ -174,6 +175,7 @@ ru:
     unauthorized: "Недостаточно прав"
     approve: "Подтвердить"
     accept: "В работу"
+    select_date_range: "Выберите даты"
     back: "Назад"
     not_saved:
       one: "Сохранение не удалось из-за %{count} ошибки"

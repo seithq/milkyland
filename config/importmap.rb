@@ -11,5 +11,7 @@ pin "@rails/request.js", to: "requestjs.js"
 pin "el-transition" # @0.0.7
 pin "@github/hotkey", to: "@github--hotkey.js" # @3.1.1
 pin "choices.js" # @11.0.2
+pin "flatpickr" # @4.6.13
+pin "flatpickr-ru"
 
 pin_all_from "app/javascript/controllers", under: "controllers"

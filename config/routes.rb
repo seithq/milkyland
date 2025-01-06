@@ -283,6 +283,7 @@ Rails.application.routes.draw do
   namespace :reports do
     resource :export, only: :create
     resource :sales_channel, only: %i[ show create ]
+    resource :client, only: %i[ show create ]
   end
 
   get "/configurations/android", to: "configurations#android", as: :android_configuration
