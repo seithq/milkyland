@@ -10,4 +10,10 @@ class SalesPoint < ApplicationRecord
   validates_format_of :phone_number, with: /\A\+[0-9]+[0-9]{3}[0-9]{7}\z/, allow_blank: true
 
   scope :filter_by_region, ->(region_id) { where(region_id: region_id) }
+
+  scope :ordered, -> { joins(:client).merge(Client.ordered) }
+
+  def display_label
+    "#{ client.name } - #{ name }"
+  end
 end

@@ -1,0 +1,20 @@
+<tr data-id="<%= dom_id(client) %>" class="divide-x divide-gray-200" data-controller="cascade" data-cascade-open-value="false" data-cascade-id-value="<%= dom_id(client) %>_<%= dom_id(sales_point) %>" data-cascade-rotation-class="rotate-180">
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-xs uppercase font-semibold text-gray-700">
+    <button type="button" data-action="cascade#toggle" class="flex w-full items-center justify-start space-x-1">
+      <span class="leading-6"><%= sales_point.name %></span>
+      <span class="flex h-6 items-center"><%= inline_svg_tag "chevron-down.svg", class: "size-4", data: { cascade_target: "opener" } %></span>
+    </button>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700">
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter orders.sum(&:total_count) %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_to_currency orders.sum(&:total_sum) %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter orders.sum(&:total_tonnage) %>
+  </td>
+</tr>
+<%= render partial: "order", collection: orders, as: :order, locals: { client: client, sales_point: sales_point } %>

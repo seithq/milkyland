@@ -27,6 +27,7 @@ ru:
     summary_reports: "Сводные отчеты"
     report_sales_channels: "План-факт по каналам"
     report_clients: "Факт продаж по покупателям"
+    report_sales_points: "Факт продаж по точкам продаж"
     pending_transactions: "Требует проверки"
     confirmed_transactions: "Требует оплаты"
     transaction: "Операция #%{id}"

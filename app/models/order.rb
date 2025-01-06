@@ -23,6 +23,7 @@ class Order < ApplicationRecord
 
   scope :filter_by_status, ->(status) { where status: status }
   scope :filter_by_client, ->(client_id) { where client_id: client_id }
+  scope :filter_by_sales_point, ->(sales_point_id) { where sales_point_id: sales_point_id }
   scope :filter_by_sales_channel, ->(sales_channel_id) { where sales_channel_id: sales_channel_id }
   scope :filter_by_preferred_date, ->(preferred_date) { where preferred_date: preferred_date }
   scope :filter_by_preferred_date_in_between, ->(start_date, end_date) { where preferred_date: start_date..end_date }
@@ -56,6 +57,29 @@ class Order < ApplicationRecord
        ) AS total_tonnage"
       )
       .group("sales_channels.id", "clients.id", "products.id")
+  end
+
+  scope :report_for_clients_and_sales_point, ->() do
+    joins(:client, :sales_point, positions: { product: :measurement })
+      .select(
+        "clients.name AS client",
+        "clients.id AS client_id",
+        "sales_points.name AS sales_point",
+        "sales_points.id AS sales_point_id",
+        "products.name AS product",
+        "products.id AS product_id",
+        "SUM(positions.count) AS total_count",
+        "SUM(positions.total_sum) AS total_sum",
+        "SUM(
+            CASE
+                WHEN measurements.tonne_ratio IS NOT NULL AND measurements.tonne_ratio > 0 THEN
+                    (positions.count * products.packing) / measurements.tonne_ratio
+                ELSE
+                    0.0
+                END
+       ) AS total_tonnage"
+      )
+      .group("clients.id", "sales_points.id", "products.id")
   end
 
   def cancel
