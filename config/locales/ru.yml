@@ -28,6 +28,7 @@ ru:
     report_sales_channels: "План-факт по каналам"
     report_clients: "Факт продаж по покупателям"
     report_sales_points: "Факт продаж по точкам продаж"
+    report_total_orders: "Сводная по всей компании"
     pending_transactions: "Требует проверки"
     confirmed_transactions: "Требует оплаты"
     transaction: "Операция #%{id}"
@@ -366,6 +367,7 @@ ru:
       opening_saldo: "Остаток на начало периода"
       closing_saldo: "Остаток на конец периода"
       day_saldo: "Общий денежный поток"
+      month: "Месяц"
   forms:
     profile: "Профиль"
     profile_extra: "Основная информация по профилю и контактные данные."

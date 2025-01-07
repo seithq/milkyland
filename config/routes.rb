@@ -285,6 +285,7 @@ Rails.application.routes.draw do
     resource :sales_channel, only: %i[ show create ]
     resource :client, only: %i[ show create ]
     resource :sales_point, only: %i[ show create ]
+    resource :order, only: %i[ show create ]
   end
 
   get "/configurations/android", to: "configurations#android", as: :android_configuration

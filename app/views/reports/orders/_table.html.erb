@@ -1,0 +1,39 @@
+<div class="flow-root">
+  <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+      <div class="overflow-hidden rounded-lg border">
+        <table class="min-w-full divide-y divide-gray-300" id="report-table">
+          <thead class="divide-y divide-gray-300">
+          <tr class="divide-x divide-gray-200 bg-gray-100">
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-xs font-semibold text-gray-900"></th>
+            <% @channels.each do |channel| %>
+              <th scope="col" colspan="2" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= channel.name %></th>
+            <% end %>
+          </tr>
+          <tr class="divide-x divide-gray-200 bg-gray-100">
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-xs font-semibold text-gray-900"><%= t("tables.cols.month") %></th>
+            <% @channels.each do |_| %>
+              <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-right"><%= t("tables.cols.sum") %></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-right"><%= t("tables.cols.tonnage") %></th>
+            <% end %>
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 bg-white">
+          <% @data.each do |month, sales_channels| %>
+            <%= render "month", month: month, sales_channels: sales_channels %>
+          <% end %>
+          </tbody>
+          <tfoot>
+          <tr class="divide-x divide-gray-200 bg-gray-100">
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-xs font-semibold text-gray-900"><%= t("tables.cols.summary") %></th>
+            <% @channels.each do |channel| %>
+              <th scope="col" class="px-3 py-3.5 text-left text-xs font-bold text-gray-900 text-right"><%= number_to_currency @orders.sum { |order| order.sales_channel_id == channel.id ? order.total_sum : 0.0 } %></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-xs font-bold text-gray-900 text-right"><%= number_with_delimiter @orders.sum { |order| order.sales_channel_id == channel.id ? order.total_tonnage : 0.0 } %></th>
+            <% end %>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

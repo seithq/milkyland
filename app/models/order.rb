@@ -83,6 +83,26 @@ class Order < ApplicationRecord
       .group("clients.id", "sales_points.id", "products.id")
   end
 
+  scope :report_for_total_orders, ->() do
+    joins(:sales_channel, positions: { product: :measurement })
+      .select(
+        "DATE_TRUNC('month', orders.preferred_date) AS order_month",
+        "sales_channels.name AS sales_channel",
+        "sales_channels.id AS sales_channel_id",
+        "SUM(positions.total_sum) AS total_sum",
+        "SUM(
+            CASE
+                WHEN measurements.tonne_ratio IS NOT NULL AND measurements.tonne_ratio > 0 THEN
+                    (positions.count * products.packing) / measurements.tonne_ratio
+                ELSE
+                    0.0
+                END
+       ) AS total_tonnage"
+      )
+      .group("DATE_TRUNC('month', orders.preferred_date)", "sales_channels.id")
+      .order("order_month", "sales_channel")
+  end
+
   def cancel
     update! status: :cancelled
   end

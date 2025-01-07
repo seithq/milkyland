@@ -1,0 +1,14 @@
+<tr class="divide-x divide-gray-200">
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-xs uppercase font-semibold text-gray-700">
+    <%= l month.to_date, format: :month %>
+  </td>
+  <% @channels.each do |channel| %>
+    <% has_data = sales_channels[channel.id].present? && sales_channels[channel.id].size > 0 %>
+    <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+      <%= number_to_currency has_data ? sales_channels[channel.id].first[:total_sum] : 0.0 %>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+      <%= number_with_delimiter has_data ? sales_channels[channel.id].first[:total_tonnage] : 0.0 %>
+    </td>
+  <% end %>
+</tr>

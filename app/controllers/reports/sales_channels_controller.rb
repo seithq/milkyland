@@ -49,7 +49,7 @@ class Reports::SalesChannelsController < ApplicationController
     end
 
     def report_params
-      params.expect(report: %i[ trunc_period range_period product_id product_id ])
+      params.expect(report: %i[ trunc_period range_period group_id product_id ])
     end
 
     def prepare_data(channels, products, estimations, positions)
