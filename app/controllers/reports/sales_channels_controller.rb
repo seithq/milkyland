@@ -30,7 +30,7 @@ class Reports::SalesChannelsController < ApplicationController
     end
 
     def positions_scope
-      Position.filter_by_preferred_date *calculate_date_range
+      Position.completed.filter_by_preferred_date *calculate_date_range
     end
 
     def calculate_date_range

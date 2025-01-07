@@ -9,7 +9,7 @@ class Reports::SalesPointsController < ApplicationController
 
   private
     def orders_scope
-      base_scope = Order.all
+      base_scope = Order.completed
       if report_params[:preferred_date].present?
         start_date, end_date = date_range
         base_scope = base_scope.filter_by_preferred_date_in_between start_date, end_date

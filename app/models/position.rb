@@ -18,6 +18,8 @@ class Position < ApplicationRecord
 
   scope :filter_by_preferred_date, ->(start_date, end_date) { joins(:order).where("orders.preferred_date >= ? AND orders.preferred_date <= ?", start_date, end_date) }
 
+  scope :completed, -> { joins(:order).merge(Order.completed) }
+
   def default_value(field, default)
     self.send(field).presence || default
   end
