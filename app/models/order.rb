@@ -30,6 +30,9 @@ class Order < ApplicationRecord
   scope :filter_by_region, ->(region_id) { joins(:sales_point).where(sales_points: { region_id: region_id }) }
   scope :filter_by_id_or_client_or_sales_point, ->(query) { joins(:client).joins(:sales_point).where("LOWER(orders.id::text) LIKE ? OR LOWER(clients.name) LIKE ? OR LOWER(sales_points.name) LIKE ?", like(query), like(query), like(query)) }
 
+  scope :filter_by_group, ->(group_id) { joins(positions: :product).where(products: { group_id: group_id }) }
+  scope :filter_by_product, ->(product_id) { joins(positions: :product).where(products: { id: product_id }) }
+
   scope :active, ->() { where.not(status: %i[ completed cancelled ]) }
   scope :completed, -> { where(status: :completed) }
 
@@ -101,6 +104,38 @@ class Order < ApplicationRecord
       )
       .group("DATE_TRUNC('month', orders.preferred_date)", "sales_channels.id")
       .order("order_month", "sales_channel")
+  end
+
+  scope :report_for_returns, ->() do
+    joins(positions: { product: :measurement })
+      .joins(positions: { product: :group })
+      .left_joins(returns: :returned_products)
+      .select(
+        "groups.id AS group_id",
+        "groups.name AS group_name",
+        "products.id AS product_id",
+        "products.name AS product_name",
+        "DATE_TRUNC('month', orders.preferred_date) AS order_month",
+        "SUM(positions.count) AS total_count",
+        "SUM(
+            CASE
+                WHEN measurements.tonne_ratio IS NOT NULL AND measurements.tonne_ratio > 0 THEN
+                    (positions.count * products.packing) / measurements.tonne_ratio
+                ELSE
+                    0.0
+                END
+        ) AS total_tonnage",
+        "COALESCE(SUM(returned_products.count), 0) AS return_total_count",
+        "COALESCE(SUM(
+            CASE
+                WHEN measurements.tonne_ratio IS NOT NULL AND measurements.tonne_ratio > 0 THEN
+                    (returned_products.count * products.packing) / measurements.tonne_ratio
+                ELSE
+                    0.0
+                END
+        ), 0.0) AS return_total_tonnage")
+      .group("groups.id", "groups.name", """""products.id", "products.name", "order_month")
+      .order("products.id", "order_month")
   end
 
   def cancel

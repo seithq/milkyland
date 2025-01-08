@@ -7,10 +7,6 @@ class Reports::OrdersController < ApplicationController
 
     @orders = orders_scope
     @data   = prepare_data @orders
-
-    puts "="*80
-    puts @data.to_json
-    puts "="*80
   end
 
   private

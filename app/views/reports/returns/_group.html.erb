@@ -1,0 +1,30 @@
+<% keys = group.split("@") %>
+<% group_id, group_name = keys.first, keys.second %>
+<tr class="divide-x divide-gray-200 bg-gray-50" data-controller="cascade" data-cascade-open-value="true" data-cascade-id-value="<%= group_id %>" data-cascade-rotation-class="rotate-180">
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-xs uppercase font-bold text-gray-500">
+    <button type="button" data-action="cascade#toggle" class="flex w-full items-center justify-start space-x-1">
+      <span class="leading-6"><%= group_name %></span>
+      <span class="flex h-6 items-center"><%= inline_svg_tag "chevron-down.svg", class: "size-4", data: { cascade_target: "opener" } %></span>
+    </button>
+  </td>
+  <% @all_months.each do |month| %>
+    <!--MONTH-->
+    <!--RETURNS-->
+    <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+      <%= number_with_delimiter @orders.sum { |order| order.order_month.strftime("%Y-%m-%d") == month ? order.return_total_tonnage : 0.0 } %>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+      <%= number_with_delimiter @orders.sum { |order| order.order_month.strftime("%Y-%m-%d") == month ? order.return_total_count : 0.0 } %>
+    </td>
+    <!--SALES-->
+    <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+      <%= number_with_delimiter @orders.sum { |order| order.order_month.strftime("%Y-%m-%d") == month ? order.total_tonnage : 0.0 } %>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+      <%= number_with_delimiter @orders.sum { |order| order.order_month.strftime("%Y-%m-%d") == month ? order.total_count : 0.0 } %>
+    </td>
+  <% end %>
+</tr>
+<% products.each do |product, months| %>
+  <%= render "product", group_id: group_id, product: product, months: months %>
+<% end %>
