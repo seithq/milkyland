@@ -26,7 +26,7 @@
           </div>
 
           <div class="col-span-full md:col-span-1 flex gap-2">
-            <%= form.date_select :range_period, { start_year: 2024, use_month_names: t("select.month_names"), discard_day: true }, { class: "form-select" } %>
+            <%= form.date_select :range_period, { start_year: 2024, end_year: Date.today.year, use_month_names: t("select.month_names"), discard_day: true }, { class: "form-select" } %>
           </div>
 
           <div class="col-span-full md:col-span-1 flex gap-2">

@@ -6,24 +6,31 @@
           <thead class="divide-y divide-gray-300">
           <tr class="divide-x divide-gray-200">
             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-xs font-semibold text-gray-900"></th>
-            <% @all_months.each do |month| %>
-              <th scope="col" colspan="4" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= l month.to_date, format: :month %></th>
+            <% @all_months.each_with_index do |month, index| %>
+              <th scope="col" colspan="<%= index == 0  ? 4 : 6 %>" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= l month.to_date, format: :month %></th>
             <% end %>
           </tr>
           <tr class="divide-x divide-gray-200">
             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-xs font-semibold text-gray-900"></th>
-            <% @all_months.each do |_| %>
-              <th scope="col" colspan="2" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center bg-yellow-200"><%= t("tables.cols.returns") %></th>
+            <% @all_months.each_with_index do |_, index| %>
+              <th scope="col" colspan="2" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center bg-red-200"><%= t("tables.cols.returns") %></th>
               <th scope="col" colspan="2" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center bg-blue-200"><%= t("tables.cols.sales") %></th>
+              <% if index > 0 %>
+                <th scope="col" colspan="2" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center bg-yellow-200"><%= t("tables.cols.mom") %></th>
+              <% end %>
             <% end %>
           </tr>
           <tr class="divide-x divide-gray-200 bg-gray-100">
             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-xs font-semibold text-gray-900"><%= t("tables.cols.group") %> / <%= t("tables.cols.product") %></th>
-            <% @all_months.each do |_| %>
+            <% @all_months.each_with_index do |_, index| %>
               <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-right"><%= t("tables.cols.tonnage") %></th>
               <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-right"><%= t("tables.cols.count_full") %></th>
               <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-right"><%= t("tables.cols.tonnage") %></th>
               <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-right"><%= t("tables.cols.count_full") %></th>
+              <% if index > 0 %>
+                <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-right bg-yellow-200"><%= t("tables.cols.percent_tonnage") %></th>
+                <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-right bg-yellow-200"><%= t("tables.cols.percent_count") %></th>
+              <% end %>
             <% end %>
           </tr>
           </thead>

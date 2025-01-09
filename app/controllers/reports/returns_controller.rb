@@ -5,10 +5,6 @@ class Reports::ReturnsController < ApplicationController
   def create
     @orders = orders_scope
     @data   = prepare_data @orders
-
-    puts "="*80
-    puts @data.to_json
-    puts "="*80
   end
 
   private
@@ -51,18 +47,40 @@ class Reports::ReturnsController < ApplicationController
         groups.group_by { |row| "#{ row[:product_id] }@#{ row[:product_name] }" }.transform_values do |orders|
           # Сопоставляем данные с полным списком месяцев
           orders_by_month = orders.index_by { |row| row.order_month.strftime("%Y-%m-%d") }
-          @all_months.each_with_object({}) do |month, memo|
+          @all_months.each_with_object({}).with_index do |(month, memo), index|
             if orders_by_month[month]
               row = orders_by_month[month]
               memo[month] = {
                 total_count: row.total_count,
                 total_tonnage: row.total_tonnage,
                 return_total_count: row.return_total_count,
-                return_total_tonnage: row.return_total_tonnage
+                return_total_tonnage: row.return_total_tonnage,
+                return_count_mom: nil,
+                return_tonnage_mom: nil
               }
+
+              if index > 0
+                previous_month = @all_months[index - 1]
+                previous_row = memo[previous_month]
+
+                if previous_row[:return_total_count] > 0
+                  memo[month][:return_count_mom] = ((memo[month][:return_total_count].to_f / previous_row[:return_total_count].to_f) - 1).round(4)
+                end
+
+                if previous_row[:return_total_tonnage] > 0
+                  memo[month][:return_tonnage_mom] = ((memo[month][:return_total_tonnage].to_f / previous_row[:return_total_tonnage].to_f) - 1).round(4)
+                end
+              end
             else
               # Заполняем нулями, если данных за месяц нет
-              memo[month] = { total_count: 0, total_tonnage: 0.0, return_total_count: 0, return_total_tonnage: 0.0 }
+              memo[month] = {
+                total_count: 0,
+                total_tonnage: 0.0,
+                return_total_count: 0,
+                return_total_tonnage: 0.0,
+                return_count_mom: nil,
+                return_tonnage_mom: nil
+              }
             end
           end
         end

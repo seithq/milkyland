@@ -7,22 +7,31 @@
       <span class="flex h-6 items-center"><%= inline_svg_tag "chevron-down.svg", class: "size-4", data: { cascade_target: "opener" } %></span>
     </button>
   </td>
-  <% @all_months.each do |month| %>
+  <% @all_months.each_with_index do |month, index| %>
     <!--MONTH-->
     <!--RETURNS-->
     <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
       <%= number_with_delimiter @orders.sum { |order| order.order_month.strftime("%Y-%m-%d") == month ? order.return_total_tonnage : 0.0 } %>
     </td>
     <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
-      <%= number_with_delimiter @orders.sum { |order| order.order_month.strftime("%Y-%m-%d") == month ? order.return_total_count : 0.0 } %>
+      <%= number_with_delimiter @orders.sum { |order| order.order_month.strftime("%Y-%m-%d") == month ? order.return_total_count : 0 } %>
     </td>
     <!--SALES-->
     <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
       <%= number_with_delimiter @orders.sum { |order| order.order_month.strftime("%Y-%m-%d") == month ? order.total_tonnage : 0.0 } %>
     </td>
     <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
-      <%= number_with_delimiter @orders.sum { |order| order.order_month.strftime("%Y-%m-%d") == month ? order.total_count : 0.0 } %>
+      <%= number_with_delimiter @orders.sum { |order| order.order_month.strftime("%Y-%m-%d") == month ? order.total_count : 0 } %>
     </td>
+    <!--MOM-->
+    <% if index > 0 %>
+      <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+        -
+      </td>
+      <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+        -
+      </td>
+    <% end %>
   <% end %>
 </tr>
 <% products.each do |product, months| %>
