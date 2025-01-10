@@ -1,0 +1,44 @@
+<tr class="divide-x divide-gray-200">
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-xs uppercase font-bold text-gray-700">
+    <%= sales_channel.name %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter sales_channel.previous_fact_total_sum %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter sales_channel.plan_total_sum %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter sales_channel.fact_total_sum %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_to_percentage sales_channel.plan_to_fact_percent %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_to_percentage sales_channel.fact_to_plan_percent %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_to_percentage sales_channel.fact_to_fact_percent %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter sales_channel.return_total_sum %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_to_percentage sales_channel.return_total_sum_percent %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter sales_channel.return_total_tonnage %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_to_percentage sales_channel.return_total_tonnage_percent %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter sales_channel.current_year_total_tonnage %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_with_delimiter sales_channel.previous_year_total_tonnage %>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+    <%= number_to_percentage sales_channel.year_fact_to_fact_percent %>
+  </td>
+</tr>

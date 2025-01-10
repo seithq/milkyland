@@ -1,0 +1,31 @@
+<div class="flow-root">
+  <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+      <div class="overflow-hidden rounded-lg border">
+        <table class="min-w-full divide-y divide-gray-300" id="report-table">
+          <thead class="divide-y divide-gray-300">
+          <tr class="divide-x divide-gray-200 bg-gray-100">
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-xs font-semibold text-gray-900"><%= t("tables.cols.sales_channel") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.previous_fact_total_sum") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.plan_total_sum") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.fact_total_sum") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.plan_to_fact_percent") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.fact_to_plan_percent") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.fact_to_fact_percent") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.return_total_sum") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.return_total_sum_percent") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.return_total_tonnage") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.return_total_tonnage_percent") %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.year_total_tonnage", year: @date.year) %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.year_total_tonnage", year: @date.prev_year.year) %></th>
+            <th scope="col" class="px-3 py-3.5 text-left text-xs font-semibold text-gray-900 text-center"><%= t("tables.cols.year_fact_to_fact_percent") %></th>
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 bg-white">
+          <%= render partial: "sales_channel", collection: @sales_channels, as: :sales_channel %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

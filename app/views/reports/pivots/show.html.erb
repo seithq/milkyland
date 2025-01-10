@@ -1,0 +1,41 @@
+<% content_for(:title) { t("pages.summary_reports") } %>
+
+<% content_for :breadcrumb do %>
+  <%= render "layouts/breadcrumb", {
+    nav_links: [
+      NavLink.new(path: reports_pivot_path, title: t("pages.summary_reports")),
+    ]
+  } %>
+<% end %>
+
+<div class="px-4 sm:px-6 lg:px-8">
+  <%= render "tab" %>
+  <div class="sm:mt-8 sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <%= form_with scope: :report, url: reports_pivot_path, id: "report-form", data: { turbo_frame: :summary_report } do |form| %>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="col-span-full sm:col-span-1 flex gap-2">
+            <%= form.date_select :range_period, { start_year: 2024, end_year: Date.today.year, use_month_names: t("select.month_names"), discard_day: true }, { class: "form-select" } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="mt-4 sm:ml-4 sm:mt-0 flex flex-row flex-shrink-0 space-x-2" id="report-toolbar">
+      <button type="submit" class="btn-create" form="report-form">
+        <%= inline_svg_tag "chart-square-bar.svg", class: "size-5" %>
+        <%= t("actions.create_report") %>
+      </button>
+    </div>
+  </div>
+  <div class="-mx-4 mt-4 sm:mt-8 sm:-mx-0">
+    <%= turbo_frame_tag :summary_report do %>
+      <div class="flex justify-center">
+        <div class="text-center py-10">
+          <%= inline_svg_tag "chart-square-bar.svg", class: "mx-auto size-12 text-gray-400" %>
+          <h3 class="mt-2 text-sm font-semibold text-gray-900"><%= t("actions.no_data") %></h3>
+          <p class="mt-1 text-sm text-gray-500"><%= t("actions.fill_report_data") %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
