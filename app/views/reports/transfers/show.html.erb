@@ -3,7 +3,7 @@
 <% content_for :breadcrumb do %>
   <%= render "layouts/breadcrumb", {
     nav_links: [
-      NavLink.new(path: reports_arrival_path, title: t("pages.production_reports")),
+      NavLink.new(path: reports_transfer_path, title: t("pages.production_reports")),
     ]
   } %>
 <% end %>
@@ -12,13 +12,13 @@
   <%= render "tab" %>
   <div class="sm:mt-8 sm:flex sm:items-center">
     <div class="sm:flex-auto">
-      <%= form_with scope: :report, url: reports_arrival_path, id: "report-form", data: { turbo_frame: :summary_report } do |form| %>
+      <%= form_with scope: :report, url: reports_transfer_path, id: "report-form", data: { turbo_frame: :summary_report } do |form| %>
         <div class="grid grid-cols-4 gap-2">
           <div class="col-span-full sm:col-span-1 flex gap-2">
             <%= form.text_field :date, placeholder: t("actions.select_date"), class: "form-input cursor-pointer", data: { controller: "datepicker", datepicker_mode_value: "single" } %>
           </div>
           <div class="col-span-full sm:col-span-1 flex gap-2">
-            <%= form.select :storage_id, options_from_collection_for_select(Storage.filter_by_kind(:for_masters), :id, :name), { include_blank: t("tables.cols.storage") }, { class: "form-select" } %>
+            <%= form.select :storage_id, options_from_collection_for_select(Storage.filter_by_kind(:for_goods), :id, :name), { include_blank: t("tables.cols.storage") }, { class: "form-select" } %>
           </div>
         </div>
       <% end %>

@@ -8,7 +8,7 @@ module PageLayouts
   private
     def layout_by_resource
       whitelist = %w[ sessions transfers first_runs qr_code registrations ]
-      if whitelist.include? controller_name
+      if whitelist.include?(controller_name) && !controller_path.start_with?("reports")
         "blank"
       else
         "application"

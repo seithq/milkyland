@@ -54,7 +54,22 @@ class Waybill < ApplicationRecord
         "groups.name AS group_name",
         "products.id AS product_id",
         "products.name AS product_name",
-        "SUM(leftovers.count) AS total_count",
+        "SUM(qr_scans.capacity_after) AS total_count",
+        "boxes.production_date"
+      )
+      .group("groups.id, groups.name, products.id, products.name, boxes.production_date")
+      .order("groups.name, products.name, boxes.production_date")
+  end
+
+  scope :report_for_transfers, ->() do
+    joins(:leftovers, qr_scans: { box: { product: :group } })
+      .where(kind: :transfer, status: :approved)
+      .select(
+        "groups.id AS group_id",
+        "groups.name AS group_name",
+        "products.id AS product_id",
+        "products.name AS product_name",
+        "SUM(qr_scans.capacity_after) AS total_count",
         "boxes.production_date"
       )
       .group("groups.id, groups.name, products.id, products.name, boxes.production_date")
