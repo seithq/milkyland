@@ -288,6 +288,7 @@ Rails.application.routes.draw do
     resource :order, only: %i[ show create ]
     resource :return, only: %i[ show create ]
     resource :pivot, only: %i[ show create ]
+    resource :arrival, only: %i[ show create ]
   end
 
   get "/configurations/android", to: "configurations#android", as: :android_configuration

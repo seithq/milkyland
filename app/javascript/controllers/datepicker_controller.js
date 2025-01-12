@@ -31,11 +31,11 @@ export default class extends Controller {
   }
 
   get #dateTimeOptions() {
-    return { ...this.#baseOptions, altFormat: this.dateTimeFormatValue, dateFormat: "m.d.Y H:i", enableTime: true }
+    return { ...this.#baseOptions, altFormat: this.dateTimeFormatValue, dateFormat: "Y-m-d H:i", enableTime: true }
   }
 
   get #basicOptions() {
-    return { ...this.#baseOptions, altFormat: this.dateFormatValue, dateFormat: "m.d.Y" }
+    return { ...this.#baseOptions, altFormat: this.dateFormatValue, dateFormat: "Y-m-d" }
   }
   get #baseOptions() {
     return { locale: Russian, altInput: true, disable: this.disableValue, mode: this.modeValue }

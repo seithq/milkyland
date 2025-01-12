@@ -1,0 +1,15 @@
+<% keys = product.split("@") %>
+<% _, product_name = keys.first, keys.second %>
+<% records.each do |record| %>
+  <tr data-id="<%= group_id %>" class="divide-x divide-gray-200">
+    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-xs font-semibold text-gray-700">
+      <%= product_name %>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+      <%= number_with_delimiter record[:total_count] %>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 font-semibold text-xs text-gray-700 text-right">
+      <%= l record[:production_date] %>
+    </td>
+  </tr>
+<% end %>

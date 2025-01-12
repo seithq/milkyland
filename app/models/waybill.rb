@@ -38,12 +38,28 @@ class Waybill < ApplicationRecord
 
   scope :filter_by_storage, ->(storage_id) { where(storage_id: storage_id) }
   scope :filter_by_new_storage, ->(storage_id) { where(new_storage_id: storage_id) }
+  scope :filter_by_date, ->(date) { where(created_at: date.beginning_of_day..date.end_of_day) }
 
   scope :drafts, -> { where(status: :draft) }
   scope :pendings, -> { where(status: :pending) }
 
   scope :returnable, -> { where(kind: :departure, status: :approved).where.not(order_id: nil) }
   scope :without_return_back, -> { where.not kind: :return_back }
+
+  scope :report_for_arrivals, ->() do
+    joins(:leftovers, qr_scans: { box: { product: :group } })
+      .where(kind: :arrival, status: :approved)
+      .select(
+        "groups.id AS group_id",
+        "groups.name AS group_name",
+        "products.id AS product_id",
+        "products.name AS product_name",
+        "SUM(leftovers.count) AS total_count",
+        "boxes.production_date"
+      )
+      .group("groups.id, groups.name, products.id, products.name, boxes.production_date")
+      .order("groups.name, products.name, boxes.production_date")
+  end
 
   def editable?
     self.new_record? && self.active?
