@@ -27,6 +27,7 @@ class Reports::MaterialAssetLeftoversController < ApplicationController
         {
           id: record.material_asset_id,
           name: record.material_asset_name,
+          unit: record.measurement_unit,
           total_count: record.total_count
         }
       end

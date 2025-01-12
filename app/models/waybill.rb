@@ -76,6 +76,23 @@ class Waybill < ApplicationRecord
       .order("groups.name, products.name, boxes.production_date")
   end
 
+  scope :report_for_write_offs, ->() do
+    joins(:leftovers)
+      .joins("JOIN material_assets ON leftovers.subject_id = material_assets.id AND leftovers.subject_type = 'MaterialAsset'")
+      .joins("JOIN categories ON material_assets.category_id = categories.id")
+      .joins("JOIN measurements ON material_assets.measurement_id = measurements.id")
+      .select(
+        "categories.id AS category_id",
+        "categories.name AS category_name",
+        "material_assets.id AS material_asset_id",
+        "material_assets.name AS material_asset_name",
+        "measurements.unit AS measurement_unit",
+        "ABS(SUM(leftovers.count)) AS total_count"
+      )
+      .group("categories.id, categories.name, material_assets.id, material_assets.name, measurements.unit")
+      .order("categories.name, material_assets.name")
+  end
+
   def editable?
     self.new_record? && self.active?
   end

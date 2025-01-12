@@ -34,6 +34,7 @@ ru:
     report_pivots: "Планы"
     report_arrivals: "Приход продукции"
     report_transfers: "Передача продукции"
+    report_write_offs: "Списание сырья/тары"
     product_leftovers: "Текущие остатки ГП"
     material_asset_leftovers: "Остатки сырья и тары"
     pending_transactions: "Требует проверки"

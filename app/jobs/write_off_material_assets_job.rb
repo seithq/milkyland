@@ -54,7 +54,7 @@ class WriteOffMaterialAssetsJob < ApplicationJob
       end
 
       # Списание сырья
-      waybill = Waybill.create!(storage_id: batch.storage_id, batch_id: batch.id, kind: :production_write_off)
+      waybill = Waybill.create!(storage_id: batch.storage_id, batch_id: batch.id, kind: :production_write_off, status: :approved)
       waybill.leftovers.build(leftovers)
       waybill.save!
 

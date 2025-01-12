@@ -1,0 +1,19 @@
+<%= turbo_stream.update :summary_report do %>
+  <%= render "table" %>
+<% end %>
+
+<%= turbo_stream.update "report-toolbar" do %>
+  <button type="submit" class="btn-create" form="report-form">
+    <%= inline_svg_tag "chart-square-bar.svg", class: "size-5" %>
+    <%= t("actions.create_report") %>
+  </button>
+  <%= link_to reports_write_off_path, class: "btn-create" do %>
+    <%= inline_svg_tag "refresh.svg", class: "size-5" %>
+  <% end %>
+  <%= button_to reports_export_path,
+                class: "btn-create",
+                form: { data: { turbo: false, controller: "export-table", export_table_id_value: "report-table", export_table_input_value: "report[data]" } },
+                params: { report: { name: t("pages.report_write_offs"), data: "" } } do %>
+    <%= inline_svg_tag "download.svg", class: "size-5" %>
+  <% end %>
+<% end %>
