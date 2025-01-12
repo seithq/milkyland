@@ -34,6 +34,7 @@ ru:
     report_pivots: "Планы"
     report_arrivals: "Приход продукции"
     report_transfers: "Передача продукции"
+    product_leftovers: "Текущие остатки ГП"
     pending_transactions: "Требует проверки"
     confirmed_transactions: "Требует оплаты"
     transaction: "Операция #%{id}"

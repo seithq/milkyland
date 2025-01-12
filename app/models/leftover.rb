@@ -20,6 +20,22 @@ class Leftover < ApplicationRecord
   scope :filter_by_subject, ->(subject) { where(subject: subject) }
   scope :filter_by_storage, ->(storage_id) { where(storage_id: storage_id) }
 
+  scope :report_for_products, ->() do
+    joins(:waybill)
+      .joins("LEFT JOIN products ON leftovers.subject_id = products.id AND leftovers.subject_type = 'Product'")
+      .joins("LEFT JOIN groups ON products.group_id = groups.id")
+      .where(waybills: { status: :approved })
+      .select(
+        "groups.id AS group_id",
+        "groups.name AS group_name",
+        "products.id AS product_id",
+        "products.name AS product_name",
+        "SUM(leftovers.count) AS total_count"
+      )
+      .group("groups.id, groups.name, products.id, products.name")
+      .order("groups.name, products.name")
+  end
+
   private
     def set_storage
       self.storage = %w[ arrival transfer return_back ].include?(waybill.kind) ? waybill.new_storage : waybill.storage

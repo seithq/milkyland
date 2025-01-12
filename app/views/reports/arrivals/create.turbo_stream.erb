@@ -13,7 +13,7 @@
   <%= button_to reports_export_path,
                 class: "btn-create",
                 form: { data: { turbo: false, controller: "export-table", export_table_id_value: "report-table", export_table_input_value: "report[data]" } },
-                params: { report: { name: t("pages.report_sales_channels"), data: "" } } do %>
+                params: { report: { name: t("pages.report_arrivals"), data: "" } } do %>
     <%= inline_svg_tag "download.svg", class: "size-5" %>
   <% end %>
 <% end %>
