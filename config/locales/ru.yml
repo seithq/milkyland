@@ -35,6 +35,7 @@ ru:
     report_arrivals: "Приход продукции"
     report_transfers: "Передача продукции"
     product_leftovers: "Текущие остатки ГП"
+    material_asset_leftovers: "Остатки сырья и тары"
     pending_transactions: "Требует проверки"
     confirmed_transactions: "Требует оплаты"
     transaction: "Операция #%{id}"

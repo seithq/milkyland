@@ -1,0 +1,16 @@
+<% keys = category.split("@") %>
+<% category_id, category_name = keys.first, keys.second %>
+<tr class="divide-x divide-gray-200 bg-gray-50" data-controller="cascade" data-cascade-open-value="true" data-cascade-id-value="<%= category_id %>" data-cascade-rotation-class="rotate-180">
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-xs uppercase font-bold text-gray-500">
+    <button type="button" data-action="cascade#toggle" class="flex w-full items-center justify-start space-x-1">
+      <span class="leading-6"><%= category_name %></span>
+      <span class="flex h-6 items-center"><%= inline_svg_tag "chevron-down.svg", class: "size-4", data: { cascade_target: "opener" } %></span>
+    </button>
+  </td>
+  <td class="whitespace-nowrap px-3 py-4 font-bold text-xs text-gray-500 text-right">
+    -
+  </td>
+</tr>
+<% material_assets.each do |material_asset| %>
+  <%= render "material_asset", category_id: category_id, material_asset: material_asset %>
+<% end %>
