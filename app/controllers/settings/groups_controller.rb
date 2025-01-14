@@ -1,6 +1,6 @@
 class Settings::GroupsController < ApplicationController
   before_action :ensure_can_administer, only: %i[ create update ]
-  before_action :set_group, only: %i[ show edit update ]
+  before_action :set_group, only: %i[ show edit update copy ]
 
   def index
     @pagy, @groups = pagy get_scope(params)
@@ -29,6 +29,15 @@ class Settings::GroupsController < ApplicationController
   def update
     if @group.update(group_params)
       redirect_on_update groups_url
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def copy
+    @new_group = @group.copy
+    if @new_group.save
+      redirect_on_update edit_group_url(@new_group)
     else
       render :edit, status: :unprocessable_entity
     end

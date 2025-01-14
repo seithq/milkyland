@@ -168,6 +168,7 @@ ru:
     draft_record: "В черновик"
     show_record: "Просмотр"
     save_record: "Сохранить"
+    copy_record: "Копировать"
     save_record_next: "Далее"
     destroy_record: "Удалить"
     select_kind: "Выберите тип"

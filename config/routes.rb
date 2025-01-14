@@ -179,6 +179,7 @@ Rails.application.routes.draw do
       end
     end
     resources :groups, except: :destroy do
+      post :copy, to: "groups#copy", on: :member
       scope module: "groups" do
         resources :ingredients, except: :show
         resources :semi_ingredients, except: :show

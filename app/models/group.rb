@@ -30,4 +30,34 @@ class Group < ApplicationRecord
 
     base_scope.filter_by_operation(field.operation_id)
   end
+
+  def copy
+    new_group = self.dup
+    new_group.name = "#{ self.name } - Copy #{ SecureRandom.hex(6) }"
+
+    self.ingredients.each do |ingredient|
+      new_ingredient = ingredient.dup
+      new_group.ingredients << new_ingredient
+    end
+
+    self.semi_ingredients.each do |semi_ingredient|
+      new_semi_ingredient = semi_ingredient.dup
+      new_group.semi_ingredients << new_semi_ingredient
+    end
+
+    self.journals.ordered.each do |journal|
+      new_journal = journal.dup
+      journal.operations.ordered.each do |operation|
+        new_operation = operation.dup
+        operation.fields.ordered.each do |field|
+          new_field = field.dup
+          new_operation.fields << new_field
+        end
+        new_journal.operations << new_operation
+      end
+      new_group.journals << new_journal
+    end
+
+    new_group
+  end
 end
