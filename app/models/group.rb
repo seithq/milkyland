@@ -45,11 +45,11 @@ class Group < ApplicationRecord
       new_group.semi_ingredients << new_semi_ingredient
     end
 
-    self.journals.ordered.each do |journal|
+    self.journals.each do |journal|
       new_journal = journal.dup
-      journal.operations.ordered.each do |operation|
+      journal.operations.each do |operation|
         new_operation = operation.dup
-        operation.fields.ordered.each do |field|
+        operation.fields.each do |field|
           new_field = field.dup
           new_operation.fields << new_field
         end
